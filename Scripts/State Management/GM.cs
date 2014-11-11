@@ -12,6 +12,9 @@ public class GM : Singleton<GM> {
 	public StateManager launcher;
 	public StateManager attract;
 	public StateManager idle;
+
+	public float idleTime = 0;
+	public float timeBeforeIdle = 5;
 	
 	void Awake() {
 		Screen.showCursor = false;
@@ -20,11 +23,36 @@ public class GM : Singleton<GM> {
 	//Ideally these wouldn't be called every frame, probably not optimized
 	void Update () {
 
+		//DEBUG KEYS
+		//Switch states for testing.  These keys aren't used on Winnitrons yet
 		if (Input.GetKey (KeyCode.Alpha1)) worldState = WorldState.Intro;
 		if (Input.GetKey (KeyCode.Alpha2)) worldState = WorldState.Launcher;
 		if (Input.GetKey (KeyCode.Alpha3)) worldState = WorldState.Attract;
 		if (Input.GetKey (KeyCode.Alpha4)) worldState = WorldState.Idle;
 
+		//Things to do in Attract Mode
+		if(worldState == WorldState.Attract) {
+			//Relaunch launcher if any key is pressed
+			if(Input.anyKey) worldState = WorldState.Launcher;
+		}
+
+		//Things to do in Launcher Mode
+		if (worldState == WorldState.Launcher) {
+			//Increase idle time
+			idleTime += Time.deltaTime;
+
+			//Reset idle time if a key is pressed
+			if(Input.anyKey) idleTime = 0;
+
+			//Go into Attract mode is key isn't pressed for a while
+			if(idleTime > timeBeforeIdle) worldState = WorldState.Attract;
+		} else {
+			//Reset idleTime if not in Launcher
+			idleTime = 0;
+		}
+
+		//STATE SWITCHING!
+		//Only switch if the last state isn't this state
 		if(worldState != prevWorldState)
 		{
 			switch(worldState)
