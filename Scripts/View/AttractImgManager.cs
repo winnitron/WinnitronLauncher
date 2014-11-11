@@ -15,10 +15,8 @@ public class AttractImgManager :  Singleton<AttractImgManager> {
 	
 	private string attractDirectory;
 
+	public float timePassed = 0;
 	public int slideNum = 0;
-	public float timePassed = -1;
-	public float WaitTime = 5;
-	public float modulo = 0;
 
 	public bool switchDelay = false;
 	
@@ -26,48 +24,48 @@ public class AttractImgManager :  Singleton<AttractImgManager> {
 		base.Awake();
 		attractDirectory = Path.Combine(Application.dataPath, ATTRACT_SUBDIRECTORY);
 		BuildAttractImagesList();
-		ResetSlides ();
+		ResetSlides();
 	}
 
 	void Update() {
 		if (GM.worldState == GM.WorldState.Attract) {
+			if(timePassed == 0) {
+				Debug.Log ("hey!  first time running attract");
+				slideNum = -1;
+				NextSlide();
+			}
 
 			timePassed += Time.deltaTime;
 
-			modulo = timePassed % WaitTime;
-
-			if(modulo <= 0.5 && switchDelay) {
-				NextSlide();
-				switchDelay = false;
-			}
-
-			if(modulo > WaitTime * 0.5) switchDelay = true;
+			if(!attractSprites[slideNum].animation.isPlaying) NextSlide ();
 
 		} else {
 			//start from the beginning next time
 			timePassed = 0;
-
 			ResetSlides();
 		}
 	}
 
 	void ResetSlides() {
 		foreach (var asp in attractSprites) {
-			asp.animation.Rewind ();
-			asp.animation.Stop ();
-			asp.animation.enabled = false;
+			asp.animation.Rewind();
+			asp.animation.Stop();
+			asp.SetActive(false);
 		}
 	}
 
 	void NextSlide() {
-		Debug.Log ("Calling Next Slide: " + slideNum);
+		if(slideNum >= 0) attractSprites [slideNum].SetActive (false);
 
 		slideNum += 1;
 
-		if (slideNum > attractSprites.Count) slideNum = 0;
+		Debug.Log ("Calling Next Slide: " + slideNum + " of " + attractSprites.Count);
 
-		attractSprites[slideNum].animation.Rewind();
+		if (slideNum > attractSprites.Count - 1) slideNum = 0;
+
 		attractSprites[slideNum].animation.enabled = true;
+		attractSprites[slideNum].animation.Rewind();
+		attractSprites[slideNum].SetActive(true);
 		attractSprites[slideNum].animation.Play();
 	}
 
@@ -84,7 +82,7 @@ public class AttractImgManager :  Singleton<AttractImgManager> {
 				var screenshot = new Texture2D(1024, 768);
 				screenshot.LoadImage(File.ReadAllBytes(attractImg.FullName));
 
-				newImgObj.GetComponent<Image>().sprite = Sprite.Create(screenshot, new Rect(0, 0, screenshot.width, screenshot.height), new Vector2(0.5f, 0.5f));
+				newImgObj.GetComponent<Image>().overrideSprite = Sprite.Create(screenshot, new Rect(0, 0, screenshot.width, screenshot.height), new Vector2(0.5f, 0.5f));
 				newImgObj.transform.parent = transform;
 
 				attractSprites.Add(newImgObj);
