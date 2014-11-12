@@ -37,8 +37,9 @@ public class PlaylistNavigationManager : MonoBehaviour {
     string playlistsDirectory;                          // Path to the directory containing all the playlist directories
     int selectedPlaylistIndex;
 
-    public bool moving { get; set; }
-
+    public bool hmoving { get; set; }
+	public bool vmoving { get; set; }
+	public bool moving { get; set; }
 
     void Awake() {        
 
@@ -55,53 +56,54 @@ public class PlaylistNavigationManager : MonoBehaviour {
 
     void Update() {
         if (!loading && GM.worldState == GM.WorldState.Launcher) {
+		
+	            // Cycle horizontally through playlists
+	            if (Input.GetKeyDown(KeyCode.RightArrow)) {
 
-            // Cycle horizontally through playlists
-            if (Input.GetKeyDown(KeyCode.RightArrow)) {
+	                // Audio
+	                audio.clip = clipList[1];
+	                audio.Play();
 
-                // Audio
-                audio.clip = clipList[1];
-                audio.Play();
+	                // Update the playlist index
+	                if (selectedPlaylistIndex == 0)
+	                    selectedPlaylistIndex = playlistList.Count - 1;
+	                else
+	                    selectedPlaylistIndex--;
 
-                // Update the playlist index
-                if (selectedPlaylistIndex == 0)
-                    selectedPlaylistIndex = playlistList.Count - 1;
-                else
-                    selectedPlaylistIndex--;
-
-                // Stop all current tweens since they mess with the playlist movement
-                foreach (Playlist playlist in playlistList) { playlist.stopTween(); }
+	                // Stop all current tweens since they mess with the playlist movement
+	                foreach (Playlist playlist in playlistList) { playlist.stopTween(); }
 
 
-                // Tween all the playlists to the proper position based on the updated index
-                SortPlaylists();
+	                // Tween all the playlists to the proper position based on the updated index
+	                SortPlaylists();
 
-                arrowRight.Rewind();
-                arrowRight.Play();
-            }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+	                arrowRight.Rewind();
+	                arrowRight.Play();
+	            }
+	            else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
 
-                // Audio
-                audio.clip = clipList[1];
-                audio.Play();
+	                // Audio
+	                audio.clip = clipList[1];
+	                audio.Play();
 
-                // Update the playlist index
-                if (selectedPlaylistIndex >= playlistList.Count - 1)
-                    selectedPlaylistIndex = 0;
-                else
-                    selectedPlaylistIndex++;
+	                // Update the playlist index
+	                if (selectedPlaylistIndex >= playlistList.Count - 1)
+	                    selectedPlaylistIndex = 0;
+	                else
+	                    selectedPlaylistIndex++;
 
-                // Stop all current tweens since they mess with the playlist movement
-                foreach (Playlist playlist in playlistList) { playlist.stopTween(); }
+	                // Stop all current tweens since they mess with the playlist movement
+	                foreach (Playlist playlist in playlistList) { playlist.stopTween(); }
 
-                // Tween all the playlists to the proper position based on the updated index
-                SortPlaylists();
+	                // Tween all the playlists to the proper position based on the updated index
+	                SortPlaylists();
 
-                arrowLeft.Rewind();
-                arrowLeft.Play();
-            }
+	                arrowLeft.Rewind();
+	                arrowLeft.Play();
+	            }
 
             // Cycle through games on current playlist
+			//only do it if we're not moving horz
             if (!moving) {
                 // Keyboard, move up and down through the current playlist
                 if (Input.GetKeyDown(KeyCode.UpArrow)) {

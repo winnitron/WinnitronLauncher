@@ -27,7 +27,7 @@ public class Jukebox : MonoBehaviour {
 	}
 
     void Init() {
-		Debug.Log("songnae: " + songs[1].clip.length);
+		Debug.Log ("Initializing jukebox.");
 
         currentTrack = UnityEngine.Random.Range(0, songs.Count);
         audio.clip = songs[currentTrack].clip;
@@ -126,23 +126,31 @@ public class Jukebox : MonoBehaviour {
 		{
 			var fileExt = song.FullName.Substring(Math.Max(0, song.FullName.Length - 4));
 
-			Debug.Log ("Checking " + song.Name);
 			if(song.Name.Substring(0, 1) != "." && fileExt != "meta") { 
 
 				Debug.Log ("Started loading " + song.FullName);
 
 				WWW audioLoader = new WWW("file://" + song.FullName);
-				
+
 				while( !audioLoader.isDone ) {}
 
-				var name = song.Name;
-				var author = song.Name;
+				//Figure out the song/author names
+				//take out the file extension
+				var fullName = song.Name.Replace(".ogg", "");
 
+				//find the '-' and split the string
+				string[] words = fullName.Split('-');
+
+				//First half is the song title, second the author
+				var name = words[0];
+				var author = words[1];
+
+				//We're done!
 				Debug.Log ("Done loading " + song.FullName);
 
 				songs.Add(new Song(name, author, audioLoader.GetAudioClip(false)));
 			} else {
-				Debug.Log ("Skipped " + song.FullName);
+				Debug.Log ("Skipped " + song.FullName + " // not and .ogg");
 			}
 		} 
 
