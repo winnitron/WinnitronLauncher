@@ -88,8 +88,8 @@ public class Playlist : MonoBehaviour {
         var gamesDir = new DirectoryInfo(gamesDirectory);
         
         foreach (var dir in gamesDir.GetDirectories()) {
-
-            gamesList.Add(CreateRepresentation(dir));
+			//Don't pick any directories that start with a dot
+			if(dir.Name.Substring(0, 1) != ".") gamesList.Add(CreateRepresentation(dir));
         }
 
         // Instantiate the game label manager and store the reference
