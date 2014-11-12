@@ -26,7 +26,9 @@ public class Runner : MonoBehaviour {
 	IEnumerator RunProcess(Process process){
         if (jukebox) jukebox.stop();
 		Screen.fullScreen = false;
-		yield return new WaitForSeconds(1.0f);
+		//TO DO - stuff that is a transition
+		//yield return new WaitForSeconds(1.0f);
+		yield return new WaitForSeconds(0);
 		GM.ChangeState(GM.WorldState.Idle);
 		process.Start();
 		process.WaitForExit();
