@@ -74,6 +74,7 @@ public class AttractImgManager :  Singleton<AttractImgManager> {
 		
 		foreach (var attractImg in attractDir.GetFiles()) {
 			//Make sure only .png's get through!
+			Debug.Log ("Loading image with ending: " + attractImg.FullName.Substring(Math.Max(0, attractImg.FullName.Length - 4)) == ".png");
 			if(attractImg.FullName.Substring(Math.Max(0, attractImg.FullName.Length - 4)) == ".png") {
 				GameObject newImgObj = Instantiate(attractSpritePrefab, new Vector3(0, -36.52403f, 0), transform.rotation) as GameObject; 
 
