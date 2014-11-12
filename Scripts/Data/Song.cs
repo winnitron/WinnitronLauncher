@@ -6,4 +6,10 @@ public class Song : MonoBehaviour {
 	public string name;
 	public string author;    
 	public AudioClip clip;
+
+	public Song(string name, string author, AudioClip clip) {
+		this.name = name;
+		this.author = author;
+		this.clip = clip;
+	}
 }

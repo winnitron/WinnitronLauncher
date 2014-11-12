@@ -12,7 +12,6 @@ public class AttractImgManager :  Singleton<AttractImgManager> {
 	public GameObject attractSpritePrefab;
 	
 	private string ATTRACT_SUBDIRECTORY = "Attract";
-	
 	private string attractDirectory;
 
 	public float timePassed = 0;

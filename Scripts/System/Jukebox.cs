@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
+using System;
 using UnityEngine.UI;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Jukebox : MonoBehaviour {
 
@@ -9,48 +12,58 @@ public class Jukebox : MonoBehaviour {
 
     public Text artistName;
     public Text songName;
-
-
-    private Song[] songs;
+	
+    public List<Song> songs;
 
     private int currentTrack;
 
+	private string SONG_SUBDIRECTORY = "Music";
+	private string songDirectory;
+	private bool doneLoading = false;
 
-    void Start() {
+	protected void Awake() {
+		songDirectory = Path.Combine(Application.dataPath, SONG_SUBDIRECTORY);
+		BuildSongList();
+	}
 
-        songs = GetComponentsInChildren<Song>();
+    void Init() {
+		Debug.Log("songnae: " + songs[1].clip.length);
 
-        currentTrack = Random.Range(0, songs.Length);
+        currentTrack = UnityEngine.Random.Range(0, songs.Count);
         audio.clip = songs[currentTrack].clip;
+
         if (on) audio.Play();
 
         initWdiget();
+
+		doneLoading = true;
     }
 
     void Update() {
+		if(doneLoading) {
+	        // Player 2 Joystick controls song
+	        if (Input.GetKeyUp(KeyCode.J))
+	            lastTrack();
+	        if (Input.GetKeyUp(KeyCode.L))
+	            nextTrack();
 
-        // Player 2 Joystick controls song
-        if (Input.GetKeyUp(KeyCode.J))
-            lastTrack();
-        if (Input.GetKeyUp(KeyCode.L))
-            nextTrack();
+	        // Stop & Play from keyboard
+	        if (Input.GetKeyUp(KeyCode.P)) {
 
-        // Stop & Play from keyboard
-        if (Input.GetKeyUp(KeyCode.P)) {
+	            if (on) {
+	                audio.Stop();
+	                on = false;
+	            }
+	            else {
+	                audio.Play();
+	                on = true;
+	            }
+	        }
 
-            if (on) {
-                audio.Stop();
-                on = false;
-            }
-            else {
-                audio.Play();
-                on = true;
-            }
-        }
-
-        // Check for song end
-        if (!audio.isPlaying && on)
-            nextTrack();
+	        // Check for song end
+	        if (!audio.isPlaying && on)
+	            nextTrack();
+		}
     }
 
     public void stop() {
@@ -60,7 +73,7 @@ public class Jukebox : MonoBehaviour {
 
     public void play() {
 
-        currentTrack = Random.Range(0, songs.Length);
+        currentTrack = UnityEngine.Random.Range(0, songs.Count);
         audio.clip = songs[currentTrack].clip;
         audio.Play();
         on = true;
@@ -70,7 +83,7 @@ public class Jukebox : MonoBehaviour {
         
         audio.Stop();
 
-        if (currentTrack >= songs.Length - 1)
+        if (currentTrack >= songs.Count - 1)
             currentTrack = 0;
         else
             currentTrack++;
@@ -86,7 +99,7 @@ public class Jukebox : MonoBehaviour {
         audio.Stop();
 
         if (currentTrack <= 1)
-            currentTrack = songs.Length - 1;
+            currentTrack = songs.Count - 1;
         else
             currentTrack--;
 
@@ -97,8 +110,42 @@ public class Jukebox : MonoBehaviour {
     }
 
     public void initWdiget() {
-
         songName.text = songs[currentTrack].name;
         artistName.text = songs[currentTrack].author;
     }
+
+	void BuildSongList()
+	{
+		// get all valid files
+		var info = new DirectoryInfo(songDirectory);
+		var songFiles = info.GetFiles();
+
+		Debug.Log("Started Loading Song Files.");
+
+		foreach(var song in songFiles)
+		{
+			var fileExt = song.FullName.Substring(Math.Max(0, song.FullName.Length - 4));
+
+			Debug.Log ("Checking " + song.Name);
+			if(song.Name.Substring(0, 1) != "." && fileExt != "meta") { 
+
+				Debug.Log ("Started loading " + song.FullName);
+
+				WWW audioLoader = new WWW("file://" + song.FullName);
+				
+				while( !audioLoader.isDone ) {}
+
+				var name = song.Name;
+				var author = song.Name;
+
+				Debug.Log ("Done loading " + song.FullName);
+
+				songs.Add(new Song(name, author, audioLoader.GetAudioClip(false)));
+			} else {
+				Debug.Log ("Skipped " + song.FullName);
+			}
+		} 
+
+		Init ();
+	}
 }
