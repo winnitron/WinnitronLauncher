@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{537F1F63-F143-8BAC-8E40-21DE55BC0603}</ProjectGuid>
+	<ProjectGuid>{08C460B3-788E-8DE8-9B4B-CE4EB0BDAA7A}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -19,7 +19,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_4_6_0;UNITY_4_6;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_OSX</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_6_0;UNITY_4_6;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_OSX;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -56,16 +56,17 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ShowAlphaChannel.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlowConeTap.shader" />
      <None Include="Assets\VacuumShaders\The Amazing Wireframe Shader\Shaders\Unlit Cutout.shader" />
-     <None Include="Assets\Shaders\Horizontal Skybox.shader" />
+     <None Include="Assets\Art Assets\Shaders\Horizontal Skybox.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\SunShaftsComposite.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionCurves.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ScreenSpaceAmbientObscurance.shader" />
      <None Include="Assets\VacuumShaders\The Amazing Wireframe Shader\ReadMe.txt" />
-     <None Include="Assets\Shaders\currentScreenshot.shader" />
+     <None Include="Assets\Art Assets\Shaders\currentScreenshot.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\NFAA.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\TiltShiftHdrLensBlur.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\VignetteShader.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\DepthOfFieldScatter.shader" />
+     <None Include="Assets\_Notes\About.txt" />
      <None Include="Assets\VacuumShaders\The Amazing Wireframe Shader\Shaders\Deferred Diffuse T.shader" />
      <None Include="Assets\Playlists\Official_Winnitron\Super_Crate_Box\Super_Crate_Box.txt" />
      <None Include="Assets\VacuumShaders\The Amazing Wireframe Shader\Shaders\ODL Gradient.shader" />
@@ -109,7 +110,7 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Luminance.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionSelective.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\Bokeh34.shader" />
-     <None Include="Assets\Shaders\Wireframe.shader" />
+     <None Include="Assets\Art Assets\Shaders\Wireframe.shader" />
      <None Include="Assets\VacuumShaders\The Amazing Wireframe Shader\Shaders\ODL Diffuse C.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\CameraMotionBlurDX11.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\SeparableBlurPlus.shader" />
@@ -172,16 +173,16 @@
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/4.6.0/Editor/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="VacuumShaders">
- <HintPath>/Volumes/The Meat/Projects/Unity/WinnitronLauncherOfficial/Assets/VacuumShaders/Editor/VacuumShaders.dll</HintPath>
+ <HintPath>/Volumes/The Meat/Projects/Unity/WinnitronLauncher/Assets/VacuumShaders/Editor/VacuumShaders.dll</HintPath>
  </Reference>
  <Reference Include="VacuumShaders.TheAmazingWireframeShader_Editor">
- <HintPath>/Volumes/The Meat/Projects/Unity/WinnitronLauncherOfficial/Assets/VacuumShaders/The Amazing Wireframe Shader/Editor/VacuumShaders.TheAmazingWireframeShader_Editor.dll</HintPath>
+ <HintPath>/Volumes/The Meat/Projects/Unity/WinnitronLauncher/Assets/VacuumShaders/The Amazing Wireframe Shader/Editor/VacuumShaders.TheAmazingWireframeShader_Editor.dll</HintPath>
  </Reference>
  <Reference Include="VacuumShaders.TheAmazingWireframeShaderVC">
- <HintPath>/Volumes/The Meat/Projects/Unity/WinnitronLauncherOfficial/Assets/VacuumShaders/The Amazing Wireframe Shader/Editor/VacuumShaders.TheAmazingWireframeShaderVC.dll</HintPath>
+ <HintPath>/Volumes/The Meat/Projects/Unity/WinnitronLauncher/Assets/VacuumShaders/The Amazing Wireframe Shader/Editor/VacuumShaders.TheAmazingWireframeShaderVC.dll</HintPath>
  </Reference>
  <Reference Include="VacuumShaders.TheAmazingWireframeShader">
- <HintPath>/Volumes/The Meat/Projects/Unity/WinnitronLauncherOfficial/Assets/VacuumShaders/The Amazing Wireframe Shader/Scripts/VacuumShaders.TheAmazingWireframeShader.dll</HintPath>
+ <HintPath>/Volumes/The Meat/Projects/Unity/WinnitronLauncher/Assets/VacuumShaders/The Amazing Wireframe Shader/Scripts/VacuumShaders.TheAmazingWireframeShader.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.Graphs.dll</HintPath>
@@ -189,11 +190,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{B3343C08-82DB-05B0-E5E4-D6EE57E75530}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{04832BFB-6AC8-D6FE-4F1C-18E40CEA5BE9}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-UnityScript-firstpass.unityproj">
-      <Project>{C4E14A8B-36FF-C76C-FB0F-E05D7EBF8E6E}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
+      <Project>{05A9E39E-0D57-D9E2-2FC3-52F404C8427E}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{4274DF88-A08B-A701-3478-A5ACC2450308}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+      <Project>{4DBA65E6-2BC1-5A00-733B-E21508D96232}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

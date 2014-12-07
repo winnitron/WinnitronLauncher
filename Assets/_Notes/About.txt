@@ -1,0 +1,9 @@
+﻿
+Winnitron Launcher
+Current Beta Version 0.9
+
+Planned Features for 1.0
+- check for Updated music on each return from playing game
+- be more resource friendly when launching game
+- fix bugz
+	

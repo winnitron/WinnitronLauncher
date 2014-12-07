@@ -1,76 +1,135 @@
 Base path: /Applications/Unity/Unity.app/Contents
-Pipe name: \\.\pipe\UnityShaderCompiler-2--1334616064
+Pipe name: \\.\pipe\UnityShaderCompiler-2--1333547008
 Cmd: getPlatforms
 Cmd: compileSnippet
-  api=0 type=0 insize=1145 outsize=592 kw=PIXELSNAP_ON ok=1
+  api=1 type=0 insize=1008 outsize=132 kw= ok=1
 Cmd: compileSnippet
-  api=0 type=0 insize=796 outsize=1185 kw=LIGHTMAP_ON V_WIRE_LIGHT_OFF V_WIRE_FRESNEL_OFF V_WIRE_ANTIALIASING_ON ok=1
+  api=8 type=1 insize=1008 outsize=1219 kw= ok=1
 Cmd: compileSnippet
-  api=0 type=0 insize=796 outsize=1647 kw=LIGHTMAP_ON V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_ON V_WIRE_LIGHT_ON ok=1
+  api=8 type=0 insize=1007 outsize=1438 kw= ok=1
 Cmd: compileSnippet
-  api=0 type=0 insize=796 outsize=1166 kw=LIGHTMAP_OFF V_WIRE_LIGHT_OFF V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_ON ok=1
+  api=4 type=1 insize=1007 outsize=843 kw= ok=1
 Cmd: compileSnippet
-  api=0 type=0 insize=796 outsize=757 kw=LIGHTMAP_OFF V_WIRE_LIGHT_OFF V_WIRE_FRESNEL_OFF V_WIRE_ANTIALIASING_ON ok=1
+  api=4 type=0 insize=1145 outsize=1250 kw=DUMMY ok=1
 Cmd: compileSnippet
-  api=0 type=0 insize=796 outsize=757 kw=LIGHTMAP_OFF V_WIRE_FRESNEL_OFF V_WIRE_ANTIALIASING_ON V_WIRE_LIGHT_ON ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=796 outsize=6 kw=LIGHTMAP_ON V_WIRE_LIGHT_OFF V_WIRE_FRESNEL_OFF V_WIRE_ANTIALIASING_ON ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=796 outsize=6 kw=LIGHTMAP_ON V_WIRE_FRESNEL_ON V_WIRE_ANTIALIASING_ON V_WIRE_LIGHT_ON ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=796 outsize=6 kw=LIGHTMAP_OFF V_WIRE_LIGHT_OFF V_WIRE_FRESNEL_ON V_WIRE_ANTIALIASING_ON ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=796 outsize=6 kw=LIGHTMAP_OFF V_WIRE_FRESNEL_ON V_WIRE_ANTIALIASING_ON V_WIRE_LIGHT_ON ok=1
-Cmd: compileSnippet
-  api=0 type=0 insize=650 outsize=1002 kw=V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_ON ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=650 outsize=6 kw=V_WIRE_FRESNEL_ON V_WIRE_ANTIALIASING_ON ok=1
-Cmd: compileSnippet
-  api=8 type=0 insize=1145 outsize=1780 kw=DUMMY ok=1
+  api=1 type=0 insize=1145 outsize=450 kw=PIXELSNAP_ON ok=1
 Cmd: compileSnippet
   api=1 type=1 insize=1145 outsize=200 kw=DUMMY ok=1
 Cmd: compileSnippet
-  api=1 type=0 insize=796 outsize=208 kw=LIGHTMAP_ON V_WIRE_LIGHT_OFF V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_OFF ok=1
+  api=4 type=1 insize=1145 outsize=1006 kw=PIXELSNAP_ON ok=1
 Cmd: compileSnippet
-  api=4 type=0 insize=796 outsize=2200 kw=LIGHTMAP_ON V_WIRE_LIGHT_OFF V_WIRE_FRESNEL_ON V_WIRE_ANTIALIASING_ON ok=1
+  api=8 type=0 insize=1171 outsize=2454 kw= ok=1
 Cmd: compileSnippet
-  api=4 type=0 insize=796 outsize=1274 kw=LIGHTMAP_ON V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_OFF V_WIRE_LIGHT_ON ok=1
+  api=8 type=1 insize=1171 outsize=1983 kw= ok=1
 Cmd: compileSnippet
-  api=4 type=0 insize=796 outsize=2200 kw=LIGHTMAP_ON V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_ON V_WIRE_LIGHT_ON ok=1
+  api=0 type=0 insize=796 outsize=1594 kw=LIGHTMAP_ON V_WIRE_FRESNEL_ON V_WIRE_LIGHT_OFF V_WIRE_ANTIALIASING_OFF ok=1
 Cmd: compileSnippet
-  api=1 type=0 insize=796 outsize=147 kw=LIGHTMAP_OFF V_WIRE_LIGHT_OFF V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_OFF ok=1
+  api=1 type=0 insize=796 outsize=208 kw=LIGHTMAP_ON V_WIRE_ANTIALIASING_ON V_WIRE_LIGHT_OFF V_WIRE_FRESNEL_OFF ok=1
 Cmd: compileSnippet
-  api=1 type=0 insize=796 outsize=147 kw=LIGHTMAP_OFF V_WIRE_LIGHT_OFF V_WIRE_FRESNEL_OFF V_WIRE_ANTIALIASING_ON ok=1
+  api=4 type=0 insize=796 outsize=2200 kw=LIGHTMAP_ON V_WIRE_FRESNEL_ON V_WIRE_ANTIALIASING_ON V_WIRE_LIGHT_OFF ok=1
 Cmd: compileSnippet
-  api=1 type=0 insize=796 outsize=420 kw=LIGHTMAP_OFF V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_ON V_WIRE_LIGHT_ON ok=1
+  api=1 type=0 insize=796 outsize=483 kw=LIGHTMAP_ON V_WIRE_FRESNEL_ON V_WIRE_ANTIALIASING_OFF V_WIRE_LIGHT_ON ok=1
+Cmd: compileSnippet
+  api=1 type=0 insize=796 outsize=483 kw=LIGHTMAP_ON V_WIRE_FRESNEL_ON V_WIRE_ANTIALIASING_ON V_WIRE_LIGHT_ON ok=1
+Cmd: compileSnippet
+  api=1 type=0 insize=796 outsize=147 kw=LIGHTMAP_OFF V_WIRE_ANTIALIASING_ON V_WIRE_LIGHT_OFF V_WIRE_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=1 type=0 insize=796 outsize=147 kw=LIGHTMAP_OFF V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_OFF V_WIRE_LIGHT_ON ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=796 outsize=757 kw=LIGHTMAP_OFF V_WIRE_ANTIALIASING_ON V_WIRE_FRESNEL_OFF V_WIRE_LIGHT_ON ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=796 outsize=1346 kw=LIGHTMAP_OFF V_WIRE_FRESNEL_ON V_WIRE_ANTIALIASING_ON V_WIRE_LIGHT_ON ok=1
 Cmd: compileSnippet
   api=1 type=1 insize=796 outsize=231 kw=LIGHTMAP_ON V_WIRE_LIGHT_OFF V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_OFF ok=1
 Cmd: compileSnippet
-  api=1 type=1 insize=796 outsize=491 kw=LIGHTMAP_ON V_WIRE_LIGHT_OFF V_WIRE_FRESNEL_OFF V_WIRE_ANTIALIASING_ON ok=1
+  api=1 type=1 insize=796 outsize=491 kw=LIGHTMAP_ON V_WIRE_ANTIALIASING_ON V_WIRE_LIGHT_OFF V_WIRE_FRESNEL_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=796 outsize=6 kw=LIGHTMAP_ON V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_OFF V_WIRE_LIGHT_ON ok=1
 Cmd: compileSnippet
   api=1 type=1 insize=796 outsize=379 kw=LIGHTMAP_ON V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_OFF V_WIRE_LIGHT_ON ok=1
 Cmd: compileSnippet
-  api=1 type=1 insize=796 outsize=404 kw=LIGHTMAP_ON V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_ON V_WIRE_LIGHT_ON ok=1
+  api=0 type=1 insize=796 outsize=6 kw=LIGHTMAP_ON V_WIRE_ANTIALIASING_ON V_WIRE_FRESNEL_OFF V_WIRE_LIGHT_ON ok=1
 Cmd: compileSnippet
-  api=1 type=1 insize=796 outsize=658 kw=LIGHTMAP_ON V_WIRE_FRESNEL_ON V_WIRE_ANTIALIASING_ON V_WIRE_LIGHT_ON ok=1
+  api=1 type=1 insize=796 outsize=633 kw=LIGHTMAP_ON V_WIRE_ANTIALIASING_ON V_WIRE_FRESNEL_OFF V_WIRE_LIGHT_ON ok=1
 Cmd: compileSnippet
-  api=4 type=1 insize=796 outsize=973 kw=LIGHTMAP_OFF V_WIRE_LIGHT_OFF V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_OFF ok=1
+  api=0 type=1 insize=796 outsize=6 kw=LIGHTMAP_ON V_WIRE_FRESNEL_ON V_WIRE_ANTIALIASING_ON V_WIRE_LIGHT_ON ok=1
 Cmd: compileSnippet
-  api=4 type=1 insize=796 outsize=1526 kw=LIGHTMAP_OFF V_WIRE_LIGHT_OFF V_WIRE_FRESNEL_OFF V_WIRE_ANTIALIASING_ON ok=1
+  api=4 type=1 insize=796 outsize=2119 kw=LIGHTMAP_ON V_WIRE_FRESNEL_ON V_WIRE_ANTIALIASING_ON V_WIRE_LIGHT_ON ok=1
 Cmd: compileSnippet
-  api=4 type=1 insize=796 outsize=1233 kw=LIGHTMAP_OFF V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_ON V_WIRE_LIGHT_ON ok=1
+  api=1 type=1 insize=796 outsize=550 kw=LIGHTMAP_OFF V_WIRE_FRESNEL_ON V_WIRE_ANTIALIASING_ON V_WIRE_LIGHT_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=796 outsize=6 kw=LIGHTMAP_OFF V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_OFF V_WIRE_LIGHT_ON ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=796 outsize=973 kw=LIGHTMAP_OFF V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_OFF V_WIRE_LIGHT_ON ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=796 outsize=1526 kw=LIGHTMAP_OFF V_WIRE_ANTIALIASING_ON V_WIRE_FRESNEL_OFF V_WIRE_LIGHT_ON ok=1
+Cmd: compileSnippet
+  api=8 type=0 insize=3253 outsize=2023 kw= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=3253 outsize=1160 kw= ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=3251 outsize=1339 kw= ok=1
+Cmd: compileSnippet
+  api=1 type=1 insize=3267 outsize=239 kw= ok=1
+Cmd: compileSnippet
+  api=1 type=0 insize=3259 outsize=335 kw= ok=1
+Cmd: compileSnippet
+  api=8 type=1 insize=3259 outsize=1187 kw= ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=3259 outsize=1339 kw= ok=1
+Cmd: compileSnippet
+  api=1 type=1 insize=3259 outsize=208 kw= ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=3256 outsize=1339 kw= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=3256 outsize=933 kw= ok=1
+Cmd: compileSnippet
+  api=1 type=0 insize=3268 outsize=344 kw= ok=1
+Cmd: compileSnippet
+  api=8 type=1 insize=3268 outsize=1942 kw= ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=3261 outsize=1339 kw= ok=1
+Cmd: compileSnippet
+  api=1 type=1 insize=3261 outsize=125 kw= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=3254 outsize=559 kw= ok=1
+Cmd: compileSnippet
+  api=1 type=0 insize=3258 outsize=335 kw= ok=1
+Cmd: compileSnippet
+  api=8 type=1 insize=3258 outsize=1057 kw= ok=1
+Cmd: compileSnippet
+  api=8 type=0 insize=3253 outsize=2023 kw= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=3253 outsize=648 kw= ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=4698 outsize=990 kw= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=4698 outsize=811 kw= ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=4703 outsize=2135 kw= ok=1
+Cmd: compileSnippet
+  api=1 type=1 insize=4703 outsize=329 kw= ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=4713 outsize=2143 kw= ok=1
+Cmd: compileSnippet
+  api=1 type=1 insize=4713 outsize=588 kw= ok=1
+Cmd: compileSnippet
+  api=1 type=0 insize=4708 outsize=363 kw= ok=1
+Cmd: compileSnippet
+  api=8 type=1 insize=4708 outsize=2974 kw= ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=4714 outsize=1737 kw= ok=1
+Cmd: compileSnippet
+  api=1 type=1 insize=4714 outsize=765 kw= ok=1
 Cmd: compileSnippet
   api=1 type=0 insize=1268 outsize=133 kw= ok=1
 Cmd: compileSnippet
-  api=4 type=1 insize=1268 outsize=1656 kw= ok=1
+  api=8 type=1 insize=1268 outsize=2527 kw= ok=1
 Cmd: compileSnippet
   api=4 type=0 insize=650 outsize=973 kw=V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_OFF ok=1
 Cmd: compileSnippet
-  api=1 type=0 insize=650 outsize=147 kw=V_WIRE_FRESNEL_OFF V_WIRE_ANTIALIASING_ON ok=1
+  api=1 type=0 insize=650 outsize=147 kw=V_WIRE_ANTIALIASING_ON V_WIRE_FRESNEL_OFF ok=1
 Cmd: compileSnippet
-  api=4 type=1 insize=650 outsize=908 kw=V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_OFF ok=1
+  api=1 type=1 insize=650 outsize=211 kw=V_WIRE_ANTIALIASING_OFF V_WIRE_FRESNEL_OFF ok=1
 Cmd: compileSnippet
-  api=4 type=1 insize=650 outsize=1461 kw=V_WIRE_FRESNEL_OFF V_WIRE_ANTIALIASING_ON ok=1
-End of pipe
-
-Quitting shader compiler process
+  api=4 type=1 insize=650 outsize=1697 kw=V_WIRE_FRESNEL_ON V_WIRE_ANTIALIASING_ON ok=1
