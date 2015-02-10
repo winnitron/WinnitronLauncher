@@ -137,3 +137,6 @@ Cmd: compileSnippet
   api=4 type=1 insize=650 outsize=1144 kw=V_WIRE_FRESNEL_ON V_WIRE_ANTIALIASING_OFF ok=1
 Cmd: compileSnippet
   api=4 type=1 insize=650 outsize=1461 kw=V_WIRE_ANTIALIASING_ON V_WIRE_FRESNEL_OFF ok=1
+End of pipe
+
+Quitting shader compiler process
