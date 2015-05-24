@@ -1,3 +1,8 @@
+// Upgrade NOTE: unity_Scale shader variable was removed; replaced 'unity_Scale.w' with '1.0'
+// Upgrade NOTE: commented out 'half4 unity_LightmapST', a built-in variable
+// Upgrade NOTE: commented out 'sampler2D unity_Lightmap', a built-in variable
+// Upgrade NOTE: replaced tex2D unity_Lightmap with UNITY_SAMPLE_TEX2D
+
 #ifndef VACUUM_WIRE_CGINC
 #define VACUUM_WIRE_CGINC
 
@@ -32,8 +37,8 @@ fixed4 _Color;
 #endif
 
 #if defined(LIGHTMAP_ON) && !defined(V_WIRE_SURFACE)
-	half4 unity_LightmapST;
-	sampler2D unity_Lightmap;				
+	// half4 unity_LightmapST;
+	// sampler2D unity_Lightmap;				
 #endif
 
 #if defined(PASS_FORWARD_BASE) || defined(PASS_FORWARD_ADD)
@@ -237,7 +242,7 @@ inline void Wire(inout fixed4 srcColor, fixed4 mass, half gradient)
 
 inline half3 V_WIRE_ObjViewDir ( half3 vertexPos )
 {				
-	half3 objSpaceCameraPos = mul(_World2Object, half4(_WorldSpaceCameraPos.xyz, 1)).xyz * unity_Scale.w;
+	half3 objSpaceCameraPos = mul(_World2Object, half4(_WorldSpaceCameraPos.xyz, 1)).xyz * 1.0;
 				
 	return normalize(objSpaceCameraPos - vertexPos);
 }
@@ -267,7 +272,7 @@ vOutput vert(vInput v)
 
 	#ifdef V_WIRE_REFLECTION
 		half3 viewDir = _WorldSpaceCameraPos.xyz - mul(_Object2World, v.vertex).xyz;
-		half3 worldN = mul((half3x3)_Object2World, v.normal * unity_Scale.w);
+		half3 worldN = mul((half3x3)_Object2World, v.normal * 1.0);
 
 		o.refl = reflect( -viewDir, worldN );
 	#endif
@@ -278,7 +283,7 @@ vOutput vert(vInput v)
 	#endif
 
 	#ifdef PASS_FORWARD_BASE
-		o.normal = mul((half3x3)_Object2World, v.normal * unity_Scale.w);
+		o.normal = mul((half3x3)_Object2World, v.normal * 1.0);
 	#endif
 
 
@@ -387,7 +392,7 @@ fixed4 frag(vOutput i) : COLOR
 
 
 	#if defined(LIGHTMAP_ON) && !defined(PASS_FORWARD_ADD)
-		fixed4 lmtex = tex2D(unity_Lightmap, i.lmap.xy);
+		fixed4 lmtex = UNITY_SAMPLE_TEX2D(unity_Lightmap, i.lmap.xy);
 		fixed3 lm = WIRE_DecodeLightmap (lmtex);
 
 		retColor.rgb *= lm;

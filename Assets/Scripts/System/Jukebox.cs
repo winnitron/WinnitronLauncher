@@ -30,9 +30,9 @@ public class Jukebox : MonoBehaviour {
 		Debug.Log ("Initializing jukebox.");
 
         currentTrack = UnityEngine.Random.Range(0, songs.Count);
-        audio.clip = songs[currentTrack].clip;
+        GetComponent<AudioSource>().clip = songs[currentTrack].clip;
 
-        if (on) audio.Play();
+        if (on) GetComponent<AudioSource>().Play();
 
         initWdiget();
 
@@ -51,61 +51,61 @@ public class Jukebox : MonoBehaviour {
 	        if (Input.GetKeyUp(KeyCode.P)) {
 
 	            if (on) {
-	                audio.Stop();
+	                GetComponent<AudioSource>().Stop();
 	                on = false;
 	            }
 	            else {
-	                audio.Play();
+	                GetComponent<AudioSource>().Play();
 	                on = true;
 	            }
 	        }
 
 	        // Check for song end
-	        if (!audio.isPlaying && on)
+	        if (!GetComponent<AudioSource>().isPlaying && on)
 	            nextTrack();
 		}
     }
 
     public void stop() {
-        audio.Stop();
+        GetComponent<AudioSource>().Stop();
         on = false;
     }
 
     public void play() {
 
         currentTrack = UnityEngine.Random.Range(0, songs.Count);
-        audio.clip = songs[currentTrack].clip;
-        audio.Play();
+        GetComponent<AudioSource>().clip = songs[currentTrack].clip;
+        GetComponent<AudioSource>().Play();
         on = true;
     }
 
     public void nextTrack() {
         
-        audio.Stop();
+        GetComponent<AudioSource>().Stop();
 
         if (currentTrack >= songs.Count - 1)
             currentTrack = 0;
         else
             currentTrack++;
 
-        audio.clip = songs[currentTrack].clip;
+        GetComponent<AudioSource>().clip = songs[currentTrack].clip;
 
-        if (on) audio.Play();
+        if (on) GetComponent<AudioSource>().Play();
         initWdiget();
     }
 
     public void lastTrack() {
 
-        audio.Stop();
+        GetComponent<AudioSource>().Stop();
 
         if (currentTrack <= 1)
             currentTrack = songs.Count - 1;
         else
             currentTrack--;
 
-        audio.clip = songs[currentTrack].clip;
+        GetComponent<AudioSource>().clip = songs[currentTrack].clip;
 
-        if (on) audio.Play();
+        if (on) GetComponent<AudioSource>().Play();
         initWdiget();
     }
 

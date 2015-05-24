@@ -3,6 +3,6 @@ using System.Collections;
 
 public class HideCursor : MonoBehaviour {
 	void Awake() {
-		Screen.showCursor = false;
+		Cursor.visible = false;
 	}
 }

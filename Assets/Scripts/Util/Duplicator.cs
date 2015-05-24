@@ -36,7 +36,7 @@ public class Duplicator : MonoBehaviour {
 				me.transform.parent = transform;
 
 				//Assign offsets to the new component
-				DuplicatorChild dc = me.AddComponent("DuplicatorChild") as DuplicatorChild;
+				DuplicatorChild dc = me.AddComponent<DuplicatorChild>() as DuplicatorChild;
 
 				dc.rotationOffset = rotationOffset;
 				dc.scaleOffset = scaleOffset;

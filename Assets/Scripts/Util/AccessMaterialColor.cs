@@ -21,7 +21,7 @@ public class AccessMaterialColor : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(!isSprite)renderer.material.color = new Color(r, g, b, a);
+		if(!isSprite)GetComponent<Renderer>().material.color = new Color(r, g, b, a);
 		else GetComponent<SpriteRenderer>().color = new Color(r, g, b, a);
 	}
 }

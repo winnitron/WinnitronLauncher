@@ -36,7 +36,7 @@ public class AttractImgManager :  Singleton<AttractImgManager> {
 
 			timePassed += Time.deltaTime;
 
-			if(!attractSprites[slideNum].animation.isPlaying) NextSlide ();
+			if(!attractSprites[slideNum].GetComponent<Animation>().isPlaying) NextSlide ();
 
 		} else {
 			//start from the beginning next time
@@ -47,8 +47,8 @@ public class AttractImgManager :  Singleton<AttractImgManager> {
 
 	void ResetSlides() {
 		foreach (var asp in attractSprites) {
-			asp.animation.Rewind();
-			asp.animation.Stop();
+			asp.GetComponent<Animation>().Rewind();
+			asp.GetComponent<Animation>().Stop();
 			asp.SetActive(false);
 		}
 	}
@@ -62,10 +62,10 @@ public class AttractImgManager :  Singleton<AttractImgManager> {
 
 		if (slideNum > attractSprites.Count - 1) slideNum = 0;
 
-		attractSprites[slideNum].animation.enabled = true;
-		attractSprites[slideNum].animation.Rewind();
+		attractSprites[slideNum].GetComponent<Animation>().enabled = true;
+		attractSprites[slideNum].GetComponent<Animation>().Rewind();
 		attractSprites[slideNum].SetActive(true);
-		attractSprites[slideNum].animation.Play();
+		attractSprites[slideNum].GetComponent<Animation>().Play();
 	}
 
 	void BuildAttractImagesList() {	

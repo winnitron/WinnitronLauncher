@@ -17,7 +17,7 @@ public class GM : Singleton<GM> {
 	public float timeBeforeIdle = 5;
 	
 	void Awake() {
-		Screen.showCursor = false;
+		Cursor.visible = false;
 	}
 
 	//Ideally these wouldn't be called every frame, probably not optimized

@@ -22,8 +22,8 @@ public class BackgroundPlane : MonoBehaviour {
 
     public void scrollVertical() {
         
-        animation.Stop();
-        animation.Play();
+        GetComponent<Animation>().Stop();
+        GetComponent<Animation>().Play();
     }
 
 	void Update () {
@@ -38,7 +38,7 @@ public class BackgroundPlane : MonoBehaviour {
             currentPlane = temp;
         }
 
-        currentPlane.rigidbody.velocity = Vector3.forward * speed;
-        otherPlane.rigidbody.velocity = Vector3.forward * speed;     
+        currentPlane.GetComponent<Rigidbody>().velocity = Vector3.forward * speed;
+        otherPlane.GetComponent<Rigidbody>().velocity = Vector3.forward * speed;     
 	}     
 }

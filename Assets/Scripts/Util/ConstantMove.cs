@@ -9,12 +9,12 @@ public class ConstantMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (rigidbody) 
+		if (GetComponent<Rigidbody>()) 
 		{
 			if (relative)
-					rigidbody.AddRelativeForce (force);
+					GetComponent<Rigidbody>().AddRelativeForce (force);
 			else
-					rigidbody.AddForce (force);
+					GetComponent<Rigidbody>().AddForce (force);
 		}
 
 		else 

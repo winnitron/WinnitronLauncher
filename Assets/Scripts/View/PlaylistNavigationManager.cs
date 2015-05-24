@@ -61,8 +61,8 @@ public class PlaylistNavigationManager : MonoBehaviour {
 	            if (Input.GetKeyDown(KeyCode.RightArrow)) {
 
 	                // Audio
-	                audio.clip = clipList[1];
-	                audio.Play();
+	                GetComponent<AudioSource>().clip = clipList[1];
+	                GetComponent<AudioSource>().Play();
 
 	                // Update the playlist index
 	                if (selectedPlaylistIndex == 0)
@@ -83,8 +83,8 @@ public class PlaylistNavigationManager : MonoBehaviour {
 	            else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
 
 	                // Audio
-	                audio.clip = clipList[1];
-	                audio.Play();
+	                GetComponent<AudioSource>().clip = clipList[1];
+	                GetComponent<AudioSource>().Play();
 
 	                // Update the playlist index
 	                if (selectedPlaylistIndex >= playlistList.Count - 1)
@@ -109,8 +109,8 @@ public class PlaylistNavigationManager : MonoBehaviour {
                 if (Input.GetKeyDown(KeyCode.UpArrow)) {
 
                     // Audio
-                    audio.clip = clipList[0];
-                    audio.Play();
+                    GetComponent<AudioSource>().clip = clipList[0];
+                    GetComponent<AudioSource>().Play();
 
                     backgroundPlane.scrollVertical();
                     playlistList[selectedPlaylistIndex].moveUpList();
@@ -118,8 +118,8 @@ public class PlaylistNavigationManager : MonoBehaviour {
                 else if (Input.GetKeyDown(KeyCode.DownArrow)) {
 
                     // Audio
-                    audio.clip = clipList[0];
-                    audio.Play();
+                    GetComponent<AudioSource>().clip = clipList[0];
+                    GetComponent<AudioSource>().Play();
 
                     backgroundPlane.scrollVertical();
                     playlistList[selectedPlaylistIndex].moveDownList();
@@ -129,8 +129,8 @@ public class PlaylistNavigationManager : MonoBehaviour {
                 if (Input.GetKeyUp(KeyCode.Z) || Input.GetKeyUp(KeyCode.X)) {
 
                     // Audio
-                    audio.clip = clipList[2];
-                    audio.Play();
+                    GetComponent<AudioSource>().clip = clipList[2];
+                    GetComponent<AudioSource>().Play();
 
                     playlistList[selectedPlaylistIndex].selectGame();
                 }
