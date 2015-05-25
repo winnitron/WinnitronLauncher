@@ -1,11 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="../Rogueotron/Assets/Scripts/Shooter.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Art Assets/Shaders/Wireframe2.shader">
     <Files>
-      <File FileName="../Rogueotron/Assets/Scripts/Player.cs" Line="1" Column="1" />
-      <File FileName="../Rogueotron/Assets/Scripts/Projectile.cs" Line="1" Column="1" />
-      <File FileName="../Rogueotron/Assets/Scripts/Shooter.cs" Line="7" Column="55" />
-      <File FileName="../Rogueotron/Assets/Scripts/Shot Patterns/OneWayShooter.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/View/BackgroundPlane.cs" Line="1" Column="19" />
+      <File FileName="Assets/Scripts/Util/WireframeCamera.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Util/WireframeObject.cs" Line="5" Column="4" />
+      <File FileName="Assets/Art Assets/Shaders/Wireframe2.shader" Line="65" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

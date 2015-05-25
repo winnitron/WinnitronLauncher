@@ -1,2 +1,5 @@
 Games*
+Library/metadata/
+Library/ShaderCache/
 *.meta
+Temp/

@@ -7,10 +7,6 @@ Project("{C30129F5-E22A-A070-2C5C-E91E3F0EAA2F}") = "WinnitronLauncher", "Assemb
 EndProject
 Project("{C30129F5-E22A-A070-2C5C-E91E3F0EAA2F}") = "WinnitronLauncher", "Assembly-CSharp-Editor.csproj", "{08C460B3-788E-8DE8-9B4B-CE4EB0BDAA7A}"
 EndProject
-Project("{C30129F5-E22A-A070-2C5C-E91E3F0EAA2F}") = "WinnitronLauncher", "Assembly-UnityScript-firstpass.unityproj", "{05A9E39E-0D57-D9E2-2FC3-52F404C8427E}"
-EndProject
-Project("{C30129F5-E22A-A070-2C5C-E91E3F0EAA2F}") = "WinnitronLauncher", "Assembly-UnityScript-Editor.unityproj", "{99844A98-DFA9-CC64-47EC-88A0BDB0F4D4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,19 +25,11 @@ Global
 		{08C460B3-788E-8DE8-9B4B-CE4EB0BDAA7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08C460B3-788E-8DE8-9B4B-CE4EB0BDAA7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08C460B3-788E-8DE8-9B4B-CE4EB0BDAA7A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{05A9E39E-0D57-D9E2-2FC3-52F404C8427E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{05A9E39E-0D57-D9E2-2FC3-52F404C8427E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{05A9E39E-0D57-D9E2-2FC3-52F404C8427E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{05A9E39E-0D57-D9E2-2FC3-52F404C8427E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{99844A98-DFA9-CC64-47EC-88A0BDB0F4D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99844A98-DFA9-CC64-47EC-88A0BDB0F4D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99844A98-DFA9-CC64-47EC-88A0BDB0F4D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{99844A98-DFA9-CC64-47EC-88A0BDB0F4D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-															GlobalSection(MonoDevelopProperties) = preSolution
+																			GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
