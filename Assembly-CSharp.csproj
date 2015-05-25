@@ -67,7 +67,6 @@
      <Compile Include="Assets\Scripts\Util\Singleton.cs" />
      <Compile Include="Assets\Scripts\Util\SpecialCoroutines.cs" />
      <Compile Include="Assets\Scripts\Util\WireframeCamera.cs" />
-     <Compile Include="Assets\Scripts\Util\WireframeObject.cs" />
      <Compile Include="Assets\Scripts\Util\_.cs" />
      <Compile Include="Assets\Scripts\View\AttractImgManager.cs" />
      <Compile Include="Assets\Scripts\View\BackgroundPlane.cs" />

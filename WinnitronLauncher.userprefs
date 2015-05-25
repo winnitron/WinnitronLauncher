@@ -1,11 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Art Assets/Shaders/Wireframe2.shader">
+  <MonoDevelop.Ide.Workbench ActiveDocument=".gitignore">
     <Files>
-      <File FileName="Assets/Scripts/View/BackgroundPlane.cs" Line="1" Column="19" />
+      <File FileName="Assets/Scripts/View/BackgroundPlane.cs" Line="45" Column="1" />
       <File FileName="Assets/Scripts/Util/WireframeCamera.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Util/WireframeObject.cs" Line="5" Column="4" />
       <File FileName="Assets/Art Assets/Shaders/Wireframe2.shader" Line="65" Column="2" />
+      <File FileName=".gitignore" Line="12" Column="10" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
