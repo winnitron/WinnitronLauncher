@@ -20,8 +20,8 @@ public class ConstantMove : MonoBehaviour {
 		else 
 		{
 			//No rigidbody, just move the transform
-			transform.Translate(force);
-			transform.localEulerAngles += spin;
+			transform.Translate(force * Time.deltaTime);
+			transform.localEulerAngles += spin * Time.deltaTime;
 		}
 	}
 }
