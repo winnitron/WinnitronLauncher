@@ -18,6 +18,7 @@ public class GM : Singleton<GM> {
 	
 	void Awake() {
 		Cursor.visible = false;
+		worldState = WorldState.Launcher;
 	}
 
 	//Ideally these wouldn't be called every frame, probably not optimized

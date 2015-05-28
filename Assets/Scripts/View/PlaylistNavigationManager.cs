@@ -112,7 +112,7 @@ public class PlaylistNavigationManager : MonoBehaviour {
                     GetComponent<AudioSource>().clip = clipList[0];
                     GetComponent<AudioSource>().Play();
 
-                    backgroundPlane.scrollVertical();
+                    backgroundPlane.scrollVertical(1);
                     playlistList[selectedPlaylistIndex].moveUpList();
                 }
                 else if (Input.GetKeyDown(KeyCode.DownArrow)) {
@@ -121,7 +121,7 @@ public class PlaylistNavigationManager : MonoBehaviour {
                     GetComponent<AudioSource>().clip = clipList[0];
                     GetComponent<AudioSource>().Play();
 
-                    backgroundPlane.scrollVertical();
+                    backgroundPlane.scrollVertical(-1);
                     playlistList[selectedPlaylistIndex].moveDownList();
                 }
 

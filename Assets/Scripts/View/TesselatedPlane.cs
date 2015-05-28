@@ -6,17 +6,15 @@ public class TesselatedPlane : MonoBehaviour {
 	public Transform closeResetPoint;
 	public Transform farResetPoint;
 
-	public float closePoint;
-	public float farPoint;
+	void OnTriggerEnter(Collider other) {
+		Debug.Log ("Collided with " + other.name);
 
-	// Update is called once per frame
-	void Update () {
-		if (gameObject.transform.position.z < closePoint) {
+		if (other.name == "Close Plane Trigger") {
 			gameObject.transform.position = farResetPoint.position;
-		}
+				}
 
-		if (gameObject.transform.position.z > farPoint) {
+		if (other.name == "Far Plane Trigger") {
 			gameObject.transform.position = closeResetPoint.position;
-		}
+				}
 	}
 }

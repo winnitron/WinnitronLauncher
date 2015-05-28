@@ -13,8 +13,8 @@ public class BackgroundPlane : MonoBehaviour {
 		amountX = speedUpAmount;
 	}
 
-    public void scrollVertical() {
-		amountZ = speedUpAmount;
+    public void scrollVertical(float dir) {
+		amountZ = speedUpAmount * dir;
     }
 
 	void Update() {
