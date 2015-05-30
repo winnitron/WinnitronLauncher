@@ -154,7 +154,7 @@ public class PlaylistNavigationManager : MonoBehaviour {
             var name = directoryName.Replace('_', ' ');
             playlist.name = "Playlist: " + name;
 
-            playlist.transform.parent = transform;
+            playlist.transform.SetParent(transform);
             playlist.gamesDirectory = Path.Combine(playlistsDirectory, directoryName);
             playlist.buildList();
 
@@ -162,7 +162,7 @@ public class PlaylistNavigationManager : MonoBehaviour {
 
             PlaylistLabel playlistLabel = Instantiate(playlistLabelPrefab) as PlaylistLabel;
             playlistLabel.playlistNavigationManager = this;
-            playlistLabel.transform.parent = GameObject.Find("PlaylistLabelHolder").transform;          // Place all playlist labels inside this object to insure their placement in hierarchy and thus sorting order
+            playlistLabel.transform.SetParent (GameObject.Find("PlaylistLabelHolder").transform);          // Place all playlist labels inside this object to insure their placement in hierarchy and thus sorting order
             playlistLabel.name = "PlaylistLabel: " + name;
             playlistLabel.initializeName(name);
             playlistLabelList.Add(playlistLabel);

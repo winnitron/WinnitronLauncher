@@ -95,13 +95,13 @@ public class Playlist : MonoBehaviour {
         // Instantiate the game label manager and store the reference
         gameLabelManager = Instantiate(gameLabelManagerPrefab) as GameLabelManager;
         gameLabelManager.playlist = this;
-        gameLabelManager.transform.parent = transform;
+        gameLabelManager.transform.SetParent(transform);
         gameLabelManager.transform.position = transform.position;        
 
         // Instantiate the screenshot manager and store the reference
         screenshotManager = Instantiate(screenshotManagerPrefab) as ScreenshotManager;
         screenshotManager.playlist = this;
-        screenshotManager.transform.parent = transform;
+        screenshotManager.transform.SetParent (transform);
         screenshotManager.transform.position = transform.position;        
     }
 

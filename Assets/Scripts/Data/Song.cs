@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Song : MonoBehaviour {
 
-	public string name;
+	public new string name;
 	public string author;    
 	public AudioClip clip;
 

@@ -1,15 +1,23 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/View/CameraEffectsController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Data/Song.cs">
     <Files>
-      <File FileName="Assets/Scripts/View/CameraEffects.cs" Line="3" Column="1" />
       <File FileName="Assets/Scripts/Util/WireframeCamera.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/View/BackgroundPlane.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/View/BackgroundPlane.cs" Line="8" Column="2" />
       <File FileName="Assets/Art Assets/Shaders/Wireframe2.shader" Line="1" Column="1" />
-      <File FileName=".gitignore" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/View/TesselatedPlane.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/View/TesselatedPlane.cs" Line="16" Column="20" />
       <File FileName="Assets/Scripts/Util/ConstantMove.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/View/CameraEffectsController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/View/CameraEffectsController.cs" Line="16" Column="1" />
+      <File FileName="Assets/Scripts/State Management/GM.cs" Line="19" Column="6" />
+      <File FileName="Assets/Scripts/System/Runner.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/View/PlaylistNavigationManager.cs" Line="169" Column="10" />
+      <File FileName="Assets/Scripts/View/Playlist.cs" Line="104" Column="1" />
+      <File FileName="Assets/Scripts/View/ScreenshotManager.cs" Line="40" Column="50" />
+      <File FileName="Assets/Scripts/View/GameLabelManager.cs" Line="46" Column="1" />
+      <File FileName="Assets/Scripts/View/AttractImgManager.cs" Line="86" Column="1" />
+      <File FileName="Assets/Scripts/System/Jukebox.cs" Line="149" Column="49" />
+      <File FileName="Assets/Scripts/Data/Song.cs" Line="16" Column="1" />
+      <File FileName="Assets/Scripts/Data/GameRepository.cs" Line="12" Column="36" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

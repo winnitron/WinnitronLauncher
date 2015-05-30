@@ -37,7 +37,7 @@ public class ScreenshotManager : MonoBehaviour {
 
             var image = Instantiate(gameImagePrefab) as Image;
             image.sprite = game.screenshot;
-            image.transform.parent = transform;
+            image.transform.SetParent (transform);
 
             image.GetComponent<GameImage>().screenshotManager = this;
 

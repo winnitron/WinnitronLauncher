@@ -16,9 +16,9 @@ public class GM : Singleton<GM> {
 	public float idleTime = 0;
 	public float timeBeforeIdle = 5;
 	
-	void Awake() {
+	new void Awake() {
 		Cursor.visible = false;
-		worldState = WorldState.Launcher;
+		//worldState = WorldState.Launcher;
 	}
 
 	//Ideally these wouldn't be called every frame, probably not optimized

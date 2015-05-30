@@ -83,7 +83,7 @@ public class AttractImgManager :  Singleton<AttractImgManager> {
 				screenshot.LoadImage(File.ReadAllBytes(attractImg.FullName));
 
 				newImgObj.GetComponent<Image>().overrideSprite = Sprite.Create(screenshot, new Rect(0, 0, screenshot.width, screenshot.height), new Vector2(0.5f, 0.5f));
-				newImgObj.transform.parent = transform;
+				newImgObj.transform.SetParent (transform);
 
 				attractSprites.Add(newImgObj);
 			}

@@ -43,7 +43,7 @@ public class GameLabelManager : MonoBehaviour {
 
             var label = Instantiate(gameLabelPrefab) as Text;
             label.text = game.name;            
-            label.transform.parent = transform;
+            label.transform.SetParent (transform);
 
             label.GetComponent<GameLabel>().gameLabelManager = this;
 
