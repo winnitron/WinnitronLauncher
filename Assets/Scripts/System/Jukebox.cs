@@ -19,9 +19,12 @@ public class Jukebox : MonoBehaviour {
 
 	private string SONG_SUBDIRECTORY = "Music";
 	private string songDirectory;
+
 	private bool doneLoading = false;
+	private AudioSource source;
 
 	protected void Awake() {
+		source = gameObject.GetComponent<AudioSource> ();
 		songDirectory = Path.Combine(Application.dataPath, SONG_SUBDIRECTORY);
 		BuildSongList();
 	}
@@ -29,12 +32,7 @@ public class Jukebox : MonoBehaviour {
     void Init() {
 		Debug.Log ("Initializing jukebox.");
 
-        currentTrack = UnityEngine.Random.Range(0, songs.Count);
-        GetComponent<AudioSource>().clip = songs[currentTrack].clip;
-
-        if (on) GetComponent<AudioSource>().Play();
-
-        initWdiget();
+		nextTrack ();
 
 		doneLoading = true;
     }
@@ -51,61 +49,63 @@ public class Jukebox : MonoBehaviour {
 	        if (Input.GetKeyUp(KeyCode.P)) {
 
 	            if (on) {
-	                GetComponent<AudioSource>().Stop();
+	                source.Stop();
 	                on = false;
 	            }
 	            else {
-	                GetComponent<AudioSource>().Play();
+	                source.Play();
 	                on = true;
 	            }
 	        }
 
 	        // Check for song end
-	        if (!GetComponent<AudioSource>().isPlaying && on)
+	        if (!source.isPlaying && on)
 	            nextTrack();
+
+			Debug.Log ("Jukebox is playing: " + source.isPlaying);
 		}
     }
 
     public void stop() {
-        GetComponent<AudioSource>().Stop();
+        source.Stop();
         on = false;
     }
 
     public void play() {
 
         currentTrack = UnityEngine.Random.Range(0, songs.Count);
-        GetComponent<AudioSource>().clip = songs[currentTrack].clip;
-        GetComponent<AudioSource>().Play();
+        source.clip = songs[currentTrack].clip;
+        source.Play();
         on = true;
     }
 
     public void nextTrack() {
         
-        GetComponent<AudioSource>().Stop();
+        source.Stop();
 
         if (currentTrack >= songs.Count - 1)
             currentTrack = 0;
         else
             currentTrack++;
 
-        GetComponent<AudioSource>().clip = songs[currentTrack].clip;
+        source.clip = songs[currentTrack].clip;
 
-        if (on) GetComponent<AudioSource>().Play();
+        if (on) source.Play();
         initWdiget();
     }
 
     public void lastTrack() {
 
-        GetComponent<AudioSource>().Stop();
+        source.Stop();
 
         if (currentTrack <= 1)
             currentTrack = songs.Count - 1;
         else
             currentTrack--;
 
-        GetComponent<AudioSource>().clip = songs[currentTrack].clip;
+        source.clip = songs[currentTrack].clip;
 
-        if (on) GetComponent<AudioSource>().Play();
+        if (on) source.Play();
         initWdiget();
     }
 
@@ -146,9 +146,9 @@ public class Jukebox : MonoBehaviour {
 				var author = words[1];
 
 				//We're done!
-				Debug.Log ("Done loading " + song.FullName);
-
+				Debug.Log ("Can load song: " + audioLoader.GetAudioClip(false));
 				songs.Add(new Song(name, author, audioLoader.GetAudioClip(false)));
+				Debug.Log ("Done loading " + song.FullName);
 			} else {
 				Debug.Log ("Skipped " + song.FullName + " // not and .ogg");
 			}

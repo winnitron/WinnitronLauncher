@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Song : MonoBehaviour {
+[System.Serializable]
+public class Song {
 
-	public new string name;
+	public string name;
 	public string author;    
 	public AudioClip clip;
 
 	public Song(string name, string author, AudioClip clip) {
+		Debug.Log ("Creating New Song!");
 		this.name = name;
 		this.author = author;
 		this.clip = clip;
