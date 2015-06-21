@@ -6,7 +6,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Playlist : MonoBehaviour {
+public class PlaylistManager : MonoBehaviour {
 
     public List<Game> gamesList;
     public string gamesDirectory;    

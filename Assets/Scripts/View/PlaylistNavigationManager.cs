@@ -12,10 +12,10 @@ public class PlaylistNavigationManager : MonoBehaviour {
     public GameObject playlistPosition;                 // Object that marks the position where the current selected playlist should be placed
     public GameObject playlistNamePosition;             // Object that marks the position where the playlist name labels will be placed
 
-    public List<Playlist> playlistList;                 // List of all playlists
+    public List<PlaylistManager> playlistList;                 // List of all playlists
     public List<PlaylistLabel> playlistLabelList;       // List of all playlist labels
 
-    public Playlist playlistPrefab;
+    public PlaylistManager playlistPrefab;
     public PlaylistLabel playlistLabelPrefab;
 
     public BackgroundPlane backgroundPlane;
@@ -71,7 +71,7 @@ public class PlaylistNavigationManager : MonoBehaviour {
 	                    selectedPlaylistIndex--;
 
 	                // Stop all current tweens since they mess with the playlist movement
-	                foreach (Playlist playlist in playlistList) { playlist.stopTween(); }
+	                foreach (PlaylistManager playlist in playlistList) { playlist.stopTween(); }
 
 
 	                // Tween all the playlists to the proper position based on the updated index
@@ -92,8 +92,8 @@ public class PlaylistNavigationManager : MonoBehaviour {
 	                else
 	                    selectedPlaylistIndex++;
 
-	                // Stop all current tweens since they mess with the playlist movement
-	                foreach (Playlist playlist in playlistList) { playlist.stopTween(); }
+	                // Stop all current tweens since they mess with the PlaylistManager movement
+	                foreach (PlaylistManager playlist in playlistList) { playlist.stopTween(); }
 
 	                // Tween all the playlists to the proper position based on the updated index
 	                SortPlaylists();
@@ -146,7 +146,7 @@ public class PlaylistNavigationManager : MonoBehaviour {
         foreach (var dir in playlistsDir.GetDirectories()) {
 
             // Instantiate a new playlist and set the path to its directory
-            Playlist playlist = Instantiate(playlistPrefab) as Playlist;
+            PlaylistManager playlist = Instantiate(playlistPrefab) as PlaylistManager;
             playlist.playlistNavigationManager = this;
 
             // Playlist name

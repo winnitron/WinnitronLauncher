@@ -62,7 +62,7 @@ public class Jukebox : MonoBehaviour {
 	        if (!source.isPlaying && on)
 	            nextTrack();
 
-			Debug.Log ("Jukebox is playing: " + source.isPlaying);
+			//Debug.Log ("Jukebox is playing: " + source.isPlaying);
 		}
     }
 

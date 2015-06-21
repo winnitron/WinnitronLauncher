@@ -24,7 +24,7 @@ public class GameLabelManager : MonoBehaviour {
     List<GameLabel> labelList;
 
     public bool moving { get; set; }
-    public Playlist playlist { get; set; }
+    public PlaylistManager playlist { get; set; }
 
 
     void Start() {

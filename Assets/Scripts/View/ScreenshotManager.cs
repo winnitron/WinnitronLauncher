@@ -21,7 +21,7 @@ public class ScreenshotManager : MonoBehaviour {
     List<GameImage> imageList;
 
     public bool moving { get; set; }
-    public Playlist playlist { get; set; }
+    public PlaylistManager playlist { get; set; }
 
 
     void Start() {
