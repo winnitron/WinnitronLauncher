@@ -9,12 +9,24 @@ public class DataManager : MonoBehaviour {
 	public List<Song> songs;
 	public List<Sprite> attractModeImages;
 
-	public string playlistDirectory;
-	public string songsDirectory;
-	public string attractDirectory;
+	public string attractSubdirectory;
+	public string playlistSubdirectory;
+	public string musicSubdirectory;
+
+	private string playlistDirectory;
+	private string musicDirectory;
+	private string attractDirectory;
 
 	// Use this for initialization
 	void Start () {
+		playlists = new List<Playlist> ();
+		songs = new List<Song> ();
+		attractModeImages = new List<Sprite> ();
+
+		playlistDirectory = Path.Combine (Application.dataPath, playlistSubdirectory);
+		musicDirectory = Path.Combine (Application.dataPath, musicSubdirectory);
+		attractDirectory = Path.Combine (Application.dataPath, musicSubdirectory);
+
 		GetPlaylists ();
 		GetAttractModeImages ();
 		GetMusic ();

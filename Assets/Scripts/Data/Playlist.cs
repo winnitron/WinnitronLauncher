@@ -18,8 +18,15 @@ public class Playlist
 	 */
 	public Playlist(string directory) 
 	{
+		//Find out the name of the directory
 		this.directory = new DirectoryInfo(directory);
+		//Replace the underscores for a cleaner name
+		name = this.directory.Name.Replace('_', ' ');
 
+		//Init the games list
+		this.games = new List<Game>();
+
+		//Let's find all the gamesssss
 		BuildPlaylist();
 	}
 
@@ -31,8 +38,11 @@ public class Playlist
 			//Don't pick any directories that start with a dot
 			if(gameDir.Name.Substring(0, 1) != ".") 
 			{
+				//Make a new game
+				Game newGame = new Game(gameDir.FullName);
+
 				//Add a game!  Pass the Game constructor the directory where the game is contained
-				games.Add(new Game(gameDir.FullName));
+				games.Add(newGame);
 			}
 		}   
 

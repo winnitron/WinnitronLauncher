@@ -121,7 +121,8 @@ public class PlaylistManager : MonoBehaviour {
 
         var executablePath = Path.Combine(gameDirectory.FullName, gameDirectory.Name + ".exe");
 
-        return new Game(name, author, screenshotSprite, executablePath);
+        //return new Game(name, author, screenshotSprite, executablePath);
+		return new Game(name);
     }
 
     public void move(Vector3 pos, Vector3 scale, float tweenTime) {
