@@ -27,9 +27,20 @@ public class DataManager : MonoBehaviour {
 		musicDirectory = Path.Combine (Application.dataPath, musicSubdirectory);
 		attractDirectory = Path.Combine (Application.dataPath, musicSubdirectory);
 
+		LoadData ();
+	}
+
+	public void LoadData()
+	{
+		//GM.Load ();
+
+		//Load everything!
 		GetPlaylists ();
 		GetAttractModeImages ();
 		GetMusic ();
+		 
+		//Do this when done loading
+		GM.ChangeState (GM.WorldState.Intro);
 	}
 
 	// Builds a list of Game objects based on the game directory inside its main directory. Then instantiates the GameNavigationManager, which then instantiates the ScreenShotDisplayManager
