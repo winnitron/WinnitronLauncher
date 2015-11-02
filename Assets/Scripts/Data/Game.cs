@@ -28,7 +28,7 @@ public class Game
 
 	//Where the magic happens
 	public void BuildGame()
-	{
+	{        
 		//Figure out the name of the game from the directory title
 		var directoryName = directory.Name;
 		//Replace the underscores and dashes with blank spaces

@@ -21,25 +21,20 @@ public class GameLabelManager : MonoBehaviour {
     public GameObject labelBelow;        
     
 
-    List<GameLabel> labelList;
+    List<GameLabel> labelList = new List<GameLabel>();
 
     public bool moving { get; set; }
-    public PlaylistManager playlist { get; set; }
+    public PlaylistManager playlistManager { get; set; }
 
 
-    void Start() {
+    public void initialize() {
 
-        labelList = new List<GameLabel>();
-
-        CreateLabels();      
-        
+        CreateLabels();              
     }
-
- 
 
     void CreateLabels() {
 
-        foreach (Game game in playlist.gamesList) {
+        foreach (Game game in playlistManager.playlist.games) {
 
             var label = Instantiate(gameLabelPrefab) as Text;
             label.text = game.name;            

@@ -3,7 +3,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 
-public class DataManager : MonoBehaviour {
+public class DataManager : Singleton<DataManager>  {
 
 	public List<Playlist> playlists;
 	public List<Song> songs;
@@ -17,6 +17,9 @@ public class DataManager : MonoBehaviour {
 	private string musicDirectory;
 	private string attractDirectory;
 
+
+    PlaylistNavigationManager playlistNavManager;
+
 	// Use this for initialization
 	void Start () {
 		playlists = new List<Playlist> ();
@@ -26,6 +29,8 @@ public class DataManager : MonoBehaviour {
 		playlistDirectory = Path.Combine (Application.dataPath, playlistSubdirectory);
 		musicDirectory = Path.Combine (Application.dataPath, musicSubdirectory);
 		attractDirectory = Path.Combine (Application.dataPath, musicSubdirectory);
+
+        playlistNavManager = GameObject.Find("PlaylistNavigationManager").GetComponent<PlaylistNavigationManager>();
 
 		LoadData ();
 	}
@@ -38,7 +43,10 @@ public class DataManager : MonoBehaviour {
 		GetPlaylists ();
 		GetAttractModeImages ();
 		GetMusic ();
-		 
+		
+        // Build the visuals from this data
+        playlistNavManager.BuildPlaylists();
+
 		//Do this when done loading
 		GM.ChangeState (GM.WorldState.Intro);
 	}

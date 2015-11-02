@@ -36,9 +36,9 @@ public class Playlist
 		foreach (var gameDir in directory.GetDirectories()) 
 		{
 			//Don't pick any directories that start with a dot
-			if(gameDir.Name.Substring(0, 1) != ".") 
+			if(!gameDir.Name.Substring(0, 1).Equals(".")) 
 			{
-				//Make a new game
+				//Make a new game                
 				Game newGame = new Game(gameDir.FullName);
 
 				//Add a game!  Pass the Game constructor the directory where the game is contained
