@@ -71,7 +71,7 @@ public class PlaylistNavigationManager : MonoBehaviour {
 
 
 	                // Tween all the playlists to the proper position based on the updated index
-	                SortPlaylists();
+	                sortPlaylists();
 
 	                arrowRight.Rewind();
 	                arrowRight.Play();
@@ -92,7 +92,7 @@ public class PlaylistNavigationManager : MonoBehaviour {
 	                foreach (PlaylistManager playlist in playlistManagerList) { playlist.stopTween(); }
 
 	                // Tween all the playlists to the proper position based on the updated index
-	                SortPlaylists();
+	                sortPlaylists();
 
 	                arrowLeft.Rewind();
 	                arrowLeft.Play();
@@ -153,13 +153,15 @@ public class PlaylistNavigationManager : MonoBehaviour {
             PlaylistLabel playlistLabel = Instantiate(playlistLabelPrefab) as PlaylistLabel;
             playlistLabel.playlistNavigationManager = this;
             playlistLabel.transform.SetParent (GameObject.Find("PlaylistLabelHolder").transform);          // Place all playlist labels inside this object to insure their placement in hierarchy and thus sorting order
-            playlistLabel.name = "PlaylistLabel: " + name;
-            playlistLabel.initializeName(name);
+            playlistLabel.name = "PlaylistLabel: " + playlist.name;
+            playlistLabel.initializeName(playlist.name);
             playlistLabelList.Add(playlistLabel);
+
+            sortPlaylists();
         }
     }
 
-    public void SortPlaylists() {
+    public void sortPlaylists() {
 
         // Sort the playlists (which contain the game labels and screenshots
         for (int i = 0; i < playlistManagerList.Count; i++) {
