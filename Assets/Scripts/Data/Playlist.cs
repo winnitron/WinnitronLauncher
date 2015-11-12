@@ -46,7 +46,7 @@ public class Playlist
 			}
 		}   
 
-		Debug.Log ("Playlist Built! Games:" + games.ToString());
+		Debug.Log ("Playlist Built! : " + name);
 	}
 }
 

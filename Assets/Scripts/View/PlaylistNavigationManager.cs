@@ -48,14 +48,10 @@ public class PlaylistNavigationManager : MonoBehaviour {
 
         playlistManagerList = new List<PlaylistManager>();
         StartCoroutine("waitForLoad");
-
-        if (playlistManagerList.Count <= 1) {
-            arrowRight.gameObject.SetActive(false);
-            arrowLeft.gameObject.SetActive(false);
-        }
     }
 
     void Update() {
+        
         if (!loading && GM.worldState == GM.WorldState.Launcher) {
 		
 	            // Cycle horizontally through playlists
@@ -163,6 +159,12 @@ public class PlaylistNavigationManager : MonoBehaviour {
             playlistLabelList.Add(playlistLabel);
 
             sortPlaylists();
+        }
+
+        // Check whether there is more than one playlist, if there is only one, deactivate the arrow graphics on either side of the label
+        if (playlistManagerList.Count <= 1) {
+            arrowRight.gameObject.SetActive(false);
+            arrowLeft.gameObject.SetActive(false);
         }
     }
 

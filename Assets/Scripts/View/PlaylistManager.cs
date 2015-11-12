@@ -101,7 +101,7 @@ public class PlaylistManager : MonoBehaviour {
 
     public void move(Vector3 pos, Vector3 scale, float tweenTime) {
 
-        if (playlistNavManager.moving) {
+        if (playlistNavManager.moving && currentTween != null) {
 
             currentTween.destroy();
         }
