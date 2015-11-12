@@ -40,9 +40,9 @@ public class Jukebox : MonoBehaviour {
     void Update() {
 		if(doneLoading) {
 	        // Player 2 Joystick controls song
-	        if (Input.GetKeyUp(KeyCode.J))
+	        if (Input.GetKeyUp(KeyCode.J) || Input.GetKeyUp(KeyCode.Minus))
 	            lastTrack();
-	        if (Input.GetKeyUp(KeyCode.L))
+	        if (Input.GetKeyUp(KeyCode.L) || Input.GetKeyUp(KeyCode.Equals))
 	            nextTrack();
 
 	        // Stop & Play from keyboard
