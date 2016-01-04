@@ -27,6 +27,7 @@ public class PlaylistNavigationManager : MonoBehaviour {
 
     public float GRID_X_OFFSET_PLAYLIST = 60;
     public float GRID_X_OFFSET_LABEL = 200;
+	public float GRID_Y_OFFSET_SCREENSHOT = 40;
 
     public float smallScale = 0.7f;
 

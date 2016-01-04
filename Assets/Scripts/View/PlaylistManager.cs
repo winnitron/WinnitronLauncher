@@ -94,6 +94,7 @@ public class PlaylistManager : MonoBehaviour {
         // Instantiate the screenshot manager and store the reference
         screenshotManager = Instantiate(screenshotManagerPrefab) as ScreenshotManager;
         screenshotManager.playlistManager = this;
+		screenshotManager.GRID_Y_OFFSET = playlistNavManager.GRID_Y_OFFSET_SCREENSHOT;
         screenshotManager.transform.SetParent (transform);
         screenshotManager.transform.position = transform.position;
         screenshotManager.initialize();
