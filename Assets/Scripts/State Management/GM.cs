@@ -34,7 +34,7 @@ public class GM : Singleton<GM> {
 		//Things to do in Attract Mode
 		if(worldState == WorldState.Attract) {
 			//Relaunch launcher if any key is pressed
-			if(Input.anyKey) worldState = WorldState.Launcher;
+			if(Input.anyKeyDown) worldState = WorldState.Launcher;
 		}
 
 		//Things to do in Launcher Mode
