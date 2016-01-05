@@ -1,6 +1,12 @@
 ﻿
 Winnitron Launcher
-Current Beta Version 0.9
+Current Version 0.9.1
+
+Changes for 0.9.1
+- Fixed main launcher layout and functionality
+- Fixed backend for future syncing
+- Fixed up visual bugs in Attract Mode
+- Fixed up some visual bugs in Intro
 
 Planned Features for 1.0
 - check for Updated music on each return from playing game

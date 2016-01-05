@@ -74,11 +74,16 @@ public class PlaylistManager : MonoBehaviour {
 
     public void selectGame() {
 
+		Debug.Log ("PlaylistManager: Trying to launch " + playlist.games[selectedGameIndex].name);
+
         if (!waiting) {
 
-            waiting = true; StartCoroutine("wait"); // So that the user can't launch multiple games at once
-            GameObject.Find("Runner").GetComponent<Runner>().Run(playlist.games[selectedGameIndex]);
-        }
+			waiting = true;
+			StartCoroutine ("wait"); // So that the user can't launch multiple games at once
+			GameObject.Find ("GM").GetComponent<Runner> ().Run (playlist.games [selectedGameIndex]);
+		} else {
+			Debug.Log ("Not launched.  Waiting...");
+		}
     }
 
     // Takes in the list of games and creates the appropriate labels etc. for those games

@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Collections;
 
+
 public class Runner : MonoBehaviour {
     
     Jukebox jukebox;
@@ -31,7 +32,10 @@ public class Runner : MonoBehaviour {
 		yield return new WaitForSeconds(1.0f);
 		process.Start();
 		process.WaitForExit();
-		Screen.fullScreen = true;
+
+		//Screen.SetResolution (1024, 768, true);
+		GM.ResetScreen();
+
 		GM.ChangeState(GM.WorldState.Intro);
         if (jukebox) jukebox.play();
 	}

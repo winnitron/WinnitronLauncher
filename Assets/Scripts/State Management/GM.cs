@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
+using System.Runtime.InteropServices;
 
 public class GM : Singleton<GM> {
 
@@ -15,9 +17,10 @@ public class GM : Singleton<GM> {
 
 	public float idleTime = 0;
 	public float timeBeforeIdle = 5;
-	
+
 	new void Awake() {
 		Cursor.visible = false;
+		ResetScreen ();
 		//worldState = WorldState.Launcher;
 	}
 
@@ -99,4 +102,59 @@ public class GM : Singleton<GM> {
 	static public void ChangeState(WorldState ws) {
 		worldState = ws;
 	}
+
+
+	#if UNITY_STANDALONE_WIN
+	[DllImport("user32.dll", EntryPoint = "SetWindowPos")]
+	private static extern bool SetWindowPos(IntPtr hwnd, int hWndInsertAfter, int x, int Y, int cx, int cy, int wFlags);
+	[DllImport("user32.dll", EntryPoint = "FindWindow")]
+	public static extern IntPtr FindWindow(System.String className, System.String windowName);
+	[DllImport("user32.dll", EntryPoint = "GetWindowRect", SetLastError = true)]
+	public static extern bool GetWindowRect(IntPtr hWnd, out RECT rect);
+	[DllImport("user32.dll", EntryPoint = "GetDesktopWindow", SetLastError = true)]
+	public static extern IntPtr GetDesktopWindow();
+	
+	[StructLayout(LayoutKind.Sequential)]
+	public struct RECT
+	{
+		public int Left;        // x position of upper-left corner
+		public int Top;         // y position of upper-left corner
+		public int Right;       // x position of lower-right corner
+		public int Bottom;      // y position of lower-right corner
+	}
+	
+	private static Resolution resolution;
+	
+	private static IntPtr Desktop
+	{
+		get
+		{
+			return GetDesktopWindow();
+		}
+	}
+	
+	public static void ResetScreen() {
+		
+		if(resolution.height == 0) {
+			
+			resolution = new Resolution();
+			
+			RECT desktopRect;
+			
+			if (GetWindowRect(Desktop, out desktopRect))
+			{
+				resolution.width = desktopRect.Right - desktopRect.Left;
+				resolution.height = desktopRect.Bottom - desktopRect.Top;
+				Debug.Log ("Getting desktop resolution: " + resolution.width + " x " + resolution.height);
+			}
+			else
+			{
+				Debug.Log ("There was an error getting the resolution");
+			}
+		}
+		
+		SetWindowPos(FindWindow(null, "WinnitronLauncherOfficial"), 0, 0, 0, resolution.width, resolution.height, 0x0020);
+	}
+	
+	#endif
 }

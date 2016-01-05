@@ -126,8 +126,7 @@ public class Jukebox : MonoBehaviour {
 		{
 			var fileExt = song.FullName.Substring(Math.Max(0, song.FullName.Length - 4));
 
-			if(song.Name.Substring(0, 1) != "." && fileExt != "meta") { 
-
+			if(song.Name.Substring(0, 1) != "." && fileExt == "ogg") { 
 				Debug.Log ("Started loading " + song.FullName);
 
 				WWW audioLoader = new WWW("file://" + song.FullName);

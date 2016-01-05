@@ -126,6 +126,8 @@ public class PlaylistNavigationManager : MonoBehaviour {
                 // Launch game
                 if (Input.GetKeyUp(KeyCode.Z) || Input.GetKeyUp(KeyCode.X)) {
 
+
+
                     // Audio
                     GetComponent<AudioSource>().clip = clipList[2];
                     GetComponent<AudioSource>().Play();
