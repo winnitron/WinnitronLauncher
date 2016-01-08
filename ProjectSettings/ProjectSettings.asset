@@ -35,9 +35,9 @@ PlayerSettings:
   useOSAutorotation: 1
   use32BitDisplayBuffer: 1
   disableDepthAndStencilBuffers: 0
-  defaultIsFullScreen: 0
+  defaultIsFullScreen: 1
   defaultIsNativeResolution: 0
-  runInBackground: 1
+  runInBackground: 0
   captureSingleScreen: 0
   Override IPod Music: 0
   Prepare IOS For Recording: 0
@@ -55,8 +55,8 @@ PlayerSettings:
   xboxEnableFitness: 0
   visibleInBackground: 0
   macFullscreenMode: 1
-  d3d9FullscreenMode: 1
-  d3d11FullscreenMode: 1
+  d3d9FullscreenMode: 0
+  d3d11FullscreenMode: 0
   xboxSpeechDB: 0
   xboxEnableHeadOrientation: 0
   xboxEnableGuest: 0
@@ -69,7 +69,7 @@ PlayerSettings:
     4:3: 1
     5:4: 0
     16:10: 0
-    16:9: 1
+    16:9: 0
     Others: 0
   bundleIdentifier: com.Company.ProductName
   bundleVersion: 1.0

@@ -34,7 +34,7 @@ public class Runner : MonoBehaviour {
 		process.WaitForExit();
 
 		//Screen.SetResolution (1024, 768, true);
-		GM.ResetScreen();
+		//GM.ResetScreen();
 
 		GM.ChangeState(GM.WorldState.Intro);
         if (jukebox) jukebox.play();
