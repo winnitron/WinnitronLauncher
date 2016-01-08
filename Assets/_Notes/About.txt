@@ -1,6 +1,17 @@
 ﻿
 Winnitron Launcher
-Current Beta Version 0.9
+Current Version 0.9.1
+
+***PLEASE NOTE***
+If you are building this project from scratch and not using the releases provided on GitHub,
+make sure you create a Shortcut that points to the winnitron.exe that has the -popupwindow tag
+at the end of the target field.
+
+Changes for 0.9.1
+- Fixed main launcher layout and functionality
+- Fixed backend for future syncing
+- Fixed up visual bugs in Attract Mode
+- Fixed up some visual bugs in Intro
 
 Planned Features for 1.0
 - check for Updated music on each return from playing game

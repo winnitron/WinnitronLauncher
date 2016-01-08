@@ -22,6 +22,7 @@ public class StateManager : MonoBehaviour {
 		foreach(GameObject gameObject in objectsToToggleOnForState) gameObject.SetActive(false);
 		foreach(GameObject gameObject in objectsToToggleOffForState) gameObject.SetActive(true);
 		foreach(Animation anim in animationsToRewind) {
+			Debug.Log (anim + " " + gameObject.name);
 			anim.Stop();
 			anim.Rewind();
 			Debug.Log ("rewinding: " + anim.name);

@@ -11,11 +11,9 @@ public class PlaylistNavigationManager : MonoBehaviour {
 
     public GameObject playlistPosition;                 // Object that marks the position where the current selected playlist should be placed
     public GameObject playlistNamePosition;             // Object that marks the position where the playlist name labels will be placed
+    
 
-    public List<Playlist> playlistList;                 // List of all playlists
-    public List<PlaylistLabel> playlistLabelList;       // List of all playlist labels
-
-    public Playlist playlistPrefab;
+    public PlaylistManager playlistPrefab;
     public PlaylistLabel playlistLabelPrefab;
 
     public BackgroundPlane backgroundPlane;
@@ -29,36 +27,36 @@ public class PlaylistNavigationManager : MonoBehaviour {
 
     public float GRID_X_OFFSET_PLAYLIST = 60;
     public float GRID_X_OFFSET_LABEL = 200;
+	public float GRID_Y_OFFSET_SCREENSHOT = 40;
 
     public float smallScale = 0.7f;
 
-    bool loading = true;                                       // Don't accept input for a period of time at the launch of the scene
 
-    string playlistsDirectory;                          // Path to the directory containing all the playlist directories
+    List<PlaylistLabel> playlistLabelList = new List<PlaylistLabel>();       // List of all playlist labels
+
+    bool loading = true;                                       // Don't accept input for a period of time at the launch of the scene
+  
     int selectedPlaylistIndex;
 
     public bool hmoving { get; set; }
 	public bool vmoving { get; set; }
 	public bool moving { get; set; }
 
-    void Awake() {        
+    public List<PlaylistManager> playlistManagerList { get; set; }    
 
-        playlistsDirectory = Path.Combine(Application.dataPath, "Playlists");
-
-        BuildPlaylists(); if (playlistList.Count > 1) selectedPlaylistIndex = 1;
-        SortPlaylists();
-    }
 
     void Start() {
 
+        playlistManagerList = new List<PlaylistManager>();
         StartCoroutine("waitForLoad");
     }
 
     void Update() {
+        
         if (!loading && GM.worldState == GM.WorldState.Launcher) {
 		
 	            // Cycle horizontally through playlists
-	            if (Input.GetKeyDown(KeyCode.RightArrow)) {
+                 if (playlistManagerList.Count > 1 && Input.GetKeyDown(KeyCode.RightArrow)) {
 
 	                // Audio
 	                GetComponent<AudioSource>().clip = clipList[1];
@@ -66,37 +64,37 @@ public class PlaylistNavigationManager : MonoBehaviour {
 
 	                // Update the playlist index
 	                if (selectedPlaylistIndex == 0)
-	                    selectedPlaylistIndex = playlistList.Count - 1;
+	                    selectedPlaylistIndex = playlistManagerList.Count - 1;
 	                else
 	                    selectedPlaylistIndex--;
 
 	                // Stop all current tweens since they mess with the playlist movement
-	                foreach (Playlist playlist in playlistList) { playlist.stopTween(); }
+	                foreach (PlaylistManager playlist in playlistManagerList) { playlist.stopTween(); }
 
 
 	                // Tween all the playlists to the proper position based on the updated index
-	                SortPlaylists();
+	                sortPlaylists();
 
 	                arrowRight.Rewind();
 	                arrowRight.Play();
 	            }
-	            else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+                 else if (playlistManagerList.Count > 1 && Input.GetKeyDown(KeyCode.LeftArrow)) {
 
 	                // Audio
 	                GetComponent<AudioSource>().clip = clipList[1];
 	                GetComponent<AudioSource>().Play();
 
 	                // Update the playlist index
-	                if (selectedPlaylistIndex >= playlistList.Count - 1)
+	                if (selectedPlaylistIndex >= playlistManagerList.Count - 1)
 	                    selectedPlaylistIndex = 0;
 	                else
 	                    selectedPlaylistIndex++;
 
-	                // Stop all current tweens since they mess with the playlist movement
-	                foreach (Playlist playlist in playlistList) { playlist.stopTween(); }
+	                // Stop all current tweens since they mess with the PlaylistManager movement
+	                foreach (PlaylistManager playlist in playlistManagerList) { playlist.stopTween(); }
 
 	                // Tween all the playlists to the proper position based on the updated index
-	                SortPlaylists();
+	                sortPlaylists();
 
 	                arrowLeft.Rewind();
 	                arrowLeft.Play();
@@ -113,7 +111,7 @@ public class PlaylistNavigationManager : MonoBehaviour {
                     GetComponent<AudioSource>().Play();
 
                     backgroundPlane.scrollVertical(1);
-                    playlistList[selectedPlaylistIndex].moveUpList();
+                    playlistManagerList[selectedPlaylistIndex].moveUpList();
                 }
                 else if (Input.GetKeyDown(KeyCode.DownArrow)) {
 
@@ -122,17 +120,19 @@ public class PlaylistNavigationManager : MonoBehaviour {
                     GetComponent<AudioSource>().Play();
 
                     backgroundPlane.scrollVertical(-1);
-                    playlistList[selectedPlaylistIndex].moveDownList();
+                    playlistManagerList[selectedPlaylistIndex].moveDownList();
                 }
 
                 // Launch game
                 if (Input.GetKeyUp(KeyCode.Z) || Input.GetKeyUp(KeyCode.X)) {
 
+
+
                     // Audio
                     GetComponent<AudioSource>().clip = clipList[2];
                     GetComponent<AudioSource>().Play();
 
-                    playlistList[selectedPlaylistIndex].selectGame();
+                    playlistManagerList[selectedPlaylistIndex].selectGame();
                 }
             }
         }
@@ -140,60 +140,62 @@ public class PlaylistNavigationManager : MonoBehaviour {
 
     public void BuildPlaylists() {
 
-        // Directory info for the directory containing all the playlist directories
-        var playlistsDir = new DirectoryInfo(playlistsDirectory);
-
-        foreach (var dir in playlistsDir.GetDirectories()) {
+        foreach (var playlist in DataManager.Instance.playlists) {
 
             // Instantiate a new playlist and set the path to its directory
-            Playlist playlist = Instantiate(playlistPrefab) as Playlist;
-            playlist.playlistNavigationManager = this;
+            PlaylistManager playlistManager = Instantiate(playlistPrefab) as PlaylistManager;
+            playlistManager.playlistNavManager = this;
+            playlistManager.playlist = playlist;
+                        
+            playlistManager.name = "Playlist: " + playlist.name;
 
-            // Playlist name
-            var directoryName = dir.Name;
-            var name = directoryName.Replace('_', ' ');
-            playlist.name = "Playlist: " + name;
+            playlistManager.transform.SetParent(transform);            
+            playlistManager.buildList();
 
-            playlist.transform.SetParent(transform);
-            playlist.gamesDirectory = Path.Combine(playlistsDirectory, directoryName);
-            playlist.buildList();
-
-            playlistList.Add(playlist);
+            playlistManagerList.Add(playlistManager);
 
             PlaylistLabel playlistLabel = Instantiate(playlistLabelPrefab) as PlaylistLabel;
             playlistLabel.playlistNavigationManager = this;
             playlistLabel.transform.SetParent (GameObject.Find("PlaylistLabelHolder").transform);          // Place all playlist labels inside this object to insure their placement in hierarchy and thus sorting order
-            playlistLabel.name = "PlaylistLabel: " + name;
-            playlistLabel.initializeName(name);
+            playlistLabel.name = "PlaylistLabel: " + playlist.name;
+            playlistLabel.initializeName(playlist.name);
             playlistLabelList.Add(playlistLabel);
+
+            sortPlaylists();
+        }
+
+        // Check whether there is more than one playlist, if there is only one, deactivate the arrow graphics on either side of the label
+        if (playlistManagerList.Count <= 1) {
+            arrowRight.gameObject.SetActive(false);
+            arrowLeft.gameObject.SetActive(false);
         }
     }
 
-    public void SortPlaylists() {
+    public void sortPlaylists() {
 
         // Sort the playlists (which contain the game labels and screenshots
-        for (int i = 0; i < playlistList.Count; i++) {
+        for (int i = 0; i < playlistManagerList.Count; i++) {
 
             if (i < selectedPlaylistIndex) {
 
                 playlistLabelList[i].move(new Vector3(playlistNamePosition.transform.position.x + (GRID_X_OFFSET_LABEL * (selectedPlaylistIndex - i)), playlistNamePosition.transform.position.y, playlistNamePosition.transform.position.z), new Vector3(smallScale, smallScale, smallScale), tweenTime);
                 playlistLabelList[i].setAlpha(0.5f - (Mathf.Abs(selectedPlaylistIndex - i) * 0.1f));
 
-                playlistList[i].move(new Vector3(transform.position.x + (GRID_X_OFFSET_PLAYLIST * (selectedPlaylistIndex - i)), transform.position.y, transform.position.z), new Vector3(1, 1, 1), tweenTime);
+                playlistManagerList[i].move(new Vector3(transform.position.x + (GRID_X_OFFSET_PLAYLIST * (selectedPlaylistIndex - i)), transform.position.y, transform.position.z), new Vector3(1, 1, 1), tweenTime);
             }
             else if (i == selectedPlaylistIndex) {
 
                 playlistLabelList[i].move(new Vector3(playlistNamePosition.transform.position.x, playlistNamePosition.transform.position.y, playlistNamePosition.transform.position.z), new Vector3(1, 1, 1), tweenTime);
                 playlistLabelList[i].setAlpha(1);
 
-                playlistList[i].move(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(1, 1, 1), tweenTime);
+                playlistManagerList[i].move(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(1, 1, 1), tweenTime);
             }
             else if (i > selectedPlaylistIndex) {
 
                 playlistLabelList[i].move(new Vector3(playlistNamePosition.transform.position.x - (GRID_X_OFFSET_LABEL * (i - selectedPlaylistIndex)), playlistNamePosition.transform.position.y, playlistNamePosition.transform.position.z), new Vector3(smallScale, smallScale, smallScale), tweenTime);
                 playlistLabelList[i].setAlpha(0.5f - (Mathf.Abs(selectedPlaylistIndex - i) * 0.1f));
 
-                playlistList[i].move(new Vector3(transform.position.x - (GRID_X_OFFSET_PLAYLIST * (i - selectedPlaylistIndex)), transform.position.y, transform.position.z), new Vector3(1, 1, 1), tweenTime);
+                playlistManagerList[i].move(new Vector3(transform.position.x - (GRID_X_OFFSET_PLAYLIST * (i - selectedPlaylistIndex)), transform.position.y, transform.position.z), new Vector3(1, 1, 1), tweenTime);
             }
         }
 

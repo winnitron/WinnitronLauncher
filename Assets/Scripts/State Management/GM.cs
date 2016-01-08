@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
+using System.Runtime.InteropServices;
 
 public class GM : Singleton<GM> {
 
@@ -15,9 +17,10 @@ public class GM : Singleton<GM> {
 
 	public float idleTime = 0;
 	public float timeBeforeIdle = 5;
-	
+
 	new void Awake() {
 		Cursor.visible = false;
+		//ResetScreen ();
 		//worldState = WorldState.Launcher;
 	}
 
@@ -34,7 +37,7 @@ public class GM : Singleton<GM> {
 		//Things to do in Attract Mode
 		if(worldState == WorldState.Attract) {
 			//Relaunch launcher if any key is pressed
-			if(Input.anyKey) worldState = WorldState.Launcher;
+			if(Input.anyKeyDown) worldState = WorldState.Launcher;
 		}
 
 		//Things to do in Launcher Mode
@@ -99,4 +102,19 @@ public class GM : Singleton<GM> {
 	static public void ChangeState(WorldState ws) {
 		worldState = ws;
 	}
+
+	/*
+	#if UNITY_STANDALONE_WIN
+	[DllImport("user32.dll", EntryPoint = "SetWindowPos")]
+	private static extern bool SetWindowPos(IntPtr hwnd, int hWndInsertAfter, int x, int Y, int cx, int cy, int wFlags);
+	[DllImport("user32.dll", EntryPoint = "FindWindow")]
+	public static extern IntPtr FindWindow(System.String className, System.String windowName);
+	
+	public static void ResetScreen() {
+
+		//SetWindowPos(FindWindow(null, "WinnitronLauncherOfficial"), 0, 0, 0, Screen.currentResolution.width, Screen.currentResolution.height, 0x0020);
+	}
+	
+	#endif
+	*/
 }

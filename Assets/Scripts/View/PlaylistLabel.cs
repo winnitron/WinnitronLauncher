@@ -26,7 +26,7 @@ public class PlaylistLabel : MonoBehaviour {
 
     public void move(Vector3 pos, Vector3 scale, float tweenTime) {
 
-        if (playlistNavigationManager.moving) {
+        if (playlistNavigationManager.moving && currentTween != null) {
 
             currentTween.destroy();
         }

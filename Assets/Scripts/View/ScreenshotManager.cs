@@ -18,22 +18,21 @@ public class ScreenshotManager : MonoBehaviour {
 
     Image[] screens;
 
-    List<GameImage> imageList;
+    List<GameImage> imageList = new List<GameImage>();
 
     public bool moving { get; set; }
-    public Playlist playlist { get; set; }
+    public PlaylistManager playlistManager { get; set; }
 
 
-    void Start() {
 
-        imageList = new List<GameImage>();
+    public void initialize() {
 
         createScreenshots();
     }
 
     void createScreenshots() {
 
-        foreach (Game game in playlist.gamesList) {
+        foreach (Game game in playlistManager.playlist.games) {
 
             var image = Instantiate(gameImagePrefab) as Image;
             image.sprite = game.screenshot;
