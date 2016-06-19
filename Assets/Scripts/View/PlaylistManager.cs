@@ -80,7 +80,7 @@ public class PlaylistManager : MonoBehaviour {
 
 			waiting = true;
 			StartCoroutine ("wait"); // So that the user can't launch multiple games at once
-			GameObject.Find ("GM").GetComponent<Runner> ().Run (playlist.games [selectedGameIndex]);
+			GM.runner.Run (playlist.games [selectedGameIndex]);
 		} else {
 			Debug.Log ("Not launched.  Waiting...");
 		}

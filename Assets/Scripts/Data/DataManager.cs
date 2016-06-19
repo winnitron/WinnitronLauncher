@@ -12,10 +12,12 @@ public class DataManager : Singleton<DataManager>  {
 	public string attractSubdirectory;
 	public string playlistSubdirectory;
 	public string musicSubdirectory;
+	public string syncSubdirectory;
 
 	private string playlistDirectory;
 	private string musicDirectory;
 	private string attractDirectory;
+	private string syncDirectory;
 
 
     PlaylistNavigationManager playlistNavManager;
@@ -29,10 +31,18 @@ public class DataManager : Singleton<DataManager>  {
 		playlistDirectory = Path.Combine (Application.dataPath, playlistSubdirectory);
 		musicDirectory = Path.Combine (Application.dataPath, musicSubdirectory);
 		attractDirectory = Path.Combine (Application.dataPath, musicSubdirectory);
+		syncDirectory = Path.Combine (Application.dataPath, syncSubdirectory);
 
         playlistNavManager = GameObject.Find("PlaylistNavigationManager").GetComponent<PlaylistNavigationManager>();
 
-		LoadData ();
+		//SyncData ();
+		LoadData();
+	}
+
+	public void SyncData()
+	{
+		//GM.runner.RunSync();
+		LoadData();
 	}
 
 	public void LoadData()

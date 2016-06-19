@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 public class GM : Singleton<GM> {
 
-	public enum WorldState{Intro, Launcher, Attract, Idle};
+	public enum WorldState{Intro, Launcher, Attract, Idle, Sync};
 
 	public static WorldState worldState = WorldState.Intro;
 	private WorldState prevWorldState = WorldState.Launcher;
@@ -14,12 +14,17 @@ public class GM : Singleton<GM> {
 	public StateManager launcher;
 	public StateManager attract;
 	public StateManager idle;
+	public StateManager sync;
+
+	//reference to the 
+	public static Runner runner;
 
 	public float idleTime = 0;
 	public float timeBeforeIdle = 5;
 
 	new void Awake() {
 		Cursor.visible = false;
+		runner = GetComponent<Runner>();
 		//ResetScreen ();
 		//worldState = WorldState.Launcher;
 	}
@@ -33,6 +38,8 @@ public class GM : Singleton<GM> {
 		if (Input.GetKey (KeyCode.Alpha2)) worldState = WorldState.Launcher;
 		if (Input.GetKey (KeyCode.Alpha3)) worldState = WorldState.Attract;
 		if (Input.GetKey (KeyCode.Alpha4)) worldState = WorldState.Idle;
+		if (Input.GetKey (KeyCode.Alpha5)) GM.runner.RunSync();
+		if (Input.GetKey (KeyCode.Alpha6)) worldState = WorldState.Sync;
 
 		//Things to do in Attract Mode
 		if(worldState == WorldState.Attract) {
@@ -66,6 +73,7 @@ public class GM : Singleton<GM> {
 					idle.Deactivate();
 					launcher.Deactivate();
 					attract.Deactivate();
+					sync.Deactivate();
 					Debug.Log ("Intro State");
 				break;
 
@@ -73,6 +81,7 @@ public class GM : Singleton<GM> {
 					intro.Deactivate();
 					idle.Deactivate();
 					launcher.Activate();
+					sync.Deactivate();
 					attract.Deactivate();
 					Debug.Log ("Launcher State");
 				break;
@@ -82,6 +91,7 @@ public class GM : Singleton<GM> {
 					idle.Activate();
 					launcher.Deactivate();
 					attract.Deactivate();
+					sync.Deactivate();
 					Debug.Log ("Idle State");
 				break;
 
@@ -90,7 +100,17 @@ public class GM : Singleton<GM> {
 					idle.Deactivate();
 					launcher.Deactivate();
 					attract.Activate();
+					sync.Deactivate();
 					Debug.Log ("Attract State");
+				break;
+
+				case WorldState.Sync:
+					sync.Activate();
+					intro.Deactivate();
+					idle.Deactivate();
+					launcher.Deactivate();
+					attract.Deactivate();
+					Debug.Log ("Sync State");
 				break;
 
 			}
