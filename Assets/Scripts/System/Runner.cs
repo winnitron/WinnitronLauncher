@@ -19,10 +19,11 @@ public class Runner : MonoBehaviour {
 	public void RunSync() {
 		Process SyncProcess = new Process();
 		SyncProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-		SyncProcess.StartInfo.CreateNoWindow = true;
+		SyncProcess.StartInfo.CreateNoWindow = false;
 		SyncProcess.StartInfo.UseShellExecute = true;
-		SyncProcess.StartInfo.FileName = Path.Combine (Application.dataPath, "Sync") + "\\bin\\winnitron-sync.bat";//"C:\\WINNITRON\\Games\\Canabalt\\Canabalt.exe";
-		UnityEngine.Debug.Log("SYNC: Checking for Sync program in " + Path.Combine (Application.dataPath, "Sync") + "\\bin\\winnitron-sync.bat");
+		//SyncProcess.StartInfo.FileName = Path.Combine (Application.dataPath, "Sync") + "/winnitron-sync.bat";//"C:\\WINNITRON\\Games\\Canabalt\\Canabalt.exe";
+		SyncProcess.StartInfo.FileName = "C:/WINNITRON/Winnitron_Data/Sync/winnitron-sync.bat";
+		UnityEngine.Debug.Log("SYNC: Checking for Sync program in " + Path.Combine (Application.dataPath, "Sync") + "\\node index");
 		SyncProcess.EnableRaisingEvents = true;
 		StartCoroutine(RunSyncProcess(SyncProcess));
 	}

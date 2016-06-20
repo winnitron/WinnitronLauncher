@@ -12,6 +12,8 @@ public class GameLabelManager : MonoBehaviour {
 
     public Text gameLabelPrefab;
     public float GRID_Y_OFFSET = 60;
+	public float distanceFadeRateAboveCenter = 0.15f;
+	public float distanceFadeRateBelowCenter = 0.15f;
 
     public float smallScale;
 
@@ -70,7 +72,7 @@ public class GameLabelManager : MonoBehaviour {
             labelList[index].move(new Vector3(labelAbove.transform.position.x, labelAbove.transform.position.y + (GRID_Y_OFFSET * (startIndex - index)), labelAbove.transform.position.z), new Vector3(smallScale, smallScale, smallScale));
 
 			//Fade Text as they move away from the selection
-			labelList[index].setAlpha(0.5f - (Mathf.Abs (startIndex - index) * 0.1f));
+			labelList[index].setAlpha(0.5f - (Mathf.Abs (startIndex - index) * distanceFadeRateAboveCenter));
             
 			index--;
         }
@@ -84,7 +86,7 @@ public class GameLabelManager : MonoBehaviour {
             labelList[index].move(new Vector3(labelBelow.transform.position.x, labelBelow.transform.position.y - (GRID_Y_OFFSET * (index - startIndex)), labelBelow.transform.position.z), new Vector3(smallScale, smallScale, smallScale));
 
 			//Fade Text as they move away from the selection
-			labelList[index].setAlpha(0.5f - (Mathf.Abs (startIndex - index) * 0.1f));
+			labelList[index].setAlpha(0.5f - (Mathf.Abs (startIndex - index) * distanceFadeRateBelowCenter));
 
             index++;
         }

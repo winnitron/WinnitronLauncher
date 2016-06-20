@@ -73,8 +73,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameLabelPrefab: {fileID: 11400000, guid: ad0f99d7874e5cc45a24082c293c524e, type: 2}
-  GRID_Y_OFFSET: 25
-  smallScale: .5
+  GRID_Y_OFFSET: 6
+  distanceFadeRateAboveCenter: 0.15
+  distanceFadeRateBelowCenter: 0.1
+  smallScale: 0.45
   labelAbove: {fileID: 100014}
   labelSelected: {fileID: 100002}
   labelBelow: {fileID: 100006}
@@ -87,14 +89,15 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22400004}
   m_RootOrder: 1
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -187.940002, y: 0}
-  m_SizeDelta: {x: 198, y: 36.4000015}
-  m_Pivot: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -187.94, y: 0}
+  m_SizeDelta: {x: 198, y: 36.4}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22400002
 RectTransform:
   m_ObjectHideFlags: 1
@@ -104,14 +107,15 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22400004}
   m_RootOrder: 2
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -267.399994, y: -112.300003}
-  m_SizeDelta: {x: 198, y: 36.4000015}
-  m_Pivot: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -267.4, y: -112.3}
+  m_SizeDelta: {x: 198, y: 36.4}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22400004
 RectTransform:
   m_ObjectHideFlags: 1
@@ -121,6 +125,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22400010}
   - {fileID: 22400000}
@@ -131,7 +136,7 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: .5, y: .5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22400010
 RectTransform:
   m_ObjectHideFlags: 1
@@ -141,14 +146,15 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22400004}
   m_RootOrder: 0
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -267.399994, y: 111.300003}
-  m_SizeDelta: {x: 198, y: 36.4000015}
-  m_Pivot: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -267.4, y: 111.3}
+  m_SizeDelta: {x: 198, y: 36.4}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
