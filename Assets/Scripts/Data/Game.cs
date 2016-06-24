@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.IO;
 using System.Collections;
+using SimpleJSON;
 
 [System.Serializable]
 public class Game 
@@ -23,36 +24,75 @@ public class Game
 	{
 		this.directory = new DirectoryInfo (directory);
 
-		BuildGame ();
+		//Check for the Winnitron Metadata JSON, and use oldschool folder naming if it doesn't exist
+		if (System.IO.File.Exists (this.directory + "winnitron_metadata.json")) {
+			BuildGameJSON ();
+		} else {
+			BuildGame ();
+		}
 	}
+
+
+
+
+
+
 
 	//Where the magic happens
 	public void BuildGame()
 	{        
+		this.name = GetGameNameFromFolderName();
+		this.author = null; //No author stuff just yet
+		this.screenshot = GetScreenshot();
+		this.executablePath = GetExecutablePath();
+
+		Debug.Log ("Game Built! Name: " + name + " Screenshot: " + screenshot.name + " exe path: " + executablePath);
+	}
+
+	public void BuildGameJSON()
+	{
+		var J = GM.data.LoadJson (this.directory + "winnitron_metadata.json");
+
+		this.name = J ["name"];
+		this.author = null; //No author stuff just yet
+		this.screenshot = GetScreenshot();
+		this.executablePath = GetExecutablePath();
+
+		Debug.Log ("Game Built JSON! Name: " + name + " Screenshot: " + screenshot.name + " exe path: " + executablePath);
+	}
+
+
+
+
+
+
+	//Private Functions (there's a joke here somewhere)
+
+	private Sprite GetScreenshot()
+	{
+		// Load the screenshot from the games directory as a Texture2D
+		var screenshotTex = new Texture2D(1024, 768);
+		screenshotTex.LoadImage(File.ReadAllBytes(Path.Combine(directory.FullName, directory.Name + ".png")));
+
+		// Turn the Texture2D into a sprite
+		return Sprite.Create(screenshotTex, new Rect(0, 0, screenshotTex.width, screenshotTex.height), new Vector2(0.5f, 0.5f));
+	}
+
+	private string GetExecutablePath()
+	{
+		//Find the .exe in the directory and save a reference
+		return Path.Combine(directory.FullName, directory.Name + ".exe");
+	}
+
+	private string GetGameNameFromFolderName()
+	{
 		//Figure out the name of the game from the directory title
 		var directoryName = directory.Name;
+
 		//Replace the underscores and dashes with blank spaces
 		var name = directoryName.Replace('_', ' ');
 		name = name.Replace('-', ' ');
 
-		//No author stuff just yet
-		string author = null;
-		
-		// Load the screenshot from the games directory as a Texture2D
-		var screenshotTex = new Texture2D(1024, 768);
-		screenshotTex.LoadImage(File.ReadAllBytes(Path.Combine(directory.FullName, directory.Name + ".png")));
-		
-		// Turn the Texture2D into a sprite
-		var screenshot = Sprite.Create(screenshotTex, new Rect(0, 0, screenshotTex.width, screenshotTex.height), new Vector2(0.5f, 0.5f));
-
-		//Find the .exe in the directory and save a reference
-		var executablePath = Path.Combine(directory.FullName, directory.Name + ".exe");
-
-		this.name = name;
-		this.author = author;
-		this.screenshot = screenshot;
-		this.executablePath = executablePath;
-
-		Debug.Log ("Game Built! Name: " + name + " Screenshot: " + screenshot.name + " exe path: " + executablePath);
+		return name;
 	}
 }

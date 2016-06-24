@@ -41,7 +41,6 @@ public class SyncScreenManager : MonoBehaviour {
 		{
 			UpdateSyncText();
 			punctuationDelayCountdown = delayBetweenPunctuation;
-			Debug.Log("new punc!");
 		}
 	}
 

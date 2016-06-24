@@ -18,13 +18,17 @@ public class GM : Singleton<GM> {
 
 	//reference to the 
 	public static Runner runner;
+	public static DataManager data;
 
 	public float idleTime = 0;
 	public float timeBeforeIdle = 5;
 
 	new void Awake() {
 		Cursor.visible = false;
+
 		runner = GetComponent<Runner>();
+		data = GetComponent<DataManager> ();
+
 		//ResetScreen ();
 		//worldState = WorldState.Launcher;
 	}
@@ -34,12 +38,12 @@ public class GM : Singleton<GM> {
 
 		//DEBUG KEYS
 		//Switch states for testing.  These keys aren't used on Winnitrons yet
-		if (Input.GetKey (KeyCode.Alpha1)) worldState = WorldState.Intro;
-		if (Input.GetKey (KeyCode.Alpha2)) worldState = WorldState.Launcher;
-		if (Input.GetKey (KeyCode.Alpha3)) worldState = WorldState.Attract;
-		if (Input.GetKey (KeyCode.Alpha4)) worldState = WorldState.Idle;
-		if (Input.GetKey (KeyCode.Alpha5)) GM.runner.RunSync();
-		if (Input.GetKey (KeyCode.Alpha6)) worldState = WorldState.Sync;
+		if (Input.GetKeyDown (KeyCode.Alpha1)) worldState = WorldState.Intro;
+		if (Input.GetKeyDown (KeyCode.Alpha2)) worldState = WorldState.Launcher;
+		if (Input.GetKeyDown (KeyCode.Alpha3)) worldState = WorldState.Attract;
+		if (Input.GetKeyDown (KeyCode.Alpha4)) worldState = WorldState.Idle;
+		if (Input.GetKeyDown (KeyCode.Alpha5)) GM.runner.RunSync();
+		if (Input.GetKeyDown (KeyCode.Alpha6)) worldState = WorldState.Sync;
 
 		//Things to do in Attract Mode
 		if(worldState == WorldState.Attract) {

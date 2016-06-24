@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using SimpleJSON;
 
 [System.Serializable]
 public class Playlist 
@@ -28,7 +29,17 @@ public class Playlist
 
 		//Let's find all the gamesssss
 		BuildPlaylist();
+
+		//Check for the Winnitron Metadata JSON, and use oldschool folder naming if it doesn't exist
+		if (System.IO.File.Exists (this.directory + "winnitron_metadata.json")) {
+			BuildPlaylistJSON ();
+		} else {
+			BuildPlaylist ();
+		}
 	}
+
+
+
 
 	//Where the magic happens
 	public void BuildPlaylist()
@@ -47,6 +58,11 @@ public class Playlist
 		}   
 
 		Debug.Log ("Playlist Built! : " + name);
+	}
+
+	public void BuildPlaylistJSON()
+	{
+
 	}
 }
 

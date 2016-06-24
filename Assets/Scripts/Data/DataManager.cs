@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using SimpleJSON;
 
 public class DataManager : Singleton<DataManager>  {
 
@@ -92,5 +93,22 @@ public class DataManager : Singleton<DataManager>  {
 	{
 		//For when there are new games added to the list without shutting the launcher down
 		return true;
+	}
+
+	public JSONNode LoadJson(string fileLocation)
+	{
+		string json;
+
+		try
+		{
+			using (StreamReader r = new StreamReader(fileLocation))
+				return r.ReadToEnd();
+		} 
+
+		catch
+		{
+			Debug.LogError ("DATA MANAGER Failed to load JSON at " + fileLocation);
+			return null;
+		}
 	}
 }
