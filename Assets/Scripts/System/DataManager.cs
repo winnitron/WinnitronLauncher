@@ -10,17 +10,6 @@ public class DataManager : Singleton<DataManager>  {
 	public List<Song> songs;
 	public List<Sprite> attractModeImages;
 
-	public string attractSubdirectory;
-	public string playlistSubdirectory;
-	public string musicSubdirectory;
-	public string syncSubdirectory;
-
-	private string playlistDirectory;
-	private string musicDirectory;
-	private string attractDirectory;
-	private string syncDirectory;
-
-
     PlaylistNavigationManager playlistNavManager;
 
 	// Use this for initialization
@@ -28,11 +17,6 @@ public class DataManager : Singleton<DataManager>  {
 		playlists = new List<Playlist> ();
 		songs = new List<Song> ();
 		attractModeImages = new List<Sprite> ();
-
-		playlistDirectory = Path.Combine (Application.dataPath, playlistSubdirectory);
-		musicDirectory = Path.Combine (Application.dataPath, musicSubdirectory);
-		attractDirectory = Path.Combine (Application.dataPath, musicSubdirectory);
-		syncDirectory = Path.Combine (Application.dataPath, syncSubdirectory);
 
         playlistNavManager = GameObject.Find("PlaylistNavigationManager").GetComponent<PlaylistNavigationManager>();
 
@@ -65,7 +49,7 @@ public class DataManager : Singleton<DataManager>  {
 	// Builds a list of Game objects based on the game directory inside its main directory. Then instantiates the GameNavigationManager, which then instantiates the ScreenShotDisplayManager
 	public void GetPlaylists() 
 	{
-		var playlistDir = new DirectoryInfo(playlistDirectory);
+		var playlistDir = new DirectoryInfo(GM.options.playlistsPath);
 		
 		foreach (var dir in playlistDir.GetDirectories()) 
 		{
@@ -102,7 +86,7 @@ public class DataManager : Singleton<DataManager>  {
 		try
 		{
 			using (StreamReader r = new StreamReader(fileLocation))
-				return r.ReadToEnd();
+				return JSONNode.Parse(r.ReadToEnd());
 		} 
 
 		catch

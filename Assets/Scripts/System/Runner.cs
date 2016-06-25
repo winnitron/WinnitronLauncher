@@ -19,15 +19,15 @@ public class Runner : MonoBehaviour {
 	public void RunSync() {
 		Process SyncProcess = new Process();
 		SyncProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-		SyncProcess.StartInfo.FileName = Application.dataPath + "/Sync/winnitron-sync.bat";
+		SyncProcess.StartInfo.FileName = GM.options.syncBat;
 		SyncProcess.StartInfo.UseShellExecute = true;
-		UnityEngine.Debug.Log("SYNC: Checking for Sync program in " + SyncProcess.StartInfo.FileName + " " + SyncProcess.StartInfo.Arguments);
+		UnityEngine.Debug.Log("RUNNER: Checking for Sync program in " + SyncProcess.StartInfo.FileName + " " + SyncProcess.StartInfo.Arguments);
 		StartCoroutine(RunSyncProcess(SyncProcess));
 	}
 
 	IEnumerator RunSyncProcess(Process process) {
 
-		UnityEngine.Debug.Log("SYNC: Running sync program.");
+		UnityEngine.Debug.Log("RUNNER: Running sync program.");
 
 		if (jukebox) jukebox.stop();
 
@@ -35,13 +35,10 @@ public class Runner : MonoBehaviour {
 
 		yield return new WaitForSeconds(1.0f);
 		process.Start();
-		UnityEngine.Debug.Log("SYNC: Sync program started.");
+		UnityEngine.Debug.Log("RUNNER: Sync program started.");
 		process.WaitForExit();
 
-		UnityEngine.Debug.Log("SYNC: Sync program complete!  Do intro.");
-
-		//Screen.SetResolution (1024, 768, true);
-		//GM.ResetScreen();
+		UnityEngine.Debug.Log("RUNNER: Sync program complete!  Do intro.");
 
 		GM.ChangeState(GM.WorldState.Intro);
 		if (jukebox) jukebox.play();
@@ -66,16 +63,18 @@ public class Runner : MonoBehaviour {
 
 		GM.ChangeState(GM.WorldState.Idle);
 		Screen.fullScreen = false;
+
 		//TO DO - stuff that is a transition
 		yield return new WaitForSeconds(1.0f);
-		process.Start();
+        UnityEngine.Debug.Log("RUNNER: Running game " + process.StartInfo.FileName);
+
+        process.Start();
 		process.WaitForExit();
 
-		//Screen.SetResolution (1024, 768, true);
-		//GM.ResetScreen();
+        UnityEngine.Debug.Log("RUNNER: Finished running game " + process.StartInfo.FileName);
 
-		//GM.ChangeState(GM.WorldState.Intro);
-		RunSync();
+        GM.ChangeState(GM.WorldState.Intro);
+
         if (jukebox) jukebox.play();
 	}
 }

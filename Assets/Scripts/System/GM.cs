@@ -19,6 +19,7 @@ public class GM : Singleton<GM> {
 	//reference to the 
 	public static Runner runner;
 	public static DataManager data;
+    public static OptionsManager options;
 
 	public float idleTime = 0;
 	public float timeBeforeIdle = 5;
@@ -28,6 +29,7 @@ public class GM : Singleton<GM> {
 
 		runner = GetComponent<Runner>();
 		data = GetComponent<DataManager> ();
+        options = GetComponent<OptionsManager> ();
 
 		//ResetScreen ();
 		//worldState = WorldState.Launcher;

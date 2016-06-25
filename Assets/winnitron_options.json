@@ -1,0 +1,14 @@
+{
+  "launcher": {
+    "widescreen": "true",
+    "forceMode": "none"
+  },
+  "defaultFolders": {
+    "root": "normal",
+    "playlists": "/Playlists",
+    "music": "/Music",
+	"attract": "/Attract",
+    "sync": "/Sync",
+    "syncBat": "/Sync/bin"
+  }
+}

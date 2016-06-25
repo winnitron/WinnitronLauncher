@@ -11,7 +11,6 @@ public class AttractImgManager :  Singleton<AttractImgManager> {
 	public List<GameObject> attractSprites;
 	public GameObject attractSpritePrefab;
 	
-	private string ATTRACT_SUBDIRECTORY = "Attract";
 	private string attractDirectory;
 
 	public float timePassed = 0;
@@ -21,7 +20,6 @@ public class AttractImgManager :  Singleton<AttractImgManager> {
 	
 	protected override void Awake() {
 		base.Awake();
-		attractDirectory = Path.Combine(Application.dataPath, ATTRACT_SUBDIRECTORY);
 		BuildAttractImagesList();
 		ResetSlides();
 	}
@@ -68,8 +66,9 @@ public class AttractImgManager :  Singleton<AttractImgManager> {
 		attractSprites[slideNum].GetComponent<Animation>().Play();
 	}
 
-	void BuildAttractImagesList() {	
-		var attractDir = new DirectoryInfo(attractDirectory);
+	void BuildAttractImagesList() {
+        Debug.Log("attract " + GM.options.attractPath);
+		var attractDir = new DirectoryInfo(GM.options.attractPath);
 		
 		foreach (var attractImg in attractDir.GetFiles()) {
 			//Make sure only .png's get through!
