@@ -6,20 +6,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class AttractImgManager :  Singleton<AttractImgManager> {
+public class AttractImgManager :  MonoBehaviour {
 
 	public List<GameObject> attractSprites;
 	public GameObject attractSpritePrefab;
-	
-	private string attractDirectory;
 
 	public float timePassed = 0;
 	public int slideNum = 0;
 
 	public bool switchDelay = false;
 	
-	protected override void Awake() {
-		base.Awake();
+	void Start() {
 		BuildAttractImagesList();
 		ResetSlides();
 	}

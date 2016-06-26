@@ -12,7 +12,7 @@ public class GM : Singleton<GM> {
 	public static StateManager state;
 
 	new void Awake() {
-		Cursor.visible = false;
+		//Cursor.visible = false;
 
 		runner = GetComponent<Runner>();
 		data = GetComponent<DataManager> ();
@@ -21,6 +21,18 @@ public class GM : Singleton<GM> {
 
 		//Okay everything is ready, make it go!
 		state.Init();
+	}
+
+
+	//Shortcuts to often used functions in Managers
+	public static void Oops(string o)
+	{
+		state.oops = o;
+	}
+
+	public static string Text(string category, string type)
+	{
+		return options.GetText (category, type);
 	}
 
 

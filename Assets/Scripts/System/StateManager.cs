@@ -4,22 +4,17 @@ using System.Collections.Generic;
 
 public class StateManager : MonoBehaviour {
 
-	public enum WorldState{Intro, Launcher, Attract, Idle, Sync};
+	public enum WorldState{Intro, Launcher, Attract, Idle, Sync, Oops};
 
 	public WorldState worldState = WorldState.Intro;
-
-	/*
-	public State intro;
-	public State launcher;
-	public State attract;
-	public State idle;
-	public State sync;
-	*/
 
 	public List<State> states;
 
 	public float idleTime = 0;
 	public float timeBeforeIdle = 5;
+
+	public OopsScreenController oopsController;
+	public string oops = "";
 
 	public void Init() {
 
@@ -45,6 +40,8 @@ public class StateManager : MonoBehaviour {
 			GM.runner.RunSync ();
 		if (Input.GetKeyDown (KeyCode.Alpha6))
 			worldState = WorldState.Sync;
+		if (Input.GetKeyDown (KeyCode.Alpha7))
+			oops = GM.Text ("error", "test");
 
 		//Things to do in Attract Mode
 		if (worldState == WorldState.Attract) {
@@ -68,6 +65,18 @@ public class StateManager : MonoBehaviour {
 		} else {
 			//Reset idleTime if not in Launcher
 			idleTime = 0;
+		}
+
+
+		//OOPS
+		if (oops != "" && worldState != WorldState.Oops) {
+			Change (WorldState.Oops);
+			oopsController.SetErrorText (oops);
+		}
+
+		if (worldState == WorldState.Oops) {
+			if (Input.GetKeyDown (KeyCode.Q))
+				Application.Quit ();
 		}
 	}
 

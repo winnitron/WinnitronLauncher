@@ -1,7 +1,8 @@
 {
   "launcher": {
     "widescreen": "true",
-    "forceMode": "none"
+    "forceMode": "none",
+	"language": "english"
   },
   "defaultFolders": {
     "root": "normal",

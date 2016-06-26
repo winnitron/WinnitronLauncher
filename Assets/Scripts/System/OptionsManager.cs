@@ -17,11 +17,14 @@ public class OptionsManager : MonoBehaviour {
     public string syncPath = "/Sync";
     public string syncBat = "/Sync/Bin";
 
+	//language
+	public JSONNode language;
+
 	// Use this for initialization
 	void Awake () {
 
         //Load that JSON
-        var O = GM.data.LoadJson(Application.dataPath + "/winnitron_options.json");
+        var O = GM.data.LoadJson(Application.dataPath + "/Options/winnitron_options.json");
 
         //Widescreen
        if (O["launcher"]["widescreen"] == "false") widescreen = false;
@@ -44,5 +47,13 @@ public class OptionsManager : MonoBehaviour {
         Debug.Log("attract " + attractPath);
         syncPath = contentPath + O["defaultFolders"]["sync"];
         syncBat = contentPath + O["defaultFolders"]["syncBat"];
+
+		//Load language file
+		language = GM.data.LoadJson(contentPath + "/Options/winnitron_text_" + O["launcher"]["language"] + ".json");
     }
+
+	public string GetText(string category, string text)
+	{
+		return language[category][text];
+	}
 }

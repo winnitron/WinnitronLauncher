@@ -84,7 +84,7 @@ public class DataManager : Singleton<DataManager>  {
 
 		catch
 		{
-			Debug.LogError ("DATA MANAGER Failed to load JSON at " + fileLocation);
+			GM.Oops (GM.Text("error", "cannotFindJson"));
 			return null;
 		}
 	}
