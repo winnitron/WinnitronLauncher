@@ -49,12 +49,13 @@ public class GM : Singleton<GM> {
 	private static extern bool SetWindowPos(IntPtr hwnd, int hWndInsertAfter, int x, int Y, int cx, int cy, int wFlags);
 	[DllImport("user32.dll", EntryPoint = "FindWindow")]
 	public static extern IntPtr FindWindow(System.String className, System.String windowName);
-	//*/
-	public static void ResetScreen() {
 
+
+	public static void ResetScreen() {
 		SetWindowPos(FindWindow(null, "WinnitronLauncherOfficial"), 0, 0, 0, Screen.currentResolution.width, Screen.currentResolution.height, 0x0020);
 	}
 
 	#endif
+	//*/
 
 }
