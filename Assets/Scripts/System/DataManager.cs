@@ -13,7 +13,7 @@ public class DataManager : Singleton<DataManager>  {
     PlaylistNavigationManager playlistNavManager;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		playlists = new List<Playlist> ();
 		songs = new List<Song> ();
 		attractModeImages = new List<Sprite> ();
@@ -43,7 +43,8 @@ public class DataManager : Singleton<DataManager>  {
         playlistNavManager.BuildPlaylists();
 
 		//Do this when done loading
-		GM.ChangeState (GM.WorldState.Intro);
+
+		GM.state.Change(StateManager.WorldState.Intro);
 	}
 
 	// Builds a list of Game objects based on the game directory inside its main directory. Then instantiates the GameNavigationManager, which then instantiates the ScreenShotDisplayManager

@@ -7,8 +7,8 @@ public class StateSwitcher : MonoBehaviour {
 	public bool switchToLauncher = false;
 
 	void Update() {
-		if(switchToIntro) GM.ChangeState(GM.WorldState.Intro);
-		if(switchToLauncher) GM.ChangeState(GM.WorldState.Launcher);
+		if(switchToIntro) GM.state.Change(StateManager.WorldState.Intro);
+		if(switchToLauncher) GM.state.Change(StateManager.WorldState.Launcher);
 
 		switchToIntro = false;
 		switchToLauncher = false;

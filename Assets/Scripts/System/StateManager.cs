@@ -4,41 +4,77 @@ using System.Collections.Generic;
 
 public class StateManager : MonoBehaviour {
 
-	public List<GameObject> objectsToToggleOnForState;
-	public List<GameObject> objectsToToggleOffForState;
-	public List<Canvas> canvasesToToggleActivation;
+	public enum WorldState{Intro, Launcher, Attract, Idle, Sync};
 
-	//On Activate
-	public List<Animation> animationsToPlayOnStart;
+	public WorldState worldState = WorldState.Intro;
 
-	//On deactivate
-	public List<Animation> animationsToRewind;
+	/*
+	public State intro;
+	public State launcher;
+	public State attract;
+	public State idle;
+	public State sync;
+	*/
 
-	public bool pauseEngine = false;
+	public List<State> states;
 
-	public void Deactivate() {
-		if (pauseEngine) Time.timeScale = 1;
+	public float idleTime = 0;
+	public float timeBeforeIdle = 5;
 
-		foreach(GameObject gameObject in objectsToToggleOnForState) gameObject.SetActive(false);
-		foreach(GameObject gameObject in objectsToToggleOffForState) gameObject.SetActive(true);
-		foreach(Animation anim in animationsToRewind) {
-			Debug.Log (anim + " " + gameObject.name);
-			anim.Stop();
-			anim.Rewind();
-			Debug.Log ("rewinding: " + anim.name);
+	void Update () {
+
+		//DEBUG KEYS
+		//Switch states for testing.  These keys aren't used on Winnitrons yet
+		if (Input.GetKeyDown (KeyCode.Alpha1))
+			worldState = WorldState.Intro;
+		if (Input.GetKeyDown (KeyCode.Alpha2))
+			worldState = WorldState.Launcher;
+		if (Input.GetKeyDown (KeyCode.Alpha3))
+			worldState = WorldState.Attract;
+		if (Input.GetKeyDown (KeyCode.Alpha4))
+			worldState = WorldState.Idle;
+		if (Input.GetKeyDown (KeyCode.Alpha5))
+			GM.runner.RunSync ();
+		if (Input.GetKeyDown (KeyCode.Alpha6))
+			worldState = WorldState.Sync;
+
+		//Things to do in Attract Mode
+		if (worldState == WorldState.Attract) {
+			//Relaunch launcher if any key is pressed
+			if (Input.anyKeyDown)
+				worldState = WorldState.Launcher;
 		}
-		foreach (Canvas canvas in canvasesToToggleActivation) {
-			Debug.Log ("deactivating: " + canvas.name);
-			canvas.enabled = false;
+
+		//Things to do in Launcher Mode
+		if (worldState == WorldState.Launcher) {
+			//Increase idle time
+			idleTime += Time.deltaTime;
+
+			//Reset idle time if a key is pressed
+			if (Input.anyKey)
+				idleTime = 0;
+
+			//Go into Attract mode is key isn't pressed for a while
+			if (idleTime > timeBeforeIdle)
+				worldState = WorldState.Attract;
+		} else {
+			//Reset idleTime if not in Launcher
+			idleTime = 0;
 		}
 	}
 
-	public void Activate() {
-		foreach(Animation anim in animationsToPlayOnStart) anim.Play();
-		foreach(Canvas canvas in canvasesToToggleActivation) canvas.enabled = true;
-		foreach(GameObject gameObject in objectsToToggleOnForState) gameObject.SetActive(true);
-		foreach(GameObject gameObject in objectsToToggleOffForState) gameObject.SetActive(false);
+	//Changes the worldstate
+	public void Change(WorldState newState) {
 
-		if (pauseEngine) Time.timeScale = 0;
+		foreach (var state in states) {
+			if (newState == state.worldState) {
+				state.Activate ();
+				worldState = state.worldState;
+			}
+			else
+				state.Deactivate ();
+		}
+
+		Debug.Log ("STATE: new state is " + worldState);
 	}
 }

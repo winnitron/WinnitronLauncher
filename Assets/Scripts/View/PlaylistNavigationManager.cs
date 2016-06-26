@@ -53,7 +53,7 @@ public class PlaylistNavigationManager : MonoBehaviour {
 
     void Update() {
         
-        if (!loading && GM.worldState == GM.WorldState.Launcher) {
+		if (!loading && GM.state.worldState == StateManager.WorldState.Launcher) {
 		
 	            // Cycle horizontally through playlists
                  if (playlistManagerList.Count > 1 && Input.GetKeyDown(KeyCode.RightArrow)) {

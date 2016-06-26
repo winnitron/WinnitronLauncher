@@ -25,7 +25,8 @@ public class AttractImgManager :  Singleton<AttractImgManager> {
 	}
 
 	void Update() {
-		if (GM.worldState == GM.WorldState.Attract) {
+		
+		if (GM.state.worldState == StateManager.WorldState.Attract) {
 			if(timePassed == 0) {
 				Debug.Log ("hey!  first time running attract");
 				slideNum = -1;

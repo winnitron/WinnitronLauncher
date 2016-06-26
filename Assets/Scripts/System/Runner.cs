@@ -31,7 +31,7 @@ public class Runner : MonoBehaviour {
 
 		if (jukebox) jukebox.stop();
 
-		GM.ChangeState(GM.WorldState.Sync);
+		GM.state.Change(StateManager.WorldState.Sync);
 
 		yield return new WaitForSeconds(1.0f);
 		process.Start();
@@ -40,7 +40,7 @@ public class Runner : MonoBehaviour {
 
 		UnityEngine.Debug.Log("RUNNER: Sync program complete!  Do intro.");
 
-		GM.ChangeState(GM.WorldState.Intro);
+		GM.state.Change(StateManager.WorldState.Intro);
 		if (jukebox) jukebox.play();
 	}
 
@@ -61,7 +61,7 @@ public class Runner : MonoBehaviour {
         
 		if (jukebox) jukebox.stop();
 
-		GM.ChangeState(GM.WorldState.Idle);
+		GM.state.Change(StateManager.WorldState.Idle);
 		Screen.fullScreen = false;
 
 		//TO DO - stuff that is a transition
@@ -73,7 +73,7 @@ public class Runner : MonoBehaviour {
 
         UnityEngine.Debug.Log("RUNNER: Finished running game " + process.StartInfo.FileName);
 
-        GM.ChangeState(GM.WorldState.Intro);
+		GM.state.Change(StateManager.WorldState.Intro);
 
         if (jukebox) jukebox.play();
 	}
