@@ -21,6 +21,14 @@ public class StateManager : MonoBehaviour {
 	public float idleTime = 0;
 	public float timeBeforeIdle = 5;
 
+	public void Init() {
+
+		foreach (State state in states) 
+			state.gameObject.SetActive (true);
+
+		Change (WorldState.Intro);
+	}
+
 	void Update () {
 
 		//DEBUG KEYS
@@ -68,6 +76,7 @@ public class StateManager : MonoBehaviour {
 
 		foreach (var state in states) {
 			if (newState == state.worldState) {
+				Debug.Log ("STATE: activating state " + state.worldState);
 				state.Activate ();
 				worldState = state.worldState;
 			}

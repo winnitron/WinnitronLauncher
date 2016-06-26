@@ -49,6 +49,8 @@ public class PlaylistNavigationManager : MonoBehaviour {
 
         playlistManagerList = new List<PlaylistManager>();
         StartCoroutine("waitForLoad");
+
+		GM.data.LoadData ();
     }
 
     void Update() {

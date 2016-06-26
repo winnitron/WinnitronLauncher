@@ -18,7 +18,7 @@ public class OptionsManager : MonoBehaviour {
     public string syncBat = "/Sync/Bin";
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 
         //Load that JSON
         var O = GM.data.LoadJson(Application.dataPath + "/winnitron_options.json");

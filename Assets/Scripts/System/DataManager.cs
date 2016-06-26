@@ -13,26 +13,20 @@ public class DataManager : Singleton<DataManager>  {
     PlaylistNavigationManager playlistNavManager;
 
 	// Use this for initialization
-	void Awake () {
+	void Start () {
 		playlists = new List<Playlist> ();
 		songs = new List<Song> ();
 		attractModeImages = new List<Sprite> ();
-
-        playlistNavManager = GameObject.Find("PlaylistNavigationManager").GetComponent<PlaylistNavigationManager>();
-
-		//SyncData ();
-		LoadData();
 	}
 
 	public void SyncData()
 	{
-		//GM.runner.RunSync();
-		LoadData();
+		GM.runner.RunSync();
 	}
 
 	public void LoadData()
 	{
-		//GM.Load ();
+		playlistNavManager = GameObject.Find("PlaylistNavigationManager").GetComponent<PlaylistNavigationManager>();
 
 		//Load everything!
 		GetPlaylists ();
@@ -82,8 +76,6 @@ public class DataManager : Singleton<DataManager>  {
 
 	public JSONNode LoadJson(string fileLocation)
 	{
-		string json;
-
 		try
 		{
 			using (StreamReader r = new StreamReader(fileLocation))

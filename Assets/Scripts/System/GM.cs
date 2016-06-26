@@ -17,7 +17,10 @@ public class GM : Singleton<GM> {
 		runner = GetComponent<Runner>();
 		data = GetComponent<DataManager> ();
         options = GetComponent<OptionsManager> ();
+		state = GetComponent<StateManager> ();
 
+		//Okay everything is ready, make it go!
+		state.Init();
 	}
 
 
