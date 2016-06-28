@@ -3,13 +3,13 @@ using System.Collections;
 
 public class Dbug {
 	
-	public static bool isOn = false;
+	public bool globalOn = false;
 
-	public static void Log(string x) 
+	public void Log(string x) 
 	{
-		if(isOn) Debug.Log(x);
+		if(globalOn) Debug.Log(x);
 	}
 
-	public static void On() { isOn = true; }
-	public static void Off() { isOn = false; }
+	public void On() { globalOn = true; }
+	public void Off() { globalOn = false; }
 }

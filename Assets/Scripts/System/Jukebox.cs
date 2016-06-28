@@ -10,6 +10,8 @@ public class Jukebox : MonoBehaviour {
 
     public bool on;
 
+    public bool suppressDebug;
+
     public Text artistName;
     public Text songName;
 	
@@ -17,21 +19,21 @@ public class Jukebox : MonoBehaviour {
 
     private int currentTrack;
 
-	private string SONG_SUBDIRECTORY = "Music";
-	private string songDirectory;
-
 	private bool doneLoading = false;
 	private AudioSource source;
 
 	protected void Awake() {
 		source = gameObject.GetComponent<AudioSource> ();
-		songDirectory = Path.Combine(Application.dataPath, SONG_SUBDIRECTORY);
-		Debug.Log ("Getting Song Subdirectory as " + songDirectory);
-		BuildSongList();
+        StartCoroutine("Init");
 	}
 
-    void Init() {
-		Debug.Log ("Initializing jukebox.");
+    IEnumerator Init() {
+
+        //Don't do anything until the paths have come through
+        while (GM.options.initializing) yield return null;
+
+        if (!suppressDebug) Debug.Log("JUKEBOX: Initializing...");
+        BuildSongList();
 
 		nextTrack ();
 
@@ -62,8 +64,6 @@ public class Jukebox : MonoBehaviour {
 	        // Check for song end
 	        if (!source.isPlaying && on)
 	            nextTrack();
-
-			//Debug.Log ("Jukebox is playing: " + source.isPlaying);
 		}
     }
 
@@ -118,18 +118,18 @@ public class Jukebox : MonoBehaviour {
 	void BuildSongList()
 	{
 		// get all valid files
-		var info = new DirectoryInfo(songDirectory);
+		var info = new DirectoryInfo(GM.options.musicPath);
 		var songFiles = info.GetFiles();
 
-		Debug.Log("JUKEBOX: Started Loading Song Files.");
+        if (!suppressDebug) Debug.Log("JUKEBOX: Started Loading Song Files.");
 
 		foreach(var song in songFiles)
 		{
 			var fileExt = song.FullName.Substring(Math.Max(0, song.FullName.Length - 4));
-			Debug.Log ("JUKEBOX: song extension is " + fileExt);
+            if (!suppressDebug) Debug.Log ("JUKEBOX: song extension is " + fileExt);
 
-			if(song.Name.Substring(0, 1) != "." && fileExt == ".ogg") { 
-				Debug.Log ("JUKEBOX: Started loading " + song.FullName);
+			if(song.Name.Substring(0, 1) != "." && fileExt == ".ogg") {
+                if (!suppressDebug) Debug.Log ("JUKEBOX: Started loading " + song.FullName);
 
 				WWW audioLoader = new WWW("file://" + song.FullName);
 
@@ -146,15 +146,13 @@ public class Jukebox : MonoBehaviour {
 				var name = words[0];
 				var author = words[1];
 
-				//We're done!
-				Debug.Log ("JUKEBOX: Can load song: " + audioLoader.GetAudioClip(false));
+                //We're done!
+                if (!suppressDebug) Debug.Log ("JUKEBOX: Can load song: " + audioLoader.GetAudioClip(false));
 				songs.Add(new Song(name, author, audioLoader.GetAudioClip(false)));
-				Debug.Log ("JUKEBOX: Done loading " + song.FullName);
+                if (!suppressDebug) Debug.Log ("JUKEBOX: Done loading " + song.FullName);
 			} else {
-				Debug.Log ("JUKEBOX: Skipped " + song.FullName + " // not and .ogg");
+                if (!suppressDebug) Debug.Log ("JUKEBOX: Skipped " + song.FullName + " // not and .ogg");
 			}
 		} 
-
-		Init ();
 	}
 }

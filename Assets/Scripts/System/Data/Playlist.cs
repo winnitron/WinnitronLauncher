@@ -27,9 +27,6 @@ public class Playlist
 		//Init the games list
 		this.games = new List<Game>();
 
-		//Let's find all the gamesssss
-		BuildPlaylist();
-
 		//Check for the Winnitron Metadata JSON, and use oldschool folder naming if it doesn't exist
 		if (System.IO.File.Exists (this.directory + "winnitron_metadata.json")) {
 			BuildPlaylistJSON ();

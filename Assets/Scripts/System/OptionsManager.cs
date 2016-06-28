@@ -9,6 +9,8 @@ public class OptionsManager : MonoBehaviour {
     public enum ForceMode {LOCALONLY, REMOTEONLY, NONE};
     public ForceMode forceMode = ForceMode.NONE;
 
+    public bool initializing = true;
+
     //Default Folders
     public string contentPath = "c:/WINNITRON/Winnitron_Data";
     public string playlistsPath = "/Playlists";
@@ -50,6 +52,8 @@ public class OptionsManager : MonoBehaviour {
 
 		//Load language file
 		language = GM.data.LoadJson(contentPath + "/Options/winnitron_text_" + O["launcher"]["language"] + ".json");
+
+        initializing = false;
     }
 
 	public string GetText(string category, string text)

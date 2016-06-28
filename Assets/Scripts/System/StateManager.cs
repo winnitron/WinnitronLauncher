@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class StateManager : MonoBehaviour {
 
+    public bool suppressDebug;
+
 	public enum WorldState{Intro, Launcher, Attract, Idle, Sync, Oops};
 
 	public WorldState worldState = WorldState.Intro;
@@ -16,7 +18,14 @@ public class StateManager : MonoBehaviour {
 	public OopsScreenController oopsController;
 	public string oops = "";
 
-	public void Init() {
+    void Awake()
+    {
+        StartCoroutine("Init");
+    }
+
+	IEnumerator Init() {
+        //Wait for options script to get all the folders before continuing
+        while (GM.options.initializing) yield return null;
 
 		foreach (State state in states) 
 			state.gameObject.SetActive (true);
@@ -93,6 +102,6 @@ public class StateManager : MonoBehaviour {
 				state.Deactivate ();
 		}
 
-		Debug.Log ("STATE: new state is " + worldState);
+        Debug.Log ("STATE: new state is " + worldState);
 	}
 }
