@@ -25,7 +25,7 @@ public class AttractImgManager :  MonoBehaviour {
 		
 		if (GM.state.worldState == StateManager.WorldState.Attract) {
 			if(timePassed == 0) {
-				Debug.Log ("hey!  first time running attract");
+				GM.dbug.Log(this, "hey!  first time running attract");
 				slideNum = -1;
 				NextSlide();
 			}
@@ -54,7 +54,7 @@ public class AttractImgManager :  MonoBehaviour {
 
 		slideNum += 1;
 
-		Debug.Log ("Calling Next Slide: " + slideNum + " of " + attractSprites.Count);
+		GM.dbug.Log(this, "Calling Next Slide: " + slideNum + " of " + attractSprites.Count);
 
 		if (slideNum > attractSprites.Count - 1) slideNum = 0;
 
@@ -65,16 +65,16 @@ public class AttractImgManager :  MonoBehaviour {
 	}
 
 	void BuildAttractImagesList() {
-        Debug.Log("attract " + GM.options.attractPath);
+        GM.dbug.Log(this, "attract " + GM.options.attractPath);
 		var attractDir = new DirectoryInfo(GM.options.attractPath);
 		
 		foreach (var attractImg in attractDir.GetFiles()) {
 			//Make sure only .png's get through!
-			Debug.Log ("Loading image with ending: " + attractImg.FullName.Substring(Math.Max(0, attractImg.FullName.Length - 4)) == ".png");
+			GM.dbug.Log(this, "Loading image with ending: " + attractImg.FullName.Substring(Math.Max(0, attractImg.FullName.Length - 4)) + ".png");
 			if(attractImg.FullName.Substring(Math.Max(0, attractImg.FullName.Length - 4)) == ".png") {
 				GameObject newImgObj = Instantiate(attractSpritePrefab, new Vector3(0, -36.52403f, 0), transform.rotation) as GameObject; 
 
-				Debug.Log("Load Attract Image: " + attractImg);
+				GM.dbug.Log(this, "Load Attract Image: " + attractImg);
 				// Load the screenshot from the games directory as a Texture2D
 				var screenshot = new Texture2D(1024, 768);
 				screenshot.LoadImage(File.ReadAllBytes(attractImg.FullName));

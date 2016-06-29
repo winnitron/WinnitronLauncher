@@ -21,13 +21,13 @@ public class Runner : MonoBehaviour {
 		SyncProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
 		SyncProcess.StartInfo.FileName = GM.options.syncBat;
 		SyncProcess.StartInfo.UseShellExecute = true;
-		UnityEngine.Debug.Log("RUNNER: Checking for Sync program in " + SyncProcess.StartInfo.FileName + " " + SyncProcess.StartInfo.Arguments);
+		GM.dbug.Log(this, "RUNNER: Checking for Sync program in " + SyncProcess.StartInfo.FileName + " " + SyncProcess.StartInfo.Arguments);
 		StartCoroutine(RunSyncProcess(SyncProcess));
 	}
 
 	IEnumerator RunSyncProcess(Process process) {
 
-		UnityEngine.Debug.Log("RUNNER: Running sync program.");
+		GM.dbug.Log(this, "RUNNER: Running sync program.");
 
 		if (jukebox) jukebox.stop();
 
@@ -35,10 +35,10 @@ public class Runner : MonoBehaviour {
 
 		yield return new WaitForSeconds(1.0f);
 		process.Start();
-		UnityEngine.Debug.Log("RUNNER: Sync program started.");
+		GM.dbug.Log(this, "RUNNER: Sync program started.");
 		process.WaitForExit();
 
-		UnityEngine.Debug.Log("RUNNER: Sync program complete!  Do intro.");
+		GM.dbug.Log(this, "RUNNER: Sync program complete!  Do intro.");
 
 		GM.state.Change(StateManager.WorldState.Intro);
 		if (jukebox) jukebox.play();
@@ -66,12 +66,12 @@ public class Runner : MonoBehaviour {
 
 		//TO DO - stuff that is a transition
 		yield return new WaitForSeconds(1.0f);
-        UnityEngine.Debug.Log("RUNNER: Running game " + process.StartInfo.FileName);
+        GM.dbug.Log(this, "RUNNER: Running game " + process.StartInfo.FileName);
 
         process.Start();
 		process.WaitForExit();
 
-        UnityEngine.Debug.Log("RUNNER: Finished running game " + process.StartInfo.FileName);
+        GM.dbug.Log(this, "RUNNER: Finished running game " + process.StartInfo.FileName);
 
 		GM.state.Change(StateManager.WorldState.Intro);
 

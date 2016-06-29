@@ -46,7 +46,7 @@ public class OptionsManager : MonoBehaviour {
         playlistsPath = contentPath + O["defaultFolders"]["playlists"];
         musicPath = contentPath + O["defaultFolders"]["music"];
         attractPath = contentPath + O["defaultFolders"]["attract"];
-        Debug.Log("attract " + attractPath);
+        GM.dbug.Log(this, "attract " + attractPath);
         syncPath = contentPath + O["defaultFolders"]["sync"];
         syncBat = contentPath + O["defaultFolders"]["syncBat"];
 

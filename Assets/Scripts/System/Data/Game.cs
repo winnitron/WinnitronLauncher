@@ -4,12 +4,12 @@ using System.Collections;
 using SimpleJSON;
 
 [System.Serializable]
-public class Game 
+public class Game: Object
 {
 
 	public DirectoryInfo directory;
 
-	public string name;
+	public new string name;
 	public string author;
 	public Sprite screenshot;
 	public string executablePath;
@@ -46,7 +46,7 @@ public class Game
 		this.screenshot = GetScreenshot();
 		this.executablePath = GetExecutablePath();
 
-		Debug.Log ("Game Built! Name: " + name + " Screenshot: " + screenshot.name + " exe path: " + executablePath);
+		GM.dbug.Log(this, "Game Built! Name: " + name + " Screenshot: " + screenshot.name + " exe path: " + executablePath);
 	}
 
 	public void BuildGameJSON()
@@ -58,7 +58,7 @@ public class Game
 		this.screenshot = GetScreenshot();
 		this.executablePath = GetExecutablePath();
 
-		Debug.Log ("Game Built JSON! Name: " + name + " Screenshot: " + screenshot.name + " exe path: " + executablePath);
+		GM.dbug.Log(this, "Game Built JSON! Name: " + name + " Screenshot: " + screenshot.name + " exe path: " + executablePath);
 	}
 
 

@@ -74,7 +74,7 @@ public class PlaylistManager : MonoBehaviour {
 
     public void selectGame() {
 
-		Debug.Log ("PlaylistManager: Trying to launch " + playlist.games[selectedGameIndex].name);
+		GM.dbug.Log(this, "PlaylistManager: Trying to launch " + playlist.games[selectedGameIndex].name);
 
         if (!waiting) {
 
@@ -82,7 +82,7 @@ public class PlaylistManager : MonoBehaviour {
 			StartCoroutine ("wait"); // So that the user can't launch multiple games at once
 			GM.runner.Run (playlist.games [selectedGameIndex]);
 		} else {
-			Debug.Log ("Not launched.  Waiting...");
+			GM.dbug.Log(this, "Not launched.  Waiting...");
 		}
     }
 

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using SimpleJSON;
 
 [System.Serializable]
-public class Playlist 
+public class Playlist : Object
 {
-	public string name;
+	public new string name;
 	public DirectoryInfo directory;
 	public List<Game> games;
 
@@ -54,7 +54,7 @@ public class Playlist
 			}
 		}   
 
-		Debug.Log ("Playlist Built! : " + name);
+		GM.dbug.Log(this, "Playlist Built! : " + name);
 	}
 
 	public void BuildPlaylistJSON()

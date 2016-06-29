@@ -10,6 +10,7 @@ public class GM : Singleton<GM> {
 	public static DataManager data;
     public static OptionsManager options;
 	public static StateManager state;
+    public static Dbug dbug;
 
 	new void Awake() {
 		//Cursor.visible = false;
@@ -18,6 +19,7 @@ public class GM : Singleton<GM> {
 		data = GetComponent<DataManager> ();
         options = GetComponent<OptionsManager> ();
 		state = GetComponent<StateManager> ();
+        dbug = GetComponent<Dbug>();
 	}
 
 

@@ -94,7 +94,7 @@ public class StateManager : MonoBehaviour {
 
 		foreach (var state in states) {
 			if (newState == state.worldState) {
-				Debug.Log ("STATE: activating state " + state.worldState);
+				GM.dbug.Log (this, "STATE: activating state " + state.worldState);
 				state.Activate ();
 				worldState = state.worldState;
 			}
@@ -102,6 +102,6 @@ public class StateManager : MonoBehaviour {
 				state.Deactivate ();
 		}
 
-        Debug.Log ("STATE: new state is " + worldState);
+        GM.dbug.Log(this, "STATE: new state is " + worldState);
 	}
 }

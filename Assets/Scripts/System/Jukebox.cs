@@ -32,7 +32,7 @@ public class Jukebox : MonoBehaviour {
         //Don't do anything until the paths have come through
         while (GM.options.initializing) yield return null;
 
-        if (!suppressDebug) Debug.Log("JUKEBOX: Initializing...");
+        if (!suppressDebug) GM.dbug.Log(this, "JUKEBOX: Initializing...");
         BuildSongList();
 
 		nextTrack ();
@@ -121,15 +121,15 @@ public class Jukebox : MonoBehaviour {
 		var info = new DirectoryInfo(GM.options.musicPath);
 		var songFiles = info.GetFiles();
 
-        if (!suppressDebug) Debug.Log("JUKEBOX: Started Loading Song Files.");
+        if (!suppressDebug) GM.dbug.Log(this, "JUKEBOX: Started Loading Song Files.");
 
 		foreach(var song in songFiles)
 		{
 			var fileExt = song.FullName.Substring(Math.Max(0, song.FullName.Length - 4));
-            if (!suppressDebug) Debug.Log ("JUKEBOX: song extension is " + fileExt);
+            if (!suppressDebug) GM.dbug.Log(this, "JUKEBOX: song extension is " + fileExt);
 
 			if(song.Name.Substring(0, 1) != "." && fileExt == ".ogg") {
-                if (!suppressDebug) Debug.Log ("JUKEBOX: Started loading " + song.FullName);
+                if (!suppressDebug) GM.dbug.Log(this, "JUKEBOX: Started loading " + song.FullName);
 
 				WWW audioLoader = new WWW("file://" + song.FullName);
 
@@ -147,11 +147,11 @@ public class Jukebox : MonoBehaviour {
 				var author = words[1];
 
                 //We're done!
-                if (!suppressDebug) Debug.Log ("JUKEBOX: Can load song: " + audioLoader.GetAudioClip(false));
+                if (!suppressDebug) GM.dbug.Log(this, "JUKEBOX: Can load song: " + audioLoader.GetAudioClip(false));
 				songs.Add(new Song(name, author, audioLoader.GetAudioClip(false)));
-                if (!suppressDebug) Debug.Log ("JUKEBOX: Done loading " + song.FullName);
+                if (!suppressDebug) GM.dbug.Log(this, "JUKEBOX: Done loading " + song.FullName);
 			} else {
-                if (!suppressDebug) Debug.Log ("JUKEBOX: Skipped " + song.FullName + " // not and .ogg");
+                if (!suppressDebug) GM.dbug.Log(this, "JUKEBOX: Skipped " + song.FullName + " // not and .ogg");
 			}
 		} 
 	}
