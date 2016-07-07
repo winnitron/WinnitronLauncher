@@ -103,5 +103,7 @@ public class StateManager : MonoBehaviour {
 		}
 
         GM.dbug.Log(this, "STATE: new state is " + worldState);
+
+        GM.ResetScreen();
 	}
 }

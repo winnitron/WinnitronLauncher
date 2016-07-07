@@ -17,7 +17,7 @@ public class OptionsManager : MonoBehaviour {
     public string musicPath = "/Music";
     public string attractPath = "/Attract";
     public string syncPath = "/Sync";
-    public string syncBat = "/Sync/Bin";
+    public string syncExe = "/sync.exe";
 
 	//language
 	public JSONNode language;
@@ -43,15 +43,46 @@ public class OptionsManager : MonoBehaviour {
         if (path == "normal") contentPath = Application.dataPath;
         else contentPath = O["defaultFolders"]["root"];
 
-        playlistsPath = contentPath + O["defaultFolders"]["playlists"];
-        musicPath = contentPath + O["defaultFolders"]["music"];
-        attractPath = contentPath + O["defaultFolders"]["attract"];
-        GM.dbug.Log(this, "attract " + attractPath);
-        syncPath = contentPath + O["defaultFolders"]["sync"];
-        syncBat = contentPath + O["defaultFolders"]["syncBat"];
+        GM.dbug.Log(this, "OPTIONS: Root path for content is " + contentPath);
 
-		//Load language file
-		language = GM.data.LoadJson(contentPath + "/Options/winnitron_text_" + O["launcher"]["language"] + ".json");
+        //Find playlists path
+        //Checks for a ":" to see if it's a absolute or relative path
+        path = O["defaultFolders"]["playlists"];
+        if (path.Contains(":")) playlistsPath = path;   //absolute
+        playlistsPath = contentPath + path;             //relative
+
+        GM.dbug.Log(this, "OPTIONS: Playlists path is: " + playlistsPath);
+
+        //Find music path
+        path = O["defaultFolders"]["music"];
+        if (path.Contains(":")) musicPath = path;
+        else musicPath = contentPath + path;
+
+        GM.dbug.Log(this, "OPTIONS: Music path is " + musicPath);
+
+        //Find attract path
+        path = O["defaultFolders"]["attract"];
+        if (path.Contains(":")) attractPath = path;
+        else attractPath = contentPath + O["defaultFolders"]["attract"];
+
+        GM.dbug.Log(this, "OPTIONS: Attract path is " + attractPath);
+
+        //Find Sync Exe Path
+        path = O["defaultFolders"]["sync"];
+        if (path.Contains(":")) syncPath = path;
+        else syncPath = contentPath + path;
+
+        GM.dbug.Log(this, "OPTIONS: Sync path is " + syncPath);
+
+        //Find Sync Exe Path
+        path = O["defaultFolders"]["syncExe"];
+        if (path.Contains(":")) syncExe = path;
+        else syncExe = syncPath + path;
+
+        GM.dbug.Log(this, "OPTIONS: Sync exe is " + syncExe);
+
+        //Load language file
+        language = GM.data.LoadJson(contentPath + "/Options/winnitron_text_" + O["launcher"]["language"] + ".json");
 
         initializing = false;
     }

@@ -20,6 +20,9 @@ public class GM : Singleton<GM> {
         options = GetComponent<OptionsManager> ();
 		state = GetComponent<StateManager> ();
         dbug = GetComponent<Dbug>();
+
+        //Do Windows window management shizzle
+        ResetScreen();
 	}
 
 
@@ -48,13 +51,19 @@ public class GM : Singleton<GM> {
 	private static extern bool SetWindowPos(IntPtr hwnd, int hWndInsertAfter, int x, int Y, int cx, int cy, int wFlags);
 	[DllImport("user32.dll", EntryPoint = "FindWindow")]
 	public static extern IntPtr FindWindow(System.String className, System.String windowName);
+    [DllImport("user32.dll", EntryPoint = "SetWindowLong")]
+    public static extern long SetWindowLong(long hwnd, long nIndex, long dwNewLong);
 
 
-	public static void ResetScreen() {
-		SetWindowPos(FindWindow(null, "WinnitronLauncherOfficial"), 0, 0, 0, Screen.currentResolution.width, Screen.currentResolution.height, 0x0020);
-	}
+    public static void ResetScreen() {
+        //SetWindowLong(FindWindow(null, Application.productName).ToInt32(), -16L, 0x00800000L);
+        //SetWindowPos(FindWindow(null, Application.productName), 0, 0, 0, Screen.currentResolution.width, Screen.currentResolution.height, 0x0020);
+        Screen.fullScreen = true;
+    }
 
-	#endif
-	//*/
+
+
+#endif
+    //*/
 
 }

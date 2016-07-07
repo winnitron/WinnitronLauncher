@@ -18,10 +18,12 @@ public class Runner : MonoBehaviour {
 
 	public void RunSync() {
 		Process SyncProcess = new Process();
-		SyncProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-		SyncProcess.StartInfo.FileName = GM.options.syncBat;
+		//SyncProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
+		SyncProcess.StartInfo.FileName = GM.options.syncExe;
 		SyncProcess.StartInfo.UseShellExecute = true;
-		GM.dbug.Log(this, "RUNNER: Checking for Sync program in " + SyncProcess.StartInfo.FileName + " " + SyncProcess.StartInfo.Arguments);
+        SyncProcess.StartInfo.CreateNoWindow = true;
+        SyncProcess.StartInfo.WorkingDirectory = GM.options.syncPath;
+		GM.dbug.Log(this, "RUNNER: Checking for Sync program in " + SyncProcess.StartInfo.FileName);
 		StartCoroutine(RunSyncProcess(SyncProcess));
 	}
 

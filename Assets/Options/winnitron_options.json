@@ -10,6 +10,6 @@
     "music": "/Music",
 	"attract": "/Attract",
     "sync": "/Sync",
-    "syncBat": "/Sync/bin"
+    "syncExe": "/Sync/sync.exe"
   }
 }
