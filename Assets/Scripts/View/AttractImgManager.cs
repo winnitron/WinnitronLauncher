@@ -25,7 +25,7 @@ public class AttractImgManager :  MonoBehaviour {
 		
 		if (GM.state.worldState == StateManager.WorldState.Attract) {
 			if(timePassed == 0) {
-				GM.dbug.Log(this, "hey!  first time running attract");
+				// GM.dbug.Log(this, "hey!  first time running attract");
 				slideNum = -1;
 				NextSlide();
 			}
@@ -54,7 +54,7 @@ public class AttractImgManager :  MonoBehaviour {
 
 		slideNum += 1;
 
-		GM.dbug.Log(this, "Calling Next Slide: " + slideNum + " of " + attractSprites.Count);
+		// GM.dbug.Log(this, "Calling Next Slide: " + slideNum + " of " + attractSprites.Count);
 
 		if (slideNum > attractSprites.Count - 1) slideNum = 0;
 
