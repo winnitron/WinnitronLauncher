@@ -9,47 +9,17 @@ public class Runner : MonoBehaviour {
     
     Jukebox jukebox;
 
-    void Awake() {
-
+    void Awake()
+    {
+        //Not 100% sure why the jukebox is here. :S
         if (GameObject.Find("Jukebox"))
             jukebox = GameObject.Find("Jukebox").GetComponent<Jukebox>();
-		
     }
 
-	public void RunSync() {
-        /*
-		Process SyncProcess = new Process();
-		//SyncProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
-		SyncProcess.StartInfo.FileName = GM.options.syncExe;
-		SyncProcess.StartInfo.UseShellExecute = true;
-        SyncProcess.StartInfo.CreateNoWindow = true;
-        SyncProcess.StartInfo.WorkingDirectory = GM.options.syncPath;
-		GM.dbug.Log(this, "RUNNER: Checking for Sync program in " + SyncProcess.StartInfo.FileName);
-		StartCoroutine(RunSyncProcess(SyncProcess));
-        */
-
-        // TODO: uh surely there must be a better GameObject for me to call AddComponent on?
-        GameSync sync = GameObject.Find("Jukebox").AddComponent<GameSync>();
-        sync.execute();
-	}
-
-	IEnumerator RunSyncProcess(Process process) {
-
-		GM.dbug.Log(this, "RUNNER: Running sync program.");
-
-		if (jukebox) jukebox.stop();
-
-		GM.state.Change(StateManager.WorldState.Sync);
-
-		yield return new WaitForSeconds(1.0f);
-		process.Start();
-		GM.dbug.Log(this, "RUNNER: Sync program started.");
-		process.WaitForExit();
-
-		GM.dbug.Log(this, "RUNNER: Sync program complete!  Do intro.");
-
-		GM.state.Change(StateManager.WorldState.Intro);
-		if (jukebox) jukebox.play();
+	public void RunSync()
+    {
+        GM.dbug.Log(this, "RUNNER: Running sync program.");
+        GM.sync.execute();
 	}
 
 

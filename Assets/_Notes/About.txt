@@ -7,6 +7,13 @@ If you are building this project from scratch and not using the releases provide
 make sure you create a Shortcut that points to the winnitron.exe that has the -popupwindow tag
 at the end of the target field.
 
+In-Progress for 0.9.2
+-Adding new integrated sync script
+-Fixed bug with Oops not being displayed if there is no Options folder
+
+Changes for 0.9.2
+
+
 Changes for 0.9.1
 - Fixed main launcher layout and functionality
 - Fixed backend for future syncing

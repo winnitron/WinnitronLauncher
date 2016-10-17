@@ -22,6 +22,9 @@ public class OptionsManager : MonoBehaviour {
 	//language
 	public JSONNode language;
 
+    //Sync Settings
+    public JSONNode sync;
+
     //Options JSON
     private JSONNode O;
 
@@ -40,11 +43,10 @@ public class OptionsManager : MonoBehaviour {
         else
         {
             //Load that JSON
-            O = GM.data.LoadJson(Application.dataPath + "/Options/winnitron_options.json");
+            O = GM.data.LoadJson(contentPath + "/Options/winnitron_options.json");
 
             //Load language file
             language = GM.data.LoadJson(contentPath + "/Options/winnitron_text_" + O["launcher"]["language"] + ".json");
-
 
             //Widescreen
             if (O["launcher"]["widescreen"] == "false") widescreen = false;
@@ -93,4 +95,14 @@ public class OptionsManager : MonoBehaviour {
 	{
 		return language[category][text];
 	}
+
+    public JSONNode GetSyncSettings()
+    {
+        return O["sync"];
+    }
+
+    public JSONNode GetDirectory()
+    {
+        return O["defaultFolders"];
+    }
 }
