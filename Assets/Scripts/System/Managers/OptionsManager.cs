@@ -35,61 +35,74 @@ public class OptionsManager : MonoBehaviour {
         var O = GM.data.LoadJson(Application.dataPath + "/Options/winnitron_options.json");
 
         //Widescreen
-       if (O["launcher"]["widescreen"] == "false") widescreen = false;
+		if (O ["launcher"] ["widescreen"] == "false")
+			widescreen = false;
+		else {
+			//Load that JSON
+			O = GM.data.LoadJson (contentPath + "/Options/winnitron_options.json");
+		
+			//Default Folders
+			string path = O ["defaultFolders"] ["root"];
+			if (path == "normal")
+				contentPath = Application.dataPath;
+			else
+				contentPath = O ["defaultFolders"] ["root"];
 
-        else
-        {
-            //Load that JSON
-            O = GM.data.LoadJson(contentPath + "/Options/winnitron_options.json");
+			//Widescreen
+			if (O ["launcher"] ["widescreen"] == "false")
+				widescreen = false;
 
-        //Default Folders
-        string path = O["defaultFolders"]["root"];
-        if (path == "normal") contentPath = Application.dataPath;
-        else contentPath = O["defaultFolders"]["root"];
+			GM.dbug.Log (this, "OPTIONS: Playlists path is: " + playlistsPath);
 
-            //Widescreen
-            if (O["launcher"]["widescreen"] == "false") widescreen = false;
+			//Find music path
+			path = O ["defaultFolders"] ["music"];
+			if (path.Contains (":"))
+				musicPath = path;
+			else
+				musicPath = contentPath + path;
 
-        GM.dbug.Log(this, "OPTIONS: Playlists path is: " + playlistsPath);
+			GM.dbug.Log (this, "OPTIONS: Music path is " + musicPath);
 
-        //Find music path
-        path = O["defaultFolders"]["music"];
-        if (path.Contains(":")) musicPath = path;
-        else musicPath = contentPath + path;
+			//Find attract path
+			path = O ["defaultFolders"] ["attract"];
+			if (path.Contains (":"))
+				attractPath = path;
+			else
+				attractPath = contentPath + O ["defaultFolders"] ["attract"];
 
-        GM.dbug.Log(this, "OPTIONS: Music path is " + musicPath);
+			GM.dbug.Log (this, "OPTIONS: Attract path is " + attractPath);
 
-        //Find attract path
-        path = O["defaultFolders"]["attract"];
-        if (path.Contains(":")) attractPath = path;
-        else attractPath = contentPath + O["defaultFolders"]["attract"];
+			//Find Sync Exe Path
+			path = O ["defaultFolders"] ["sync"];
+			if (path.Contains (":"))
+				syncPath = path;
+			else
+				syncPath = contentPath + path;
 
-        GM.dbug.Log(this, "OPTIONS: Attract path is " + attractPath);
+			GM.dbug.Log (this, "OPTIONS: Sync path is " + syncPath);
+			
+			
+			//Find Sync Exe Path
+			path = O ["defaultFolders"] ["syncExe"];
+			if (path.Contains (":"))
+				syncExe = path;
+			else
+				syncExe = syncPath + path;
 
-        //Find Sync Exe Path
-        path = O["defaultFolders"]["sync"];
-        if (path.Contains(":")) syncPath = path;
-        else syncPath = contentPath + path;
+			GM.dbug.Log (this, "OPTIONS: Sync exe is " + syncExe);
 
-        GM.dbug.Log(this, "OPTIONS: Sync path is " + syncPath);
+			//Load language file
+			language = GM.data.LoadJson (contentPath + "/Options/winnitron_text_" + O ["launcher"] ["language"] + ".json");
 
-        //Find Sync Exe Path
-        path = O["defaultFolders"]["syncExe"];
-        if (path.Contains(":")) syncExe = path;
-        else syncExe = syncPath + path;
-
-        GM.dbug.Log(this, "OPTIONS: Sync exe is " + syncExe);
-
-        //Load language file
-        language = GM.data.LoadJson(contentPath + "/Options/winnitron_text_" + O["launcher"]["language"] + ".json");
-
-        initializing = false;
+			initializing = false;
+		}
     }
 
 	public string GetText(string category, string text)
 	{
 		return language[category][text];
 	}
+
 
     public JSONNode GetSyncSettings()
     {
