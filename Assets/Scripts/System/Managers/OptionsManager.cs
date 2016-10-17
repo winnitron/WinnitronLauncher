@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using SimpleJSON;
 
@@ -22,6 +22,12 @@ public class OptionsManager : MonoBehaviour {
 	//language
 	public JSONNode language;
 
+    //Sync Settings
+    public JSONNode sync;
+
+    //Options JSON
+    private JSONNode O;
+
 	// Use this for initialization
 	void Awake () {
 
@@ -31,25 +37,18 @@ public class OptionsManager : MonoBehaviour {
         //Widescreen
        if (O["launcher"]["widescreen"] == "false") widescreen = false;
 
-       //Force Mode
-       //If local only is checked, the launcher will not run the sync program at all and preserve all folders
-       //If remote only is checked, the launcher will nuke all folders and use the updated version only
-        if (O["launcher"]["forceMode"] == "localOnly") forceMode = ForceMode.LOCALONLY;
-        else if (O["launcher"]["forceMode"] == "remoteOnly") forceMode = ForceMode.REMOTEONLY;
-        else forceMode = ForceMode.NONE;
+        else
+        {
+            //Load that JSON
+            O = GM.data.LoadJson(contentPath + "/Options/winnitron_options.json");
 
         //Default Folders
         string path = O["defaultFolders"]["root"];
         if (path == "normal") contentPath = Application.dataPath;
         else contentPath = O["defaultFolders"]["root"];
 
-        GM.dbug.Log(this, "OPTIONS: Root path for content is " + contentPath);
-
-        //Find playlists path
-        //Checks for a ":" to see if it's a absolute or relative path
-        path = O["defaultFolders"]["playlists"];
-        if (path.Contains(":")) playlistsPath = path;   //absolute
-        playlistsPath = contentPath + path;             //relative
+            //Widescreen
+            if (O["launcher"]["widescreen"] == "false") widescreen = false;
 
         GM.dbug.Log(this, "OPTIONS: Playlists path is: " + playlistsPath);
 
@@ -91,4 +90,14 @@ public class OptionsManager : MonoBehaviour {
 	{
 		return language[category][text];
 	}
+
+    public JSONNode GetSyncSettings()
+    {
+        return O["sync"];
+    }
+
+    public JSONNode GetDirectory()
+    {
+        return O["defaultFolders"];
+    }
 }

@@ -13,10 +13,9 @@ public class GameSync : MonoBehaviour {
     private ArrayList playlists = new ArrayList();
 
     private void initConfig() {
-        // TODO read these from somewhere
-        api_key = "";
-        library_url = "http://network.winnitron.com";
-        games_dir = "C:/Users/aaron/Desktop/winnitron_games/";
+        api_key = GM.options.GetSyncSettings()["api_key"];
+        library_url = GM.options.GetSyncSettings()["library_url"];
+        games_dir = GM.options.GetDirectory()["playlists"];
     }
 
     public void execute() {

@@ -11,6 +11,7 @@ public class GM : Singleton<GM> {
     public static OptionsManager options;
 	public static StateManager state;
     public static Dbug dbug;
+    public static GameSync sync;
 
 	new void Awake() {
 		//Cursor.visible = false;
@@ -20,6 +21,7 @@ public class GM : Singleton<GM> {
         options = GetComponent<OptionsManager> ();
 		state = GetComponent<StateManager> ();
         dbug = GetComponent<Dbug>();
+        sync = GetComponent<GameSync>();
 
         //Do Windows window management shizzle
         ResetScreen();
