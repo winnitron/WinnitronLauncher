@@ -17,6 +17,7 @@ public class Runner : MonoBehaviour {
     }
 
 	public void RunSync() {
+        /*
 		Process SyncProcess = new Process();
 		//SyncProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
 		SyncProcess.StartInfo.FileName = GM.options.syncExe;
@@ -25,6 +26,11 @@ public class Runner : MonoBehaviour {
         SyncProcess.StartInfo.WorkingDirectory = GM.options.syncPath;
 		GM.dbug.Log(this, "RUNNER: Checking for Sync program in " + SyncProcess.StartInfo.FileName);
 		StartCoroutine(RunSyncProcess(SyncProcess));
+        */
+
+        // TODO: uh surely there must be a better GameObject for me to call AddComponent on?
+        GameSync sync = GameObject.Find("Jukebox").AddComponent<GameSync>();
+        sync.execute();
 	}
 
 	IEnumerator RunSyncProcess(Process process) {
