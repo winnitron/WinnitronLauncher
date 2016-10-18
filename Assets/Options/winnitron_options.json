@@ -8,10 +8,10 @@
     "root": "normal",
     "playlists": "/Playlists",
     "music": "/Music",
-	"attract": "/Attract"
+	  "attract": "/Attract"
   },
   "sync": {
-  	  "api_key": "",
-      "library_url": "http://network.winnitron.com"
+  	"api_key": "",
+    "library_url": "http://network.winnitron.com"
   }
 }
