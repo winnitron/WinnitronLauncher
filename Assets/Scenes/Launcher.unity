@@ -9558,6 +9558,7 @@ GameObject:
   - 114: {fileID: 1803195758}
   - 114: {fileID: 1803195761}
   - 114: {fileID: 1803195762}
+  - 114: {fileID: 1803195763}
   m_Layer: 0
   m_Name: GM
   m_TagString: Untagged
@@ -9607,8 +9608,6 @@ MonoBehaviour:
   playlistsPath: /Playlists
   musicPath: /Music
   attractPath: /Attract
-  syncPath: /Sync
-  syncBat: /Sync/Bin
 --- !u!114 &1803195759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9672,6 +9671,17 @@ MonoBehaviour:
   globalOn: 1
   supress: []
   show: []
+--- !u!114 &1803195763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1803195755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 039a599164a8f6b419056ab9d3c91d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1848237756
 GameObject:
   m_ObjectHideFlags: 0
