@@ -58,29 +58,57 @@ public class GameSync : MonoBehaviour {
         yield return www;
 
         if (www.error == null) {
-            Debug.Log(www.text);
+            Debug.Log("fetched playlists: " + www.text);
             var data = JSON.Parse(www.text);
             foreach (JSONNode playlist_data in data["playlists"].AsArray) {
                 playlists.Add(new Playlist(playlist_data));
             }
 
 
-            // debug/confirmation
-            foreach (Playlist playlist in playlists) {
-                Debug.Log(playlist.ToString());
-            }
+            deleteUnsubscribedPlaylists();
+
+
         } else {
             Debug.Log("Error fetching playlists: " + www.error);
         }
     }
 
+    private void deleteUnsubscribedPlaylists() {
+        string[] installed = Directory.GetDirectories(games_dir);
+
+        foreach (string dir_full_path in installed) {
+            string directory = new DirectoryInfo(dir_full_path).Name;
+            if (directoryIsDeletable(directory, playlists)) {
+                Debug.Log("deleting " + directory);
+                Directory.Delete(dir_full_path, true);
+            }
+        }
+    }
+        
+    // Careful here that you don't pass in a full path as `directory`
+    private bool directoryIsDeletable(string directory, ArrayList keepers) {
+        // Playlist or Game directories that start with an underscore are local additions,
+        // and won't be deleted just because they're not in the website data.
+        // In the future it'd be better to have that be a setting in the options or metadata json or something.
+        if (directory[0] == '_')
+            return false;
+
+        foreach (SluggedItem keeper in keepers) {
+            if (directory == keeper.slug)
+                return false;
+        }
+
+        return true;
+    }
 
 
 
-
-    private class Playlist {
+    private class SluggedItem {
         public string title;
         public string slug;
+    }
+
+    private class Playlist : SluggedItem {
         public ArrayList games = new ArrayList();
 
         public Playlist(JSONNode data) {
@@ -98,7 +126,7 @@ public class GameSync : MonoBehaviour {
         }
     }
 
-    private class Game {
+    private class Game : SluggedItem {
         public string title;
         public string slug;
         public string description;
