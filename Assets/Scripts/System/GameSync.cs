@@ -100,20 +100,30 @@ public class GameSync : MonoBehaviour {
             parentDirectory = parentDir;
 
             foreach(JSONNode game_data in data["games"].AsArray) {
-                games.Add(new Game(game_data));
+                games.Add(new Game(game_data, parentDirectory + "/" + slug + "/"));
             }
-            
         }
 
         public void syncGames() {
             Debug.Log("Syncing games for playlist '" + title + "'");
             deleteRemovedGames();
-            /* TODO
-             * build to_install (new or updated games)
-             * download to_install
-             * extract
-             * write metadata
-             */
+
+            ArrayList toInstall = new ArrayList();
+            foreach (Game game in games) {
+                System.DateTime installModified = new System.DateTime(1982, 2, 2);
+
+                if (game.alreadyInstalled()) {
+                    installModified = System.DateTime.Parse(game.installationMetadata ["last_modified"], null, System.Globalization.DateTimeStyles.RoundtripKind);
+                }
+                    
+                if (!game.alreadyInstalled() || game.lastModified > installModified) {
+                    toInstall.Add(game);
+                }
+            }
+                
+            foreach (Game game in toInstall) {
+                game.install();
+            }
         }
 
 
@@ -123,20 +133,46 @@ public class GameSync : MonoBehaviour {
         }
 
 
+
+
     }
 
     private class Game : SluggedItem {
         public string description;
         public string downloadURL;
         public System.DateTime lastModified;
+        private string parentDirectory;
 
-        public Game(JSONNode data) {
+        public JSONNode installationMetadata;
+
+        public Game(JSONNode data, string parentDir) {
             title = data["title"];
             slug = data["slug"];
             description = data["description"];
             downloadURL = data["download_url"];
             lastModified = System.DateTime.Parse(data["last_modified"], null, System.Globalization.DateTimeStyles.RoundtripKind);
+            parentDirectory = parentDir;
+
+            if (alreadyInstalled()) {
+                string json = System.IO.File.ReadAllText(parentDirectory + "/" + slug + "/winnitron_metadata.json");
+                installationMetadata = JSON.Parse(json);
+            }
         }
+
+        public void install() {
+            Debug.Log("Installing '" + title + "'");
+            /* TODO
+             * download
+             * extract
+             * write metadata
+             */
+        }
+
+        public bool alreadyInstalled() {
+            return Directory.Exists(parentDirectory + "/" + slug);
+        }
+
+
     }
 }
 
