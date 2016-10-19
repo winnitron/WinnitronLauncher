@@ -28,11 +28,11 @@ public class GameSync : MonoBehaviour {
     private void fetchPlaylistSubscriptions() {
         WWW www = new WWW(library_url + "/api/v1/playlists/?api_key=" + api_key);
 
-        StartCoroutine(WaitForGET(www));
+        StartCoroutine(WaitForSubscriptionList(www));
     }
 
-    private IEnumerator WaitForGET(WWW www) {
-        
+    private IEnumerator WaitForSubscriptionList(WWW www) {
+
         yield return www;
 
         if (www.error == null) {
@@ -46,14 +46,42 @@ public class GameSync : MonoBehaviour {
             SluggedItem.deleteExtraDirectories(games_dir, playlists);
 
             foreach(Playlist playlist in playlists) {
-                playlist.syncGames();
+                Debug.Log("creating " + playlist.parentDirectory);
+                Directory.CreateDirectory(playlist.parentDirectory);
+                playlist.deleteRemovedGames();
+                ArrayList games = playlist.gamesToInstall();
+
+                foreach (Game game in games) {
+                    WWW download = new WWW(game.downloadURL);
+                    StartCoroutine(WaitForGameDownload(game, download));
+                }
             }
 
         } else {
             Debug.Log("Error fetching playlists: " + www.error);
         }
     }
-        
+
+
+    private IEnumerator WaitForGameDownload(Game game, WWW download) {
+        yield return download;
+
+        if (download.error == null) {
+            Debug.Log("success downloading '" + game.title + "'");
+            Directory.CreateDirectory(game.installDirectory);
+
+            string destFile = game.installDirectory + "/" + game.slug + ".zip";
+            File.WriteAllBytes(destFile, download.bytes);
+
+            int[] foo = new int[1];
+            lzip.decompress_File(destFile, game.installDirectory, foo);
+
+
+        } else {
+            Debug.Log("Error downloading '" + download.url + "': " + download.error);
+        }
+    }
+
 
     private class SluggedItem {
         public string title;
@@ -61,6 +89,9 @@ public class GameSync : MonoBehaviour {
 
 
         public static void deleteExtraDirectories(string parent, ArrayList keepers) {
+            if (!Directory.Exists(parent)) // just in case. avoid crash.
+                return;
+
             string[] installed = Directory.GetDirectories(parent);
 
             foreach (string dir_full_path in installed) {
@@ -92,7 +123,7 @@ public class GameSync : MonoBehaviour {
 
     private class Playlist : SluggedItem {
         public ArrayList games = new ArrayList();
-        private string parentDirectory;
+        public string parentDirectory;
 
         public Playlist(JSONNode data, string parentDir) {
             title = data["title"];
@@ -104,9 +135,9 @@ public class GameSync : MonoBehaviour {
             }
         }
 
-        public void syncGames() {
+        public ArrayList gamesToInstall() {
             Debug.Log("Syncing games for playlist '" + title + "'");
-            deleteRemovedGames();
+
 
             ArrayList toInstall = new ArrayList();
             foreach (Game game in games) {
@@ -115,20 +146,16 @@ public class GameSync : MonoBehaviour {
                 if (game.alreadyInstalled()) {
                     installModified = System.DateTime.Parse(game.installationMetadata ["last_modified"], null, System.Globalization.DateTimeStyles.RoundtripKind);
                 }
-                    
+
                 if (!game.alreadyInstalled() || game.lastModified > installModified) {
                     toInstall.Add(game);
                 }
             }
-                
-            foreach (Game game in toInstall) {
-                game.install();
-            }
+
+            return toInstall;
         }
 
-
-
-        private void deleteRemovedGames() {
+        public void deleteRemovedGames() {
             SluggedItem.deleteExtraDirectories(parentDirectory + "/" + slug, games);
         }
 
@@ -141,7 +168,7 @@ public class GameSync : MonoBehaviour {
         public string description;
         public string downloadURL;
         public System.DateTime lastModified;
-        private string parentDirectory;
+        public string installDirectory;
 
         public JSONNode installationMetadata;
 
@@ -151,26 +178,20 @@ public class GameSync : MonoBehaviour {
             description = data["description"];
             downloadURL = data["download_url"];
             lastModified = System.DateTime.Parse(data["last_modified"], null, System.Globalization.DateTimeStyles.RoundtripKind);
-            parentDirectory = parentDir;
+            installDirectory = parentDir + slug + "/";
 
             if (alreadyInstalled()) {
-                string json = System.IO.File.ReadAllText(parentDirectory + "/" + slug + "/winnitron_metadata.json");
+                string json = System.IO.File.ReadAllText(installDirectory + "winnitron_metadata.json");
                 installationMetadata = JSON.Parse(json);
             }
         }
 
-        public void install() {
-            Debug.Log("Installing '" + title + "'");
-            /* TODO
-             * download
-             * extract
-             * write metadata
-             */
-        }
 
         public bool alreadyInstalled() {
-            return Directory.Exists(parentDirectory + "/" + slug);
+            Debug.Log(installDirectory);
+            return Directory.Exists(installDirectory);
         }
+
 
 
     }
