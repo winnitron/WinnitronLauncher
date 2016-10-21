@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.IO;
 using System.Collections;
+using System.Collections.Generic;
 using SimpleJSON;
 
 [System.Serializable]
@@ -47,6 +48,8 @@ public class GameSync : MonoBehaviour {
 
             foreach(Playlist playlist in playlists) {
                 Debug.Log("creating " + playlist.parentDirectory);
+
+                // TODO: this crashes? if the directory already exists?
                 Directory.CreateDirectory(playlist.parentDirectory);
                 playlist.deleteRemovedGames();
                 ArrayList games = playlist.gamesToInstall();
@@ -75,6 +78,8 @@ public class GameSync : MonoBehaviour {
 
             int[] foo = new int[1];
             lzip.decompress_File(destFile, game.installDirectory, foo);
+
+            game.writeMetadataFile();
 
 
         } else {
@@ -183,6 +188,8 @@ public class GameSync : MonoBehaviour {
             if (alreadyInstalled()) {
                 string json = System.IO.File.ReadAllText(installDirectory + "winnitron_metadata.json");
                 installationMetadata = JSON.Parse(json);
+            } else {
+                installationMetadata = new JSONClass();
             }
         }
 
@@ -192,7 +199,18 @@ public class GameSync : MonoBehaviour {
             return Directory.Exists(installDirectory);
         }
 
+        public void writeMetadataFile() {
+            
+            installationMetadata.Add("title", new JSONData(title));
+            installationMetadata.Add("slug", new JSONData(slug));
+            //installationMetadata.Add("description", new JSONData(description)); // TODO buggy for some reason? Blank?
+            installationMetadata.Add("last_modified", new JSONData(System.DateTime.UtcNow.ToString("s", System.Globalization.CultureInfo.InvariantCulture)));
+            // TODO min/max player counts (needs to happen on the server side first)
 
+            string filename = installDirectory + "/winnitron_metadata.json";
+            Debug.Log("writing to " + filename + ": " + installationMetadata.ToString());
+            System.IO.File.WriteAllText(filename, installationMetadata.ToString());
+        }
 
     }
 }
