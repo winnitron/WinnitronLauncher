@@ -17,7 +17,7 @@ public class OptionsManager : MonoBehaviour {
     public string musicPath = "/Music";
     public string attractPath = "/Attract";
 
-	//language
+    //language
     public JSONNode language;
 
     //Sync Settings
@@ -26,9 +26,9 @@ public class OptionsManager : MonoBehaviour {
     //Options JSON
     private JSONNode O;
 
-	// Use this for initialization
+    // Use this for initialization
     void Awake () {
-        
+
         //Load that JSON
         string optionsFile = Application.dataPath + "/Options/winnitron_options.json";
         Debug.Log("Loading options from " + optionsFile);
@@ -37,31 +37,31 @@ public class OptionsManager : MonoBehaviour {
         //Default Folders
         string path = O ["defaultFolders"] ["root"];
         if (path == "normal")
-        	contentPath = Application.dataPath;
+            contentPath = Application.dataPath;
         else
-        	contentPath = O ["defaultFolders"] ["root"];
+            contentPath = O ["defaultFolders"] ["root"];
 
         //Widescreen
         if (O ["launcher"] ["widescreen"] == "false")
-        	widescreen = false;
+            widescreen = false;
 
         GM.dbug.Log (this, "OPTIONS: Playlists path is: " + playlistsPath);
 
         //Find music path
         path = O ["defaultFolders"] ["music"];
         if (path.Contains (":"))
-        	musicPath = path;
+            musicPath = path;
         else
-        	musicPath = contentPath + path;
+            musicPath = contentPath + path;
 
         GM.dbug.Log (this, "OPTIONS: Music path is " + musicPath);
 
         //Find attract path
         path = O ["defaultFolders"] ["attract"];
         if (path.Contains (":"))
-        	attractPath = path;
+            attractPath = path;
         else
-        	attractPath = contentPath + O ["defaultFolders"] ["attract"];
+            attractPath = contentPath + O ["defaultFolders"] ["attract"];
 
         GM.dbug.Log (this, "OPTIONS: Attract path is " + attractPath);
 
