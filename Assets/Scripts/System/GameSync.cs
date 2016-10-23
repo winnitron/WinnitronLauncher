@@ -76,8 +76,8 @@ public class GameSync : MonoBehaviour {
             string destFile = game.installDirectory + "/" + game.slug + ".zip";
             File.WriteAllBytes(destFile, download.bytes);
 
-            int[] foo = new int[1];
-            lzip.decompress_File(destFile, game.installDirectory, foo);
+            ICSharpCode.SharpZipLib.Zip.FastZip zip = new ICSharpCode.SharpZipLib.Zip.FastZip();
+            zip.ExtractZip(destFile, game.installDirectory, null);
 
             game.writeMetadataFile();
             File.Delete(destFile);
