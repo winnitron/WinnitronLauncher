@@ -49,12 +49,12 @@ public class GameSync : MonoBehaviour {
             foreach(Playlist playlist in playlists) {
                 Debug.Log("creating " + playlist.parentDirectory);
 
-                // TODO: this crashes? if the directory already exists?
                 Directory.CreateDirectory(playlist.parentDirectory);
                 playlist.deleteRemovedGames();
                 ArrayList games = playlist.gamesToInstall();
 
                 foreach (Game game in games) {
+                    Debug.Log("Downloading: " + game.title);
                     WWW download = new WWW(game.downloadURL);
                     StartCoroutine(WaitForGameDownload(game, download));
                 }
@@ -80,7 +80,7 @@ public class GameSync : MonoBehaviour {
             lzip.decompress_File(destFile, game.installDirectory, foo);
 
             game.writeMetadataFile();
-
+            File.Delete(destFile);
 
         } else {
             Debug.Log("Error downloading '" + download.url + "': " + download.error);
