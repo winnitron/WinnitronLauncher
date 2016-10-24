@@ -45,6 +45,13 @@ public class OptionsManager : MonoBehaviour {
         if (O ["launcher"] ["widescreen"] == "false")
             widescreen = false;
 
+        //Playlists Path
+        path = O["defaultFolders"]["playlists"];
+        if (path.Contains(":"))
+            playlistsPath = path;
+        else
+            playlistsPath = contentPath + path;
+
         GM.dbug.Log (this, "OPTIONS: Playlists path is: " + playlistsPath);
 
         //Find music path
