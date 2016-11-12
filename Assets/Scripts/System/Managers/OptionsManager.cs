@@ -90,8 +90,15 @@ public class OptionsManager : MonoBehaviour {
         return O["sync"];
     }
 
+    /*
+     * Commenting this out because this script makes the default paths
+     * to relative directory if there is no absolute path.
+     * 
+     * See Awake function.
+     * 
     public JSONNode GetDirectory()
     {
         return O["defaultFolders"];
     }
+    */
 }

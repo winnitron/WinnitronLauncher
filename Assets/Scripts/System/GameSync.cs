@@ -16,7 +16,7 @@ public class GameSync : MonoBehaviour {
     private void initConfig() {
         api_key = GM.options.GetSyncSettings()["api_key"];
         library_url = GM.options.GetSyncSettings()["library_url"];
-        games_dir = GM.options.GetDirectory()["playlists"];
+        games_dir = GM.options.playlistsPath;
     }
 
     public void execute() {
@@ -77,6 +77,7 @@ public class GameSync : MonoBehaviour {
             File.WriteAllBytes(destFile, download.bytes);
 
             ICSharpCode.SharpZipLib.Zip.FastZip zip = new ICSharpCode.SharpZipLib.Zip.FastZip();
+            ICSharpCode.SharpZipLib.Zip.ZipConstants.DefaultCodePage = 0;
             zip.ExtractZip(destFile, game.installDirectory, null);
 
             game.writeMetadataFile();
