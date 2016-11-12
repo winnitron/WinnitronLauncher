@@ -9,9 +9,9 @@ public class StateSwitcher : MonoBehaviour {
 	void Update()
 	{
 		if (switchToIntro)
-			GM.state.Change(StateManager.WorldState.Intro);
+			GM.state.ChangeState(StateManager.WorldState.Intro);
 		if (switchToLauncher)
-			GM.state.Change (StateManager.WorldState.Launcher);
+			GM.state.ChangeState (StateManager.WorldState.Launcher);
 
 		switchToIntro = false;
 		switchToLauncher = false;

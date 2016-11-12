@@ -38,7 +38,7 @@ public class DataManager : Singleton<DataManager>  {
 
 		//Do this when done loading
 
-		GM.state.Change(StateManager.WorldState.Intro);
+		GM.state.ChangeState(StateManager.WorldState.Intro);
 	}
 
 	// Builds a list of Game objects based on the game directory inside its main directory. Then instantiates the GameNavigationManager, which then instantiates the ScreenShotDisplayManager

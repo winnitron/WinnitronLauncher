@@ -30,7 +30,7 @@ public class StateManager : MonoBehaviour {
 		foreach (State state in states) 
 			state.gameObject.SetActive (true);
 
-		Change (WorldState.Intro);
+		ChangeState (WorldState.Intro);
 	}
 
 	void Update () {
@@ -38,18 +38,19 @@ public class StateManager : MonoBehaviour {
 		//DEBUG KEYS
 		//Switch states for testing.  These keys aren't used on Winnitrons yet
 		if (Input.GetKeyDown (KeyCode.Alpha1))
-			worldState = WorldState.Intro;
-		if (Input.GetKeyDown (KeyCode.Alpha2))
-			worldState = WorldState.Launcher;
+			ChangeState(WorldState.Intro);
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            ChangeState(WorldState.Launcher);
 		if (Input.GetKeyDown (KeyCode.Alpha3))
-			worldState = WorldState.Attract;
+			ChangeState(WorldState.Attract);
 		if (Input.GetKeyDown (KeyCode.Alpha4))
-			worldState = WorldState.Idle;
-		if (Input.GetKeyDown (KeyCode.Alpha5))
-			GM.runner.RunSync ();
-		if (Input.GetKeyDown (KeyCode.Alpha6))
-			worldState = WorldState.Sync;
-		if (Input.GetKeyDown (KeyCode.Alpha7))
+			ChangeState(WorldState.Idle);
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            GM.runner.RunSync();
+            ChangeState(WorldState.Sync);
+        }
+        if (Input.GetKeyDown (KeyCode.Alpha7))
 			oops = GM.Text ("error", "test");
 
 		//Things to do in Attract Mode
@@ -70,7 +71,7 @@ public class StateManager : MonoBehaviour {
 
 			//Go into Attract mode is key isn't pressed for a while
 			if (idleTime > timeBeforeIdle)
-				worldState = WorldState.Attract;
+				ChangeState(WorldState.Attract);
 		} else {
 			//Reset idleTime if not in Launcher
 			idleTime = 0;
@@ -79,7 +80,7 @@ public class StateManager : MonoBehaviour {
 
 		//OOPS
 		if (oops != "" && worldState != WorldState.Oops) {
-			Change (WorldState.Oops);
+			ChangeState (WorldState.Oops);
 			oopsController.SetErrorText (oops);
 		}
 
@@ -90,7 +91,7 @@ public class StateManager : MonoBehaviour {
 	}
 
 	//Changes the worldstate
-	public void Change(WorldState newState) {
+	public void ChangeState(WorldState newState) {
 
 		foreach (var state in states) {
 			if (newState == state.worldState) {

@@ -39,7 +39,7 @@ public class Runner : MonoBehaviour {
         
 		if (jukebox) jukebox.stop();
 
-		GM.state.Change(StateManager.WorldState.Idle);
+		GM.state.ChangeState(StateManager.WorldState.Idle);
 		Screen.fullScreen = false;
 
 		//TO DO - stuff that is a transition
@@ -51,7 +51,7 @@ public class Runner : MonoBehaviour {
 
         GM.dbug.Log(this, "RUNNER: Finished running game " + process.StartInfo.FileName);
 
-		GM.state.Change(StateManager.WorldState.Intro);
+		GM.state.ChangeState(StateManager.WorldState.Intro);
 
         if (jukebox) jukebox.play();
 	}
