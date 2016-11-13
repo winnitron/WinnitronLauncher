@@ -16,11 +16,13 @@ public class Runner : MonoBehaviour {
             jukebox = GameObject.Find("Jukebox").GetComponent<Jukebox>();
     }
 
+    /*
 	public void RunSync()
     {
         GM.dbug.Log(this, "RUNNER: Running sync program.");
         GM.sync.execute();
 	}
+    */
 
 
 	//Run those games!

@@ -12,7 +12,7 @@ public class SyncJoke {
 }
 
 public class SyncScreenManager : MonoBehaviour {
-	
+
 	public List<SyncJoke> jokes;
 
 	public Text textAbove;
@@ -32,6 +32,12 @@ public class SyncScreenManager : MonoBehaviour {
 		punctuationDelayCountdown = delayBetweenPunctuation;
 		PickRandomText();
 	}
+
+    void Start()
+    {
+        //Start the sync
+        GM.sync.execute();
+    }
 		
 	// Update is called once per frame
 	void Update () 

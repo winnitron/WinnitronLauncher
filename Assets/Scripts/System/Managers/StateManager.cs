@@ -46,10 +46,7 @@ public class StateManager : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Alpha4))
 			ChangeState(WorldState.Idle);
         if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            GM.runner.RunSync();
             ChangeState(WorldState.Sync);
-        }
         if (Input.GetKeyDown (KeyCode.Alpha7))
 			oops = GM.Text ("error", "test");
 

@@ -11,7 +11,6 @@ public class PlaylistNavigationManager : MonoBehaviour {
 
     public GameObject playlistPosition;                 // Object that marks the position where the current selected playlist should be placed
     public GameObject playlistNamePosition;             // Object that marks the position where the playlist name labels will be placed
-    
 
     public PlaylistManager playlistPrefab;
     public PlaylistLabel playlistLabelPrefab;

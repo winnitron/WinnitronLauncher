@@ -73,7 +73,7 @@ public class OptionsManager : MonoBehaviour {
         GM.dbug.Log (this, "OPTIONS: Attract path is " + attractPath);
 
         //Load language file
-        language = GM.data.LoadJson (contentPath + "/Options/winnitron_text_" + O ["launcher"] ["language"] + ".json");
+        language = GM.data.LoadJson (Application.dataPath + "/Options/winnitron_text_" + O ["launcher"] ["language"] + ".json");
 
         initializing = false;
     }

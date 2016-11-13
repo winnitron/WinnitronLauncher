@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.IO;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
 
 [System.Serializable]
 public class GameSync : MonoBehaviour {
+
+    public Text syncDescription;
 
     private string api_key;
     private string library_url;
@@ -20,7 +23,8 @@ public class GameSync : MonoBehaviour {
     }
 
     public void execute() {
-        Debug.Log("----------------------------- Running sync -----------------------------");
+        GM.dbug.Log(this, "----------------------------- Running sync -----------------------------");
+        syncDescription.text = "RUNNING SYNC";
 
         initConfig();
         fetchPlaylistSubscriptions();
@@ -32,12 +36,18 @@ public class GameSync : MonoBehaviour {
         StartCoroutine(WaitForSubscriptionList(www));
     }
 
+    private void EndSync()
+    {
+        //Change state back to intro when completed
+        GM.state.ChangeState(StateManager.WorldState.Intro);
+    }
+
     private IEnumerator WaitForSubscriptionList(WWW www) {
 
         yield return www;
 
         if (www.error == null) {
-            Debug.Log("fetched playlists: " + www.text);
+            GM.dbug.Log(this, "fetched playlists: " + www.text);
             var data = JSON.Parse(www.text);
             foreach (JSONNode playlist_data in data["playlists"].AsArray) {
                 playlists.Add(new Playlist(playlist_data, games_dir));
@@ -47,44 +57,60 @@ public class GameSync : MonoBehaviour {
             SluggedItem.deleteExtraDirectories(games_dir, playlists);
 
             foreach(Playlist playlist in playlists) {
-                Debug.Log("creating " + playlist.parentDirectory);
+                GM.dbug.Log(this, "creating " + playlist.parentDirectory);
+                syncDescription.text = "creating" + playlist.parentDirectory;
 
                 Directory.CreateDirectory(playlist.parentDirectory);
                 playlist.deleteRemovedGames();
                 ArrayList games = playlist.gamesToInstall();
 
                 foreach (Game game in games) {
-                    Debug.Log("Downloading: " + game.title);
+                    GM.dbug.Log(this, "Downloading: " + game.title);
+                    syncDescription.text = "Downloading: " + game.title;
+
+
+                    //Start the downloadin'!
+
                     WWW download = new WWW(game.downloadURL);
-                    StartCoroutine(WaitForGameDownload(game, download));
+
+                    while (!download.isDone)
+                    {
+                        int progress = Mathf.FloorToInt(download.progress * 100);
+                        syncDescription.text = "Downloading " + game.title + " %" + progress;
+                        yield return null;
+                    }
+
+
+                    //Download complete!
+
+                    if (!string.IsNullOrEmpty(download.error))
+                    {
+                        // error!
+                        GM.dbug.Log(this, "Error downloading '" + download.url + "': " + download.error);
+                    }
+                    else
+                    {
+                        //Things downloaded fine!  Do fun stuff now pls thx.
+
+                        Directory.CreateDirectory(game.installDirectory);
+                        string destFile = game.installDirectory + "/" + game.slug + ".zip";
+                        File.WriteAllBytes(destFile, download.bytes);
+
+                        ICSharpCode.SharpZipLib.Zip.FastZip zip = new ICSharpCode.SharpZipLib.Zip.FastZip();
+                        ICSharpCode.SharpZipLib.Zip.ZipConstants.DefaultCodePage = 0;
+
+                        //Starts the unzip coroutine and waits till it's done
+                        yield return StartCoroutine(ZipTools.ExtractZipFile(File.ReadAllBytes(destFile), game.installDirectory));
+                        //zip.ExtractZip(destFile, game.installDirectory, null);
+
+                        game.writeMetadataFile();
+                        File.Delete(destFile);
+                    }
                 }
             }
 
         } else {
-            Debug.Log("Error fetching playlists: " + www.error);
-        }
-    }
-
-
-    private IEnumerator WaitForGameDownload(Game game, WWW download) {
-        yield return download;
-
-        if (download.error == null) {
-            Debug.Log("success downloading '" + game.title + "'");
-            Directory.CreateDirectory(game.installDirectory);
-
-            string destFile = game.installDirectory + "/" + game.slug + ".zip";
-            File.WriteAllBytes(destFile, download.bytes);
-
-            ICSharpCode.SharpZipLib.Zip.FastZip zip = new ICSharpCode.SharpZipLib.Zip.FastZip();
-            ICSharpCode.SharpZipLib.Zip.ZipConstants.DefaultCodePage = 0;
-            zip.ExtractZip(destFile, game.installDirectory, null);
-
-            game.writeMetadataFile();
-            File.Delete(destFile);
-
-        } else {
-            Debug.Log("Error downloading '" + download.url + "': " + download.error);
+            GM.dbug.Log(this, "Error fetching playlists: " + www.error);
         }
     }
 

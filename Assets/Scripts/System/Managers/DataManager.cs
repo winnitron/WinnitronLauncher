@@ -19,11 +19,6 @@ public class DataManager : Singleton<DataManager>  {
 		attractModeImages = new List<Sprite> ();
 	}
 
-	public void SyncData()
-	{
-		GM.runner.RunSync();
-	}
-
 	public void LoadData()
 	{
 		playlistNavManager = GameObject.Find("PlaylistNavigationManager").GetComponent<PlaylistNavigationManager>();
