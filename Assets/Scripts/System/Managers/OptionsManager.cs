@@ -12,7 +12,7 @@ public class OptionsManager : MonoBehaviour {
     public bool initializing = true;
 
     //Default Folders
-    public string contentPath = "c:/WINNITRON/Winnitron_Data";
+    public string dataPath;
     public string playlistsPath = "/Playlists";
     public string musicPath = "/Music";
     public string attractPath = "/Attract";
@@ -27,53 +27,49 @@ public class OptionsManager : MonoBehaviour {
     private JSONNode O;
 
     // Use this for initialization
-    void Awake () {
+    void Awake() {
+
+        dataPath = Application.dataPath;
 
         //Load that JSON
-        string optionsFile = Application.dataPath + "/Options/winnitron_options.json";
+        string optionsFile = dataPath + "/Options/winnitron_options.json";
         Debug.Log("Loading options from " + optionsFile);
         O = GM.data.LoadJson(optionsFile);
 
-        //Default Folders
-        string path = O ["defaultFolders"] ["root"];
-        if (path == "normal")
-            contentPath = Application.dataPath;
-        else
-            contentPath = O ["defaultFolders"] ["root"];
 
         //Widescreen
-        if (O ["launcher"] ["widescreen"] == "false")
+        if (O["launcher"]["widescreen"] == "false")
             widescreen = false;
 
         //Playlists Path
-        path = O["defaultFolders"]["playlists"];
-        if (path.Contains(":"))
-            playlistsPath = path;
+        var path = O["defaultFolders"]["playlists"];
+        if (path.ToString().Contains("default"))
+            playlistsPath = dataPath + "/Playlists";
         else
-            playlistsPath = contentPath + path;
+            playlistsPath = path;
 
-        GM.dbug.Log (this, "OPTIONS: Playlists path is: " + playlistsPath);
+        GM.dbug.Log(this, "OPTIONS: Playlists path is: " + playlistsPath);
 
         //Find music path
-        path = O ["defaultFolders"] ["music"];
-        if (path.Contains (":"))
-            musicPath = path;
+        path = O["defaultFolders"]["music"];
+        if (path.ToString().Contains("default"))
+            musicPath = dataPath + "/Music";
         else
-            musicPath = contentPath + path;
+            musicPath = path;
 
         GM.dbug.Log (this, "OPTIONS: Music path is " + musicPath);
 
         //Find attract path
         path = O ["defaultFolders"] ["attract"];
-        if (path.Contains (":"))
-            attractPath = path;
+        if (path.ToString().Contains("default"))
+            attractPath = dataPath + "/Attract";
         else
-            attractPath = contentPath + O ["defaultFolders"] ["attract"];
+            attractPath = path;
 
         GM.dbug.Log (this, "OPTIONS: Attract path is " + attractPath);
 
         //Load language file
-        language = GM.data.LoadJson (Application.dataPath + "/Options/winnitron_text_" + O ["launcher"] ["language"] + ".json");
+        language = GM.data.LoadJson (dataPath + "/Options/winnitron_text_" + O ["launcher"] ["language"] + ".json");
 
         initializing = false;
     }
@@ -89,16 +85,4 @@ public class OptionsManager : MonoBehaviour {
     {
         return O["sync"];
     }
-
-    /*
-     * Commenting this out because this script makes the default paths
-     * to relative directory if there is no absolute path.
-     * 
-     * See Awake function.
-     * 
-    public JSONNode GetDirectory()
-    {
-        return O["defaultFolders"];
-    }
-    */
 }

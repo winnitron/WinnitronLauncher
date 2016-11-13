@@ -5,13 +5,12 @@
 	  "language": "english"
   },
   "defaultFolders": {
-    "root": "C:/WINNITRON/Dev",
-    "playlists": "/Playlists",
-    "music": "/Music",
-	  "attract": "/Attract"
+    "playlists": "C:/WINNITRON/Dev/Playlists",
+    "music": "default",
+	"attract": "default"
   },
   "sync": {
-  	"api_key": "",
+  	"api_key": "9a69df7bea0b72005c0dc53b1035015c7db41528d9465695",
     "library_url": "http://network.winnitron.com"
   }
 }
