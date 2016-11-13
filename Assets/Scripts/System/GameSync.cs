@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
+using ICSharpCode.SharpZipLib.Zip;
 
 [System.Serializable]
 public class GameSync : MonoBehaviour {
@@ -93,18 +94,17 @@ public class GameSync : MonoBehaviour {
                         //Things downloaded fine!  Do fun stuff now pls thx.
 
                         Directory.CreateDirectory(game.installDirectory);
-                        string destFile = game.installDirectory + "/" + game.slug + ".zip";
-                        File.WriteAllBytes(destFile, download.bytes);
+                        string zipFile = game.installDirectory + "/" + game.slug + ".zip";
+                        File.WriteAllBytes(zipFile, download.bytes);
 
-                        ICSharpCode.SharpZipLib.Zip.FastZip zip = new ICSharpCode.SharpZipLib.Zip.FastZip();
-                        ICSharpCode.SharpZipLib.Zip.ZipConstants.DefaultCodePage = 0;
+                        FastZip zip = new FastZip();
+                        ZipConstants.DefaultCodePage = 0;
 
                         //Starts the unzip coroutine and waits till it's done
-                        yield return StartCoroutine(ZipTools.ExtractZipFile(File.ReadAllBytes(destFile), game.installDirectory));
-                        //zip.ExtractZip(destFile, game.installDirectory, null);
+                        zip.ExtractZip(zipFile, game.installDirectory, null);
 
                         game.writeMetadataFile();
-                        File.Delete(destFile);
+                        File.Delete(zipFile);
                     }
                 }
             }
