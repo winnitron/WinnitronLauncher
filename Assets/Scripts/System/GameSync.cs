@@ -25,7 +25,7 @@ public class GameSync : MonoBehaviour {
 
     public void execute() {
         GM.dbug.Log(this, "----------------------------- Running sync -----------------------------");
-        syncDescription.text = "RUNNING SYNC";
+        SyncText("INITIALIZING SYNC!");
 
         initConfig();
         fetchPlaylistSubscriptions();
@@ -59,7 +59,8 @@ public class GameSync : MonoBehaviour {
 
             foreach(Playlist playlist in playlists) {
                 GM.dbug.Log(this, "creating " + playlist.parentDirectory);
-                syncDescription.text = "creating" + playlist.parentDirectory;
+
+                SyncText("Initializing playlist " + playlist.title);
 
                 Directory.CreateDirectory(playlist.parentDirectory);
                 playlist.deleteRemovedGames();
@@ -67,7 +68,6 @@ public class GameSync : MonoBehaviour {
 
                 foreach (Game game in games) {
                     GM.dbug.Log(this, "Downloading: " + game.title);
-                    syncDescription.text = "Downloading: " + game.title;
 
 
                     //Start the downloadin'!
@@ -77,7 +77,7 @@ public class GameSync : MonoBehaviour {
                     while (!download.isDone)
                     {
                         int progress = Mathf.FloorToInt(download.progress * 100);
-                        syncDescription.text = "Downloading " + game.title + " %" + progress;
+                        SyncText("Downloading " + game.title + " %" + progress);
                         yield return null;
                     }
 
@@ -87,11 +87,14 @@ public class GameSync : MonoBehaviour {
                     if (!string.IsNullOrEmpty(download.error))
                     {
                         // error!
-                        GM.dbug.Log(this, "Error downloading '" + download.url + "': " + download.error);
+                        Debug.LogError("Error downloading '" + download.url + "': " + download.error);
+                        yield return SyncText("Error downloading " + game.title + "!", 3);
                     }
                     else
                     {
                         //Things downloaded fine!  Do fun stuff now pls thx.
+
+                        yield return SyncText("Unzipping " + game.title + "...", 0.1f);
 
                         Directory.CreateDirectory(game.installDirectory);
                         string zipFile = game.installDirectory + "/" + game.slug + ".zip";
@@ -107,11 +110,24 @@ public class GameSync : MonoBehaviour {
                         File.Delete(zipFile);
                     }
                 }
+
+                EndSync();
             }
 
         } else {
-            GM.dbug.Log(this, "Error fetching playlists: " + www.error);
+            Debug.LogError("Error fetching playlists: " + www.error);
         }
+    }
+
+    private void SyncText(string text)
+    {
+        syncDescription.text = text;
+    }
+
+    private IEnumerator SyncText(string text, float timeToWait)
+    {
+        SyncText(text);
+        yield return new WaitForSeconds(timeToWait);
     }
 
 

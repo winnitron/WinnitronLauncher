@@ -30,7 +30,7 @@ public class StateManager : MonoBehaviour {
 		foreach (State state in states) 
 			state.gameObject.SetActive (true);
 
-		ChangeState (WorldState.Intro);
+		ChangeState (WorldState.Sync);
 	}
 
 	void Update () {
