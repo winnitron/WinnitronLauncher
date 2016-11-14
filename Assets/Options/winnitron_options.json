@@ -6,8 +6,8 @@
   },
   "defaultFolders": {
     "playlists": "C:/WINNITRON/Dev/Playlists",
-    "music": "default",
-	"attract": "default"
+    "music": "C:/WINNITRON/Dev/Music",
+	"attract": "C:/WINNITRON/Dev/Attract"
   },
   "sync": {
   	"api_key": "9a69df7bea0b72005c0dc53b1035015c7db41528d9465695",

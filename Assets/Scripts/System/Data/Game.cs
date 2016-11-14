@@ -53,7 +53,7 @@ public class Game: Object
 	{
 		var J = GM.data.LoadJson (directory.FullName + "/winnitron_metadata.json");
 
-		this.name = J ["name"];
+		this.name = J ["title"];
 		this.author = null; //No author stuff just yet
 		this.screenshot = GetScreenshot();
 		this.executable = Path.Combine(directory.FullName + "/", J["executable"]);

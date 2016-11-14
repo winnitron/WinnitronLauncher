@@ -54,7 +54,7 @@ public class StateManager : MonoBehaviour {
 		if (worldState == WorldState.Attract) {
 			//Relaunch launcher if any key is pressed
 			if (Input.anyKeyDown)
-				worldState = WorldState.Launcher;
+				ChangeState(WorldState.Launcher);
 		}
 
 		//Things to do in Launcher Mode

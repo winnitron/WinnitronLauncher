@@ -10563,7 +10563,7 @@ MonoBehaviour:
   - {fileID: 2048575091}
   - {fileID: 1668768756}
   idleTime: 0
-  timeBeforeIdle: 5
+  timeBeforeIdle: 30
   oopsController: {fileID: 1428222310}
   oops: 
 --- !u!114 &1803195762

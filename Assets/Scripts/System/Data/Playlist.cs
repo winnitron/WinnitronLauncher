@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
+using System.Globalization;
 
 [System.Serializable]
 public class Playlist : Object
@@ -24,6 +25,7 @@ public class Playlist : Object
 		//Replace the underscores for a cleaner name
 		name = this.directory.Name.Replace('_', ' ');
         name = this.directory.Name.Replace('-', ' ');
+        name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name);
 
         //Init the games list
         this.games = new List<Game>();
