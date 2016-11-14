@@ -16,18 +16,20 @@ public class Runner : MonoBehaviour {
             jukebox = GameObject.Find("Jukebox").GetComponent<Jukebox>();
     }
 
-    /*
-	public void RunSync()
-    {
-        GM.dbug.Log(this, "RUNNER: Running sync program.");
-        GM.sync.execute();
-	}
-    */
-
 
 	//Run those games!
 
 	public void Run(Game game) {
+        GM.dbug.Log(this, "Running Game " + game.name + " legacy: " + game.useLegacyControls);
+        if(game.useLegacyControls)
+        {
+            GM.dbug.Log(this, "Game has legacy controls!");
+            Process legacyController = new Process();
+            legacyController.StartInfo.FileName = GM.options.dataPath + "/WinnitronLegacy.exe";
+            GM.dbug.Log(this, "Trying to run " + legacyController.StartInfo.FileName);
+            legacyController.Start();
+        }
+
 		Process myProcess = new Process();
 		myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
 		myProcess.StartInfo.CreateNoWindow = true;

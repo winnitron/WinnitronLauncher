@@ -13,6 +13,7 @@ public class Game: Object
 	public string author;
 	public Sprite screenshot;
 	public string executable;
+    public bool useLegacyControls;
 
 	/*
 	 *	Game Constructor
@@ -44,7 +45,7 @@ public class Game: Object
 		this.name = GetGameNameFromFolderName();
 		this.author = null; //No author stuff just yet
 		this.screenshot = GetScreenshot();
-		this.executable = GetExecutablePath();
+        this.executable = GetExecutablePath();
 
 		GM.dbug.Log(this, "Game Built! Name: " + name + " Screenshot: " + screenshot.name + " exe path: " + executable);
 	}
@@ -57,8 +58,9 @@ public class Game: Object
 		this.author = null; //No author stuff just yet
 		this.screenshot = GetScreenshot();
 		this.executable = Path.Combine(directory.FullName + "/", J["executable"]);
+        this.useLegacyControls = J["legacy_controls"].AsBool;
 
-        GM.dbug.Log(this, "Game Built JSON! Name: " + name + " Screenshot: " + screenshot.name + " exe path: " + executable);
+        GM.dbug.Log(this, "Game Built JSON! Name: " + name + " Screenshot: " + screenshot.name + " legacy: " + useLegacyControls + " exe path: " + executable);
 	}
 
 
