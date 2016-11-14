@@ -32,7 +32,7 @@ public class Runner : MonoBehaviour {
 		myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
 		myProcess.StartInfo.CreateNoWindow = true;
 		myProcess.StartInfo.UseShellExecute = false;
-		myProcess.StartInfo.FileName = game.executablePath;//"C:\\WINNITRON\\Games\\Canabalt\\Canabalt.exe";
+		myProcess.StartInfo.FileName = game.executable;//"C:\\WINNITRON\\Games\\Canabalt\\Canabalt.exe";
 		myProcess.EnableRaisingEvents = true;
 		StartCoroutine(RunProcess(myProcess));
 	}

@@ -12,16 +12,15 @@ public class DataManager : Singleton<DataManager>  {
 
     PlaylistNavigationManager playlistNavManager;
 
-	// Use this for initialization
-	void Start () {
-		playlists = new List<Playlist> ();
-		songs = new List<Song> ();
-		attractModeImages = new List<Sprite> ();
-	}
-
-	public void LoadData()
+	public void ReloadData()
 	{
-		playlistNavManager = GameObject.Find("PlaylistNavigationManager").GetComponent<PlaylistNavigationManager>();
+        //Start with new lists
+
+        playlists = new List<Playlist>();
+        songs = new List<Song>();
+        attractModeImages = new List<Sprite>();
+
+        playlistNavManager = GameObject.Find("PlaylistNavigationManager").GetComponent<PlaylistNavigationManager>();
 
 		//Load everything!
 		GetPlaylists ();
@@ -30,10 +29,6 @@ public class DataManager : Singleton<DataManager>  {
 		
         // Build the visuals from this data
         playlistNavManager.BuildPlaylists();
-
-		//Do this when done loading
-
-		//GM.state.ChangeState(StateManager.WorldState.Intro);
 	}
 
 	// Builds a list of Game objects based on the game directory inside its main directory. Then instantiates the GameNavigationManager, which then instantiates the ScreenShotDisplayManager

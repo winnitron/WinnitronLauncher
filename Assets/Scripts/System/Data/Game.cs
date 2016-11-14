@@ -12,7 +12,7 @@ public class Game: Object
 	public new string name;
 	public string author;
 	public Sprite screenshot;
-	public string executablePath;
+	public string executable;
 
 	/*
 	 *	Game Constructor
@@ -25,10 +25,10 @@ public class Game: Object
 		this.directory = new DirectoryInfo (directory);
 
 		//Check for the Winnitron Metadata JSON, and use oldschool folder naming if it doesn't exist
-		if (System.IO.File.Exists (this.directory + "winnitron_metadata.json")) {
+		if (System.IO.File.Exists (this.directory + "/winnitron_metadata.json")) {
 			BuildGameJSON ();
 		} else {
-			BuildGame ();
+            BuildGame ();
 		}
 	}
 
@@ -44,21 +44,21 @@ public class Game: Object
 		this.name = GetGameNameFromFolderName();
 		this.author = null; //No author stuff just yet
 		this.screenshot = GetScreenshot();
-		this.executablePath = GetExecutablePath();
+		this.executable = GetExecutablePath();
 
-		GM.dbug.Log(this, "Game Built! Name: " + name + " Screenshot: " + screenshot.name + " exe path: " + executablePath);
+		GM.dbug.Log(this, "Game Built! Name: " + name + " Screenshot: " + screenshot.name + " exe path: " + executable);
 	}
 
 	public void BuildGameJSON()
 	{
-		var J = GM.data.LoadJson (this.directory + "winnitron_metadata.json");
+		var J = GM.data.LoadJson (directory.FullName + "/winnitron_metadata.json");
 
 		this.name = J ["name"];
 		this.author = null; //No author stuff just yet
 		this.screenshot = GetScreenshot();
-		this.executablePath = GetExecutablePath();
+		this.executable = Path.Combine(directory.FullName + "/", J["executable"]);
 
-		GM.dbug.Log(this, "Game Built JSON! Name: " + name + " Screenshot: " + screenshot.name + " exe path: " + executablePath);
+        GM.dbug.Log(this, "Game Built JSON! Name: " + name + " Screenshot: " + screenshot.name + " exe path: " + executable);
 	}
 
 
@@ -72,16 +72,18 @@ public class Game: Object
 	{
 		// Load the screenshot from the games directory as a Texture2D
 		var screenshotTex = new Texture2D(1024, 768);
-		screenshotTex.LoadImage(File.ReadAllBytes(Path.Combine(directory.FullName, directory.Name + ".png")));
 
-		// Turn the Texture2D into a sprite
-		return Sprite.Create(screenshotTex, new Rect(0, 0, screenshotTex.width, screenshotTex.height), new Vector2(0.5f, 0.5f));
+        //screenshotTex.LoadImage(File.ReadAllBytes(Path.Combine(directory.FullName, directory.Name + ".png")));
+        screenshotTex.LoadImage(File.ReadAllBytes(Directory.GetFiles(directory.FullName + "/", "*.png")[0]));
+
+        // Turn the Texture2D into a sprite
+        return Sprite.Create(screenshotTex, new Rect(0, 0, screenshotTex.width, screenshotTex.height), new Vector2(0.5f, 0.5f));
 	}
 
 	private string GetExecutablePath()
 	{
 		//Find the .exe in the directory and save a reference
-		return Path.Combine(directory.FullName, directory.Name + ".exe");
+		return Path.Combine(directory.FullName, executable);
 	}
 
 	private string GetGameNameFromFolderName()

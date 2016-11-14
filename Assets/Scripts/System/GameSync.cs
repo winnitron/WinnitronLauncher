@@ -111,6 +111,9 @@ public class GameSync : MonoBehaviour {
                     }
                 }
 
+                SyncText("Collecting data for launcher...");
+
+                GM.data.ReloadData();
                 EndSync();
             }
 

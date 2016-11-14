@@ -23,9 +23,10 @@ public class Playlist : Object
 		this.directory = new DirectoryInfo(directory);
 		//Replace the underscores for a cleaner name
 		name = this.directory.Name.Replace('_', ' ');
+        name = this.directory.Name.Replace('-', ' ');
 
-		//Init the games list
-		this.games = new List<Game>();
+        //Init the games list
+        this.games = new List<Game>();
 
 		//Check for the Winnitron Metadata JSON, and use oldschool folder naming if it doesn't exist
 		if (System.IO.File.Exists (this.directory + "winnitron_metadata.json")) {

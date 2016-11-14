@@ -10513,7 +10513,7 @@ MonoBehaviour:
   widescreen: 1
   forceMode: 2
   initializing: 1
-  contentPath: c:/WINNITRON/Winnitron_Data
+  dataPath: 
   playlistsPath: /Playlists
   musicPath: /Music
   attractPath: /Attract
@@ -10554,7 +10554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   suppressDebug: 0
-  worldState: 0
+  worldState: 3
   states:
   - {fileID: 1692272706}
   - {fileID: 1030019322}
@@ -10577,10 +10577,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a834322dec9a43bc974594b13148de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  globalOn: 0
+  globalOn: 1
   supress: []
   show:
-  - {fileID: 1803195763}
+  - {fileID: 11500000, guid: 8c0a348a2756a40afadf07d0c1ad8988, type: 3}
 --- !u!114 &1803195763
 MonoBehaviour:
   m_ObjectHideFlags: 0
