@@ -217,6 +217,11 @@ public class GameSync : MonoBehaviour {
         public string downloadURL;
         public System.DateTime lastModified;
         public string installDirectory;
+        public string imageURL;
+        public int minPlayers;
+        public int maxPlayers;
+        public string executable;
+        public bool legacyControls;
 
         public JSONNode installationMetadata;
 
@@ -227,6 +232,11 @@ public class GameSync : MonoBehaviour {
             downloadURL = data["download_url"];
             lastModified = System.DateTime.Parse(data["last_modified"], null, System.Globalization.DateTimeStyles.RoundtripKind);
             installDirectory = parentDir + slug + "/";
+            minPlayers = data["min_players"].AsInt;
+            maxPlayers = data["max_players"].AsInt;
+            executable = data["executable"];
+            legacyControls = data["legacy_controls"].AsBool;
+            imageURL = data["image_url"];
 
             if (alreadyInstalled()) {
                 string json = System.IO.File.ReadAllText(installDirectory + "winnitron_metadata.json");
@@ -248,7 +258,11 @@ public class GameSync : MonoBehaviour {
             installationMetadata.Add("slug", new JSONData(slug));
             //installationMetadata.Add("description", new JSONData(description)); // TODO buggy for some reason? Blank?
             installationMetadata.Add("last_modified", new JSONData(System.DateTime.UtcNow.ToString("s", System.Globalization.CultureInfo.InvariantCulture)));
-            // TODO min/max player counts (needs to happen on the server side first)
+            installationMetadata.Add("min_players", new JSONData(minPlayers));
+            installationMetadata.Add("max_players", new JSONData(maxPlayers));
+            installationMetadata.Add("executable", new JSONData(executable));
+            installationMetadata.Add("legacy_controls", new JSONData(legacyControls));
+            installationMetadata.Add("image_url", new JSONData(imageURL));
 
             string filename = installDirectory + "/winnitron_metadata.json";
             Debug.Log("writing to " + filename + ": " + installationMetadata.ToString());
