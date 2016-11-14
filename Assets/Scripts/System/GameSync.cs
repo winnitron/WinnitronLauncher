@@ -106,6 +106,18 @@ public class GameSync : MonoBehaviour {
                         //Starts the unzip coroutine and waits till it's done
                         zip.ExtractZip(zipFile, game.installDirectory, null);
 
+
+                        // Download the image
+                        WWW imageDownload = new WWW(game.imageURL);
+                        while (!imageDownload.isDone) {
+                            SyncText("Downloading cover image");
+                            yield return null;
+                        }
+
+                        System.Uri uri = new System.Uri(game.imageURL);
+                        string imageFilename = Path.GetFileName(uri.AbsolutePath);
+                        File.WriteAllBytes(game.installDirectory + "/" + imageFilename, imageDownload.bytes);
+
                         game.writeMetadataFile();
                         File.Delete(zipFile);
                     }
@@ -268,7 +280,6 @@ public class GameSync : MonoBehaviour {
             Debug.Log("writing to " + filename + ": " + installationMetadata.ToString());
             System.IO.File.WriteAllText(filename, installationMetadata.ToString());
         }
-
     }
 }
 
