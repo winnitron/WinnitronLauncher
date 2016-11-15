@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class StateManager : MonoBehaviour {
 
-    public bool suppressDebug;
-
 	public enum WorldState{Intro, Launcher, Attract, Idle, Sync, Oops};
 
 	public WorldState worldState = WorldState.Intro;
@@ -30,7 +28,7 @@ public class StateManager : MonoBehaviour {
 		foreach (State state in states) 
 			state.gameObject.SetActive (true);
 
-		ChangeState (WorldState.Sync);
+		ChangeState (WorldState.Launcher);
 	}
 
 	void Update () {

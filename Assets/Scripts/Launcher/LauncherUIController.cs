@@ -1,0 +1,109 @@
+﻿using UnityEngine;
+using UnityEngine.UI;
+using System;
+using System.IO;
+using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+
+/// <summary>
+/// Controls all aspects of the launcher UI.  Creates and sorts the playlists (which will have their own controllers)
+/// </summary>
+public class LauncherUIController : MonoBehaviour
+{
+
+    public List<Playlist> playlistData;
+
+    public GameObject playlistsContainer;                 // Object that marks the position where the current selected playlist should be placed
+    public GameObject playlistLabelsContainer;             // Object that marks the position where the playlist name labels will be placed
+
+    public GameObject playlistUIControllerPrefab;
+    public GameObject playlistLabelPrefab;
+
+    public Animation arrowLeft;
+    public Animation arrowRight;
+
+    public float tweenTime;                             // Time for movement of playlist and playlist labels
+
+    public float offsetPlaylistsX = 60;
+    public float offsetPlaylistLabelsX = 200;
+
+    public float smallScale = 0.7f;
+
+    public List<PlaylistLabel> playlistLabelList;       // List of all playlist labels
+    public List<PlaylistUIController> playlistControllers;
+
+    public int selectedPlaylistIndex;
+    
+
+    void Start()
+    {
+        //playlistData = GM.data.playlists;
+        BuildPlaylists();
+    }
+
+    void Update()
+    {
+
+        if (GM.state.worldState == StateManager.WorldState.Launcher)
+        {
+
+
+        }
+    }
+
+    private void BuildPlaylists()
+    {
+
+        foreach (var playlist in playlistData)
+        {
+
+            // Instantiate a new playlist and set the path to its directory
+            GameObject newPlaylistController = Instantiate(playlistUIControllerPrefab);
+            newPlaylistController.transform.SetParent(playlistsContainer.transform);
+            playlistControllers.Add(newPlaylistController.GetComponent<PlaylistUIController>());
+
+            GameObject newPlaylistLabel = Instantiate(playlistLabelPrefab);
+            newPlaylistLabel.transform.SetParent(playlistLabelsContainer.transform);          // Place all playlist labels inside this object to insure their placement in hierarchy and thus sorting order
+            newPlaylistLabel.GetComponent<PlaylistLabel>().name = "PlaylistLabel: " + playlist.name;
+            newPlaylistLabel.GetComponent<PlaylistLabel>().initializeName(playlist.name);
+            playlistLabelList.Add(newPlaylistLabel.GetComponent<PlaylistLabel>());
+
+        }
+
+        // Check whether there is more than one playlist, if there is only one, deactivate the arrow graphics on either side of the label
+        if (playlistData.Count <= 1)
+        {
+            arrowRight.gameObject.SetActive(false);
+            arrowLeft.gameObject.SetActive(false);
+        }
+
+        RepositionPlaylists();
+    }
+
+    private void RepositionPlaylists()
+    {
+        var i = 0;
+        foreach(var playlist in playlistControllers)
+        {
+            var relativeIndex = i - selectedPlaylistIndex;
+            var thisOffset = offsetPlaylistsX * relativeIndex;
+
+            playlist.transform.position = new Vector3(thisOffset, 0, 0);
+
+            i++;
+        }
+
+        i = 0;
+        foreach (var playlistLabel in playlistLabelList)
+        {
+            var relativeIndex = i - selectedPlaylistIndex;
+            var thisOffset = offsetPlaylistLabelsX * relativeIndex;
+
+            playlistLabel.transform.localPosition = new Vector3(thisOffset, 0, 0);
+            playlistLabel.transform.localScale = new Vector3(1, 1, 1);
+
+            i++;
+        }
+    }
+}
