@@ -10,12 +10,8 @@ public class Jukebox : MonoBehaviour {
 
     public bool on;
 
-    public bool suppressDebug;
-
     public Text artistName;
     public Text songName;
-	
-    public List<Song> songs;
 
     private int currentTrack;
 
@@ -32,9 +28,6 @@ public class Jukebox : MonoBehaviour {
         //Don't do anything until the paths have come through
         while (GM.options.initializing) yield return null;
 
-        if (!suppressDebug) GM.dbug.Log(this, "JUKEBOX: Initializing...");
-        BuildSongList();
-
 		nextTrack ();
 
 		doneLoading = true;
@@ -43,9 +36,9 @@ public class Jukebox : MonoBehaviour {
     void Update() {
 		if(doneLoading) {
 	        // Player 2 Joystick controls song
-	        if (Input.GetKeyUp(KeyCode.J) || Input.GetKeyUp(KeyCode.Minus))
+	        if (Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.Minus))
 	            lastTrack();
-	        if (Input.GetKeyUp(KeyCode.L) || Input.GetKeyUp(KeyCode.Equals))
+	        if (Input.GetKey(KeyCode.L) || Input.GetKey(KeyCode.Equals))
 	            nextTrack();
 
 	        // Stop & Play from keyboard
@@ -74,8 +67,8 @@ public class Jukebox : MonoBehaviour {
 
     public void play() {
 
-        currentTrack = UnityEngine.Random.Range(0, songs.Count);
-        source.clip = songs[currentTrack].clip;
+        currentTrack = UnityEngine.Random.Range(0, GM.data.songs.Count);
+        source.clip = GM.data.songs[currentTrack].clip;
         source.Play();
         on = true;
     }
@@ -84,12 +77,12 @@ public class Jukebox : MonoBehaviour {
         
         source.Stop();
 
-        if (currentTrack >= songs.Count - 1)
+        if (currentTrack >= GM.data.songs.Count - 1)
             currentTrack = 0;
         else
             currentTrack++;
 
-        source.clip = songs[currentTrack].clip;
+        source.clip = GM.data.songs[currentTrack].clip;
 
         if (on) source.Play();
         initWdiget();
@@ -100,59 +93,18 @@ public class Jukebox : MonoBehaviour {
         source.Stop();
 
         if (currentTrack <= 1)
-            currentTrack = songs.Count - 1;
+            currentTrack = GM.data.songs.Count - 1;
         else
             currentTrack--;
 
-        source.clip = songs[currentTrack].clip;
+        source.clip = GM.data.songs[currentTrack].clip;
 
         if (on) source.Play();
         initWdiget();
     }
 
     public void initWdiget() {
-        songName.text = songs[currentTrack].name;
-        artistName.text = songs[currentTrack].author;
+        songName.text = GM.data.songs[currentTrack].name;
+        artistName.text = GM.data.songs[currentTrack].author;
     }
-
-	void BuildSongList()
-	{
-		// get all valid files
-		var info = new DirectoryInfo(GM.options.musicPath);
-		var songFiles = info.GetFiles();
-
-        if (!suppressDebug) GM.dbug.Log(this, "JUKEBOX: Started Loading Song Files.");
-
-		foreach(var song in songFiles)
-		{
-			var fileExt = song.FullName.Substring(Math.Max(0, song.FullName.Length - 4));
-            if (!suppressDebug) GM.dbug.Log(this, "JUKEBOX: song extension is " + fileExt);
-
-			if(song.Name.Substring(0, 1) != "." && fileExt == ".ogg") {
-                if (!suppressDebug) GM.dbug.Log(this, "JUKEBOX: Started loading " + song.FullName);
-
-				WWW audioLoader = new WWW("file://" + song.FullName);
-
-				while( !audioLoader.isDone ) {}
-
-				//Figure out the song/author names
-				//take out the file extension
-				var fullName = song.Name.Replace(".ogg", "");
-
-				//find the '-' and split the string
-				string[] words = fullName.Split('-');
-
-				//First half is the song title, second the author
-				var name = words[0];
-				var author = words[1];
-
-                //We're done!
-                if (!suppressDebug) GM.dbug.Log(this, "JUKEBOX: Can load song: " + audioLoader.GetAudioClip(false));
-				songs.Add(new Song(name, author, audioLoader.GetAudioClip(false)));
-                if (!suppressDebug) GM.dbug.Log(this, "JUKEBOX: Done loading " + song.FullName);
-			} else {
-                if (!suppressDebug) GM.dbug.Log(this, "JUKEBOX: Skipped " + song.FullName + " // not and .ogg");
-			}
-		} 
-	}
 }

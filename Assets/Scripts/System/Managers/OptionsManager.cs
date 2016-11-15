@@ -2,6 +2,24 @@ using UnityEngine;
 using System.Collections;
 using SimpleJSON;
 
+[System.Serializable]
+public class KeyBindings
+{
+    public KeyCode P1Up;
+    public KeyCode P1Down;
+    public KeyCode P1Left;
+    public KeyCode P1Right;
+    public KeyCode P1Button1;
+    public KeyCode P1Button2;
+
+    public KeyCode P2Up;
+    public KeyCode P2Down;
+    public KeyCode P2Left;
+    public KeyCode P2Right;
+    public KeyCode P2Button1;
+    public KeyCode P2Button2;
+}
+
 public class OptionsManager : MonoBehaviour {
 
     //Launcher Options
@@ -16,6 +34,8 @@ public class OptionsManager : MonoBehaviour {
     public string playlistsPath = "/Playlists";
     public string musicPath = "/Music";
     public string attractPath = "/Attract";
+
+    public KeyBindings keys;
 
     //language
     public JSONNode language;

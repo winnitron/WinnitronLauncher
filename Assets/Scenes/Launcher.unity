@@ -5012,7 +5012,7 @@ MonoBehaviour:
   sunColor: {r: 0.6102941, g: 0.88711977, b: 1, a: 1}
   sunThreshold: {r: 0.87, g: 0.74, b: 0.65, a: 1}
   sunShaftBlurRadius: 3.59
-  sunShaftIntensity: 3.04
+  sunShaftIntensity: 0
   maxRadius: 0.47100002
   useDepthTexture: 1
   sunShaftsShader: {fileID: 4800000, guid: d3b1c8c1036784176946f5cfbfb7fe4c, type: 3}
@@ -8106,10 +8106,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   on: 1
-  suppressDebug: 1
   artistName: {fileID: 1492520221}
   songName: {fileID: 203998173}
-  songs: []
 --- !u!82 &1512600792
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10517,6 +10515,19 @@ MonoBehaviour:
   playlistsPath: /Playlists
   musicPath: /Music
   attractPath: /Attract
+  keys:
+    P1Up: 273
+    P1Down: 274
+    P1Left: 276
+    P1Right: 275
+    P1Button1: 46
+    P1Button2: 47
+    P2Up: 119
+    P2Down: 115
+    P2Left: 97
+    P2Right: 100
+    P2Button1: 94
+    P2Button2: 49
 --- !u!114 &1803195759
 MonoBehaviour:
   m_ObjectHideFlags: 0

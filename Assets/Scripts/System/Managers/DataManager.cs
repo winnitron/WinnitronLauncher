@@ -55,8 +55,47 @@ public class DataManager : Singleton<DataManager>  {
 
 	public void GetMusic()
 	{
-		//Get stuff here
-	}
+        // get all valid files
+        var info = new DirectoryInfo(GM.options.musicPath);
+        var songFiles = info.GetFiles();
+
+        GM.dbug.Log(this, "JUKEBOX: Started Loading Song Files.");
+
+        foreach (var song in songFiles)
+        {
+            var fileExt = song.FullName.Substring(Mathf.Max(0, song.FullName.Length - 4));
+            GM.dbug.Log(this, "JUKEBOX: song extension is " + fileExt);
+
+            if (song.Name.Substring(0, 1) != "." && fileExt == ".ogg")
+            {
+                GM.dbug.Log(this, "JUKEBOX: Started loading " + song.FullName);
+
+                WWW audioLoader = new WWW("file://" + song.FullName);
+
+                while (!audioLoader.isDone) { }
+
+                //Figure out the song/author names
+                //take out the file extension
+                var fullName = song.Name.Replace(".ogg", "");
+
+                //find the '-' and split the string
+                string[] words = fullName.Split('-');
+
+                //First half is the song title, second the author
+                var name = words[0];
+                var author = words[1];
+
+                //We're done!
+                GM.dbug.Log(this, "JUKEBOX: Can load song: " + audioLoader.GetAudioClip(false));
+                songs.Add(new Song(name, author, audioLoader.GetAudioClip(false)));
+                GM.dbug.Log(this, "JUKEBOX: Done loading " + song.FullName);
+            }
+            else
+            {
+                GM.dbug.Log(this, "JUKEBOX: Skipped " + song.FullName + " // not an .ogg");
+            }
+        }
+    }
 
 	public bool UpdatePlaylists()
 	{
