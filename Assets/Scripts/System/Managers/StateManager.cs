@@ -37,17 +37,17 @@ public class StateManager : MonoBehaviour {
 
 		//DEBUG KEYS
 		//Switch states for testing.  These keys aren't used on Winnitrons yet
-		if (Input.GetKeyDown (KeyCode.Alpha1))
+		if (Input.GetKeyDown (KeyCode.F1))
 			ChangeState(WorldState.Intro);
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.F2))
             ChangeState(WorldState.Launcher);
-		if (Input.GetKeyDown (KeyCode.Alpha3))
+		if (Input.GetKeyDown (KeyCode.F3))
 			ChangeState(WorldState.Attract);
-		if (Input.GetKeyDown (KeyCode.Alpha4))
+		if (Input.GetKeyDown (KeyCode.F4))
 			ChangeState(WorldState.Idle);
-        if (Input.GetKeyDown(KeyCode.Alpha5))
+        if (Input.GetKeyDown(KeyCode.F5) || Input.GetKeyDown(KeyCode.Return))
             ChangeState(WorldState.Sync);
-        if (Input.GetKeyDown (KeyCode.Alpha7))
+        if (Input.GetKeyDown (KeyCode.F6))
 			oops = GM.Text ("error", "test");
 
 		//Things to do in Attract Mode

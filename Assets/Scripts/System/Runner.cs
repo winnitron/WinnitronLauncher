@@ -39,7 +39,7 @@ public class Runner : MonoBehaviour {
 
 	IEnumerator RunProcess(Process process){
         
-		if (jukebox) jukebox.stop();
+		if (jukebox) jukebox.Stop();
 
 		GM.state.ChangeState(StateManager.WorldState.Idle);
 		Screen.fullScreen = false;
@@ -55,7 +55,7 @@ public class Runner : MonoBehaviour {
 
 		GM.state.ChangeState(StateManager.WorldState.Intro);
 
-        if (jukebox) jukebox.play();
+        if (jukebox) jukebox.PlayRandom();
 	}
 }
 

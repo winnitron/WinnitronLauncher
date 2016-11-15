@@ -8,74 +8,58 @@ using System.Linq;
 
 public class Jukebox : MonoBehaviour {
 
-    public bool on;
+    public bool isPlaying;
 
     public Text artistName;
     public Text songName;
 
     private int currentTrack;
 
-	private bool doneLoading = false;
 	private AudioSource source;
 
-	protected void Awake() {
+	protected void Start() {
 		source = gameObject.GetComponent<AudioSource> ();
-        StartCoroutine("Init");
-	}
-
-    IEnumerator Init() {
-
-        //Don't do anything until the paths have come through
-        while (GM.options.initializing) yield return null;
-
-		nextTrack ();
-
-		doneLoading = true;
+        NextTrack();
     }
 
     void Update() {
-		if(doneLoading) {
-	        // Player 2 Joystick controls song
-	        if (Input.GetKeyDown(GM.options.keys.P2Left) || Input.GetKey(KeyCode.Minus))
-	            lastTrack();
-	        if (Input.GetKeyDown(GM.options.keys.P2Right) || Input.GetKey(KeyCode.Equals))
-	            nextTrack();
 
-	        // Stop & Play from keyboard
-	        if (Input.GetKeyDown(GM.options.keys.P2Button1)) {
+	    // Player 2 Joystick controls song
+	    if (Input.GetKeyDown(GM.options.keys.P2Left) || Input.GetKey(KeyCode.Minus))
+	        LastTrack();
+	    if (Input.GetKeyDown(GM.options.keys.P2Right) || Input.GetKey(KeyCode.Equals))
+	        NextTrack();
 
-	            if (on) {
-	                source.Stop();
-	                on = false;
-	            }
-	            else {
-	                source.Play();
-	                on = true;
-	            }
-	        }
+	    // Stop & Play from keyboard
+	    if (Input.GetKeyDown(GM.options.keys.P2Button1) || Input.GetKeyDown(GM.options.keys.P2Button2)) {
 
-	        // Check for song end
-	        if (!source.isPlaying && on)
-	            nextTrack();
-		}
+	        if (isPlaying) 
+	            Stop();
+	        else 
+	            PlayRandom();
+
+	    }
+
+	    // Check for song end
+	    if (!source.isPlaying && isPlaying)
+	        NextTrack();
     }
 
-    public void stop() {
+    public void Stop() {
         source.Stop();
-        on = false;
+        isPlaying = false;
     }
 
-    public void play() {
+    public void PlayRandom() {
 
         currentTrack = UnityEngine.Random.Range(0, GM.data.songs.Count);
         source.clip = GM.data.songs[currentTrack].clip;
-        source.Play();
-        on = true;
+        Play();
     }
 
-    public void nextTrack() {
+    public void NextTrack() {
         
-        source.Stop();
+        Stop();
 
         if (currentTrack >= GM.data.songs.Count - 1)
             currentTrack = 0;
@@ -84,13 +68,12 @@ public class Jukebox : MonoBehaviour {
 
         source.clip = GM.data.songs[currentTrack].clip;
 
-        if (on) source.Play();
-        initWdiget();
+        Play();
     }
 
-    public void lastTrack() {
+    public void LastTrack() {
 
-        source.Stop();
+        Stop();
 
         if (currentTrack <= 1)
             currentTrack = GM.data.songs.Count - 1;
@@ -98,12 +81,13 @@ public class Jukebox : MonoBehaviour {
             currentTrack--;
 
         source.clip = GM.data.songs[currentTrack].clip;
-
-        if (on) source.Play();
-        initWdiget();
+        
+        Play();
     }
 
-    public void initWdiget() {
+    public void Play() {
+        isPlaying = true;
+        source.Play();
         songName.text = GM.data.songs[currentTrack].name;
         artistName.text = GM.data.songs[currentTrack].author;
     }
