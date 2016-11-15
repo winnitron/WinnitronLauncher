@@ -25,8 +25,6 @@ public class Runner : MonoBehaviour {
         {
             GM.dbug.Log(this, "Game has legacy controls!");
             Process legacyController = new Process();
-            legacyController.StartInfo.FileName = GM.options.dataPath + "/WinnitronLegacy.exe";
-            GM.dbug.Log(this, "Trying to run " + legacyController.StartInfo.FileName);
             legacyController.Start();
         }
 

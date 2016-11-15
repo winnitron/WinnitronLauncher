@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Dbug: MonoBehaviour {
 	
 	public bool globalOn = false;
+    public bool showNull = false;
 
     public List<Object> supress;
     public List<Object> show;
@@ -22,6 +23,7 @@ public class Dbug: MonoBehaviour {
         bool result = false;
 
         if (globalOn) result = true;
+        if (mb == null && showNull) result = true;
 
         foreach (Object m in show)
             if (m == mb) result = true;
