@@ -78,7 +78,7 @@ public class PlaylistNavigationManager : MonoBehaviour {
 	                arrowRight.Rewind();
 	                arrowRight.Play();
 	            }
-                 else if (playlistManagerList.Count > 1 && Input.GetKeyDown(KeyCode.LeftArrow)) {
+                 else if (playlistManagerList.Count > 1 && Input.GetKeyDown(GM.options.keys.P1Left)) {
 
 	                // Audio
 	                GetComponent<AudioSource>().clip = clipList[1];
@@ -104,7 +104,7 @@ public class PlaylistNavigationManager : MonoBehaviour {
 			//only do it if we're not moving horz
             if (!moving) {
                 // Keyboard, move up and down through the current playlist
-                if (Input.GetKeyDown(KeyCode.UpArrow)) {
+                if (Input.GetKeyDown(GM.options.keys.P1Up)) {
 
                     // Audio
                     GetComponent<AudioSource>().clip = clipList[0];
@@ -113,7 +113,7 @@ public class PlaylistNavigationManager : MonoBehaviour {
                     backgroundPlane.scrollVertical(1);
                     playlistManagerList[selectedPlaylistIndex].moveUpList();
                 }
-                else if (Input.GetKeyDown(KeyCode.DownArrow)) {
+                else if (Input.GetKeyDown(GM.options.keys.P1Down)) {
 
                     // Audio
                     GetComponent<AudioSource>().clip = clipList[0];
@@ -124,7 +124,7 @@ public class PlaylistNavigationManager : MonoBehaviour {
                 }
 
                 // Launch game
-                if (Input.GetKeyUp(KeyCode.Z) || Input.GetKeyUp(KeyCode.X)) {
+                if (Input.GetKeyDown(GM.options.keys.P1Button1) || Input.GetKeyDown(GM.options.keys.P1Button2)) {
 
                     // Audio
                     GetComponent<AudioSource>().clip = clipList[2];

@@ -36,13 +36,13 @@ public class Jukebox : MonoBehaviour {
     void Update() {
 		if(doneLoading) {
 	        // Player 2 Joystick controls song
-	        if (Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.Minus))
+	        if (Input.GetKeyDown(GM.options.keys.P2Left) || Input.GetKey(KeyCode.Minus))
 	            lastTrack();
-	        if (Input.GetKey(KeyCode.L) || Input.GetKey(KeyCode.Equals))
+	        if (Input.GetKeyDown(GM.options.keys.P2Right) || Input.GetKey(KeyCode.Equals))
 	            nextTrack();
 
 	        // Stop & Play from keyboard
-	        if (Input.GetKeyUp(KeyCode.P)) {
+	        if (Input.GetKeyDown(GM.options.keys.P2Button1)) {
 
 	            if (on) {
 	                source.Stop();
