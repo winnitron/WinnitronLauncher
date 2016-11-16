@@ -69,7 +69,6 @@ public class GameSync : MonoBehaviour {
                 foreach (Game game in games) {
                     GM.dbug.Log(this, "Downloading: " + game.title);
 
-
                     //Start the downloadin'!
 
                     WWW download = new WWW(game.downloadURL);
@@ -160,6 +159,8 @@ public class GameSync : MonoBehaviour {
             foreach (string dir_full_path in installed) {
                 string directory = new DirectoryInfo(dir_full_path).Name;
 
+                //Debug.Log("checking " + directory + " for deletion...");
+
                 if (SluggedItem.directoryIsDeletable(directory, keepers)) {
                     Debug.Log("deleting " + dir_full_path);
                     Directory.Delete(dir_full_path, true);
@@ -211,6 +212,7 @@ public class GameSync : MonoBehaviour {
                 }
 
                 if (!game.alreadyInstalled() || game.lastModified > installModified) {
+                    Debug.Log("Gonna install " + game.title);
                     toInstall.Add(game);
                 }
             }
@@ -254,7 +256,7 @@ public class GameSync : MonoBehaviour {
             imageURL = data["image_url"];
 
             if (alreadyInstalled()) {
-                string json = System.IO.File.ReadAllText(installDirectory + "winnitron_metadata.json");
+                string json = File.ReadAllText(installDirectory + "winnitron_metadata.json");
                 installationMetadata = JSON.Parse(json);
             } else {
                 installationMetadata = new JSONClass();
@@ -263,8 +265,8 @@ public class GameSync : MonoBehaviour {
 
 
         public bool alreadyInstalled() {
-            Debug.Log(installDirectory);
-            return Directory.Exists(installDirectory);
+            //Debug.Log("checking for installation: " + installDirectory);
+            return File.Exists(installDirectory + "winnitron_metadata.json");
         }
 
         public void writeMetadataFile() {
