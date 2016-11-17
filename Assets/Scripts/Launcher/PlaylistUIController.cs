@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -22,6 +23,9 @@ public class PlaylistUIController : Tweenable {
     public float selectedGameLabelScale;
     public float gameScreenshotScale;
     public float selectedGameScreenshotScale;
+
+    public float gameLabelAlphaFalloff = 0.2f;
+    public float gameScreenshotAlphaFalloff = 0.3f;
 
     public int selectedGameIndex = 0;
 
@@ -60,12 +64,26 @@ public class PlaylistUIController : Tweenable {
             var relativeIndex = i - selectedGameIndex;
             var thisOffset = offsetGameLabels * relativeIndex;
 
-            gameLabel.transform.localPosition = Vector3.zero + thisOffset;
+            //Position
+            Vector3 newPosition = Vector3.zero + thisOffset;
+            newPosition.z = Mathf.Abs(newPosition.z);
 
-            if(selectedGameIndex == i)
-                gameLabel.transform.localScale = new Vector3(selectedGameLabelScale, selectedGameLabelScale, 1);
+            //Rotation
+            gameLabel.transform.localEulerAngles = Vector3.zero;
+
+            //Scale
+            Vector3 newScale;
+            if (selectedGameIndex == i)
+                newScale = new Vector3(selectedGameLabelScale, selectedGameLabelScale, 1);
             else
-                gameLabel.transform.localScale = new Vector3(gameLabelScale, gameLabelScale, 1);
+                newScale = new Vector3(gameLabelScale, gameLabelScale, 1);
+
+            //Alpha
+            float newAlpha = 1 - (gameLabelAlphaFalloff * Mathf.Abs(relativeIndex));
+            gameLabel.GetComponent<Text>().color = new Color(1, 1, 1, newAlpha);
+
+            //Commit!
+            gameLabel.Tween(newPosition, newScale);
 
             i++;
         }
@@ -76,18 +94,39 @@ public class PlaylistUIController : Tweenable {
             var relativeIndex = i - selectedGameIndex;
             var thisOffset = offsetGameScreenshots * relativeIndex;
 
-            var newPosition = Vector3.zero + thisOffset;
+            //Position
+            Vector3 newPosition = Vector3.zero + thisOffset;
             newPosition.z = Mathf.Abs(newPosition.z);
 
-            gameScreenshot.transform.localPosition = newPosition;
+            //Rotation
+            gameScreenshot.transform.localEulerAngles = Vector3.zero;
 
+            //Scale
+            Vector3 newScale;
             if (selectedGameIndex == i)
-                gameScreenshot.transform.localScale = new Vector3(selectedGameScreenshotScale, selectedGameScreenshotScale, 1);
+                newScale = new Vector3(selectedGameScreenshotScale, selectedGameScreenshotScale, 1);
             else
-                gameScreenshot.transform.localScale = new Vector3(gameScreenshotScale, gameScreenshotScale, 1);
+                newScale = new Vector3(gameScreenshotScale, gameScreenshotScale, 1);
+
+            //Alpha
+            float newAlpha = 1 - (gameScreenshotAlphaFalloff * Mathf.Abs(relativeIndex));
+            gameScreenshot.GetComponent<Image>().color = new Color(1, 1, 1, newAlpha);
+
+            //Commit
+            gameScreenshot.Tween(newPosition, newScale);
 
             i++;
         }
+    }
+
+    public void PreviousGame()
+    {
+        selectedGameIndex++;
+
+        if (selectedGameIndex > playlist.games.Count - 1)
+            selectedGameIndex = 0;
+
+        RepositionGames();
     }
 
     public void NextGame()
@@ -100,18 +139,8 @@ public class PlaylistUIController : Tweenable {
         RepositionGames();
     }
 
-    public void PreviousGame()
+    public Game GetCurrentGame()
     {
-        selectedGameIndex--;
-
-        if (selectedGameIndex < 0)
-            selectedGameIndex = playlist.games.Count - 1;
-
-        RepositionGames();
-    }
-
-    public void SelectGame()
-    {
-
+        return playlist.games[selectedGameIndex];
     }
 }

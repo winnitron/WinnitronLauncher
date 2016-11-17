@@ -10522,6 +10522,7 @@ MonoBehaviour:
   widescreen: 1
   forceMode: 2
   initializing: 1
+  tweenTime: 0.5
   dataPath: 
   playlistsPath: /Playlists
   musicPath: /Music
@@ -10893,7 +10894,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22400000, guid: b05001c5cd7fd4ac6a3aaae0df829747, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 22400000, guid: b05001c5cd7fd4ac6a3aaae0df829747, type: 2}
       propertyPath: m_LocalRotation.x

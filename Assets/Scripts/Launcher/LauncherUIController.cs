@@ -38,7 +38,7 @@ public class LauncherUIController : MonoBehaviour
 
     void Start()
     {
-        //playlistData = GM.data.playlists;
+        playlistData = GM.data.playlists;
         BuildPlaylists();
     }
 
@@ -55,6 +55,9 @@ public class LauncherUIController : MonoBehaviour
 
         if (Input.GetKeyDown(GM.options.keys.P1Down))
             NextGame();
+
+        if (Input.GetKeyDown(GM.options.keys.P1Button1))
+            SelectGame();
 
     }
 
@@ -96,7 +99,14 @@ public class LauncherUIController : MonoBehaviour
             var relativeIndex = i - selectedPlaylistIndex;
             var thisOffset = offsetPlaylists * relativeIndex;
 
-            playlist.transform.position = playlistsContainer.transform.position + thisOffset;
+            //Position
+            Vector3 newPosition = playlistsContainer.transform.position + thisOffset;
+            
+            //Scale
+            playlist.transform.localScale = new Vector3(1, 1, 1);
+
+            //Commit
+            playlist.TweenPosition(newPosition);
 
             i++;
         }
@@ -107,8 +117,14 @@ public class LauncherUIController : MonoBehaviour
             var relativeIndex = i - selectedPlaylistIndex;
             var thisOffset = offsetPlaylistLabels * relativeIndex;
 
-            playlistLabel.transform.localPosition = thisOffset;
+            //Position
+            Vector3 newPosition = thisOffset;
+
+            //Scale
             playlistLabel.transform.localScale = new Vector3(1, 1, 1);
+
+            //Commit
+            playlistLabel.TweenLocalPosition(newPosition);
 
             i++;
         }
@@ -142,5 +158,10 @@ public class LauncherUIController : MonoBehaviour
     private void PreviousGame()
     {
         playlistControllers[selectedPlaylistIndex].PreviousGame();
+    }
+
+    private void SelectGame()
+    {
+        GM.runner.Run(playlistControllers[selectedPlaylistIndex].GetCurrentGame());
     }
 }

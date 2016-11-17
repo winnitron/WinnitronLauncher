@@ -5,27 +5,51 @@ public class Tweenable : MonoBehaviour {
 
     GoTween currentTween;
 
-    //public LauncherUIController playlistNavigationManager { get; set; }
-
-    public void move(Vector3 pos, Vector3 scale, float tweenTime)
+    public void TweenPosition(Vector3 position)
     {
+        if (currentTween != null) StopTween();
 
-        currentTween = Go.to(transform, tweenTime, new GoTweenConfig()
-            .position(pos)
-            .scale(scale)
+        currentTween = Go.to(transform, GM.options.tweenTime, new GoTweenConfig()
+            .position(position)
             .setEaseType(GoEaseType.ExpoOut));
-
 
         currentTween.setOnCompleteHandler(c => { onMoveComplete(); });
     }
 
-    public void onMoveComplete()
+    public void TweenLocalPosition(Vector3 position)
     {
+        if (currentTween != null) StopTween();
 
-        
+        currentTween = Go.to(transform, GM.options.tweenTime, new GoTweenConfig()
+            .localPosition(position)
+            .setEaseType(GoEaseType.ExpoOut));
+
+        currentTween.setOnCompleteHandler(c => { onMoveComplete(); });
     }
 
-    public void stopTween()
+    public void Tween(Vector3 position, Vector3 scale)
+    {
+        Tween(position, scale, GM.options.tweenTime);
+    }
+
+    public void Tween(Vector3 position, Vector3 scale, float time)
+    {
+        if (currentTween != null) StopTween();
+
+        currentTween = Go.to(transform, time, new GoTweenConfig()
+            .localPosition(position)
+            .scale(scale)
+            .setEaseType(GoEaseType.ExpoOut));
+
+        currentTween.setOnCompleteHandler(c => { onMoveComplete(); });
+    }
+
+    private void onMoveComplete()
+    {
+        //ResetTempTransform();
+    }
+
+    public void StopTween()
     {
         currentTween.destroy();
     }

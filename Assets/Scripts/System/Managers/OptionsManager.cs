@@ -29,6 +29,8 @@ public class OptionsManager : MonoBehaviour {
 
     public bool initializing = true;
 
+    public float tweenTime = 0.7f;
+
     //Default Folders
     public string dataPath;
     public string playlistsPath = "/Playlists";
