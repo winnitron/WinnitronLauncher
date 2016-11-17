@@ -51,6 +51,7 @@ public class PlaylistUIController : Tweenable {
             gameLabels.Add(label);             //Save a reference to the component we need
 
             GameObject newGameScreenshot = Instantiate(gameScreenshotPrefab, gameScreenshotContainer.transform, true) as GameObject;
+            newGameScreenshot.GetComponent<GameScreenshot>().SetImage(game.screenshot);
             gameScreenshots.Add(newGameScreenshot.GetComponent<GameScreenshot>());
         }
 
