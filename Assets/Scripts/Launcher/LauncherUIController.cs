@@ -25,8 +25,8 @@ public class LauncherUIController : MonoBehaviour
 
     public float tweenTime;                             // Time for movement of playlist and playlist labels
 
-    public float offsetPlaylistsX = 60;
-    public float offsetPlaylistLabelsX = 200;
+    public Vector3 offsetPlaylists;
+    public Vector3 offsetPlaylistLabels;
 
     public float smallScale = 0.7f;
 
@@ -44,12 +44,18 @@ public class LauncherUIController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(GM.options.keys.P1Left))
+            PreviousPlaylist();
 
-        if (GM.state.worldState == StateManager.WorldState.Launcher)
-        {
+        if (Input.GetKeyDown(GM.options.keys.P1Right))
+            NextPlaylist();
 
+        if (Input.GetKeyDown(GM.options.keys.P1Up))
+            PreviousGame();
 
-        }
+        if (Input.GetKeyDown(GM.options.keys.P1Down))
+            NextGame();
+
     }
 
     private void BuildPlaylists()
@@ -59,12 +65,13 @@ public class LauncherUIController : MonoBehaviour
         {
 
             // Instantiate a new playlist and set the path to its directory
-            GameObject newPlaylistController = Instantiate(playlistUIControllerPrefab);
-            newPlaylistController.transform.SetParent(playlistsContainer.transform);
-            playlistControllers.Add(newPlaylistController.GetComponent<PlaylistUIController>());
+            GameObject newPlaylistController = Instantiate(playlistUIControllerPrefab, playlistsContainer.transform, true) as GameObject;
+            PlaylistUIController newPlaylist = newPlaylistController.GetComponent<PlaylistUIController>();
+            newPlaylist.playlist = playlist;
+            newPlaylist.Init();
+            playlistControllers.Add(newPlaylist);
 
-            GameObject newPlaylistLabel = Instantiate(playlistLabelPrefab);
-            newPlaylistLabel.transform.SetParent(playlistLabelsContainer.transform);          // Place all playlist labels inside this object to insure their placement in hierarchy and thus sorting order
+            GameObject newPlaylistLabel = Instantiate(playlistLabelPrefab, playlistLabelsContainer.transform, true) as GameObject;
             newPlaylistLabel.GetComponent<PlaylistLabel>().name = "PlaylistLabel: " + playlist.name;
             newPlaylistLabel.GetComponent<PlaylistLabel>().initializeName(playlist.name);
             playlistLabelList.Add(newPlaylistLabel.GetComponent<PlaylistLabel>());
@@ -87,9 +94,9 @@ public class LauncherUIController : MonoBehaviour
         foreach(var playlist in playlistControllers)
         {
             var relativeIndex = i - selectedPlaylistIndex;
-            var thisOffset = offsetPlaylistsX * relativeIndex;
+            var thisOffset = offsetPlaylists * relativeIndex;
 
-            playlist.transform.position = new Vector3(thisOffset, 0, 0);
+            playlist.transform.position = playlistsContainer.transform.position + thisOffset;
 
             i++;
         }
@@ -98,12 +105,42 @@ public class LauncherUIController : MonoBehaviour
         foreach (var playlistLabel in playlistLabelList)
         {
             var relativeIndex = i - selectedPlaylistIndex;
-            var thisOffset = offsetPlaylistLabelsX * relativeIndex;
+            var thisOffset = offsetPlaylistLabels * relativeIndex;
 
-            playlistLabel.transform.localPosition = new Vector3(thisOffset, 0, 0);
+            playlistLabel.transform.localPosition = thisOffset;
             playlistLabel.transform.localScale = new Vector3(1, 1, 1);
 
             i++;
         }
+    }
+
+    private void NextPlaylist()
+    {
+        selectedPlaylistIndex++;
+
+        if (selectedPlaylistIndex >= playlistData.Count)
+            selectedPlaylistIndex = 0;
+
+        RepositionPlaylists();
+    }
+
+    private void PreviousPlaylist()
+    {
+        selectedPlaylistIndex--;
+
+        if (selectedPlaylistIndex < 0)
+            selectedPlaylistIndex = playlistData.Count - 1;
+
+        RepositionPlaylists();
+    }
+
+    private void NextGame()
+    {
+        playlistControllers[selectedPlaylistIndex].NextGame();
+    }
+
+    private void PreviousGame()
+    {
+        playlistControllers[selectedPlaylistIndex].PreviousGame();
     }
 }
