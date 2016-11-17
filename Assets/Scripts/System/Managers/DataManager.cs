@@ -10,10 +10,12 @@ public class DataManager : Singleton<DataManager>  {
 	public List<Song> songs;
 	public List<Sprite> attractModeImages;
 
+    public delegate void DataUpdatedAction();
+    public event DataUpdatedAction OnDataUpdated;
+
 	public void ReloadData()
 	{
         //Start with new lists
-
         playlists = new List<Playlist>();
         songs = new List<Song>();
         attractModeImages = new List<Sprite>();
@@ -22,6 +24,12 @@ public class DataManager : Singleton<DataManager>  {
 		GetPlaylists ();
 		GetAttractModeImages ();
 		GetMusic ();
+
+        //Call the delegate and all methods hooked in
+        //Primarily used in LauncherUIController.cs to update the data model
+        //But could be used elsewhere
+        GM.dbug.Log(this, "DataManager: finished updating data.");
+        OnDataUpdated();
 	}
 
 	// Builds a list of Game objects based on the game directory inside its main directory. Then instantiates the GameNavigationManager, which then instantiates the ScreenShotDisplayManager
@@ -89,12 +97,6 @@ public class DataManager : Singleton<DataManager>  {
             }
         }
     }
-
-	public bool UpdatePlaylists()
-	{
-		//For when there are new games added to the list without shutting the launcher down
-		return true;
-	}
 
 	public JSONNode LoadJson(string fileLocation)
 	{

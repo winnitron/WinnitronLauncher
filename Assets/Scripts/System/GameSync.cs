@@ -121,12 +121,12 @@ public class GameSync : MonoBehaviour {
                         File.Delete(zipFile);
                     }
                 }
-
-                SyncText("Collecting data for launcher...");
-
-                GM.data.ReloadData();
-                EndSync();
             }
+
+            SyncText("Collecting data for launcher...");
+
+            GM.data.ReloadData();
+            EndSync();
 
         } else {
             Debug.LogError("Error fetching playlists: " + www.error);

@@ -41,6 +41,7 @@ public class PlaylistUIController : Tweenable {
 
     private void BuildGames()
     {
+
         foreach (Game game in playlist.games)
         {
             // Instantiate a new playlist and set the path to its directory

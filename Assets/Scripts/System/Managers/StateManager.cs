@@ -28,7 +28,7 @@ public class StateManager : MonoBehaviour {
 		foreach (State state in states) 
 			state.gameObject.SetActive (true);
 
-		ChangeState (WorldState.Launcher);
+		ChangeState (worldState);
 	}
 
 	void Update () {

@@ -35,9 +35,18 @@ public class LauncherUIController : MonoBehaviour
 
     public int selectedPlaylistIndex;
     
-
     void Start()
     {
+        //Hook in the UpdateData function to the DataManager's
+        //Update data function so we always get the data at the
+        //right time
+        GM.data.OnDataUpdated += UpdateData;
+    }
+
+    void UpdateData()
+    {
+        //Called when the DataManager finishes updating the data model
+        GM.dbug.Log(this, "LauncherUIController: Updating Data!");
         playlistData = GM.data.playlists;
         BuildPlaylists();
     }
@@ -63,6 +72,7 @@ public class LauncherUIController : MonoBehaviour
 
     private void BuildPlaylists()
     {
+        DeleteOldPlaylistStuff();
 
         foreach (var playlist in playlistData)
         {
@@ -128,6 +138,15 @@ public class LauncherUIController : MonoBehaviour
 
             i++;
         }
+    }
+
+    private void DeleteOldPlaylistStuff()
+    {
+        foreach (Transform child in playlistsContainer.transform)
+            Destroy(child.gameObject);
+
+        foreach (Transform child in playlistLabelsContainer.transform)
+            Destroy(child.gameObject);
     }
 
     private void NextPlaylist()
