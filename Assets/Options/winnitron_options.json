@@ -5,12 +5,15 @@
 	  "language": "english"
   },
   "defaultFolders": {
-    "playlists": "C:/WINNITRON/Dev/Playlists",
-    "music": "C:/WINNITRON/Dev/Music",
-	"attract": "C:/WINNITRON/Dev/Attract"
+    "playlists": "C:/WINNITRON/UserData/Playlists",
+    "music": "C:/WINNITRON/UserData/Music",
+	"attract": "C:/WINNITRON/UserData/Attract"
+  },
+  "util": {
+	"legacyControls": "C:/WINNITRON/UserData/Util/WinnitronLegacy.exe"
   },
   "sync": {
-  	"api_key": "9a69df7bea0b72005c0dc53b1035015c7db41528d9465695",
+  	"api_key": "",
     "library_url": "http://network.winnitron.com"
   }
 }

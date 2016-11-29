@@ -20,11 +20,15 @@ public class Runner : MonoBehaviour {
 	//Run those games!
 
 	public void Run(Game game) {
+
         GM.dbug.Log(this, "Running Game " + game.name + " legacy: " + game.useLegacyControls);
-        if(game.useLegacyControls)
+        Process legacyController = null;
+
+        if (game.useLegacyControls)
         {
             GM.dbug.Log(this, "Game has legacy controls!");
-            Process legacyController = new Process();
+            legacyController = new Process();
+            legacyController.StartInfo.FileName = GM.options.legacyControlsPath;
             legacyController.Start();
         }
 
@@ -34,10 +38,10 @@ public class Runner : MonoBehaviour {
 		myProcess.StartInfo.UseShellExecute = false;
 		myProcess.StartInfo.FileName = game.executable;//"C:\\WINNITRON\\Games\\Canabalt\\Canabalt.exe";
 		myProcess.EnableRaisingEvents = true;
-		StartCoroutine(RunProcess(myProcess));
+		StartCoroutine(RunProcess(myProcess, legacyController));
 	}
 
-	IEnumerator RunProcess(Process process){
+	IEnumerator RunProcess(Process process, Process legacyController){
         
 		if (jukebox) jukebox.Stop();
 
@@ -52,6 +56,14 @@ public class Runner : MonoBehaviour {
 		process.WaitForExit();
 
         GM.dbug.Log(this, "RUNNER: Finished running game " + process.StartInfo.FileName);
+
+        /*
+        if (legacyController != null)
+        {
+            GM.dbug.Log(this, "RUNNER: shut down legacy controller");
+            legacyController.CloseMainWindow();
+        }
+        */
 
 		GM.state.ChangeState(StateManager.WorldState.Intro);
 
