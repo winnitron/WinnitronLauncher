@@ -17,21 +17,36 @@ public class GameSync : MonoBehaviour {
 
     private ArrayList playlists = new ArrayList();
 
-    private void initConfig() {
+    private void initConfig()
+    {
         api_key = GM.options.GetSyncSettings()["api_key"];
+
+        if (api_key == "" || api_key == null)
+            GM.Oops(GM.options.GetText("error", "noAPIkey"));
+
         library_url = GM.options.GetSyncSettings()["library_url"];
         games_dir = GM.options.playlistsPath;
     }
 
-    public void execute() {
-        GM.dbug.Log(this, "----------------------------- Running sync -----------------------------");
-        SyncText("INITIALIZING SYNC!");
+    public void execute()
+    {
+        if (GM.options.syncMode == OptionsManager.SyncMode.NORMAL)
+        { 
+            GM.dbug.Log(this, "----------------------------- Running sync -----------------------------");
+            SyncText("INITIALIZING SYNC!");
 
-        initConfig();
-        fetchPlaylistSubscriptions();
+            initConfig();
+            fetchPlaylistSubscriptions();
+        }
+
+        else
+        {
+            EndSync();
+        }
     }
 
-    private void fetchPlaylistSubscriptions() {
+    private void fetchPlaylistSubscriptions()
+    {
         WWW www = new WWW(library_url + "/api/v1/playlists/?api_key=" + api_key);
 
         StartCoroutine(WaitForSubscriptionList(www));
@@ -130,6 +145,7 @@ public class GameSync : MonoBehaviour {
 
         } else {
             Debug.LogError("Error fetching playlists: " + www.error);
+            GM.Oops(GM.options.GetText("error", "fetchPlaylistError"));
         }
     }
 

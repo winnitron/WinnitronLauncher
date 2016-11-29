@@ -1,8 +1,8 @@
 {
   "launcher": {
     "widescreen": "true",
-    "forceMode": "none",
-	  "language": "english"
+    "syncMode": "normal",
+	"language": "english"
   },
   "defaultFolders": {
     "playlists": "C:/WINNITRON/UserData/Playlists",

@@ -24,8 +24,8 @@ public class OptionsManager : MonoBehaviour {
 
     //Launcher Options
     public bool widescreen = true;
-    public enum ForceMode {LOCALONLY, REMOTEONLY, NONE};
-    public ForceMode forceMode = ForceMode.NONE;
+    public enum SyncMode {LOCALONLY, NORMAL};
+    public SyncMode syncMode = SyncMode.NORMAL;
 
     public bool initializing = true;
 
@@ -105,6 +105,11 @@ public class OptionsManager : MonoBehaviour {
 
         //Load language file
         language = GM.data.LoadJson (dataPath + "/Options/winnitron_text_" + O ["launcher"] ["language"] + ".json");
+
+        //Check forcemode
+        GM.dbug.Log(this, "SYNCMODE " + O["launcher"]["syncMode"]);
+        if(O["launcher"]["syncMode"].Value == "local")
+            syncMode = SyncMode.LOCALONLY;
 
         initializing = false;
     }
