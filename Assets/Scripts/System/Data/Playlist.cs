@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System.IO;
-using System.Collections;
 using System.Collections.Generic;
-using SimpleJSON;
 using System.Globalization;
 
 [System.Serializable]
@@ -22,10 +20,18 @@ public class Playlist
 	{
 		//Find out the name of the directory
 		this.directory = new DirectoryInfo(directory);
-		//Replace the underscores for a cleaner name
-		name = this.directory.Name.Replace('_', ' ');
-        name = this.directory.Name.Replace('-', ' ');
+
+        name = this.directory.Name;
+
+        Debug.Log("Playlist: Name before fixes " + name);
+
+        name = name.TrimStart('_');
+        name = name.Replace('_', ' ').Replace('-', ' ');
+
+        //Replace the underscores for a cleaner name
         name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name);
+
+        Debug.Log("Playlist: Name after fixes " + name);
 
         //Init the games list
         this.games = new List<Game>();
