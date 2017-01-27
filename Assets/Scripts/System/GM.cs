@@ -5,6 +5,8 @@ using System.Runtime.InteropServices;
 
 public class GM : Singleton<GM> {
 
+    public string versionNumber;
+
 	//reference to the 
 	public static Runner runner;
 	public static DataManager data;
@@ -14,6 +16,9 @@ public class GM : Singleton<GM> {
     public static GameSync sync;
 
 	new void Awake() {
+
+        Debug.Log("#####  VERSION " + versionNumber + " #####");
+
 		//Cursor.visible = false;
 
 		runner = GetComponent<Runner>();
