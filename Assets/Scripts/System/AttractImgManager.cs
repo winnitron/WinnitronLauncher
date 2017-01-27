@@ -75,11 +75,11 @@ public class AttractImgManager :  MonoBehaviour {
 				GameObject newImgObj = Instantiate(attractSpritePrefab, new Vector3(0, -36.52403f, 0), transform.rotation) as GameObject; 
 
 				GM.dbug.Log(this, "Load Attract Image: " + attractImg);
-				// Load the screenshot from the games directory as a Texture2D
-				var screenshot = new Texture2D(1024, 768);
-				screenshot.LoadImage(File.ReadAllBytes(attractImg.FullName));
+                // Load the screenshot from the games directory as a Texture2D
+                var SpriteTexture = new Texture2D(1024, 768);
+                SpriteTexture.LoadImage(File.ReadAllBytes(attractImg.FullName));
 
-				newImgObj.GetComponent<Image>().overrideSprite = Sprite.Create(screenshot, new Rect(0, 0, screenshot.width, screenshot.height), new Vector2(0.5f, 0.5f));
+				newImgObj.GetComponent<Image>().sprite = Sprite.Create(SpriteTexture, new Rect(0, 0, 1024, 768), new Vector2(0.5f, 0.5f));
 				newImgObj.transform.SetParent (transform);
 
 				attractSprites.Add(newImgObj);
