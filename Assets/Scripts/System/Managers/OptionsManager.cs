@@ -108,7 +108,7 @@ public class OptionsManager : MonoBehaviour {
 
         //Check forcemode
         GM.dbug.Log(this, "SYNCMODE " + O["launcher"]["syncMode"]);
-        if(O["launcher"]["syncMode"].Value == "local")
+        if(O["launcher"]["syncMode"].Value == "local" || O["launcher"]["syncMode"].Value == "localOnly")
             syncMode = SyncMode.LOCALONLY;
 
         initializing = false;

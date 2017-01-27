@@ -32,7 +32,7 @@ public class GameSync : MonoBehaviour {
     {
         if (GM.options.syncMode == OptionsManager.SyncMode.NORMAL)
         { 
-            GM.dbug.Log(this, "----------------------------- Running sync -----------------------------");
+            GM.dbug.Log(this, "GameSync: Running Sync...");
             SyncText("INITIALIZING SYNC!");
 
             initConfig();
@@ -41,6 +41,7 @@ public class GameSync : MonoBehaviour {
 
         else
         {
+            GM.dbug.Log(this, "GameSync: Skipping Sync...");
             EndSync();
         }
     }
@@ -54,6 +55,10 @@ public class GameSync : MonoBehaviour {
 
     private void EndSync()
     {
+        GM.dbug.Log(this, "GameSync: Ending Sync.");
+        //Just double check the the proper data is loaded
+        GM.data.ReloadData();
+
         //Change state back to intro when completed
         GM.state.ChangeState(StateManager.WorldState.Intro);
     }
@@ -140,7 +145,6 @@ public class GameSync : MonoBehaviour {
 
             SyncText("Collecting data for launcher...");
 
-            GM.data.ReloadData();
             EndSync();
 
         } else {

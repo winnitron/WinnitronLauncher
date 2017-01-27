@@ -1,19 +1,19 @@
 {
   "launcher": {
     "widescreen": "true",
-    "syncMode": "normal",
+    "syncMode": "local",
 	"language": "english"
   },
   "defaultFolders": {
-    "playlists": "C:/WINNITRON/UserData/Playlists",
-    "music": "C:/WINNITRON/UserData/Music",
-	"attract": "C:/WINNITRON/UserData/Attract"
+    "playlists": "C:/WINNITRON_UserData/Playlists",
+    "music": "C:/WINNITRON_UserData/Music",
+	"attract": "C:/WINNITRON_UserData/Attract"
   },
   "util": {
-	"legacyControls": "C:/WINNITRON/UserData/Util/WinnitronLegacy.exe"
+	"legacyControls": "C:/WINNITRON_UserData/Util/WinnitronLegacy.exe"
   },
   "sync": {
-  	"api_key": "",
+  	"api_key": "9a69df7bea0b72005c0dc53b1035015c7db41528d9465695",
     "library_url": "http://network.winnitron.com"
   }
 }
