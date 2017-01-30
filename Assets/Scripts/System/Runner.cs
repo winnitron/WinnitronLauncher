@@ -8,9 +8,17 @@ using System.Collections;
 public class Runner : MonoBehaviour {
     
     Jukebox jukebox;
+    Process legacyController;
 
     void Awake()
     {
+        //Store the legacyController in the Awake
+        legacyController = new Process();
+        legacyController.StartInfo.FileName = GM.options.legacyControlsPath;
+
+        if(legacyController == null)
+            GM.Oops(GM.Text("error", "noLegacyControlExe"));
+
         //Not 100% sure why the jukebox is here. :S
         if (GameObject.Find("Jukebox"))
             jukebox = GameObject.Find("Jukebox").GetComponent<Jukebox>();
@@ -22,15 +30,9 @@ public class Runner : MonoBehaviour {
 	public void Run(Game game) {
 
         GM.dbug.Log(this, "Running Game " + game.name + " legacy: " + game.useLegacyControls);
-        Process legacyController = null;
 
         if (game.useLegacyControls)
-        {
-            GM.dbug.Log(this, "Game has legacy controls!");
-            legacyController = new Process();
-            legacyController.StartInfo.FileName = GM.options.legacyControlsPath;
-            legacyController.Start();
-        }
+            StartLegacyControls();
 
 		Process myProcess = new Process();
 		myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -57,17 +59,28 @@ public class Runner : MonoBehaviour {
 
         GM.dbug.Log(this, "RUNNER: Finished running game " + process.StartInfo.FileName);
 
-        /*
-        if (legacyController != null)
-        {
-            GM.dbug.Log(this, "RUNNER: shut down legacy controller");
-            legacyController.CloseMainWindow();
-        }
-        */
+        StopLegacyControls();
 
 		GM.state.ChangeState(StateManager.WorldState.Intro);
 
         if (jukebox) jukebox.PlayRandom();
 	}
+
+    public void StartLegacyControls()
+    {
+        GM.dbug.Log(this, "Runner: Starting Legacy Controls");
+        legacyController.Start();
+    }
+
+    public void StopLegacyControls()
+    {
+        try
+        {
+            GM.dbug.Log(this, "Runner: Starting Legacy Controls");
+            legacyController.CloseMainWindow();
+        }
+
+        catch { }
+    }
 }
 

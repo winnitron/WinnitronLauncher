@@ -30,6 +30,9 @@ public class GameSync : MonoBehaviour {
 
     public void execute()
     {
+        //Just make sure the legacy controls aren't active as a precaution
+        GM.runner.StopLegacyControls();
+
         if (GM.options.syncMode == OptionsManager.SyncMode.NORMAL)
         { 
             GM.dbug.Log(this, "GameSync: Running Sync...");
