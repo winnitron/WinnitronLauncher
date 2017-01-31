@@ -7133,6 +7133,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   errorText: {fileID: 73695448}
+  quitText: {fileID: 854943841}
+  isCritical: 0
 --- !u!114 &1428222311
 MonoBehaviour:
   m_ObjectHideFlags: 0
