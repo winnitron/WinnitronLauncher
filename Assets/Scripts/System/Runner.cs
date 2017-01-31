@@ -17,12 +17,12 @@ public class Runner : MonoBehaviour {
 
     void Awake()
     {
-        if (!System.IO.File.Exists(Application.dataPath + "/Resources/RunGame.exe"))
+        if (!System.IO.File.Exists(Application.dataPath + "/Options/RunGame.exe"))
             GM.Oops(GM.Text("error", "noRunGameExe"), true);
 
         //Store the legacyController in the Awake
         gameRunner = new Process();
-        gameRunner.StartInfo.FileName = Application.dataPath + "/Resources/RunGame.exe";
+        gameRunner.StartInfo.FileName = Application.dataPath + "/Options/RunGame.exe";
         GM.dbug.Log(this, "gameRunner path " + gameRunner.StartInfo.FileName);
 
         if(gameRunner == null)
@@ -83,8 +83,8 @@ public class Runner : MonoBehaviour {
         else newString = newString.Replace("{KEYMAPS}", "");
 
         //Delete old file and write to new one
-        File.Delete(Application.dataPath + "/Resources/RunGame.ahk");
-        System.IO.File.WriteAllText(Application.dataPath + "/Resources/RunGame.ahk", newString);
+        File.Delete(Application.dataPath + "/Options/RunGame.ahk");
+        System.IO.File.WriteAllText(Application.dataPath + "/Options/RunGame.ahk", newString);
     }
 }
 

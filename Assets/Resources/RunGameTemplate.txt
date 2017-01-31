@@ -5,7 +5,8 @@
 ; RUN THE GAME
 Run, {GAME_PATH}
 idleLimit:= {IDLE_TIME}000 ; three seconds
-SetTimer,  CloseOnIdle, % idleLimit+150
+SetTimer, InitialWait, 60000
+; SetTimer,  CloseOnIdle, % idleLimit+150
 
 ; This is the function that quits the app
 KillApp()
@@ -13,6 +14,10 @@ KillApp()
 	WinKill, ahk_exe {GAME_PATH}
 	ExitApp
 }
+
+InitialWait:
+	SetTimer,  CloseOnIdle, % idleLimit+150
+return
 
 ; This is the timer
 CloseOnIdle:
