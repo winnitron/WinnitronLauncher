@@ -8,19 +8,28 @@ using System.Collections;
 public class Runner : MonoBehaviour {
     
     Jukebox jukebox;
-    Process legacyController;
+    Process gameRunner;
+
+    public int secondsToWaitForIdle;
+
+    TextAsset tmp;
+    TextAsset legacy; 
 
     void Awake()
     {
         //Store the legacyController in the Awake
-        legacyController = new Process();
-        legacyController.StartInfo.FileName = GM.options.legacyControlsPath;
+        gameRunner = new Process();
+        gameRunner.StartInfo.FileName = Application.dataPath + "/Resources/RunGame.exe";
+        GM.dbug.Log(this, "gameRunner path " + gameRunner.StartInfo.FileName);
 
-        if(legacyController == null)
+        if(gameRunner == null)
             GM.Oops(GM.Text("error", "noLegacyControlExe"));
 
+        tmp = Resources.Load("RunGameTemplate") as TextAsset;
+        legacy = Resources.Load("WinnitronLegacy") as TextAsset;
+
         //Not 100% sure why the jukebox is here. :S
-        if (GameObject.Find("Jukebox"))
+    if (GameObject.Find("Jukebox"))
             jukebox = GameObject.Find("Jukebox").GetComponent<Jukebox>();
     }
 
@@ -31,56 +40,45 @@ public class Runner : MonoBehaviour {
 
         GM.dbug.Log(this, "Running Game " + game.name + " legacy: " + game.useLegacyControls);
 
-        if (game.useLegacyControls)
-            StartLegacyControls();
-
-		Process myProcess = new Process();
-		myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-		myProcess.StartInfo.CreateNoWindow = true;
-		myProcess.StartInfo.UseShellExecute = false;
-		myProcess.StartInfo.FileName = game.executable;//"C:\\WINNITRON\\Games\\Canabalt\\Canabalt.exe";
-		myProcess.EnableRaisingEvents = true;
-		StartCoroutine(RunProcess(myProcess, legacyController));
+        CreateAHKScript(game);
+        StartCoroutine(RunProcess(gameRunner));
 	}
 
-	IEnumerator RunProcess(Process process, Process legacyController){
+	IEnumerator RunProcess(Process process){
         
 		if (jukebox) jukebox.Stop();
 
 		GM.state.ChangeState(StateManager.WorldState.Idle);
 		Screen.fullScreen = false;
 
-		//TO DO - stuff that is a transition
 		yield return new WaitForSeconds(1.0f);
+
         GM.dbug.Log(this, "RUNNER: Running game " + process.StartInfo.FileName);
 
         process.Start();
-		process.WaitForExit();
+        process.WaitForExit();
 
         GM.dbug.Log(this, "RUNNER: Finished running game " + process.StartInfo.FileName);
 
-        StopLegacyControls();
-
-		GM.state.ChangeState(StateManager.WorldState.Intro);
-
+        GM.state.ChangeState(StateManager.WorldState.Intro);
         if (jukebox) jukebox.PlayRandom();
 	}
 
-    public void StartLegacyControls()
+    private void CreateAHKScript(Game game)
     {
-        GM.dbug.Log(this, "Runner: Starting Legacy Controls");
-        legacyController.Start();
-    }
+        GM.dbug.Log(this, "RUNNER: Creat script game " + game.executable);
 
-    public void StopLegacyControls()
-    {
-        try
-        {
-            GM.dbug.Log(this, "Runner: Starting Legacy Controls");
-            legacyController.CloseMainWindow();
-        }
+        //Replace variables
+        string newString = tmp.text.Replace("{GAME_PATH}", game.executable);
+        newString = newString.Replace("{IDLE_TIME}", "" + secondsToWaitForIdle);
 
-        catch { }
+        //Replace Keymaps
+        if (game.useLegacyControls) newString = newString.Replace("{KEYMAPS}", legacy.text);
+        else newString = newString.Replace("{KEYMAPS}", "");
+
+        //Delete old file and write to new one
+        File.Delete(Application.dataPath + "/Resources/RunGame.ahk");
+        System.IO.File.WriteAllText(Application.dataPath + "/Resources/RunGame.ahk", newString);
     }
 }
 

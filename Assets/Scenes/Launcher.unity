@@ -13369,7 +13369,6 @@ MonoBehaviour:
   playlistsPath: /Playlists
   musicPath: /Music
   attractPath: /Attract
-  legacyControlsPath: /Util/WinnitronLegacy.exe
   keys:
     P1Up: 273
     P1Down: 274
@@ -13394,6 +13393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abe826531e0584aaf9920a5ed787580e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  secondsToWaitForIdle: 10
 --- !u!114 &1803195760
 MonoBehaviour:
   m_ObjectHideFlags: 0

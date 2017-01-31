@@ -45,19 +45,19 @@ public class Game
 		this.name = GetGameNameFromFolderName();
 		this.author = null; //No author stuff just yet
 		this.screenshot = GetScreenshot();
-        this.executable = GetExecutablePath();
+        this.executable = GetExecutablePath().Replace('/', '\\');
 
 		GM.dbug.Log(null, "Game Built! Name: " + name + " Screenshot: " + screenshot.name + " exe path: " + executable);
 	}
 
 	public void BuildGameJSON()
 	{
-		var J = GM.data.LoadJson (directory.FullName + "/winnitron_metadata.json");
+		var J = GM.data.LoadJson (directory.FullName + "\\winnitron_metadata.json");
 
 		this.name = J ["title"];
 		this.author = null; //No author stuff just yet
 		this.screenshot = GetScreenshot();
-		this.executable = Path.Combine(directory.FullName + "/", J["executable"]);
+		this.executable = Path.Combine(directory.FullName + "\\", J["executable"]);
         this.useLegacyControls = J["legacy_controls"].AsBool;
 
         GM.dbug.Log(null, "Game Built JSON! Name: " + name + " Screenshot: " + screenshot.name + " legacy: " + useLegacyControls + " exe path: " + executable);

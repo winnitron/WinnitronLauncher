@@ -38,7 +38,7 @@ public class OptionsManager : MonoBehaviour {
     public string attractPath = "/Attract";
 
     //Utilities
-    public string legacyControlsPath = "/Util/WinnitronLegacy.exe";
+    //public string legacyControlsPath = "/Util/WinnitronLegacy.exe";
     
     //Keys
     public KeyBindings keys;
@@ -95,11 +95,12 @@ public class OptionsManager : MonoBehaviour {
         GM.dbug.Log (this, "OPTIONS: Attract path is " + attractPath);
 
         //Find utility path
-        path = O["util"]["legacyControls"];
+        /*path = O["util"]["legacyControls"];
         if (path.ToString().Contains("default"))
             legacyControlsPath = dataPath + "/Util/WinnitronLegacy.exe";
         else
             legacyControlsPath = path;
+        */
 
         GM.dbug.Log(this, "OPTIONS: Util path is " + attractPath);
 
