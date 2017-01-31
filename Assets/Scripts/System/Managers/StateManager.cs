@@ -71,18 +71,6 @@ public class StateManager : MonoBehaviour {
 			//Reset idleTime if not in Launcher
 			idleTime = 0;
 		}
-
-
-		//OOPS
-		if (oops != "" && worldState != WorldState.Oops) {
-			ChangeState (WorldState.Oops);
-			oopsController.SetErrorText (oops);
-		}
-
-		if (worldState == WorldState.Oops) {
-			if (Input.GetKeyDown (KeyCode.Q))
-				Application.Quit ();
-		}
 	}
 
 	//Changes the worldstate
@@ -102,4 +90,16 @@ public class StateManager : MonoBehaviour {
 
         GM.ResetScreen();
 	}
+
+    /// <summary>
+    /// Causes and Oops screen to appear.
+    /// </summary>
+    /// <param name="text">Error text to display</param>
+    /// <param name="isCritical">Critical oopses will quit the launcher</param>
+    public void Oops(string text, bool isCritical)
+    {
+        ChangeState(WorldState.Oops);
+        oopsController.SetErrorText(text);
+        oopsController.isCritical = isCritical;
+    }
 }

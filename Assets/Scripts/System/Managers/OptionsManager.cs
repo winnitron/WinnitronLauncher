@@ -93,17 +93,7 @@ public class OptionsManager : MonoBehaviour {
             attractPath = path;
 
         GM.dbug.Log (this, "OPTIONS: Attract path is " + attractPath);
-
-        //Find utility path
-        /*path = O["util"]["legacyControls"];
-        if (path.ToString().Contains("default"))
-            legacyControlsPath = dataPath + "/Util/WinnitronLegacy.exe";
-        else
-            legacyControlsPath = path;
-        */
-
-        GM.dbug.Log(this, "OPTIONS: Util path is " + attractPath);
-
+        
         //Load language file
         language = GM.data.LoadJson (dataPath + "/Options/winnitron_text_" + O ["launcher"] ["language"] + ".json");
 
@@ -117,7 +107,6 @@ public class OptionsManager : MonoBehaviour {
 
     public string GetText(string category, string text)
     {
-        Debug.Log("getting text: " + category + "," + text);
         return language[category][text];
     }
 

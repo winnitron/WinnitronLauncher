@@ -17,6 +17,9 @@ public class Runner : MonoBehaviour {
 
     void Awake()
     {
+        if (!System.IO.File.Exists(Application.dataPath + "/Resources/RunGame.exe"))
+            GM.Oops(GM.Text("error", "noRunGameExe"), true);
+
         //Store the legacyController in the Awake
         gameRunner = new Process();
         gameRunner.StartInfo.FileName = Application.dataPath + "/Resources/RunGame.exe";
@@ -27,10 +30,6 @@ public class Runner : MonoBehaviour {
 
         tmp = Resources.Load("RunGameTemplate") as TextAsset;
         legacy = Resources.Load("WinnitronLegacy") as TextAsset;
-
-        //Not 100% sure why the jukebox is here. :S
-    if (GameObject.Find("Jukebox"))
-            jukebox = GameObject.Find("Jukebox").GetComponent<Jukebox>();
     }
 
 
@@ -38,10 +37,18 @@ public class Runner : MonoBehaviour {
 
 	public void Run(Game game) {
 
-        GM.dbug.Log(this, "Running Game " + game.name + " legacy: " + game.useLegacyControls);
+        if (System.IO.File.Exists(game.executable))
+        {
+            GM.dbug.Log(this, "Running Game " + game.name + " legacy: " + game.useLegacyControls);
 
-        CreateAHKScript(game);
-        StartCoroutine(RunProcess(gameRunner));
+            CreateAHKScript(game);
+            StartCoroutine(RunProcess(gameRunner));
+        }
+
+        else
+        {
+            GM.Oops(GM.Text("error", "couldNotFindGame"));
+        }
 	}
 
 	IEnumerator RunProcess(Process process){
@@ -60,8 +67,7 @@ public class Runner : MonoBehaviour {
 
         GM.dbug.Log(this, "RUNNER: Finished running game " + process.StartInfo.FileName);
 
-        GM.state.ChangeState(StateManager.WorldState.Intro);
-        if (jukebox) jukebox.PlayRandom();
+        GM.Restart();
 	}
 
     private void CreateAHKScript(Game game)

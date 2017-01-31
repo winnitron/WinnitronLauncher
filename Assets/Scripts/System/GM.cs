@@ -15,6 +15,8 @@ public class GM : Singleton<GM> {
     public static Dbug dbug;
     public static GameSync sync;
 
+    public static Jukebox jukebox;
+
 	new void Awake() {
 
         Debug.Log("#####  VERSION " + versionNumber + " #####");
@@ -28,21 +30,46 @@ public class GM : Singleton<GM> {
         dbug = GetComponent<Dbug>();
         sync = GetComponent<GameSync>();
 
+        //Not 100% sure why the jukebox is here. :S
+        if (GameObject.Find("Jukebox"))
+            jukebox = GameObject.Find("Jukebox").GetComponent<Jukebox>();
+
         //Do Windows window management shizzle
         ResetScreen();
 	}
 
 
-	//Shortcuts to often used functions in Managers
-	public static void Oops(string o)
+	/// <summary>
+    /// Causes an Oops screen to appear.  This function calls the real Oops in StateManager.cs
+    /// </summary>
+    /// <param name="text">Text to show on the Oops screen</param>
+    /// <param name="isCritical">Critical will force quit the launcher</param>
+	public static void Oops(string text, bool isCritical)
 	{
-		state.oops = o;
+        state.Oops(text, isCritical);
 	}
+
+    /// <summary>
+    /// Causes an Oops screen to appear and assumes Non-Critical.  This function calls the real Oops in StateManager.cs
+    /// </summary>
+    /// <param name="text">Text to show on the Oops screen</param>
+    public static void Oops(string text)
+    {
+        state.Oops(text, false);
+    }
 
 	public static string Text(string category, string type)
 	{
 		return options.GetText (category, type);
 	}
+
+    /// <summary>
+    /// Restarts the launcher
+    /// </summary>
+    public static void Restart()
+    {
+        state.ChangeState(StateManager.WorldState.Intro);
+    }
 
 
 	/*
