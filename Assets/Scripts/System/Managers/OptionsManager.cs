@@ -55,13 +55,13 @@ public class OptionsManager : MonoBehaviour {
     // Use this for initialization
     void Awake() {
 
-        dataPath = Application.dataPath;
+        //Figure out where the Options are by reading the .json in Options file
+        dataPath = GM.data.LoadJson(Application.dataPath + "/Options/winnitron_userdata_path.json")["userDataPath"];
 
         //Load that JSON
         string optionsFile = dataPath + "/Options/winnitron_options.json";
         Debug.Log("Loading options from " + optionsFile);
         O = GM.data.LoadJson(optionsFile);
-
 
         //Widescreen
         if (O["launcher"]["widescreen"] == "false")

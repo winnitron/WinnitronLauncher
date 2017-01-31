@@ -2,15 +2,17 @@
   "launcher": {
     "widescreen": "true",
     "syncMode": "local",
-	"language": "english"
+	  "language": "english"
+  },
+  "runningGames": {
+    "initialIdleTimeSeconds" : "30",
+    "idleTimeSeconds" : "10",
+    "timeToHoldESCToQuit" : "3"
   },
   "defaultFolders": {
     "playlists": "C:/WINNITRON_UserData/Playlists",
     "music": "C:/WINNITRON_UserData/Music",
-	"attract": "C:/WINNITRON_UserData/Attract"
-  },
-  "util": {
-	"legacyControls": "C:/WINNITRON_UserData/Util/WinnitronLegacy.exe"
+	  "attract": "C:/WINNITRON_UserData/Attract"
   },
   "sync": {
   	"api_key": "9a69df7bea0b72005c0dc53b1035015c7db41528d9465695",
