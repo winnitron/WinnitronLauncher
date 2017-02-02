@@ -39,6 +39,11 @@ public class OptionsManager : MonoBehaviour {
 
     //Utilities
     //public string legacyControlsPath = "/Util/WinnitronLegacy.exe";
+
+    //Runner Settings
+    public int runnerSecondsIdle = 10;
+    public int runnerSecondsESCHeld = 3;
+    public int runnerSecondsIdleInitial = 30;
     
     //Keys
     public KeyBindings keys;
@@ -66,6 +71,11 @@ public class OptionsManager : MonoBehaviour {
         //Widescreen
         if (O["launcher"]["widescreen"] == "false")
             widescreen = false;
+
+        //Runner Settings
+        if(O["runner"]["timeToHoldESCToQuit"] != null) runnerSecondsESCHeld = O["runner"]["timeToHoldESCToQuit"];
+        if(O["runner"]["idleTimeSeconds"] != null) runnerSecondsIdle = O["runner"]["idleTimeSeconds"];
+        if(O["runner"]["initialIdleTimeSeconds"] != null) runnerSecondsIdleInitial = O["runner"]["initialIdleTimeSeconds"];
 
         //Playlists Path
         var path = O["defaultFolders"]["playlists"];

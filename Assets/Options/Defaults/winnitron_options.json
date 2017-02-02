@@ -4,7 +4,7 @@
     "syncMode": "normal",
     "language": "english"
   },
-  "runningGames": {
+  "runner": {
     "initialIdleTimeSeconds" : "30",
     "idleTimeSeconds" : "10",
     "timeToHoldESCToQuit" : "3"

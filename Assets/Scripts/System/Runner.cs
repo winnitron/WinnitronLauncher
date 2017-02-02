@@ -10,8 +10,6 @@ public class Runner : MonoBehaviour {
     Jukebox jukebox;
     Process gameRunner;
 
-    public int secondsToWaitForIdle;
-
     TextAsset tmp;
     TextAsset legacy; 
 
@@ -76,7 +74,10 @@ public class Runner : MonoBehaviour {
 
         //Replace variables
         string newString = tmp.text.Replace("{GAME_PATH}", game.executable);
-        newString = newString.Replace("{IDLE_TIME}", "" + secondsToWaitForIdle);
+        newString = newString.Replace("{IDLE_TIME}", "" + GM.options.runnerSecondsIdle);
+        newString = newString.Replace("{IDLE_INITIAL}", "" + GM.options.runnerSecondsIdleInitial);
+        newString = newString.Replace("{ESC_HOLD}", "" + GM.options.runnerSecondsESCHeld);
+        
 
         //Replace Keymaps
         if (game.useLegacyControls) newString = newString.Replace("{KEYMAPS}", legacy.text);

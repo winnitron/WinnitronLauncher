@@ -5,7 +5,7 @@
 ; RUN THE GAME
 Run, {GAME_PATH}
 idleLimit:= {IDLE_TIME}000 ; three seconds
-SetTimer, InitialWait, 60000
+SetTimer, InitialWait, {IDLE_INITIAL}000
 ; SetTimer,  CloseOnIdle, % idleLimit+150
 
 ; This is the function that quits the app
@@ -37,7 +37,7 @@ return
 	If escIsPressed
 		return
 	escIsPressed := true
-	SetTimer, WaitForESCRelease, 3000		; 3 seconds
+	SetTimer, WaitForESCRelease, {ESC_HOLD}000		; 3 seconds
 return
 
 ; Do this stuff when Esc is UP
