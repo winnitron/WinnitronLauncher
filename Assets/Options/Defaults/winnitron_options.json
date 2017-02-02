@@ -1,8 +1,8 @@
 {
   "launcher": {
     "widescreen": "true",
-    "syncMode": "local",
-	  "language": "english"
+    "syncMode": "normal",
+    "language": "english"
   },
   "runningGames": {
     "initialIdleTimeSeconds" : "30",
@@ -12,10 +12,10 @@
   "defaultFolders": {
     "playlists": "C:/WINNITRON_UserData/Playlists",
     "music": "C:/WINNITRON_UserData/Music",
-	  "attract": "C:/WINNITRON_UserData/Attract"
+    "attract": "C:/WINNITRON_UserData/Attract"
   },
   "sync": {
-  	"api_key": "9a69df7bea0b72005c0dc53b1035015c7db41528d9465695",
+    "api_key": "YOUR API KEY HERE",
     "library_url": "http://network.winnitron.com"
   }
 }
