@@ -63,19 +63,32 @@ public class OptionsManager : MonoBehaviour {
         //Figure out where the Options are by reading the .json in Options file
         dataPath = GM.data.LoadJson(Application.dataPath + "/Options/winnitron_userdata_path.json")["userDataPath"];
 
-        //Load that JSON
         string optionsFile = dataPath + "/Options/winnitron_options.json";
+
+        if (!System.IO.File.Exists(optionsFile))
+        {
+            // we need to load default language here, so we can display errors
+            language = GM.data.GetDefautLanguage();
+        }
+
+        //Load that JSON
         Debug.Log("Loading options from " + optionsFile);
         O = GM.data.LoadJson(optionsFile);
+
+        if(O == null)
+        {
+            // something went wrong!
+            return;
+        }
 
         //Widescreen
         if (O["launcher"]["widescreen"] == "false")
             widescreen = false;
 
         //Runner Settings
-        if(O["runner"]["timeToHoldESCToQuit"] != null) runnerSecondsESCHeld = O["runner"]["timeToHoldESCToQuit"];
-        if(O["runner"]["idleTimeSeconds"] != null) runnerSecondsIdle = O["runner"]["idleTimeSeconds"];
-        if(O["runner"]["initialIdleTimeSeconds"] != null) runnerSecondsIdleInitial = O["runner"]["initialIdleTimeSeconds"];
+        if(O["runner"]["timeToHoldESCToQuit"] != null) runnerSecondsESCHeld = O["runner"]["timeToHoldESCToQuit"].AsInt;
+        if(O["runner"]["idleTimeSeconds"] != null) runnerSecondsIdle = O["runner"]["idleTimeSeconds"].AsInt;
+        if(O["runner"]["initialIdleTimeSeconds"] != null) runnerSecondsIdleInitial = O["runner"]["initialIdleTimeSeconds"].AsInt;
 
         //Playlists Path
         var path = O["defaultFolders"]["playlists"];

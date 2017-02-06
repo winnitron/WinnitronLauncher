@@ -98,6 +98,12 @@ public class DataManager : Singleton<DataManager>  {
         }
     }
 
+    public JSONNode GetDefautLanguage()
+    {
+        TextAsset rawJson = Resources.Load<TextAsset>("winnitron_text_english");
+        return JSONNode.Parse(rawJson.text);
+    }
+
 	public JSONNode LoadJson(string fileLocation)
 	{
 		try
