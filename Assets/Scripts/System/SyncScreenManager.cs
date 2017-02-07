@@ -30,24 +30,26 @@ public class SyncScreenManager : MonoBehaviour {
 	void Awake() 
 	{
 		punctuationDelayCountdown = delayBetweenPunctuation;
-		PickRandomText();
-	}
+        PickRandomText();
+    }
 
     void Start()
     {
-        //Start the sync
-        GM.sync.execute();
+        //execute is called from StateManager.ChangeState
     }
 		
 	// Update is called once per frame
 	void Update () 
 	{
-		punctuationDelayCountdown -= Time.deltaTime;
-		if(punctuationDelayCountdown < 0)
-		{
-			UpdateSyncText();
-			punctuationDelayCountdown = delayBetweenPunctuation;
-		}
+        if (GM.state.worldState == StateManager.WorldState.Sync)
+        {
+            punctuationDelayCountdown -= Time.deltaTime;
+            if (punctuationDelayCountdown < 0)
+            {
+                UpdateSyncText();
+                punctuationDelayCountdown = delayBetweenPunctuation;
+            }
+        }
 	}
 
 	void PickRandomText()

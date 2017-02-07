@@ -59,6 +59,9 @@ public class LauncherUIController : MonoBehaviour
     {
         if (GM.state.worldState == StateManager.WorldState.Launcher)
         {
+            if (Input.GetKeyDown(KeyCode.Equals))
+                DeleteOldPlaylistStuff();
+
             if (Input.GetKeyDown(GM.options.keys.P1Left))
                 PreviousPlaylist();
 
@@ -173,7 +176,10 @@ public class LauncherUIController : MonoBehaviour
 
         foreach (Transform child in playlistLabelsContainer.transform)
             Destroy(child.gameObject);
-    }
+
+        playlistLabelList = new List<PlaylistLabel>();       // List of all playlist labels
+        playlistControllers = new List<PlaylistUIController>();
+}
 
     private void NextPlaylist()
     {

@@ -62,6 +62,10 @@ public class StateManager : MonoBehaviour {
 				state.Deactivate ();
 		}
 
+        //SPECIAL CASE
+        if(newState == WorldState.Sync)
+            GM.sync.execute();
+
         GM.dbug.Log(this, "STATE: new state is " + worldState);
 
         GM.ResetScreen();
