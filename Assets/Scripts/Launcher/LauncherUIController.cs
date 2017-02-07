@@ -71,8 +71,11 @@ public class LauncherUIController : MonoBehaviour
             if (Input.GetKeyDown(GM.options.keys.P1Down))
                 NextGame();
 
-            if (Input.GetKeyDown(GM.options.keys.P1Button1) && idleTime >= 0)
-                SelectGame();
+            if (idleTime >= 0)
+            {
+                if (Input.GetKeyDown(GM.options.keys.P1Button1) || Input.GetKeyDown(GM.options.keys.P1Button2) || Input.GetKeyDown(KeyCode.Escape))
+                    SelectGame();
+            }
 
             //Increase idle time
             idleTime += Time.deltaTime;
