@@ -47,30 +47,6 @@ public class StateManager : MonoBehaviour {
             ChangeState(WorldState.Sync);
         if (Input.GetKeyDown (KeyCode.F6))
 			oops = GM.Text ("error", "test");
-
-		//Things to do in Attract Mode
-		if (worldState == WorldState.Attract) {
-			//Relaunch launcher if any key is pressed
-			if (Input.anyKeyDown)
-				ChangeState(WorldState.Launcher);
-		}
-
-		//Things to do in Launcher Mode
-		if (worldState == WorldState.Launcher) {
-			//Increase idle time
-			idleTime += Time.deltaTime;
-
-			//Reset idle time if a key is pressed
-			if (Input.anyKey)
-				idleTime = 0;
-
-			//Go into Attract mode is key isn't pressed for a while
-			if (idleTime > timeBeforeIdle)
-				ChangeState(WorldState.Attract);
-		} else {
-			//Reset idleTime if not in Launcher
-			idleTime = 0;
-		}
 	}
 
 	//Changes the worldstate

@@ -23,8 +23,16 @@ public class AttractImgManager :  MonoBehaviour {
 
 	void Update() {
 		
+        //Make sure you're only doing stuff if it's actually the Attract state
+        //Cause pesky Unity might be running this even if this component is disabled
+        //CAN'T TRUST IT
 		if (GM.state.worldState == StateManager.WorldState.Attract) {
-			if(timePassed == 0) {
+
+            //Go to launcher on any key pressed
+            if (Input.anyKeyDown)
+                GM.state.ChangeState(StateManager.WorldState.Launcher);
+
+            if (timePassed == 0) {
 				// GM.dbug.Log(this, "hey!  first time running attract");
 				slideNum = -1;
 				NextSlide();

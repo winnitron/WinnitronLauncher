@@ -26,6 +26,7 @@ public class OptionsManager : MonoBehaviour {
     public bool widescreen = true;
     public enum SyncMode {LOCALONLY, NORMAL};
     public SyncMode syncMode = SyncMode.NORMAL;
+    public int launcherIdleTimeBeforeAttract;
 
     public bool initializing = true;
 
@@ -74,16 +75,14 @@ public class OptionsManager : MonoBehaviour {
         //Load that JSON
         Debug.Log("Loading options from " + optionsFile);
         O = GM.data.LoadJson(optionsFile);
-
+        
+        //Make sure the data exists!  Oops if it doesn't.
         if(O == null)
-        {
-            // something went wrong!
-            return;
-        }
+            GM.Oops(GM.Text("error", "cannotFindJson"), true);
 
-        //Widescreen
-        if (O["launcher"]["widescreen"] == "false")
-            widescreen = false;
+        //Launcher Settings
+        if (O["launcher"]["widescreen"] != null) widescreen = O["launcher"]["widescreen"].AsBool;
+        if (O["launcher"]["idleTimeBeforeAttract"] != null) launcherIdleTimeBeforeAttract = O["launcher"]["idleTimeBeforeAttract"].AsInt;
 
         //Runner Settings
         if(O["runner"]["timeToHoldESCToQuit"] != null) runnerSecondsESCHeld = O["runner"]["timeToHoldESCToQuit"].AsInt;

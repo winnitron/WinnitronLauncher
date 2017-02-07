@@ -34,12 +34,16 @@ public class LauncherUIController : MonoBehaviour
     public List<PlaylistUIController> playlistControllers;
 
     public int selectedPlaylistIndex;
+
+    public float launchTimeout = 0.25f;
+    private float idleTime = 0;
     
     void Start()
     {
         //Hook in the UpdateData function to the DataManager's
         //Update data function so we always get the data at the
         //right time
+        GM.dbug.Log(this, "LauncherUIController: Hooking in OnDataUpdated delegate");
         GM.data.OnDataUpdated += UpdateData;
     }
 
@@ -53,21 +57,40 @@ public class LauncherUIController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(GM.options.keys.P1Left))
-            PreviousPlaylist();
+        if (GM.state.worldState == StateManager.WorldState.Launcher)
+        {
+            if (Input.GetKeyDown(GM.options.keys.P1Left))
+                PreviousPlaylist();
 
-        if (Input.GetKeyDown(GM.options.keys.P1Right))
-            NextPlaylist();
+            if (Input.GetKeyDown(GM.options.keys.P1Right))
+                NextPlaylist();
 
-        if (Input.GetKeyDown(GM.options.keys.P1Up))
-            PreviousGame();
+            if (Input.GetKeyDown(GM.options.keys.P1Up))
+                PreviousGame();
 
-        if (Input.GetKeyDown(GM.options.keys.P1Down))
-            NextGame();
+            if (Input.GetKeyDown(GM.options.keys.P1Down))
+                NextGame();
 
-        if (Input.GetKeyDown(GM.options.keys.P1Button1))
-            SelectGame();
+            if (Input.GetKeyDown(GM.options.keys.P1Button1) && idleTime >= 0)
+                SelectGame();
 
+            //Increase idle time
+            idleTime += Time.deltaTime;
+
+            //Reset idle time if a key is pressed
+            if (Input.anyKey && idleTime >= 0) idleTime = 0;
+
+            //Go into Attract mode is key isn't pressed for a while
+            if (idleTime > GM.options.launcherIdleTimeBeforeAttract)
+                GM.state.ChangeState(StateManager.WorldState.Attract);
+        }
+
+        else
+        {
+            //Since it's not the attract state, reset the idle timer
+            //Make it negative so that there's some buffer before you can launch a game
+            idleTime = -launchTimeout;
+        }
     }
 
     private void BuildPlaylists()

@@ -2,7 +2,8 @@
   "launcher": {
     "widescreen": "true",
     "syncMode": "normal",
-    "language": "english"
+    "language": "english",
+	"idleTimeBeforeAttract": "20"
   },
   "runner": {
     "initialIdleTimeSeconds" : "30",
