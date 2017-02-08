@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
 public class StateManager : MonoBehaviour {
 
-	public enum WorldState{Intro, Launcher, Attract, Idle, Sync, Oops};
-
+    //Enum for changing states
+	public enum WorldState{Intro, Launcher, Attract, Idle, Sync, Oops}
 	public WorldState worldState = WorldState.Intro;
 
+    //Just contains all the GameObjects that act as States
 	public List<State> states;
 
-	public float idleTime = 0;
-	public float timeBeforeIdle = 5;
-
+    //Oops
 	public OopsScreenController oopsController;
 	public string oops = "";
 
@@ -28,7 +28,10 @@ public class StateManager : MonoBehaviour {
 		foreach (State state in states) 
 			state.gameObject.SetActive (true);
 
-		ChangeState (worldState);
+        //This just changes the state to the first state that's in the inspector
+        //This will primarily be for testing, generally you want to sync when things start up
+        if (worldState == WorldState.Sync || GM.sync.syncOnStartup) GM.sync.execute();
+		else ChangeState (worldState);
 	}
 
 	void Update () {
@@ -49,8 +52,11 @@ public class StateManager : MonoBehaviour {
 			oops = GM.Text ("error", "test");
 	}
 
-	//Changes the worldstate
-	public void ChangeState(WorldState newState) {
+    /// <summary>
+    /// Change the state of the Launcher.  
+    /// </summary>
+    /// <param name="newState">Uses StateManager.WorldState enums.</param>
+    public void ChangeState(WorldState newState) {
 
 		foreach (var state in states) {
 			if (newState == state.worldState) {
@@ -61,10 +67,6 @@ public class StateManager : MonoBehaviour {
 			else
 				state.Deactivate ();
 		}
-
-        //SPECIAL CASE
-        if(newState == WorldState.Sync)
-            GM.sync.execute();
 
         GM.dbug.Log(this, "STATE: new state is " + worldState);
 

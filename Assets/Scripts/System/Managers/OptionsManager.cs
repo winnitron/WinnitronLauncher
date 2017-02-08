@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using System;
 using SimpleJSON;
 
 [System.Serializable]
@@ -24,8 +24,6 @@ public class OptionsManager : MonoBehaviour {
 
     //Launcher Options
     public bool widescreen = true;
-    public enum SyncMode {LOCALONLY, NORMAL};
-    public SyncMode syncMode = SyncMode.NORMAL;
     public int launcherIdleTimeBeforeAttract;
 
     public bool initializing = true;
@@ -119,11 +117,28 @@ public class OptionsManager : MonoBehaviour {
         //Load language file
         language = GM.data.LoadJson (dataPath + "/Options/winnitron_text_" + O ["launcher"] ["language"] + ".json");
 
-        //Check forcemode
-        GM.dbug.Log(this, "SYNCMODE " + O["launcher"]["syncMode"]);
-        if(O["launcher"]["syncMode"].Value == "local" || O["launcher"]["syncMode"].Value == "localOnly")
-            syncMode = SyncMode.LOCALONLY;
 
+
+        //Sync Options
+        var mode = O["sync"]["type"].Value.ToLower();
+
+        GM.dbug.Log(this, "SYNCMODE " + mode);
+
+        if (mode == "local" || mode == "localonly" || mode == "none")
+            GM.sync.syncType = GameSync.SyncType.NONE;
+        else if (mode == "daily")
+            GM.sync.syncType = GameSync.SyncType.DAILY;
+        else
+            GM.sync.syncType = GameSync.SyncType.ALWAYS;
+
+        GM.sync.timeToUpdate = new TimeSpan(O["sync"]["dailySyncTime"]["hour"].AsInt, O["sync"]["dailySyncTime"]["minute"].AsInt, 0);
+        GM.dbug.Log(this, "OPTIONS: Time to Update is " + GM.sync.timeToUpdate.ToString());
+
+        GM.sync.syncOnStartup = O["sync"]["syncOnStartup"].AsBool;
+
+
+
+        //Tell GM that Options is done with all the Init stuff
         initializing = false;
     }
 

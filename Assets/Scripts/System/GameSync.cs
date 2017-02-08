@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
 using ICSharpCode.SharpZipLib.Zip;
+using System;
 
 [System.Serializable]
 public class GameSync : MonoBehaviour {
@@ -17,6 +18,23 @@ public class GameSync : MonoBehaviour {
 
     private ArrayList playlists = new ArrayList();
 
+    /// <summary>
+    /// NONE: Never Sync
+    /// DAILY: Sync and use the daily sync variables below
+    /// ALWAYS: Syncs after every game
+    /// </summary>
+    public enum SyncType { NONE, DAILY, ALWAYS };
+    public SyncType syncType = SyncType.ALWAYS;
+
+    //Sync Time stamps
+    public DateTime lastUpdate;
+
+    //Daily sync time
+    public TimeSpan timeToUpdate;
+
+    public bool syncOnStartup = true;
+
+    //Called during GM init
     private void initConfig()
     {
         api_key = GM.options.GetSyncSettings()["api_key"];
@@ -28,14 +46,24 @@ public class GameSync : MonoBehaviour {
         games_dir = GM.options.playlistsPath;
     }
 
+    void Update()
+    {
+        if (timeToUpdate < DateTime.Now.TimeOfDay && syncType == SyncType.DAILY && SafeToSync())
+            execute();
+    }
+
+    /// <summary>
+    /// Initiates Sync, should only be called by StateManager.cs
+    /// </summary>
     public void execute()
     {
-        if (GM.options.syncMode == OptionsManager.SyncMode.NORMAL)
-        { 
+        if (syncType != SyncType.NONE)
+        {
             GM.dbug.Log(this, "GameSync: Running Sync...");
             SyncText("INITIALIZING SYNC!");
 
             initConfig();
+            GM.state.ChangeState(StateManager.WorldState.Sync);
             fetchPlaylistSubscriptions();
         }
 
@@ -51,16 +79,6 @@ public class GameSync : MonoBehaviour {
         WWW www = new WWW(library_url + "/api/v1/playlists/?api_key=" + api_key);
 
         StartCoroutine(WaitForSubscriptionList(www));
-    }
-
-    private void EndSync()
-    {
-        GM.dbug.Log(this, "GameSync: Ending Sync.");
-        //Just double check the the proper data is loaded
-        GM.data.ReloadData();
-
-        //Change state back to intro when completed
-        GM.state.ChangeState(StateManager.WorldState.Intro);
     }
 
     private IEnumerator WaitForSubscriptionList(WWW www) {
@@ -153,6 +171,26 @@ public class GameSync : MonoBehaviour {
         }
     }
 
+
+    /// <summary>
+    /// Called when the Sync successfully ends.
+    /// </summary>
+    private void EndSync()
+    {
+        lastUpdate = DateTime.Now;
+        GM.dbug.Log(this, "GameSync: Sync complete at " + lastUpdate.ToString());
+
+        //Just double check the the proper data is loaded
+        GM.data.ReloadData();
+
+        //Change state back to intro when completed
+        GM.state.ChangeState(StateManager.WorldState.Intro);
+    }
+
+    /// <summary>
+    /// Sets what the text during the Syncing process will say.
+    /// </summary>
+    /// <param name="text">Text to be displayed.</param>
     private void SyncText(string text)
     {
         syncDescription.text = text;
@@ -164,6 +202,24 @@ public class GameSync : MonoBehaviour {
         yield return new WaitForSeconds(timeToWait);
     }
 
+    /// <summary>
+    /// Checks to make sure we're not in a state where the launcher is being actively used like while playing a game.
+    /// </summary>
+    /// <returns>True if safe to sync, false if not.</returns>
+    private bool SafeToSync()
+    {
+        if (GM.state.worldState != StateManager.WorldState.Intro && GM.state.worldState != StateManager.WorldState.Idle && GM.state.worldState != StateManager.WorldState.Sync)
+            return true;
+
+        return false;
+    }
+
+
+
+
+    /// 
+    /// DATA STRUCTURES FOR SYNCING
+    ///
 
     private class SluggedItem {
         public string title;
@@ -243,10 +299,6 @@ public class GameSync : MonoBehaviour {
         public void deleteRemovedGames() {
             SluggedItem.deleteExtraDirectories(parentDirectory + "/" + slug, games);
         }
-
-
-
-
     }
 
     private class Game : SluggedItem {
