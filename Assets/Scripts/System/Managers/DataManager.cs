@@ -29,6 +29,7 @@ public class DataManager : Singleton<DataManager>  {
         //Primarily used in LauncherUIController.cs to update the data model
         //But could be used elsewhere
         GM.dbug.Log(this, "DataManager: finished updating data.");
+
         OnDataUpdated();
 	}
 

@@ -22,8 +22,10 @@ public class StateManager : MonoBehaviour {
     }
 
 	IEnumerator Init() {
-        //Wait for options script to get all the folders before continuing
+        //Need to make sure that the launcherUI can hook in it's delegate so it knows when the data
         GameObject.Find("LauncherUI").GetComponent<LauncherUIController>().Init();
+
+        //Wait for options script to get all the folders before continuing
         while (GM.options.initializing) yield return null;
 
 		foreach (State state in states) 
