@@ -3,7 +3,7 @@
 
 
 ; RUN THE GAME
-Run, C:\WINNITRON_UserData\Playlists\classic-winnitron\canabalt\Canabalt.exe
+Run, C:\WINNITRON_UserData\Playlists\official-winnitron\nidhogg\Nidhogg.exe
 idleLimit:= 10000 ; three seconds
 SetTimer, InitialWait, 30000
 ; SetTimer,  CloseOnIdle, % idleLimit+150
@@ -11,7 +11,7 @@ SetTimer, InitialWait, 30000
 ; This is the function that quits the app
 KillApp()
 {
-	WinKill, ahk_exe C:\WINNITRON_UserData\Playlists\classic-winnitron\canabalt\Canabalt.exe
+	WinKill, ahk_exe C:\WINNITRON_UserData\Playlists\official-winnitron\nidhogg\Nidhogg.exe
 	ExitApp
 }
 

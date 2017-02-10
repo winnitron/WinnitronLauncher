@@ -23,6 +23,7 @@ public class StateManager : MonoBehaviour {
 
 	IEnumerator Init() {
         //Wait for options script to get all the folders before continuing
+        GameObject.Find("LauncherUI").GetComponent<LauncherUIController>().Init();
         while (GM.options.initializing) yield return null;
 
 		foreach (State state in states) 
@@ -31,7 +32,11 @@ public class StateManager : MonoBehaviour {
         //This just changes the state to the first state that's in the inspector
         //This will primarily be for testing, generally you want to sync when things start up
         if (worldState == WorldState.Sync || GM.sync.syncOnStartup) GM.sync.execute();
-		else ChangeState (worldState);
+        else
+        {
+            GM.data.ReloadData();
+            ChangeState(worldState);
+        }
 	}
 
 	void Update () {

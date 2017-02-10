@@ -37,8 +37,8 @@ public class LauncherUIController : MonoBehaviour
 
     public float launchTimeout = 0.25f;
     private float idleTime = 0;
-    
-    void Start()
+
+    public void Init()
     {
         //Hook in the UpdateData function to the DataManager's
         //Update data function so we always get the data at the
