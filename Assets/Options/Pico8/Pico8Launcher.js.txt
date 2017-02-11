@@ -1,0 +1,4 @@
+window.location.href='C:\\WINNITRON_UserData\\Playlists\\_pico8\\totem\\totem.html';
+
+var win = nw.Window.get();
+win.enterKioskMode();

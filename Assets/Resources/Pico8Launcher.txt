@@ -1,0 +1,4 @@
+window.location.href='{{{PATH_TO_HTML}}}';
+
+var win = nw.Window.get();
+win.enterKioskMode();

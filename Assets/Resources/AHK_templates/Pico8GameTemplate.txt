@@ -3,15 +3,15 @@
 
 
 ; RUN THE GAME
-Run, C:/WINNITRON_UserData/Options/Pico8/nw.exe
-idleLimit:= 10000 ; three seconds
-SetTimer, InitialWait, 30000
+Run, {GAME_PATH}
+idleLimit:= {IDLE_TIME}000 ; three seconds
+SetTimer, InitialWait, {IDLE_INITIAL}000
 ; SetTimer,  CloseOnIdle, % idleLimit+150
 
 ; This is the function that quits the app
 KillApp()
 {
-	WinKill, ahk_exe C:/WINNITRON_UserData/Options/Pico8/nw.exe
+	WinKill, ahk_exe {GAME_PATH}
 	ExitApp
 }
 
@@ -37,7 +37,7 @@ return
 	If escIsPressed
 		return
 	escIsPressed := true
-	SetTimer, WaitForESCRelease, 3000		; 3 seconds
+	SetTimer, WaitForESCRelease, {ESC_HOLD}000		; 3 seconds
 return
 
 ; Do this stuff when Esc is UP

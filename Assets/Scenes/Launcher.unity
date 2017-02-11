@@ -13365,7 +13365,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   widescreen: 1
-  syncMode: 1
   launcherIdleTimeBeforeAttract: 0
   initializing: 1
   tweenTime: 0.5
@@ -13433,8 +13432,6 @@ MonoBehaviour:
   - {fileID: 836364964}
   - {fileID: 2048575091}
   - {fileID: 1668768756}
-  idleTime: 0
-  timeBeforeIdle: 10
   oopsController: {fileID: 1428222310}
   oops: 
 --- !u!114 &1803195762
@@ -13450,9 +13447,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   globalOn: 1
   showNull: 0
+  showTimestamps: 1
   supress: []
-  show:
-  - {fileID: 11500000, guid: 8c0a348a2756a40afadf07d0c1ad8988, type: 3}
+  show: []
 --- !u!114 &1803195763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13465,6 +13462,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncDescription: {fileID: 1497330548}
+  syncType: 2
+  syncOnStartup: 1
 --- !u!1 &1848237756
 GameObject:
   m_ObjectHideFlags: 0
