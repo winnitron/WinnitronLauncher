@@ -7,16 +7,7 @@ using System.Collections;
 
 public class Runner : MonoBehaviour {
     
-    Jukebox jukebox;
     Process gameRunner;
-
-    string templatesFolder = "AHK_templates/";
-
-    TextAsset ExeAHKTemplate;
-    TextAsset Pico8AHKTemplate;
-    TextAsset Pico8JS;
-
-    TextAsset legacy; 
 
     void Awake()
     {
@@ -30,27 +21,23 @@ public class Runner : MonoBehaviour {
 
         if(gameRunner == null)
             GM.Oops(GM.Text("error", "noLegacyControlExe"));
-
-        ExeAHKTemplate = Resources.Load(templatesFolder + "ExeGameTemplate") as TextAsset;
-        Pico8AHKTemplate = Resources.Load(templatesFolder + "Pico8GameTemplate") as TextAsset;
-        Pico8JS = Resources.Load("Pico8Launcher") as TextAsset;
-        legacy = Resources.Load(templatesFolder + "WinnitronLegacy") as TextAsset;
     }
 
 
-	//Run those games!
+	
 
 	public void Run(Game game) {
 
-        GM.dbug.Log(this, "Running Game " + game.name + " legacy: " + game.useLegacyControls);
+        GM.dbug.Log(this, "Running Game " + game.name);
 
-        CreateAHKScript(game);
+        LoadAHKScript(game);
+        game.PreRun();
         StartCoroutine(RunProcess(gameRunner));
 	}
 
 	IEnumerator RunProcess(Process process){
         
-		if (jukebox) jukebox.Stop();
+		if (GM.jukebox) GM.jukebox.Stop();
 
 		GM.state.ChangeState(StateManager.WorldState.Idle);
 		Screen.fullScreen = false;
@@ -67,49 +54,14 @@ public class Runner : MonoBehaviour {
         GM.Restart();
 	}
 
-    private void CreateAHKScript(Game game)
+    /// <summary>
+    /// Places the proper AHK script named "RunGame.ahk" 
+    /// that's found in the game's directory that was made during the GAME construction.
+    /// </summary>
+    /// <param name="game">The game that's being loaded.</param>
+    private void LoadAHKScript(Game game)
     {
-        GM.dbug.Log(this, "RUNNER: Create script game " + game.executable);
-
-        string newAHKfile = ExeAHKTemplate.text;
-
-        switch (game.gameType)
-        {
-            case Game.GameType.EXE:
-                newAHKfile = newAHKfile.Replace("{GAME_PATH}", game.executable);
-                newAHKfile = newAHKfile.Replace("{GAME_NAME}", game.name);
-
-                //Replace Keymaps
-                if (game.useLegacyControls) newAHKfile = newAHKfile.Replace("{KEYMAPS}", legacy.text);
-                else newAHKfile = newAHKfile.Replace("{KEYMAPS}", "");
-
-                break;
-
-            case Game.GameType.PICO8:
-                CreatePico8LauncherJS(game);
-                newAHKfile = Pico8AHKTemplate.text.Replace("{GAME_PATH}", GM.options.dataPath + "/Options/Pico8/nw.exe");
-                break;
-        }
-
-        //Replace variables
-        newAHKfile = newAHKfile.Replace("{IDLE_TIME}", "" + GM.options.runnerSecondsIdle);
-        newAHKfile = newAHKfile.Replace("{IDLE_INITIAL}", "" + GM.options.runnerSecondsIdleInitial);
-        newAHKfile = newAHKfile.Replace("{ESC_HOLD}", "" + GM.options.runnerSecondsESCHeld);
-
-        //Delete old file and write to new one
-        File.Delete(Application.dataPath + "/Options/RunGame.ahk");
-        System.IO.File.WriteAllText(Application.dataPath + "/Options/RunGame.ahk", newAHKfile);
-    }
-
-    private void CreatePico8LauncherJS(Game game)
-    {
-        string newJS = "";
-
-        newJS = Pico8JS.text.Replace("{{{PATH_TO_HTML}}}", game.executable.Replace("\\", "\\\\"));
-
-        //Delete old file and write to new one
-        File.Delete(GM.options.dataPath + "/Options/Pico8/Pico8Launcher.js");
-        System.IO.File.WriteAllText(GM.options.dataPath + "/Options/Pico8/Pico8Launcher.js", newJS);
+        File.Copy(game.directory.FullName + "/RunGame.ahk", Application.dataPath + "/Options/RunGame.ahk", true);
     }
 }
 
