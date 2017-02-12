@@ -4,14 +4,16 @@
 
 ; RUN THE GAME
 Run, {GAME_PATH}
+SetTitleMatchMode 2
 idleLimit:= {IDLE_TIME}000 ; three seconds
 SetTimer, InitialWait, {IDLE_INITIAL}000
-; SetTimer,  CloseOnIdle, % idleLimit+150
+MouseMove, 3000, 3000, 0
 
 ; This is the function that quits the app
 KillApp()
 {
-	WinKill, ahk_exe {GAME_PATH}
+	WinClose, PICO-8
+	WinKill, PICO-8
 	ExitApp
 }
 
@@ -52,4 +54,11 @@ WaitForESCRelease:
 return
 
 ; KEYMAPS BELOW
-
+/::m
+.::n
+a::s
+s::d
+d::f
+w::e
+`::q
+1::w

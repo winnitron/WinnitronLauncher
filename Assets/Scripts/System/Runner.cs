@@ -71,13 +71,14 @@ public class Runner : MonoBehaviour {
     {
         GM.dbug.Log(this, "RUNNER: Create script game " + game.executable);
 
-        string newAHKfile = "";
+        string newAHKfile = ExeAHKTemplate.text;
 
         switch (game.gameType)
         {
             case Game.GameType.EXE:
-                newAHKfile = ExeAHKTemplate.text.Replace("{GAME_PATH}", game.executable);
-                
+                newAHKfile = newAHKfile.Replace("{GAME_PATH}", game.executable);
+                newAHKfile = newAHKfile.Replace("{GAME_NAME}", game.name);
+
                 //Replace Keymaps
                 if (game.useLegacyControls) newAHKfile = newAHKfile.Replace("{KEYMAPS}", legacy.text);
                 else newAHKfile = newAHKfile.Replace("{KEYMAPS}", "");
