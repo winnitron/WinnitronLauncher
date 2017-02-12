@@ -1,21 +1,22 @@
-; PICO8 RUN SCRIPT
+; FLASH GAME RUN SCRIPT
 
 #Persistent
 #MaxHotkeysPerInterval 200
 
 
 ; RUN THE GAME
-Run, {GAME_PATH}
-SetTitleMatchMode 2
+Run, {GAME_PATH}, , , process_pid
 idleLimit:= {IDLE_TIME}000 ; three seconds
 SetTimer, InitialWait, {IDLE_INITIAL}000
-MouseMove, 3000, 3000, 0
+MouseMove 3000, 3000, 0
 
 ; This is the function that quits the app
 KillApp()
 {
-	WinClose, PICO-8
-	WinKill, PICO-8
+	WinKill, ahk_exe {GAME_PATH}	; Tries to close using .exe
+	WinKill, ahk_pid process_pid	; Tries to close using process id
+	SetTitleMatchMode, 2
+	WinKill, {GAME_NAME}			; Tries to close hoping that part of the game name is in the title
 	ExitApp
 }
 
@@ -38,29 +39,7 @@ return
 
 ; Do this stuff when Esc is pressed
 ~Esc::
-	If escIsPressed
-		return
-	escIsPressed := true
-	SetTimer, WaitForESCRelease, {ESC_HOLD}000		; 3 seconds
-return
-
-; Do this stuff when Esc is UP
-~Esc Up::
-	SetTimer, WaitForESCRelease, Off
-	escIsPressed := false
-return
-
-WaitForESCRelease:
-	SetTimer, WaitForESCRelease, Off
 	KillApp()
 return
 
 ; KEYMAPS BELOW
-/::m
-.::n
-a::s
-s::d
-d::f
-w::e
-`::q
-1::w

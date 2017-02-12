@@ -1,3 +1,5 @@
+; DEFAULT RUN SCRIPT
+
 #Persistent
 #MaxHotkeysPerInterval 200
 
@@ -54,5 +56,4 @@ WaitForESCRelease:
 	KillApp()
 return
 
-; KEYMAPS BELOW
-{KEYMAPS}
+; KEYMAPS BELOW (NONE IN DEFAULT SCRIPT)

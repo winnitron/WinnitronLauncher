@@ -7,16 +7,14 @@ using SimpleJSON;
 [System.Serializable]
 public class Game
 {
-
 	public DirectoryInfo directory;
 
 	public string name;
 	public string author;
 	public Sprite screenshot;
-	public string executable;
-    public bool useLegacyControls;
+    public string executable;
 
-    public enum GameType { EXE, PICO8 }
+    public enum GameType { EXE, PICO8, CUSTOM, LEGACY, FLASH }
     public GameType gameType;
 
     public bool voidGame = false;
@@ -35,6 +33,8 @@ public class Game
 		} else {
             BuildGame ();
 		}
+
+        BuildHelperScripts();
 	}
 
 	/// <summary>
@@ -42,23 +42,17 @@ public class Game
     /// </summary>
 	private void BuildGame()
 	{
-        Debug.Log("NO JSON!  Determining game...");
+        GM.dbug.Log("GAME: No JSON!  Determining game...");
         if (DetermineGameType())
         {
             this.name = GetGameNameFromFolderName();
             this.screenshot = GetScreenshot();
+        }
 
-            switch (gameType)
-            {
-                case GameType.PICO8:
-                    CreatePico8HTML();        
-                    Debug.Log("PICO8 Game Built! Name: " + name + " Screenshot: " + screenshot.name + " exe path: " + executable);
-                    break;
-
-                case GameType.EXE:
-                    Debug.Log("EXE Game Built! Name: " + name + " Screenshot: " + screenshot.name + " exe path: " + executable);
-                    break;
-            }
+        else
+        {
+            GM.dbug.Log("GAME: Could not determine game type.  Voiding game " + directory);
+            voidGame = true;
         }
 	}
 
@@ -73,9 +67,35 @@ public class Game
 		this.author = null; //No author stuff just yet
 		this.screenshot = GetScreenshot();
 		this.executable = Path.Combine(directory.FullName + "\\", J["executable"]);
-        this.useLegacyControls = J["legacy_controls"].AsBool;
 
-        GM.dbug.Log(null, "Game Built JSON! Name: " + name + " Screenshot: " + screenshot.name + " legacy: " + useLegacyControls + " exe path: " + executable);
+        switch(J["template"])
+        {
+            case "default":
+                gameType = GameType.EXE;
+                break;
+
+            case "pico8":
+                gameType = GameType.PICO8;
+                break;
+
+            case "flash":
+                gameType = GameType.FLASH;
+                break;
+
+            case "legacy":
+                gameType = GameType.LEGACY;
+                break;
+
+            case "custom":
+                gameType = GameType.CUSTOM;
+                break;
+
+            default:
+                DetermineGameType();
+                break;
+        }
+
+        GM.dbug.Log(null, "Game Built JSON! Name: " + name + " Screenshot: " + screenshot.name + " exe path: " + executable);
 	}
 
 
@@ -147,15 +167,91 @@ public class Game
         return false;
     }
 
-    private void CreatePico8HTML()
+    /// <summary>
+    /// This will make the launcher AHK scripts, and/or other scripts (.html files in pico8 case)
+    /// and put them in the same folder as the game.
+    /// </summary>
+    public void BuildHelperScripts()
     {
-        //We're gonna replace the old html with a new template for pico8 so let's move the original to a safe spot
-        if (Directory.GetFiles(directory.ToString(), "*.html.org").Length == 0)
-            File.Copy(executable, executable + ".org");
+        GM.dbug.Log("GAME: Create scripts for game " + name);
 
-        TextAsset Pico8HTMLTemplate = Resources.Load("Pico8HTMLTemplate") as TextAsset;
-        string newHTML = Pico8HTMLTemplate.text.Replace("{{{GAME_NAME}}}", name + ".js");
-        File.Delete(executable);
-        System.IO.File.WriteAllText(executable, newHTML);
+        string newAHKfile = "";
+
+        switch (gameType)
+        {
+            case Game.GameType.EXE:
+
+                newAHKfile = Resources.Load<TextAsset>("AHK_templates/ExeGameTemplate").text;
+            
+                newAHKfile = newAHKfile.Replace("{GAME_PATH}", executable);
+                newAHKfile = newAHKfile.Replace("{GAME_NAME}", name);
+
+                break;
+
+            case Game.GameType.PICO8:
+
+                string newJS = Resources.Load<TextAsset>("Pico8Launcher").text;
+                newJS = newJS.Replace("{{{PATH_TO_HTML}}}", executable.Replace("\\", "\\\\"));
+                WriteStringToFile(newJS, "Pico8Launcher.js");
+
+                newAHKfile = Resources.Load<TextAsset>("AHK_templates/Pico8GameTemplate").text;
+                newAHKfile = newAHKfile.Replace("{GAME_PATH}", GM.options.dataPath + "/Options/Pico8/nw.exe");
+
+                break;
+
+            case Game.GameType.LEGACY:
+
+                newAHKfile = Resources.Load<TextAsset>("AHK_templates/LegacyGameTemplate").text;
+
+                newAHKfile = newAHKfile.Replace("{GAME_PATH}", executable);
+                newAHKfile = newAHKfile.Replace("{GAME_NAME}", name);
+
+                break;
+
+            case Game.GameType.FLASH:
+
+                newAHKfile = Resources.Load<TextAsset>("AHK_templates/FlashGameTemplate").text;
+
+                newAHKfile = newAHKfile.Replace("{GAME_PATH}", executable);
+                newAHKfile = newAHKfile.Replace("{GAME_NAME}", name);
+
+                break;
+
+            case Game.GameType.CUSTOM:
+                break;
+        }
+
+        //Things needed for every Launcher Script
+
+        //Replace variables
+        newAHKfile = newAHKfile.Replace("{IDLE_TIME}", "" + GM.options.runnerSecondsIdle);
+        newAHKfile = newAHKfile.Replace("{IDLE_INITIAL}", "" + GM.options.runnerSecondsIdleInitial);
+        newAHKfile = newAHKfile.Replace("{ESC_HOLD}", "" + GM.options.runnerSecondsESCHeld);
+
+        //Delete old file and write to new one
+        WriteStringToFile(newAHKfile, "RunGame.ahk");
+    }
+
+    /// <summary>
+    /// Called by RUNNER script, in case the game needs to do some extra setup before it runs.
+    /// </summary>
+    public void PreRun()
+    {
+        if(gameType == GameType.PICO8) File.Copy(directory.FullName + "/Pico8Launcher.js", GM.options.dataPath + "/Options/Pico8Launcher.js", true);
+    }
+
+    /// <summary>
+    /// Writes the text to the filename in the Game directory.
+    /// </summary>
+    /// <param name="text">The text to encode into the file.</param>
+    /// <param name="fileName">The name of the file.</param>
+    private void WriteStringToFile(string text, string fileName)
+    {
+        var file = directory.FullName + "/" + fileName;
+
+        //Delete old file and write to new one
+        File.Delete(file);
+        System.IO.File.WriteAllText(file, text);
+        GM.dbug.Log("GAME: Writing file " + file);
     }
 }

@@ -12,13 +12,16 @@ public class Dbug: MonoBehaviour {
     public List<UnityEngine.Object> supress;
     public List<UnityEngine.Object> show;
 
+    public void Log(string x)
+    {
+        if (showTimestamps) Debug.Log(DateTime.Now.ToLocalTime().ToString() + " -- " + x);
+        else Debug.Log(x);
+    }
+
 	public void Log(UnityEngine.Object mb, string x) 
 	{
         if (CanShow(mb))
-        {
-            if(showTimestamps) Debug.Log(DateTime.Now.ToLocalTime().ToString() + " -- " + x);
-            else Debug.Log(x);
-        }
+            Log(x);
 	}
 
 	public void On() { globalOn = true; }
