@@ -2,7 +2,7 @@
   "launcher": {
     "widescreen": "true",
     "language": "english",
-	"idleTimeBeforeAttract": "20"
+    "idleTimeBeforeAttract": "20"
   },
   "runner": {
     "initialIdleTimeSeconds" : "30",
@@ -17,11 +17,11 @@
   "sync": {
     "api_key": "YOUR API KEY HERE",
     "library_url": "http://network.winnitron.com",
-	"syncOnStart" : "true",
-	"type" : "default",
-	"dailySyncTime" : {
-		"hour" : "01",
-		"minute" : "00"
-	}
+	  "syncOnStart" : "true",
+	  "type" : "default",
+	  "dailySyncTime" : {
+  		"hour" : "01",
+  		"minute" : "00"
+  	}
   }
 }
