@@ -132,19 +132,19 @@ public class OptionsManager : MonoBehaviour {
 
 	private string InitDataFolder(string jsonKey)
 	{
-		string path = O["folders"][jsonKey];
-		string dirName = jsonKey[0].ToString().ToUpper() + jsonKey.Substring(1, jsonKey.Length - 1);
+        string path = O["folders"][jsonKey];
+        string dirName = jsonKey[0].ToString().ToUpper() + jsonKey.Substring(1, jsonKey.Length - 1);
 
-		if (path.ToString().Contains("default"))
-			path = dataPath + "/" + dirName;
+        if (path.ToString().Contains("default"))
+            path = dataPath + "/" + dirName;
 
-		GM.dbug.Log(this, "OPTIONS: " + dirName + " path is " + path);
+        GM.dbug.Log(this, "OPTIONS: " + dirName + " path is " + path);
 
-		if (!Directory.Exists(path))
-		{
-			Directory.CreateDirectory(path);
-		}
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(path);
+        }
 
-		return path;
+        return path;
 	}
 }
