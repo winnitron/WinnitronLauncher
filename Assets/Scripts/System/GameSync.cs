@@ -57,7 +57,7 @@ public class GameSync : MonoBehaviour {
     /// </summary>
     public void execute()
     {
-        if (syncType != SyncType.NONE)
+        if (true) // syncType != SyncType.NONE)
         {
             GM.dbug.Log(this, "GameSync: Running Sync...");
             SyncText("INITIALIZING SYNC!");
@@ -217,7 +217,7 @@ public class GameSync : MonoBehaviour {
 
 
 
-    /// 
+    ///
     /// DATA STRUCTURES FOR SYNCING
     ///
 
@@ -310,7 +310,7 @@ public class GameSync : MonoBehaviour {
         public int minPlayers;
         public int maxPlayers;
         public string executable;
-        public bool legacyControls;
+        public string keyTemplate;
 
         public JSONNode installationMetadata;
 
@@ -324,8 +324,9 @@ public class GameSync : MonoBehaviour {
             minPlayers = data["min_players"].AsInt;
             maxPlayers = data["max_players"].AsInt;
             executable = data["executable"];
-            legacyControls = data["legacy_controls"].AsBool;
             imageURL = data["image_url"];
+            keyTemplate = data["keys"]["template"];
+
 
             if (alreadyInstalled()) {
                 string json = File.ReadAllText(installDirectory + "winnitron_metadata.json");
@@ -350,8 +351,12 @@ public class GameSync : MonoBehaviour {
             installationMetadata.Add("min_players", new JSONData(minPlayers));
             installationMetadata.Add("max_players", new JSONData(maxPlayers));
             installationMetadata.Add("executable", new JSONData(executable));
-            installationMetadata.Add("legacy_controls", new JSONData(legacyControls));
             installationMetadata.Add("image_url", new JSONData(imageURL));
+
+
+            JSONClass keymap = new JSONClass();
+            keymap.Add("template", new JSONData(keyTemplate));
+            installationMetadata.Add("keys", keymap);
 
             string filename = installDirectory + "/winnitron_metadata.json";
             Debug.Log("writing to " + filename + ": " + installationMetadata.ToString());

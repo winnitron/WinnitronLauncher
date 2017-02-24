@@ -23,7 +23,7 @@ public class Game
     /// The game only takes in a directory handed down by the Playlist class, it then finds all the relevant information for the Game
     /// </summary>
     /// <param name="directory">The directory path.</param>
-    public Game(string directory) 
+    public Game(string directory)
 	{
 		this.directory = new DirectoryInfo (directory);
 
@@ -61,14 +61,14 @@ public class Game
     /// </summary>
 	private void BuildGameJSON()
 	{
-		var J = GM.data.LoadJson (directory.FullName + "\\winnitron_metadata.json");
+		var J = GM.data.LoadJson (directory.FullName + "/winnitron_metadata.json");
 
 		this.name = J ["title"];
 		this.author = null; //No author stuff just yet
 		this.screenshot = GetScreenshot();
-		this.executable = Path.Combine(directory.FullName + "\\", J["executable"]);
+		this.executable = Path.Combine(directory.FullName + "/", J["executable"]);
 
-        switch(J["template"])
+        switch(J["keys"]["template"])
         {
             case "default":
                 gameType = GameType.EXE;
@@ -148,7 +148,7 @@ public class Game
     private bool DetermineGameType()
     {
         if (Directory.GetFiles(this.directory.ToString(), "*.html").Length == 1)
-        {       
+        {
             executable = Directory.GetFiles(this.directory.ToString(), "*.html")[0];
             Debug.Log("Determined PICO8! " + executable);
             gameType = GameType.PICO8;
@@ -182,7 +182,7 @@ public class Game
             case Game.GameType.EXE:
 
                 newAHKfile = Resources.Load<TextAsset>("AHK_templates/ExeGameTemplate").text;
-            
+
                 newAHKfile = newAHKfile.Replace("{GAME_PATH}", executable);
                 newAHKfile = newAHKfile.Replace("{GAME_NAME}", name);
 
