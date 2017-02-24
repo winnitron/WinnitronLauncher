@@ -354,10 +354,9 @@ public class GameSync : MonoBehaviour {
             installationMetadata.Add("image_url", new JSONData(imageURL));
 
 
-			Debug.Log( "JSON: " + title + "/" + keyTemplate);
-			JSONClass keymap = new JSONClass();
-			keymap.Add("template", new JSONData(keyTemplate));
-			installationMetadata.Add("keys", keymap);
+            JSONClass keymap = new JSONClass();
+            keymap.Add("template", new JSONData(keyTemplate));
+            installationMetadata.Add("keys", keymap);
 
             string filename = installDirectory + "/winnitron_metadata.json";
             Debug.Log("writing to " + filename + ": " + installationMetadata.ToString());
