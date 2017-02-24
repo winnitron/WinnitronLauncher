@@ -60,7 +60,7 @@ public class OptionsManager : MonoBehaviour {
     // Use this for initialization
     void Awake() {
 
-		// we need to load default language here, so we can display errors
+        // we need to load default language here, so we can display errors
         language = GM.data.GetDefautLanguage();
 
         //Figure out where the Options are by reading the .json in Options file
@@ -82,9 +82,9 @@ public class OptionsManager : MonoBehaviour {
         if (O["launcher"]["idleTimeBeforeAttract"] != null) launcherIdleTimeBeforeAttract = O["launcher"]["idleTimeBeforeAttract"].AsInt;
 
         //Runner Settings
-        if(O["runner"]["timeToHoldESCToQuit"] != null) runnerSecondsESCHeld = O["runner"]["timeToHoldESCToQuit"].AsInt;
-        if(O["runner"]["idleTimeSeconds"] != null) runnerSecondsIdle = O["runner"]["idleTimeSeconds"].AsInt;
-        if(O["runner"]["initialIdleTimeSeconds"] != null) runnerSecondsIdleInitial = O["runner"]["initialIdleTimeSeconds"].AsInt;
+        if (O["runner"]["timeToHoldESCToQuit"] != null) runnerSecondsESCHeld = O["runner"]["timeToHoldESCToQuit"].AsInt;
+        if (O["runner"]["idleTimeSeconds"] != null) runnerSecondsIdle = O["runner"]["idleTimeSeconds"].AsInt;
+        if (O["runner"]["initialIdleTimeSeconds"] != null) runnerSecondsIdleInitial = O["runner"]["initialIdleTimeSeconds"].AsInt;
 
 
         playlistsPath = InitDataFolder("playlists");
@@ -92,7 +92,11 @@ public class OptionsManager : MonoBehaviour {
         attractPath = InitDataFolder("attract");
 
         //Load language file
-        language = GM.data.LoadJson (dataPath + "/Options/winnitron_text_" + O ["launcher"] ["language"] + ".json");
+        if (O["launcher"]["language"] != null)
+        {
+            GM.dbug.Log(this, "LANGUAGE FILE: " + dataPath + "/Options/winnitron_text_" + O["launcher"]["language"] + ".json");
+            language = GM.data.LoadJson(dataPath + "/Options/winnitron_text_" + O["launcher"]["language"] + ".json");
+        }
 
         //Sync Options
         var mode = O["sync"]["type"].Value.ToLower();
@@ -110,8 +114,6 @@ public class OptionsManager : MonoBehaviour {
         GM.dbug.Log(this, "OPTIONS: Time to Update is " + GM.sync.timeToUpdate.ToString());
 
         GM.sync.syncOnStartup = O["sync"]["syncOnStartup"].AsBool;
-
-
 
         //Tell GM that Options is done with all the Init stuff
         initializing = false;

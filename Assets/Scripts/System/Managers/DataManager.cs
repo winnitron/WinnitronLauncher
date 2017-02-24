@@ -34,11 +34,11 @@ public class DataManager : Singleton<DataManager>  {
 	}
 
 	// Builds a list of Game objects based on the game directory inside its main directory. Then instantiates the GameNavigationManager, which then instantiates the ScreenShotDisplayManager
-	public void GetPlaylists() 
+	public void GetPlaylists()
 	{
 		var playlistDir = new DirectoryInfo(GM.options.playlistsPath);
-		
-		foreach (var dir in playlistDir.GetDirectories()) 
+
+		foreach (var dir in playlistDir.GetDirectories())
 		{
 			//Don't pick any directories that start with a dot
 			if(dir.Name.Substring(0, 1) != ".")
@@ -47,9 +47,9 @@ public class DataManager : Singleton<DataManager>  {
 				//The Playlist builds the games out from the Playlist constructor
 				playlists.Add(new Playlist(dir.FullName));
 			}
-		}   
+		}
 	}
-	
+
 	public void GetAttractModeImages()
 	{
 		//Get stuff here
@@ -111,7 +111,7 @@ public class DataManager : Singleton<DataManager>  {
 		{
 			using (StreamReader r = new StreamReader(fileLocation))
 				return JSONNode.Parse(r.ReadToEnd());
-		} 
+		}
 		catch
 		{
 			GM.Oops (GM.Text("error", "cannotFindJson"));
