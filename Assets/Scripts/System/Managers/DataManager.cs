@@ -112,7 +112,6 @@ public class DataManager : Singleton<DataManager>  {
 			using (StreamReader r = new StreamReader(fileLocation))
 				return JSONNode.Parse(r.ReadToEnd());
 		} 
-
 		catch
 		{
 			GM.Oops (GM.Text("error", "cannotFindJson"));

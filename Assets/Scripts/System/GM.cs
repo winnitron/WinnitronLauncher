@@ -95,9 +95,12 @@ public class GM : Singleton<GM> {
         Screen.fullScreen = true;
     }
 
+	#else
 
+	public static void ResetScreen() {
+	}
 
-#endif
+	#endif
     //*/
 
 }
