@@ -2,26 +2,26 @@
   "launcher": {
     "widescreen": "true",
     "language": "english",
-	"idleTimeBeforeAttract": "20"
+    "idleTimeBeforeAttract": "20"
   },
   "runner": {
     "initialIdleTimeSeconds" : "30",
     "idleTimeSeconds" : "10",
     "timeToHoldESCToQuit" : "3"
   },
-  "defaultFolders": {
-    "playlists": "C:/WINNITRON_UserData/Playlists",
-    "music": "C:/WINNITRON_UserData/Music",
-    "attract": "C:/WINNITRON_UserData/Attract"
+  "folders": {
+    "playlists": "default",
+    "music": "default",
+    "attract": "default"
   },
   "sync": {
     "api_key": "YOUR API KEY HERE",
     "library_url": "http://network.winnitron.com",
-	"syncOnStart" : "true",
-	"type" : "default",
-	"dailySyncTime" : {
-		"hour" : "01",
-		"minute" : "00"
-	}
+    "syncOnStart" : "true",
+    "type" : "default",
+    "dailySyncTime" : {
+      "hour" : "01",
+      "minute" : "00"
+    }
   }
 }

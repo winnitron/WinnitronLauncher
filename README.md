@@ -8,4 +8,4 @@ We'll put in how to install the launcher here soon.
 
 ## Contributing
 
-Fork it. Make a feature branch. Open a PR.
+Fork it. Make a feature branch. Open a PR. This is a Unity v5.5 project.

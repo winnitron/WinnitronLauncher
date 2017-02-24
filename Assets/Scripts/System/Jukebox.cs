@@ -33,9 +33,9 @@ public class Jukebox : MonoBehaviour {
 	    // Stop & Play from keyboard
 	    if (Input.GetKeyDown(GM.options.keys.P2Button1) || Input.GetKeyDown(GM.options.keys.P2Button2)) {
 
-	        if (isPlaying) 
+	        if (isPlaying)
 	            Stop();
-	        else 
+	        else
 	            PlayRandom();
 
 	    }
@@ -58,14 +58,13 @@ public class Jukebox : MonoBehaviour {
     }
 
     public void NextTrack() {
-        
+
+        if (GM.data.songs.Count <= 0)
+            return;
+
         Stop();
 
-        if (currentTrack >= GM.data.songs.Count - 1)
-            currentTrack = 0;
-        else
-            currentTrack++;
-
+        currentTrack = (currentTrack + 1) % GM.data.songs.Count;
         source.clip = GM.data.songs[currentTrack].clip;
 
         Play();
@@ -81,7 +80,7 @@ public class Jukebox : MonoBehaviour {
             currentTrack--;
 
         source.clip = GM.data.songs[currentTrack].clip;
-        
+
         Play();
     }
 

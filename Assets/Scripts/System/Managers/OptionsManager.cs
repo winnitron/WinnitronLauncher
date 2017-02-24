@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.IO;
 using SimpleJSON;
 
 [System.Serializable]
@@ -43,7 +44,7 @@ public class OptionsManager : MonoBehaviour {
     public int runnerSecondsIdle = 10;
     public int runnerSecondsESCHeld = 3;
     public int runnerSecondsIdleInitial = 30;
-    
+
     //Keys
     public KeyBindings keys;
 
@@ -59,65 +60,43 @@ public class OptionsManager : MonoBehaviour {
     // Use this for initialization
     void Awake() {
 
+        // we need to load default language here, so we can display errors
+        language = GM.data.GetDefautLanguage();
+
         //Figure out where the Options are by reading the .json in Options file
         dataPath = GM.data.LoadJson(Application.dataPath + "/Options/winnitron_userdata_path.json")["userDataPath"];
 
         string optionsFile = dataPath + "/Options/winnitron_options.json";
 
-        if (!System.IO.File.Exists(optionsFile))
-        {
-            // we need to load default language here, so we can display errors
-            language = GM.data.GetDefautLanguage();
-        }
-
         //Load that JSON
         Debug.Log("Loading options from " + optionsFile);
         O = GM.data.LoadJson(optionsFile);
-        
+
         //Make sure the data exists!  Oops if it doesn't.
         if(O == null)
             GM.Oops(GM.Text("error", "cannotFindJson"), true);
 
         //Launcher Settings
+        GM.dbug.Log(this, "O:" + O.ToString());
         if (O["launcher"]["widescreen"] != null) widescreen = O["launcher"]["widescreen"].AsBool;
         if (O["launcher"]["idleTimeBeforeAttract"] != null) launcherIdleTimeBeforeAttract = O["launcher"]["idleTimeBeforeAttract"].AsInt;
 
         //Runner Settings
-        if(O["runner"]["timeToHoldESCToQuit"] != null) runnerSecondsESCHeld = O["runner"]["timeToHoldESCToQuit"].AsInt;
-        if(O["runner"]["idleTimeSeconds"] != null) runnerSecondsIdle = O["runner"]["idleTimeSeconds"].AsInt;
-        if(O["runner"]["initialIdleTimeSeconds"] != null) runnerSecondsIdleInitial = O["runner"]["initialIdleTimeSeconds"].AsInt;
+        if (O["runner"]["timeToHoldESCToQuit"] != null) runnerSecondsESCHeld = O["runner"]["timeToHoldESCToQuit"].AsInt;
+        if (O["runner"]["idleTimeSeconds"] != null) runnerSecondsIdle = O["runner"]["idleTimeSeconds"].AsInt;
+        if (O["runner"]["initialIdleTimeSeconds"] != null) runnerSecondsIdleInitial = O["runner"]["initialIdleTimeSeconds"].AsInt;
 
-        //Playlists Path
-        var path = O["defaultFolders"]["playlists"];
-        if (path.ToString().Contains("default"))
-            playlistsPath = dataPath + "/Playlists";
-        else
-            playlistsPath = path;
 
-        GM.dbug.Log(this, "OPTIONS: Playlists path is: " + playlistsPath);
+        playlistsPath = InitDataFolder("playlists");
+        musicPath = InitDataFolder("music");
+        attractPath = InitDataFolder("attract");
 
-        //Find music path
-        path = O["defaultFolders"]["music"];
-        if (path.ToString().Contains("default"))
-            musicPath = dataPath + "/Music";
-        else
-            musicPath = path;
-
-        GM.dbug.Log (this, "OPTIONS: Music path is " + musicPath);
-
-        //Find attract path
-        path = O ["defaultFolders"] ["attract"];
-        if (path.ToString().Contains("default"))
-            attractPath = dataPath + "/Attract";
-        else
-            attractPath = path;
-
-        GM.dbug.Log (this, "OPTIONS: Attract path is " + attractPath);
-        
         //Load language file
-        language = GM.data.LoadJson (dataPath + "/Options/winnitron_text_" + O ["launcher"] ["language"] + ".json");
-
-
+        if (O["launcher"]["language"] != null)
+        {
+            GM.dbug.Log(this, "LANGUAGE FILE: " + dataPath + "/Options/winnitron_text_" + O["launcher"]["language"] + ".json");
+            language = GM.data.LoadJson(dataPath + "/Options/winnitron_text_" + O["launcher"]["language"] + ".json");
+        }
 
         //Sync Options
         var mode = O["sync"]["type"].Value.ToLower();
@@ -136,8 +115,6 @@ public class OptionsManager : MonoBehaviour {
 
         GM.sync.syncOnStartup = O["sync"]["syncOnStartup"].AsBool;
 
-
-
         //Tell GM that Options is done with all the Init stuff
         initializing = false;
     }
@@ -152,4 +129,22 @@ public class OptionsManager : MonoBehaviour {
     {
         return O["sync"];
     }
+
+	private string InitDataFolder(string jsonKey)
+	{
+        string path = O["folders"][jsonKey];
+        string dirName = jsonKey[0].ToString().ToUpper() + jsonKey.Substring(1, jsonKey.Length - 1);
+
+        if (path.ToString().Contains("default"))
+            path = dataPath + "/" + dirName;
+
+        GM.dbug.Log(this, "OPTIONS: " + dirName + " path is " + path);
+
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(path);
+        }
+
+        return path;
+	}
 }
