@@ -76,7 +76,9 @@ public class GameSync : MonoBehaviour {
 
     private void fetchPlaylistSubscriptions()
     {
-        WWW www = new WWW(library_url + "/api/v1/playlists/?api_key=" + api_key);
+        Dictionary<string, string> headers = new Dictionary<string, string>();
+        headers.Add("User-Agent", "Winnitron Launcher/2.0.0-rc2 (http://winnitron.com)");
+        WWW www = new WWW(library_url + "/api/v1/playlists/?api_key=" + api_key, null, headers);
 
         StartCoroutine(WaitForSubscriptionList(www));
     }
@@ -352,7 +354,6 @@ public class GameSync : MonoBehaviour {
             installationMetadata.Add("max_players", new JSONData(maxPlayers));
             installationMetadata.Add("executable", new JSONData(executable));
             installationMetadata.Add("image_url", new JSONData(imageURL));
-
 
             JSONClass keymap = new JSONClass();
             keymap.Add("template", new JSONData(keyTemplate));
