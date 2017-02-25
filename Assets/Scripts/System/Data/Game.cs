@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.IO;
-using UnityEditor;
 using System.Collections;
 using SimpleJSON;
 
@@ -103,21 +102,25 @@ public class Game
 
 
 
-	//Private Functions (there's a joke here somewhere)
+    //Private Functions (there's a joke here somewhere)
 
-	private Sprite GetScreenshot()
-	{
+    private Sprite GetScreenshot()
+    {
         // Load the screenshot from the games directory as a Texture2D
         var screenshotTex = new Texture2D(1024, 768);
 
         if (Directory.GetFiles(this.directory.ToString(), "*.png").Length > 0)
+        {
+            GM.dbug.Log("GAME: Loading custom screenshot " + Directory.GetFiles(this.directory.ToString(), "*.png")[0]);
             screenshotTex.LoadImage(File.ReadAllBytes(Directory.GetFiles(directory.FullName + "/", "*.png")[0]));
-
+        }
         else if (gameType == GameType.PICO8)
-            screenshotTex = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/default_images/pico8.png");
-
+        {
+        }
         else
-            screenshotTex = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Resources/default_images/exe.png");
+        {
+            GM.dbug.Log("GAME: Loading default screenshot");
+        }
 
         // Turn the Texture2D into a sprite
         return Sprite.Create(screenshotTex, new Rect(0, 0, screenshotTex.width, screenshotTex.height), new Vector2(0.5f, 0.5f));

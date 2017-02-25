@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 public class GM : Singleton<GM> {
 
-    public string versionNumber;
+    public static string versionNumber;
 
 	//reference to the 
 	public static Runner runner;
