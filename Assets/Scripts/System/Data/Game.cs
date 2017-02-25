@@ -116,10 +116,13 @@ public class Game
         }
         else if (gameType == GameType.PICO8)
         {
+            GM.dbug.Log("GAME: Loading default PICO8 screenshot ");
+            screenshotTex = Resources.Load<Texture2D>("default_images/pico8") as Texture2D;
         }
         else
         {
             GM.dbug.Log("GAME: Loading default screenshot");
+            screenshotTex = Resources.Load<Texture2D>("default_images/exe") as Texture2D;
         }
 
         // Turn the Texture2D into a sprite
