@@ -230,6 +230,7 @@ public class Game
         //Things needed for every Launcher Script
 
         //Replace variables
+        newAHKfile = newAHKfile.Replace("{DEBUG_OUTPUT}", "true"); // TODO make this configurable
         newAHKfile = newAHKfile.Replace("{IDLE_TIME}", "" + GM.options.runnerSecondsIdle);
         newAHKfile = newAHKfile.Replace("{IDLE_INITIAL}", "" + GM.options.runnerSecondsIdleInitial);
         newAHKfile = newAHKfile.Replace("{ESC_HOLD}", "" + GM.options.runnerSecondsESCHeld);
