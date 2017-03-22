@@ -55,8 +55,8 @@ public class StateManager : MonoBehaviour {
 			ChangeState(WorldState.Idle);
         if (Input.GetKeyDown(KeyCode.F5) || Input.GetKeyDown(KeyCode.Return))
             ChangeState(WorldState.Sync);
-        if (Input.GetKeyDown (KeyCode.F6))
-			oops = GM.Text ("error", "test");
+        if (Input.GetKeyDown(KeyCode.F6))
+            GM.Oops(GM.Text("error", "test"));
 	}
 
     /// <summary>

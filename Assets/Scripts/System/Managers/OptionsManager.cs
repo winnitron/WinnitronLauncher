@@ -64,59 +64,67 @@ public class OptionsManager : MonoBehaviour {
         language = GM.data.GetDefautLanguage();
 
         //Figure out where the Options are by reading the .json in Options file
-        dataPath = GM.data.LoadJson(Application.dataPath + "/Options/winnitron_userdata_path.json")["userDataPath"];
+        if (System.IO.File.Exists(Application.dataPath + "/Options/winnitron_userdata_path.json"))
+            dataPath = GM.data.LoadJson(Application.dataPath + "/Options/winnitron_userdata_path.json")["userDataPath"];
+        else
+            GM.Oops(GM.Text("error", "cannotFindUserDataPathJson"), true);
 
         string optionsFile = dataPath + "/Options/winnitron_options.json";
 
         //Load that JSON
         Debug.Log("Loading options from " + optionsFile);
-        O = GM.data.LoadJson(optionsFile);
+        Debug.Log("File exists: " + System.IO.File.Exists(optionsFile));
 
-        //Make sure the data exists!  Oops if it doesn't.
-        if(O == null)
-            GM.Oops(GM.Text("error", "cannotFindJson"), true);
-
-        //Launcher Settings
-        GM.dbug.Log(this, "O:" + O.ToString());
-        if (O["launcher"]["widescreen"] != null) widescreen = O["launcher"]["widescreen"].AsBool;
-        if (O["launcher"]["idleTimeBeforeAttract"] != null) launcherIdleTimeBeforeAttract = O["launcher"]["idleTimeBeforeAttract"].AsInt;
-
-        //Runner Settings
-        if (O["runner"]["timeToHoldESCToQuit"] != null) runnerSecondsESCHeld = O["runner"]["timeToHoldESCToQuit"].AsInt;
-        if (O["runner"]["idleTimeSeconds"] != null) runnerSecondsIdle = O["runner"]["idleTimeSeconds"].AsInt;
-        if (O["runner"]["initialIdleTimeSeconds"] != null) runnerSecondsIdleInitial = O["runner"]["initialIdleTimeSeconds"].AsInt;
-
-
-        playlistsPath = InitDataFolder("playlists");
-        musicPath = InitDataFolder("music");
-        attractPath = InitDataFolder("attract");
-
-        //Load language file
-        if (O["launcher"]["language"] != null)
+        if (System.IO.File.Exists(optionsFile))
         {
-            GM.dbug.Log(this, "LANGUAGE FILE: " + dataPath + "/Options/winnitron_text_" + O["launcher"]["language"] + ".json");
-            language = GM.data.LoadJson(dataPath + "/Options/winnitron_text_" + O["launcher"]["language"] + ".json");
+            O = GM.data.LoadJson(optionsFile);
+
+            //Launcher Settings
+            GM.dbug.Log(this, "O:" + O.ToString());
+            if (O["launcher"]["widescreen"] != null) widescreen = O["launcher"]["widescreen"].AsBool;
+            if (O["launcher"]["idleTimeBeforeAttract"] != null) launcherIdleTimeBeforeAttract = O["launcher"]["idleTimeBeforeAttract"].AsInt;
+
+            //Runner Settings
+            if (O["runner"]["timeToHoldESCToQuit"] != null) runnerSecondsESCHeld = O["runner"]["timeToHoldESCToQuit"].AsInt;
+            if (O["runner"]["idleTimeSeconds"] != null) runnerSecondsIdle = O["runner"]["idleTimeSeconds"].AsInt;
+            if (O["runner"]["initialIdleTimeSeconds"] != null) runnerSecondsIdleInitial = O["runner"]["initialIdleTimeSeconds"].AsInt;
+
+
+            playlistsPath = InitDataFolder("playlists");
+            musicPath = InitDataFolder("music");
+            attractPath = InitDataFolder("attract");
+
+            //Load language file
+            if (O["launcher"]["language"] != null)
+            {
+                GM.dbug.Log(this, "LANGUAGE FILE: " + dataPath + "/Options/winnitron_text_" + O["launcher"]["language"] + ".json");
+                language = GM.data.LoadJson(dataPath + "/Options/winnitron_text_" + O["launcher"]["language"] + ".json");
+            }
+
+            //Sync Options
+            var mode = O["sync"]["type"].Value.ToLower();
+
+            GM.dbug.Log(this, "SYNCMODE " + mode);
+
+            if (mode == "local" || mode == "localonly" || mode == "none")
+                GM.sync.syncType = GameSync.SyncType.NONE;
+            else if (mode == "daily")
+                GM.sync.syncType = GameSync.SyncType.DAILY;
+            else
+                GM.sync.syncType = GameSync.SyncType.ALWAYS;
+
+            GM.sync.timeToUpdate = new TimeSpan(O["sync"]["dailySyncTime"]["hour"].AsInt, O["sync"]["dailySyncTime"]["minute"].AsInt, 0);
+            GM.dbug.Log(this, "OPTIONS: Time to Update is " + GM.sync.timeToUpdate.ToString());
+
+            GM.sync.syncOnStartup = O["sync"]["syncOnStartup"].AsBool;
+
+            //Tell GM that Options is done with all the Init stuff
+            initializing = false;
         }
-
-        //Sync Options
-        var mode = O["sync"]["type"].Value.ToLower();
-
-        GM.dbug.Log(this, "SYNCMODE " + mode);
-
-        if (mode == "local" || mode == "localonly" || mode == "none")
-            GM.sync.syncType = GameSync.SyncType.NONE;
-        else if (mode == "daily")
-            GM.sync.syncType = GameSync.SyncType.DAILY;
         else
-            GM.sync.syncType = GameSync.SyncType.ALWAYS;
-
-        GM.sync.timeToUpdate = new TimeSpan(O["sync"]["dailySyncTime"]["hour"].AsInt, O["sync"]["dailySyncTime"]["minute"].AsInt, 0);
-        GM.dbug.Log(this, "OPTIONS: Time to Update is " + GM.sync.timeToUpdate.ToString());
-
-        GM.sync.syncOnStartup = O["sync"]["syncOnStartup"].AsBool;
-
-        //Tell GM that Options is done with all the Init stuff
-        initializing = false;
+        {
+            GM.Oops(GM.Text("error", "cannotFindJson"), true);
+        }
     }
 
     public string GetText(string category, string text)

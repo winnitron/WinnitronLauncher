@@ -6328,36 +6328,42 @@ MonoBehaviour:
       author: 
       screenshot: {fileID: 21300000, guid: 79c4d99d20baed54380da75ba802e279, type: 3}
       executable: 
-      useLegacyControls: 0
+      gameType: 0
+      voidGame: 0
     - name: Another Game!
       author: 
       screenshot: {fileID: 21300000, guid: 79c4d99d20baed54380da75ba802e279, type: 3}
       executable: 
-      useLegacyControls: 0
+      gameType: 0
+      voidGame: 0
   - name: Super Good Games
     games:
     - name: Oh So Good
       author: 
       screenshot: {fileID: 21300000, guid: 79c4d99d20baed54380da75ba802e279, type: 3}
       executable: 
-      useLegacyControls: 0
+      gameType: 0
+      voidGame: 0
     - name: Ultra Time
       author: 
       screenshot: {fileID: 21300000, guid: 79c4d99d20baed54380da75ba802e279, type: 3}
       executable: 
-      useLegacyControls: 0
+      gameType: 0
+      voidGame: 0
     - name: Heavy Dung
       author: 
       screenshot: {fileID: 21300000, guid: 79c4d99d20baed54380da75ba802e279, type: 3}
       executable: 
-      useLegacyControls: 0
+      gameType: 0
+      voidGame: 0
   - name: Bad Game
     games:
     - name: Not Good Game
       author: 
       screenshot: {fileID: 21300000, guid: 79c4d99d20baed54380da75ba802e279, type: 3}
       executable: 
-      useLegacyControls: 0
+      gameType: 0
+      voidGame: 0
   playlistsContainer: {fileID: 1064915323}
   playlistLabelsContainer: {fileID: 740119016}
   playlistUIControllerPrefab: {fileID: 100000, guid: b05001c5cd7fd4ac6a3aaae0df829747,
@@ -10435,7 +10441,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1668768756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13339,7 +13345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5870ad83979f241f586843216588f713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  versionNumber: v2.0.0-rc2
+  versionNumber: 2.0.0-rc2
 --- !u!4 &1803195757
 Transform:
   m_ObjectHideFlags: 0
