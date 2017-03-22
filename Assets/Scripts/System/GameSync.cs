@@ -57,7 +57,7 @@ public class GameSync : MonoBehaviour {
     /// </summary>
     public void execute()
     {
-        if (true) // syncType != SyncType.NONE)
+        if (syncType != SyncType.NONE)
         {
             GM.dbug.Log(this, "GameSync: Running Sync...");
             SyncText("INITIALIZING SYNC!");
@@ -77,7 +77,7 @@ public class GameSync : MonoBehaviour {
     private void fetchPlaylistSubscriptions()
     {
         Dictionary<string, string> headers = new Dictionary<string, string>();
-        headers.Add("User-Agent", "Winnitron Launcher/" + GM.versionNumber + " (http://winnitron.com)");
+        headers.Add("User-Agent", "Winnitron Launcher/" + GM.VersionNumber + " (http://winnitron.com)");
         WWW www = new WWW(library_url + "/api/v1/playlists/?api_key=" + api_key, null, headers);
 
         StartCoroutine(WaitForSubscriptionList(www));
@@ -104,9 +104,12 @@ public class GameSync : MonoBehaviour {
 
                 Directory.CreateDirectory(playlist.parentDirectory);
                 playlist.deleteRemovedGames();
-                ArrayList games = playlist.gamesToInstall();
 
-                foreach (Game game in games) {
+
+                // Only download games that have had a new version uploaded
+                // since the last sync.
+                ArrayList gamesToDownload = playlist.gamesToDownload();
+                foreach (Game game in gamesToDownload) {
                     GM.dbug.Log(this, "Downloading: " + game.title);
 
                     //Start the downloadin'!
@@ -145,7 +148,6 @@ public class GameSync : MonoBehaviour {
                         //Starts the unzip coroutine and waits till it's done
                         zip.ExtractZip(zipFile, game.installDirectory, null);
 
-
                         // Download the image
                         WWW imageDownload = new WWW(game.imageURL);
                         while (!imageDownload.isDone) {
@@ -157,9 +159,14 @@ public class GameSync : MonoBehaviour {
                         string imageFilename = Path.GetFileName(uri.AbsolutePath);
                         File.WriteAllBytes(game.installDirectory + "/" + imageFilename, imageDownload.bytes);
 
-                        game.writeMetadataFile();
                         File.Delete(zipFile);
                     }
+                }
+
+                // Re-write metadata for all games in case that info changes
+                // even without a new file uploaded.
+                foreach (Game game in playlist.games) {
+                    game.writeMetadataFile();
                 }
             }
 
@@ -210,10 +217,9 @@ public class GameSync : MonoBehaviour {
     /// <returns>True if safe to sync, false if not.</returns>
     private bool SafeToSync()
     {
-        if (GM.state.worldState != StateManager.WorldState.Intro && GM.state.worldState != StateManager.WorldState.Idle && GM.state.worldState != StateManager.WorldState.Sync)
-            return true;
-
-        return false;
+        return GM.state.worldState != StateManager.WorldState.Intro &&
+               GM.state.worldState != StateManager.WorldState.Idle  &&
+               GM.state.worldState != StateManager.WorldState.Sync;
     }
 
 
@@ -277,7 +283,7 @@ public class GameSync : MonoBehaviour {
             }
         }
 
-        public ArrayList gamesToInstall() {
+        public ArrayList gamesToDownload() {
             Debug.Log("Syncing games for playlist '" + title + "'");
 
 
@@ -286,7 +292,7 @@ public class GameSync : MonoBehaviour {
                 System.DateTime installModified = new System.DateTime(1982, 2, 2);
 
                 if (game.alreadyInstalled()) {
-                    installModified = System.DateTime.Parse(game.installationMetadata ["last_modified"], null, System.Globalization.DateTimeStyles.RoundtripKind);
+                    installModified = System.DateTime.Parse(game.installationMetadata["last_modified"], null, System.Globalization.DateTimeStyles.RoundtripKind);
                 }
 
                 if (!game.alreadyInstalled() || game.lastModified > installModified) {

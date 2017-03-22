@@ -5,7 +5,8 @@ using System.Runtime.InteropServices;
 
 public class GM : Singleton<GM> {
 
-    public static string versionNumber;
+    public string versionNumber;
+    public static string VersionNumber;
 
 	//reference to the 
 	public static Runner runner;
@@ -18,7 +19,7 @@ public class GM : Singleton<GM> {
     public static Jukebox jukebox;
 
 	new void Awake() {
-
+        VersionNumber = versionNumber;
         Debug.Log("#####  VERSION " + versionNumber + " #####");
 
 		//Cursor.visible = false;
@@ -69,6 +70,7 @@ public class GM : Singleton<GM> {
     public static void Restart()
     {
         state.ChangeState(StateManager.WorldState.Intro);
+        ResetScreen();
     }
 
 
@@ -90,8 +92,8 @@ public class GM : Singleton<GM> {
 
 
     public static void ResetScreen() {
-        //SetWindowLong(FindWindow(null, Application.productName).ToInt32(), -16L, 0x00800000L);
-        //SetWindowPos(FindWindow(null, Application.productName), 0, 0, 0, Screen.currentResolution.width, Screen.currentResolution.height, 0x0020);
+        SetWindowLong(FindWindow(null, Application.productName).ToInt32(), -16L, 0x00800000L);
+        SetWindowPos(FindWindow(null, Application.productName), 0, 0, 0, Screen.currentResolution.width, Screen.currentResolution.height, 0x0020);
         Screen.fullScreen = true;
     }
 

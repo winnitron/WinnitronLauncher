@@ -244,7 +244,11 @@ public class Game
     /// </summary>
     public void PreRun()
     {
-        if(gameType == GameType.PICO8) File.Copy(directory.FullName + "/Pico8Launcher.js", GM.options.dataPath + "/Options/Pico8Launcher.js", true);
+        if (gameType == GameType.PICO8)
+        {
+            GM.dbug.Log("GAME: PreRun copying " + directory.ToString().Replace("\\", "/") + "/Pico8Launcher.js to " + GM.options.dataPath.Replace("\\", "/") + "/Options/Pico8/Pico8Launcher.js");
+            File.Copy(directory.ToString().Replace("\\", "/") + "/Pico8Launcher.js", GM.options.dataPath.Replace("\\", "/") + "/Options/Pico8/Pico8Launcher.js", true);
+        }
     }
 
     /// <summary>
@@ -254,7 +258,7 @@ public class Game
     /// <param name="fileName">The name of the file.</param>
     private void WriteStringToFile(string text, string fileName)
     {
-        var file = directory.FullName + "/" + fileName;
+        var file = directory.FullName + "\\" + fileName;
 
         //Delete old file and write to new one
         File.Delete(file);

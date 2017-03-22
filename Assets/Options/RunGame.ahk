@@ -1,4 +1,4 @@
-; DEFAULT RUN SCRIPT
+; LEGACY GAME RUN SCRIPT
 
 #Persistent
 #MaxHotkeysPerInterval 200
@@ -15,6 +15,7 @@ start := SecondsToday()
 WriteLog("START ---------------- " . A_Now)
 
 ; RUN THE GAME
+
 Run, %executable%, , , process_pid
 WriteLog("Launched " . executable . " with pid " . process_pid)
 
@@ -24,13 +25,13 @@ MouseMove 3000, 3000, 0
 ; This is the function that quits the game
 KillApp()
 {
-	global process_pid
 
+	global process_pid
 	WriteLog("Killing app with pid " . process_pid)
 	WinKill, ahk_exe %executable%	; Tries to close using .exe
 	WinKill, ahk_pid process_pid	; Tries to close using process id
 	SetTitleMatchMode, 2
-	WinKill, Nidhogg			; Tries to close hoping that part of the game name is in the title
+	WinKill, Sumo Topplers			; Tries to close hoping that part of the game name is in the title
 	ExitApp
 }
 
@@ -78,7 +79,6 @@ WaitForESCRelease:
 	KillApp()
 return
 
-
 ; DEBUGGING STUFF
 
 ; Number of seconds since midnight.
@@ -103,3 +103,4 @@ WriteLog(message)
 }
 
 ; KEYMAPS BELOW (NONE IN DEFAULT SCRIPT)
+
