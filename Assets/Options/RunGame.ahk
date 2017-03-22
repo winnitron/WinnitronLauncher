@@ -1,11 +1,11 @@
-; DEFAULT RUN SCRIPT
+; LEGACY GAME RUN SCRIPT
 
 #Persistent
 #MaxHotkeysPerInterval 200
 
 
 ; RUN THE GAME
-Run, C:\WINNITRON_UserData\Playlists\official-winnitron\nidhogg\Nidhogg.exe, , , process_pid
+Run, C:\WINNITRON_UserData\Playlists\official-winnitron\sumo-topplers/Sumo Topplers.exe, , , process_pid
 idleLimit:= 10000 ; three seconds
 SetTimer, InitialWait, 30000
 MouseMove 3000, 3000, 0
@@ -13,10 +13,10 @@ MouseMove 3000, 3000, 0
 ; This is the function that quits the app
 KillApp()
 {
-	WinKill, ahk_exe C:\WINNITRON_UserData\Playlists\official-winnitron\nidhogg\Nidhogg.exe	; Tries to close using .exe
+	WinKill, ahk_exe C:\WINNITRON_UserData\Playlists\official-winnitron\sumo-topplers/Sumo Topplers.exe	; Tries to close using .exe
 	WinKill, ahk_pid process_pid	; Tries to close using process id
 	SetTitleMatchMode, 2
-	WinKill, Nidhogg			; Tries to close hoping that part of the game name is in the title
+	WinKill, Sumo Topplers			; Tries to close hoping that part of the game name is in the title
 	ExitApp
 }
 
@@ -56,4 +56,14 @@ WaitForESCRelease:
 	KillApp()
 return
 
-; KEYMAPS BELOW (NONE IN DEFAULT SCRIPT)
+; KEYMAPS BELOW
+
+.::z
+/::x
+
+w::i
+a::j
+s::k
+d::l
+`::n
+1::m

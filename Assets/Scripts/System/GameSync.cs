@@ -77,7 +77,7 @@ public class GameSync : MonoBehaviour {
     private void fetchPlaylistSubscriptions()
     {
         Dictionary<string, string> headers = new Dictionary<string, string>();
-        headers.Add("User-Agent", "Winnitron Launcher/" + GM.versionNumber + " (http://winnitron.com)");
+        headers.Add("User-Agent", "Winnitron Launcher/" + GM.VersionNumber + " (http://winnitron.com)");
         WWW www = new WWW(library_url + "/api/v1/playlists/?api_key=" + api_key, null, headers);
 
         StartCoroutine(WaitForSubscriptionList(www));
