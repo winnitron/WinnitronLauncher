@@ -2,58 +2,105 @@
 
 #Persistent
 #MaxHotkeysPerInterval 200
+#SingleInstance Force
 
+debug := {DEBUG_OUTPUT}
+
+executable := "{GAME_PATH}"
+game_name := "{GAME_NAME}"
+forceQuitHoldTime := {ESC_HOLD}000
+idleLimit := {IDLE_TIME}000
+initialWait := {IDLE_INITIAL}000
+
+start := SecondsToday()
+WriteLog("START ---------------- " . A_Now)
 
 ; RUN THE GAME
-Run, {GAME_PATH}, , , process_pid
-idleLimit:= {IDLE_TIME}000 ; three seconds
-SetTimer, InitialWait, {IDLE_INITIAL}000
+Run, %executable%, , , process_pid
+WriteLog("Launched " . executable . " with pid " . process_pid)
+
+SetTimer, InitialWait, -%initialWait% ; negative period disables timer after first trigger
 MouseMove 3000, 3000, 0
 
-; This is the function that quits the app
+; This is the function that quits the game
 KillApp()
 {
-	WinKill, ahk_exe {GAME_PATH}	; Tries to close using .exe
-	WinKill, ahk_pid process_pid	; Tries to close using process id
-	SetTitleMatchMode, 2
-	WinKill, {GAME_NAME}			; Tries to close hoping that part of the game name is in the title
-	ExitApp
+  global process_pid
+
+  WriteLog("Killing app with pid " . process_pid)
+  WinKill, ahk_exe %executable% ; Tries to close using .exe
+  WinKill, ahk_pid process_pid  ; Tries to close using process id
+  SetTitleMatchMode, 2
+  WinKill, Nidhogg      ; Tries to close hoping that part of the game name is in the title
+  ExitApp
+}
+
+; Do this so we don't keep running through InitialWait and CloseOnIdle
+Loop
+{
 }
 
 InitialWait:
-	SetTimer,  CloseOnIdle, % idleLimit+150
+  WriteLog("Completed initial wait")
+  SetTimer,  CloseOnIdle, % idleLimit+150
 return
 
 ; This is the timer
 CloseOnIdle:
-	if (A_TimeIdle>=idleLimit)
-	{
-		KillApp()
-		SetTimer,CloseOnIdle, Off
-	}
-	else
-	{
-		SetTimer,CloseOnIdle, % idleLimit-A_TimeIdle+150
-	}
+  if (A_TimeIdle >= idleLimit)
+  {
+    WriteLog("Idle timeout!")
+    KillApp()
+    SetTimer,CloseOnIdle, Off
+  }
+  else
+  {
+    SetTimer,CloseOnIdle, % idleLimit-A_TimeIdle+150
+  }
 return
 
 ; Do this stuff when Esc is pressed
 ~Esc::
-	If escIsPressed
-		return
-	escIsPressed := true
-	SetTimer, WaitForESCRelease, {ESC_HOLD}000		; 3 seconds
+  WriteLog("ESC pressed")
+  If escIsPressed
+    return
+  escIsPressed := true
+  SetTimer, WaitForESCRelease, %forceQuitHoldTime%
 return
 
 ; Do this stuff when Esc is UP
 ~Esc Up::
-	SetTimer, WaitForESCRelease, Off
-	escIsPressed := false
+  SetTimer, WaitForESCRelease, Off
+  escIsPressed := false
 return
 
 WaitForESCRelease:
-	SetTimer, WaitForESCRelease, Off
-	KillApp()
+  SetTimer, WaitForESCRelease, Off
+  KillApp()
 return
+
+
+; DEBUGGING STUFF
+
+; Number of seconds since midnight.
+SecondsToday() {
+  return A_Hour * 3600 + A_Min * 60 + A_Sec
+}
+
+WriteLog(message)
+{
+  global debug
+  global start
+
+  if (debug) {
+    runningTimeSec := SecondsToday() - start
+    debugLog := "ahk_output.txt"
+    FileAppend,
+    (
+    %runningTimeSec%s %A_Tab% %message%
+
+    ), %debugLog%, UTF-8
+  }
+}
 
 ; KEYMAPS BELOW (NONE IN DEFAULT SCRIPT)
