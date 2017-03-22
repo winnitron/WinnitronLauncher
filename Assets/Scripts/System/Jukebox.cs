@@ -1,10 +1,5 @@
 ﻿using UnityEngine;
-using System;
 using UnityEngine.UI;
-using System.IO;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
 public class Jukebox : MonoBehaviour {
 
@@ -43,6 +38,10 @@ public class Jukebox : MonoBehaviour {
 	    // Check for song end
 	    if (!source.isPlaying && isPlaying)
 	        NextTrack();
+
+        //Make sure there's a track playing when the launcher is going
+        if (GM.state.worldState == StateManager.WorldState.Launcher && !isPlaying)
+            PlayRandom();
     }
 
     public void Stop() {
