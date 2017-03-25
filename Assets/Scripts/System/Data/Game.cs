@@ -24,13 +24,14 @@ public class Game
     /// <param name="directory">The directory path.</param>
     public Game(string directory)
 	{
-		this.directory = new DirectoryInfo (directory);
+		this.directory = new DirectoryInfo(directory);
 
 		//Check for the Winnitron Metadata JSON, and use oldschool folder naming if it doesn't exist
-		if (System.IO.File.Exists (this.directory + "/winnitron_metadata.json")) {
-			BuildGameJSON ();
+        string metadata = Path.Combine(this.directory.FullName, "winnitron_metadata.json");
+		if (System.IO.File.Exists(metadata)) {
+			BuildGameJSON();
 		} else {
-            BuildGame ();
+            BuildGame();
 		}
 
         BuildHelperScripts();
@@ -60,12 +61,12 @@ public class Game
     /// </summary>
 	private void BuildGameJSON()
 	{
-		var J = GM.data.LoadJson (directory.FullName + "/winnitron_metadata.json");
+		var J = GM.data.LoadJson(Path.Combine(directory.FullName, "winnitron_metadata.json"));
 
-		this.name = J ["title"];
+		this.name = J["title"];
 		this.author = null; //No author stuff just yet
 		this.screenshot = GetScreenshot();
-		this.executable = Path.Combine(directory.FullName + "/", J["executable"]);
+		this.executable = Path.Combine(directory.FullName, J["executable"]);
 
         switch(J["keys"]["template"])
         {
@@ -112,7 +113,7 @@ public class Game
         if (Directory.GetFiles(this.directory.ToString(), "*.png").Length > 0)
         {
             GM.dbug.Log("GAME: Loading custom screenshot " + Directory.GetFiles(this.directory.ToString(), "*.png")[0]);
-            screenshotTex.LoadImage(File.ReadAllBytes(Directory.GetFiles(directory.FullName + "/", "*.png")[0]));
+            screenshotTex.LoadImage(File.ReadAllBytes(Directory.GetFiles(directory.FullName + Path.DirectorySeparatorChar, "*.png")[0]));
         }
         else if (gameType == GameType.PICO8)
         {
