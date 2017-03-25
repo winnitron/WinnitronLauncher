@@ -15,8 +15,8 @@
     "attract": "default"
   },
   "sync": {
-    "api_key": "YOUR API KEY HERE",
-    "library_url": "http://network.winnitron.com",
+    "apiKey": "YOUR API KEY HERE",
+    "libraryURL": "http://network.winnitron.com",
     "syncOnStart" : "true",
     "type" : "default",
     "dailySyncTime" : {

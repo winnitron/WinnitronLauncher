@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
 using System.Collections;
@@ -12,8 +12,8 @@ public class GameSync : MonoBehaviour {
 
     public Text syncDescription;
 
-    private string api_key;
-    private string library_url;
+    private string apiKey;
+    private string libraryURL;
     private string games_dir;
 
     private ArrayList playlists = new ArrayList();
@@ -37,12 +37,12 @@ public class GameSync : MonoBehaviour {
     //Called during GM init
     private void initConfig()
     {
-        api_key = GM.options.GetSyncSettings()["api_key"];
+        apiKey = GM.options.GetSyncSettings()["apiKey"];
 
-        if (api_key == "" || api_key == null)
+        if (apiKey == "" || apiKey == null)
             GM.Oops(GM.options.GetText("error", "noAPIkey"));
 
-        library_url = GM.options.GetSyncSettings()["library_url"];
+        libraryURL = GM.options.GetSyncSettings()["libraryURL"];
         games_dir = GM.options.playlistsPath;
     }
 
@@ -78,7 +78,7 @@ public class GameSync : MonoBehaviour {
     {
         Dictionary<string, string> headers = new Dictionary<string, string>();
         headers.Add("User-Agent", "Winnitron Launcher/" + GM.VersionNumber + " (http://winnitron.com)");
-        WWW www = new WWW(library_url + "/api/v1/playlists/?api_key=" + api_key, null, headers);
+        WWW www = new WWW(libraryURL + "/api/v1/playlists/?api_key=" + apiKey, null, headers);
 
         StartCoroutine(WaitForSubscriptionList(www));
     }
