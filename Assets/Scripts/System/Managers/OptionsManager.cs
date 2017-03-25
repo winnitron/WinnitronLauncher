@@ -33,6 +33,7 @@ public class OptionsManager : MonoBehaviour {
 
     //Default Folders
     public string dataPath;
+    public string optionsPath;
     public string playlistsPath = "/Playlists";
     public string musicPath = "/Music";
     public string attractPath = "/Attract";
@@ -62,18 +63,27 @@ public class OptionsManager : MonoBehaviour {
 
         // we need to load default language here, so we can display errors
         language = GM.data.GetDefautLanguage();
+        optionsPath = Path.Combine(Application.dataPath, "Options");
+        Debug.Log("DEFAULT OPTIONS PATH:" + optionsPath);
 
-        //Figure out where the Options are by reading the .json in Options file
-        if (System.IO.File.Exists(Application.dataPath + "/Options/winnitron_userdata_path.json"))
-            dataPath = GM.data.LoadJson(Application.dataPath + "/Options/winnitron_userdata_path.json")["userDataPath"];
-        else
+        // Figure out where the Options are by reading the .json in Options file
+        string userdataFile = Path.Combine(optionsPath, "winnitron_userdata_path.json");
+        Debug.Log("reading userdata location from " + userdataFile);
+        if (System.IO.File.Exists(userdataFile))
+        {
+            dataPath = GM.data.LoadJson(userdataFile)["userDataPath"];
+        } else {
             GM.Oops(GM.Text("error", "cannotFindUserDataPathJson"), true);
+        }
 
-        string optionsFile = dataPath + "/Options/winnitron_options.json";
+        Debug.Log("DATA PATH:" + dataPath);
+        optionsPath = Path.Combine(dataPath, "Options");
+        Debug.Log("CONFIGURED OPTIONS PATH:" + optionsPath);
+        string optionsFile = Path.Combine(optionsPath, "winnitron_options.json");
 
         //Load that JSON
         Debug.Log("Loading options from " + optionsFile);
-        Debug.Log("File exists: " + System.IO.File.Exists(optionsFile));
+        Debug.Log("Options file exists: " + System.IO.File.Exists(optionsFile));
 
         if (System.IO.File.Exists(optionsFile))
         {
@@ -97,8 +107,9 @@ public class OptionsManager : MonoBehaviour {
             //Load language file
             if (O["launcher"]["language"] != null)
             {
-                GM.dbug.Log(this, "LANGUAGE FILE: " + dataPath + "/Options/winnitron_text_" + O["launcher"]["language"] + ".json");
-                language = GM.data.LoadJson(dataPath + "/Options/winnitron_text_" + O["launcher"]["language"] + ".json");
+                string langFile = Path.Combine(optionsPath, "winnitron_text_" + O["launcher"]["language"] + ".json");
+                GM.dbug.Log(this, "LANGUAGE FILE: " + langFile);
+                language = GM.data.LoadJson(langFile);
             }
 
             //Sync Options
@@ -144,7 +155,7 @@ public class OptionsManager : MonoBehaviour {
         string dirName = jsonKey[0].ToString().ToUpper() + jsonKey.Substring(1, jsonKey.Length - 1);
 
         if (path.ToString().Contains("default"))
-            path = dataPath + "/" + dirName;
+            path = Path.Combine(dataPath, dirName);
 
         GM.dbug.Log(this, "OPTIONS: " + dirName + " path is " + path);
 
