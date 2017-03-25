@@ -149,8 +149,8 @@ public class OptionsManager : MonoBehaviour {
         return O["sync"];
     }
 
-	private string InitDataFolder(string jsonKey)
-	{
+    private string InitDataFolder(string jsonKey)
+    {
         string path = O["folders"][jsonKey];
         string dirName = jsonKey[0].ToString().ToUpper() + jsonKey.Substring(1, jsonKey.Length - 1);
 
@@ -165,5 +165,5 @@ public class OptionsManager : MonoBehaviour {
         }
 
         return path;
-	}
+    }
 }
