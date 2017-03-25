@@ -139,7 +139,7 @@ public class GameSync : MonoBehaviour {
                         yield return SyncText("Unzipping " + game.title + "...", 0.1f);
 
                         Directory.CreateDirectory(game.installDirectory);
-                        string zipFile = game.installDirectory + "/" + game.slug + ".zip";
+                        string zipFile = Path.Combine(game.installDirectory, game.slug + ".zip");
                         File.WriteAllBytes(zipFile, download.bytes);
 
                         FastZip zip = new FastZip();
@@ -157,7 +157,7 @@ public class GameSync : MonoBehaviour {
 
                         System.Uri uri = new System.Uri(game.imageURL);
                         string imageFilename = Path.GetFileName(uri.AbsolutePath);
-                        File.WriteAllBytes(game.installDirectory + "/" + imageFilename, imageDownload.bytes);
+                        File.WriteAllBytes(Path.Combine(game.installDirectory, imageFilename), imageDownload.bytes);
 
                         File.Delete(zipFile);
                     }
@@ -240,14 +240,14 @@ public class GameSync : MonoBehaviour {
 
             string[] installed = Directory.GetDirectories(parent);
 
-            foreach (string dir_full_path in installed) {
-                string directory = new DirectoryInfo(dir_full_path).Name;
+            foreach (string dirFullPath in installed) {
+                string directory = new DirectoryInfo(dirFullPath).Name;
 
                 //Debug.Log("checking " + directory + " for deletion...");
 
                 if (SluggedItem.directoryIsDeletable(directory, keepers)) {
-                    Debug.Log("deleting " + dir_full_path);
-                    Directory.Delete(dir_full_path, true);
+                    Debug.Log("deleting " + dirFullPath);
+                    Directory.Delete(dirFullPath, true);
                 }
             }
         }
@@ -279,7 +279,7 @@ public class GameSync : MonoBehaviour {
             parentDirectory = parentDir;
 
             foreach(JSONNode game_data in data["games"].AsArray) {
-                games.Add(new Game(game_data, parentDirectory + "/" + slug + "/"));
+                games.Add(new Game(game_data, Path.Combine(parentDirectory, slug)));
             }
         }
 
@@ -305,7 +305,7 @@ public class GameSync : MonoBehaviour {
         }
 
         public void deleteRemovedGames() {
-            SluggedItem.deleteExtraDirectories(parentDirectory + "/" + slug, games);
+            SluggedItem.deleteExtraDirectories(Path.Combine(parentDirectory, slug), games);
         }
     }
 
@@ -328,16 +328,16 @@ public class GameSync : MonoBehaviour {
             description = data["description"];
             downloadURL = data["download_url"];
             lastModified = System.DateTime.Parse(data["last_modified"], null, System.Globalization.DateTimeStyles.RoundtripKind);
-            installDirectory = parentDir + slug + "/";
+            installDirectory = Path.Combine(parentDir, slug);
             minPlayers = data["min_players"].AsInt;
             maxPlayers = data["max_players"].AsInt;
             executable = data["executable"];
             imageURL = data["image_url"];
             keyTemplate = data["keys"]["template"];
 
-
             if (alreadyInstalled()) {
-                string json = File.ReadAllText(installDirectory + "winnitron_metadata.json");
+                string file = Path.Combine(installDirectory, "winnitron_metadata.json");
+                string json = File.ReadAllText(file);
                 installationMetadata = JSON.Parse(json);
             } else {
                 installationMetadata = new JSONClass();
@@ -347,7 +347,7 @@ public class GameSync : MonoBehaviour {
 
         public bool alreadyInstalled() {
             //Debug.Log("checking for installation: " + installDirectory);
-            return File.Exists(installDirectory + "winnitron_metadata.json");
+            return File.Exists(Path.Combine(installDirectory, "winnitron_metadata.json"));
         }
 
         public void writeMetadataFile() {
@@ -365,7 +365,7 @@ public class GameSync : MonoBehaviour {
             keymap.Add("template", new JSONData(keyTemplate));
             installationMetadata.Add("keys", keymap);
 
-            string filename = installDirectory + "/winnitron_metadata.json";
+            string filename = Path.Combine(installDirectory, "winnitron_metadata.json");
             Debug.Log("writing to " + filename + ": " + installationMetadata.ToString());
             System.IO.File.WriteAllText(filename, installationMetadata.ToString());
         }
