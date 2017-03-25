@@ -19,3 +19,6 @@
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
+
+Assets/Options/winnitron_userdata_path.json
+Assets/Options/RunGame.ahk
