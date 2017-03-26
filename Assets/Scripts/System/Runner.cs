@@ -8,36 +8,37 @@ using System.Collections;
 public class Runner : MonoBehaviour {
 
     Process gameRunner;
+    Process keyTranslator;
 
     void Awake()
     {
-        string rungame = Path.Combine(Application.dataPath, "Options/RunGame.exe");
+        string ahk = Path.Combine(Application.dataPath, "Options/RunGame.exe");
 
-        if (!System.IO.File.Exists(rungame))
+        if (!System.IO.File.Exists(ahk))
+        {
+            GM.dbug.Log("Could not find rungame exe: " + ahk);
             GM.Oops(GM.Text("error", "noRunGameExe"), true);
+        }
 
-        //Store the legacyController in the Awake
-        gameRunner = new Process();
-        gameRunner.StartInfo.FileName = rungame;
-        GM.dbug.Log(this, "gameRunner path " + gameRunner.StartInfo.FileName);
-
-        if(gameRunner == null)
-            GM.Oops(GM.Text("error", "noLegacyControlExe"));
+        keyTranslator = new Process();
+        keyTranslator.StartInfo.FileName = ahk;
+        GM.dbug.Log(this, "keyTranslator path " + keyTranslator.StartInfo.FileName);
     }
-
-
-
 
 	public void Run(Game game) {
 
         GM.dbug.Log(this, "Running Game " + game.name);
 
+        gameRunner = new Process();
+        gameRunner.StartInfo.FileName = game.executable;
+
         LoadAHKScript(game);
         game.PreRun();
-        StartCoroutine(RunProcess(gameRunner));
+
+        StartCoroutine(RunGame(gameRunner, keyTranslator));
 	}
 
-	IEnumerator RunProcess(Process process){
+	IEnumerator RunGame(Process game, Process translator) {
 
 		if (GM.jukebox) GM.jukebox.Stop();
 
@@ -46,13 +47,16 @@ public class Runner : MonoBehaviour {
 
 		yield return new WaitForSeconds(1.0f);
 
-        GM.dbug.Log(this, "RUNNER: Running game " + process.StartInfo.FileName);
+        GM.dbug.Log(this, "RUNNER: Running game " + game.StartInfo.FileName);
 
-        process.Start();
-        process.WaitForExit();
+        translator.Start();
 
-        GM.dbug.Log(this, "RUNNER: Finished running game " + process.StartInfo.FileName);
+        game.Start();
+        game.WaitForExit();
 
+        translator.Kill();
+
+        GM.dbug.Log(this, "RUNNER: Finished running game " + game.StartInfo.FileName);
         GM.Restart();
 	}
 
