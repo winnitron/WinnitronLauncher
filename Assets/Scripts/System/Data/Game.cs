@@ -130,12 +130,6 @@ public class Game
         return Sprite.Create(screenshotTex, new Rect(0, 0, screenshotTex.width, screenshotTex.height), new Vector2(0.5f, 0.5f));
     }
 
-	private string GetExecutablePath()
-	{
-		//Find the .exe in the directory and save a reference
-		return Path.Combine(directory.FullName, executable);
-	}
-
 	private string GetGameNameFromFolderName()
 	{
 		//Figure out the name of the game from the directory title
