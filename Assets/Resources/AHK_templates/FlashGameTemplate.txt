@@ -7,6 +7,7 @@
 debug := {DEBUG_OUTPUT}
 
 executable := "{GAME_PATH}"
+exec_file := "{GAME_FILE}"
 game_name := "{GAME_NAME}"
 forceQuitHoldTime := {ESC_HOLD}000
 idleLimit := {IDLE_TIME}000
@@ -16,32 +17,66 @@ start := SecondsToday()
 WriteLog("START ---------------- " . A_Now)
 
 ; RUN THE GAME
-Run, %executable%, , , process_pid
-WriteLog("Launched " . executable . " with pid " . process_pid)
+Run, %executable%, , , process_id_1
+WriteLog("Launched " . executable . " with pid " . process_pid_1)
 
 SetTimer, InitialWait, -%initialWait% ; negative period disables timer after first trigger
 MouseMove 3000, 3000, 0
 
-; This is the function that quits the game
+; This is the function that quits the game (hopefully)
 KillApp()
 {
-  global process_pid
+  global process_id_1
+  global process_id_2
 
-  WriteLog("Killing app with pid " . process_pid)
+  WriteLog("Killing app with pids " . process_id_1 . " and " . process_id_2)
+  
+  ; Nuke the site from orbit. SOMETHING should work....
+
   WinKill, ahk_exe %executable% ; Tries to close using .exe
-  WinKill, ahk_pid process_pid  ; Tries to close using process id
-  SetTitleMatchMode, 2
-  WinKill, %game_name%      ; Tries to close hoping that part of the game name is in the title
+  WinKill, ahk_exe %exec_file%
+
+  WinKill, ahk_pid process_id_2 ; Tries to close using process id
+  WinKill, ahk_pid process_id_1  
+
+  WinKill, %game_name%
+
+  Run, TaskKill /f /pid %process_id_2%
+  Run, TaskKill /f /pid %process_id_1%
+  Run, TaskKill /f /im %exec_file%
+  
+  IfWinExist, "WinnitronLauncher!"
+  {
+    WriteLog("winnitron window id " . WinExist("A"))
+    WinActivate
+    WinMaximize
+  } else {
+    WriteLog("couldn't find winnitron window")
+  }
+
   ExitApp
 }
 
-; Do this so we don't keep running through InitialWait and CloseOnIdle
 Loop
 {
+  ; Ensure that the AHK script exits when the game does, because it's *this*
+  ; process that the Launcher is watching so it knows when to wake up and
+  ; kick back to menu.
+  Process, Exist, %process_id_1%
+  if (ErrorLevel == 0) {
+    WriteLog("detected game not running")
+    KillApp()
+  }
+
 }
 
 InitialWait:
-  WriteLog("Completed initial wait")
+  ; Some games launch a second process
+  SetTitleMatchMode, 2
+  WinGet, process_id_2, PID, %game_name%
+  
+  WriteLog("Completed initial wait (pid2: " . process_id_2 . ")")
+
   SetTimer,  CloseOnIdle, % idleLimit+150
 return
 
