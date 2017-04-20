@@ -46,12 +46,14 @@ KillApp()
   Run, TaskKill /f /pid %process_id_2%
   Run, TaskKill /f /pid %process_id_1%
   Run, TaskKill /f /im %exec_file%
-  
-  IfWinExist, "WinnitronLauncher!"
+
+  SetTitleMatchMode, RegEx
+  IfWinExist, i)WinnitronLauncher
   {
     WriteLog("winnitron window id " . WinExist("A"))
-    WinActivate
-    WinMaximize
+    WinActivate, i)WinnitronLauncher
+    WinWaitActive, i)WinnitronLauncher, , 2
+    PostMessage, 0x112, 0xF030,,, i)WinnitronLauncher  ; 0x112 = WM_SYSCOMMAND, 0xF030 = SC_MAXIMIZE
   } else {
     WriteLog("couldn't find winnitron window")
   }

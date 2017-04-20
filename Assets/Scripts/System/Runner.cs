@@ -50,6 +50,7 @@ public class Runner : MonoBehaviour {
 
         process.Start();
         process.WaitForExit();
+        process.Close();
 
         GM.dbug.Log(this, "RUNNER: Finished running game " + process.StartInfo.FileName);
 
