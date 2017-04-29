@@ -126,3 +126,13 @@ WriteLog(message)
 }
 
 ; KEYMAPS BELOW
+
+.::z
+/::x
+
+w::i
+a::j
+s::k
+d::l
+`::n
+1::m
