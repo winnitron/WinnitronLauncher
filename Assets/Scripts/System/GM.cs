@@ -8,7 +8,7 @@ public class GM : Singleton<GM> {
     public string versionNumber;
     public static string VersionNumber;
 
-	//reference to the 
+	//reference to the
 	public static Runner runner;
 	public static DataManager data;
     public static OptionsManager options;
@@ -22,7 +22,7 @@ public class GM : Singleton<GM> {
         VersionNumber = versionNumber;
         Debug.Log("#####  VERSION " + versionNumber + " #####");
 
-		//Cursor.visible = false;
+		Cursor.visible = false;
 
 		runner = GetComponent<Runner>();
 		data = GetComponent<DataManager> ();
@@ -76,9 +76,9 @@ public class GM : Singleton<GM> {
 
 	/*
 	 *   VERY IMPORTANT!!!!!!
-	 * 	
+	 *
 	 * 	 Comment out the text below in order to debug on non-windows properly
-	 *   
+	 *
 	 */
 
 	//*
