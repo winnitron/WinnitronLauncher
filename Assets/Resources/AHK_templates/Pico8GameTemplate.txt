@@ -29,6 +29,18 @@ KillApp()
 
   WinClose, PICO-8
   WinKill, PICO-8
+
+  SetTitleMatchMode, RegEx
+  IfWinExist, i)winnitron
+  {
+    WriteLog("winnitron window id " . WinExist("A"))
+    WinActivate, i)winnitron
+    WinMaximize
+    PostMessage, 0x112, 0xF030,,, i)winnitron  ; 0x112 = WM_SYSCOMMAND, 0xF030 = SC_MAXIMIZE
+  } else {
+    WriteLog("couldn't find winnitron window")
+  }
+
   ExitApp
 }
 

@@ -183,6 +183,7 @@ public class Game
         GM.dbug.Log("GAME: Create scripts for game " + name);
 
         string newAHKfile = "";
+        string execFile = Path.GetFileName(executable);
 
         switch (gameType)
         {
@@ -231,6 +232,7 @@ public class Game
         //Things needed for every Launcher Script
 
         //Replace variables
+        newAHKfile = newAHKfile.Replace("{GAME_FILE}", execFile);
         newAHKfile = newAHKfile.Replace("{DEBUG_OUTPUT}", "true"); // TODO make this configurable
         newAHKfile = newAHKfile.Replace("{IDLE_TIME}", "" + GM.options.runnerSecondsIdle);
         newAHKfile = newAHKfile.Replace("{IDLE_INITIAL}", "" + GM.options.runnerSecondsIdleInitial);
