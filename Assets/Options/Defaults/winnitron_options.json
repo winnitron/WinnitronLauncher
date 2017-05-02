@@ -5,9 +5,9 @@
     "idleTimeBeforeAttract": "20"
   },
   "runner": {
-    "initialIdleTimeSeconds" : "30",
-    "idleTimeSeconds" : "10",
-    "timeToHoldESCToQuit" : "3"
+    "initialIdleTimeSeconds": "30",
+    "idleTimeSeconds": "180",
+    "timeToHoldESCToQuit": "3"
   },
   "folders": {
     "playlists": "default",
@@ -17,11 +17,11 @@
   "sync": {
     "apiKey": "YOUR API KEY HERE",
     "libraryURL": "http://network.winnitron.com",
-    "syncOnStart" : "true",
-    "type" : "default",
+    "syncOnStart": "true",
+    "type": "default",
     "dailySyncTime" : {
-      "hour" : "01",
-      "minute" : "00"
+      "hour": "04",
+      "minute": "00"
     }
   }
 }
