@@ -1,4 +1,6 @@
-﻿// Upgrade NOTE: replaced 'glstate.matrix.mvp' with 'UNITY_MATRIX_MVP'
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced 'glstate.matrix.mvp' with 'UNITY_MATRIX_MVP'
 
 Shader "BarycentricWireframeUv1" {
 	Properties {
@@ -34,7 +36,7 @@ struct v2f {
  
 v2f vert (appdata v) {
     v2f o;
-    o.pos = mul( UNITY_MATRIX_MVP, v.vertex);
+    o.pos = UnityObjectToClipPos( v.vertex);
     o.texcoord1 = v.texcoord1;
     o.color = v.color;
     return o;

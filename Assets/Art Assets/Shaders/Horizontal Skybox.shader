@@ -1,4 +1,6 @@
-﻿Shader "Skybox/Horizontal Skybox"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Skybox/Horizontal Skybox"
 {
     Properties
     {
@@ -36,7 +38,7 @@
     v2f vert (appdata v)
     {
         v2f o;
-        o.position = mul (UNITY_MATRIX_MVP, v.position);
+        o.position = UnityObjectToClipPos (v.position);
         o.texcoord = v.texcoord;
         return o;
     }
