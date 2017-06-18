@@ -23,5 +23,8 @@
       "hour": "04",
       "minute": "00"
     }
+  },
+  "logger": {
+    "token": ""
   }
 }

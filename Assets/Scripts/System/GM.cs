@@ -15,6 +15,7 @@ public class GM : Singleton<GM> {
 	public static StateManager state;
     public static Dbug dbug;
     public static GameSync sync;
+    public static LogOutputHandler logOutput;
 
     public static Jukebox jukebox;
 
@@ -30,6 +31,7 @@ public class GM : Singleton<GM> {
 		state = GetComponent<StateManager> ();
         dbug = GetComponent<Dbug>();
         sync = GetComponent<GameSync>();
+        logOutput = GetComponent<LogOutputHandler>();
 
         //Not 100% sure why the jukebox is here. :S
         if (GameObject.Find("Jukebox"))
