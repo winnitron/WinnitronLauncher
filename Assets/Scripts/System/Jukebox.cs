@@ -50,10 +50,11 @@ public class Jukebox : MonoBehaviour {
     }
 
     public void PlayRandom() {
-
-        currentTrack = UnityEngine.Random.Range(0, GM.data.songs.Count);
-        source.clip = GM.data.songs[currentTrack].clip;
-        Play();
+        if (GM.data.songs.Count > 0) {
+            currentTrack = UnityEngine.Random.Range(0, GM.data.songs.Count);
+            source.clip = GM.data.songs[currentTrack].clip;
+            Play();
+        }
     }
 
     public void NextTrack() {
