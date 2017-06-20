@@ -55,6 +55,8 @@ public class OptionsManager : MonoBehaviour {
     //Sync Settings
     public JSONNode sync;
 
+    public JSONNode logger;
+
     //Options JSON
     private JSONNode O;
 
@@ -129,7 +131,9 @@ public class OptionsManager : MonoBehaviour {
 
             GM.sync.syncOnStartup = O["sync"]["syncOnStartup"].AsBool;
 
-            //Tell GM that Options is done with all the Init stuff
+            logger = O["logger"];
+
+            // Tell GM that Options is done with all the Init stuff
             initializing = false;
         }
         else
