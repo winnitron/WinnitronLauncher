@@ -26,5 +26,23 @@
   },
   "logger": {
     "token": ""
+  },
+  "keycodes": {
+    "player1": {
+      "up": 273,
+      "down": 274,
+      "right": 275,
+      "left": 276,
+      "button1": 46,
+      "button2": 47
+    },
+    "player2": {
+      "up": 119,
+      "down": 115,
+      "right": 100,
+      "left": 97,
+      "button1": 96,
+      "button2": 49
+    }
   }
 }

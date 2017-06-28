@@ -20,13 +20,13 @@ public class Jukebox : MonoBehaviour {
     void Update() {
 
 	    // Player 2 Joystick controls song
-	    if (Input.GetKeyDown(GM.options.keys.P2Left) || Input.GetKey(KeyCode.Minus))
+	    if (Input.GetKeyDown(GM.options.keys.GetKey(2, "left")) || Input.GetKey(KeyCode.Minus))
 	        LastTrack();
-	    if (Input.GetKeyDown(GM.options.keys.P2Right) || Input.GetKey(KeyCode.Equals))
+	    if (Input.GetKeyDown(GM.options.keys.GetKey(2, "right")) || Input.GetKey(KeyCode.Equals))
 	        NextTrack();
 
 	    // Stop & Play from keyboard
-	    if (Input.GetKeyDown(GM.options.keys.P2Button1) || Input.GetKeyDown(GM.options.keys.P2Button2)) {
+	    if (Input.GetKeyDown(GM.options.keys.GetKey(2, "button1")) || Input.GetKeyDown(GM.options.keys.GetKey(2, "button2"))) {
 
 	        if (isPlaying)
 	            Stop();

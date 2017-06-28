@@ -62,21 +62,21 @@ public class LauncherUIController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Equals))
                 DeleteOldPlaylistStuff();
 
-            if (Input.GetKeyDown(GM.options.keys.P1Left))
+            if (Input.GetKeyDown(GM.options.keys.GetKey(1, "left")))
                 PreviousPlaylist();
 
-            if (Input.GetKeyDown(GM.options.keys.P1Right))
+            if (Input.GetKeyDown(GM.options.keys.GetKey(1, "right")))
                 NextPlaylist();
 
-            if (Input.GetKeyDown(GM.options.keys.P1Up))
+            if (Input.GetKeyDown(GM.options.keys.GetKey(1, "up")))
                 PreviousGame();
 
-            if (Input.GetKeyDown(GM.options.keys.P1Down))
+            if (Input.GetKeyDown(GM.options.keys.GetKey(1, "down")))
                 NextGame();
 
             if (idleTime >= 0)
             {
-                if (Input.GetKeyDown(GM.options.keys.P1Button1) || Input.GetKeyDown(GM.options.keys.P1Button2) || Input.GetKeyDown(KeyCode.Escape))
+                if (Input.GetKeyDown(GM.options.keys.GetKey(1, "button1")) || Input.GetKeyDown(GM.options.keys.GetKey(1, "button2")) || Input.GetKeyDown(KeyCode.Escape))
                     SelectGame();
             }
 
@@ -140,7 +140,7 @@ public class LauncherUIController : MonoBehaviour
 
             //Position
             Vector3 newPosition = playlistsContainer.transform.position + thisOffset;
-            
+
             //Scale
             playlist.transform.localScale = new Vector3(1, 1, 1);
 
