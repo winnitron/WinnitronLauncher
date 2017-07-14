@@ -54,6 +54,7 @@ public class OptionsManager : MonoBehaviour {
 
     //Default Folders
     public string dataPath;
+    public string defaultOptionsPath;
     public string optionsPath;
     public string playlistsPath = "/Playlists";
     public string musicPath = "/Music";
@@ -86,7 +87,8 @@ public class OptionsManager : MonoBehaviour {
 
         // we need to load default language here, so we can display errors
         language = GM.data.GetDefautLanguage();
-        optionsPath = Path.Combine(Application.dataPath, "Options");
+        defaultOptionsPath = Path.Combine(Application.dataPath, "Options");
+        optionsPath = defaultOptionsPath;
         Debug.Log("DEFAULT OPTIONS PATH:" + optionsPath);
 
         // Figure out where the Options are by reading the .json in Options file
@@ -209,13 +211,16 @@ public class OptionsManager : MonoBehaviour {
         controls[4] = "button1";
         controls[5] = "button2";
 
+        KeyTranslator keytrans = new KeyTranslator(defaultOptionsPath);
+
         for(int pNum = 1; pNum <= 4; pNum++) {
             JSONNode player = players[pNum];
 
             foreach(string control in controls) {
                 if (player[control] != null) {
-                    KeyCode customKey = (KeyCode) player[control].AsInt;
+                    KeyCode customKey = keytrans.fromAHK(player[control]);
                     keys.SetKey(pNum, control, customKey);
+                    Debug.Log("CUSTOM KEY (player " + pNum + " " + control + "): " + customKey);
                 }
             }
         }

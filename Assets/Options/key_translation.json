@@ -1,0 +1,571 @@
+{
+  "meta": {
+    "source": "url"
+  },
+  "keys": [
+      {
+        "name": "Numpad0",
+        "ahk": "Numpad0",
+        "unity": 256,
+        "keycode": null
+      },
+      {
+        "name": "Numpad1",
+        "ahk": "Numpad1",
+        "unity": 257,
+        "keycode": null
+      },
+      {
+        "name": "Numpad2",
+        "ahk": "Numpad2",
+        "unity": 258,
+        "keycode": null
+      },
+      {
+        "name": "Numpad3",
+        "ahk": "Numpad3",
+        "unity": 259,
+        "keycode": null
+      },
+      {
+        "name": "Numpad4",
+        "ahk": "Numpad4",
+        "unity": 260,
+        "keycode": null
+      },
+      {
+        "name": "Numpad5",
+        "ahk": "Numpad5",
+        "unity": 261,
+        "keycode": null
+      },
+      {
+        "name": "Numpad6",
+        "ahk": "Numpad6",
+        "unity": 262,
+        "keycode": null
+      },
+      {
+        "name": "Numpad7",
+        "ahk": "Numpad7",
+        "unity": 263,
+        "keycode": null
+      },
+      {
+        "name": "Numpad8",
+        "ahk": "Numpad8",
+        "unity": 264,
+        "keycode": null
+      },
+      {
+        "name": "Numpad9",
+        "ahk": "Numpad9",
+        "unity": 265,
+        "keycode": null
+      },
+      {
+        "name": "NumpadDot",
+        "ahk": "NumpadDot",
+        "unity": 266,
+        "keycode": null
+      },
+      {
+        "name": "NumpadDiv",
+        "ahk": "NumpadDiv",
+        "unity": 267,
+        "keycode": null
+      },
+      {
+        "name": "NumpadMult",
+        "ahk": "NumpadMult",
+        "unity": 268,
+        "keycode": null
+      },
+      {
+        "name": "NumpadSub",
+        "ahk": "NumpadSub",
+        "unity": 269,
+        "keycode": null
+      },
+      {
+        "name": "NumpadAdd",
+        "ahk": "NumpadAdd",
+        "unity": 270,
+        "keycode": null
+      },
+      {
+        "name": "NumpadEnter",
+        "ahk": "NumpadEnter",
+        "unity": 271,
+        "keycode": null
+      },
+      {
+        "name": "LControl",
+        "ahk": "LControl",
+        "unity": 306,
+        "keycode": 17
+      },
+      {
+        "name": "RControl",
+        "ahk": "RControl",
+        "unity": 305,
+        "keycode": null
+      },
+      {
+        "name": "LShift",
+        "ahk": "LShift",
+        "unity": 304,
+        "keycode": 16
+      },
+      {
+        "name": "RShift",
+        "ahk": "RShift",
+        "unity": 303,
+        "keycode": 16
+      },
+      {
+        "name": "LAlt",
+        "ahk": "LAlt",
+        "unity": 308,
+        "keycode": 18
+      },
+      {
+        "name": "RAlt",
+        "ahk": "RAlt",
+        "unity": 307,
+        "keycode": 18
+      },
+      {
+        "name": "Delete",
+        "ahk": "Delete",
+        "unity": 127,
+        "keycode": null
+      },
+      {
+        "name": "Insert",
+        "ahk": "Insert",
+        "unity": 277,
+        "keycode": null
+      },
+      {
+        "name": "Home",
+        "ahk": "Home",
+        "unity": 278,
+        "keycode": null
+      },
+      {
+        "name": "End",
+        "ahk": "End",
+        "unity": 279,
+        "keycode": null
+      },
+      {
+        "name": "PgUp",
+        "ahk": "PgUp",
+        "unity": 280,
+        "keycode": null
+      },
+      {
+        "name": "PgDn",
+        "ahk": "PgDn",
+        "unity": 281,
+        "keycode": null
+      },
+      {
+        "name": "Up",
+        "ahk": "Up",
+        "unity": 273,
+        "keycode": 38
+      },
+      {
+        "name": "Down",
+        "ahk": "Down",
+        "unity": 274,
+        "keycode": 40
+      },
+      {
+        "name": "Left",
+        "ahk": "Left",
+        "unity": 276,
+        "keycode": 37
+      },
+      {
+        "name": "Right",
+        "ahk": "Right",
+        "unity": 275,
+        "keycode": 39
+      },
+      {
+        "name": "Space",
+        "ahk": "Space",
+        "unity": 32,
+        "keycode": 32
+      },
+      {
+        "name": "Tab",
+        "ahk": "Tab",
+        "unity": 9,
+        "keycode": 9
+      },
+      {
+        "name": "Backspace",
+        "ahk": "Backspace",
+        "unity": 8,
+        "keycode": 8
+      },
+      {
+        "name": "a",
+        "ahk": "a",
+        "unity": 97,
+        "keycode": 65
+      },
+      {
+        "name": "b",
+        "ahk": "b",
+        "unity": 98,
+        "keycode": 66
+      },
+      {
+        "name": "c",
+        "ahk": "c",
+        "unity": 99,
+        "keycode": 67
+      },
+      {
+        "name": "d",
+        "ahk": "d",
+        "unity": 100,
+        "keycode": 68
+      },
+      {
+        "name": "e",
+        "ahk": "e",
+        "unity": 101,
+        "keycode": 69
+      },
+      {
+        "name": "f",
+        "ahk": "f",
+        "unity": 102,
+        "keycode": 70
+      },
+      {
+        "name": "g",
+        "ahk": "g",
+        "unity": 103,
+        "keycode": 71
+      },
+      {
+        "name": "h",
+        "ahk": "h",
+        "unity": 104,
+        "keycode": 72
+      },
+      {
+        "name": "i",
+        "ahk": "i",
+        "unity": 105,
+        "keycode": 73
+      },
+      {
+        "name": "j",
+        "ahk": "j",
+        "unity": 106,
+        "keycode": 74
+      },
+      {
+        "name": "k",
+        "ahk": "k",
+        "unity": 107,
+        "keycode": 75
+      },
+      {
+        "name": "l",
+        "ahk": "l",
+        "unity": 108,
+        "keycode": 76
+      },
+      {
+        "name": "m",
+        "ahk": "m",
+        "unity": 109,
+        "keycode": 77
+      },
+      {
+        "name": "n",
+        "ahk": "n",
+        "unity": 110,
+        "keycode": 78
+      },
+      {
+        "name": "o",
+        "ahk": "o",
+        "unity": 111,
+        "keycode": 79
+      },
+      {
+        "name": "p",
+        "ahk": "p",
+        "unity": 112,
+        "keycode": 80
+      },
+      {
+        "name": "q",
+        "ahk": "q",
+        "unity": 113,
+        "keycode": 81
+      },
+      {
+        "name": "r",
+        "ahk": "r",
+        "unity": 114,
+        "keycode": 82
+      },
+      {
+        "name": "s",
+        "ahk": "s",
+        "unity": 115,
+        "keycode": 83
+      },
+      {
+        "name": "t",
+        "ahk": "t",
+        "unity": 116,
+        "keycode": 84
+      },
+      {
+        "name": "u",
+        "ahk": "u",
+        "unity": 117,
+        "keycode": 85
+      },
+      {
+        "name": "v",
+        "ahk": "v",
+        "unity": 118,
+        "keycode": 86
+      },
+      {
+        "name": "w",
+        "ahk": "w",
+        "unity": 119,
+        "keycode": 87
+      },
+      {
+        "name": "x",
+        "ahk": "x",
+        "unity": 120,
+        "keycode": 88
+      },
+      {
+        "name": "y",
+        "ahk": "y",
+        "unity": 121,
+        "keycode": 89
+      },
+      {
+        "name": "z",
+        "ahk": "z",
+        "unity": 122,
+        "keycode": 90
+      },
+      {
+        "name": "0",
+        "ahk": "0",
+        "unity": 48,
+        "keycode": 48
+      },
+      {
+        "name": "1",
+        "ahk": "1",
+        "unity": 49,
+        "keycode": 49
+      },
+      {
+        "name": "2",
+        "ahk": "2",
+        "unity": 50,
+        "keycode": 50
+      },
+      {
+        "name": "3",
+        "ahk": "3",
+        "unity": 51,
+        "keycode": 51
+      },
+      {
+        "name": "4",
+        "ahk": "4",
+        "unity": 52,
+        "keycode": 52
+      },
+      {
+        "name": "5",
+        "ahk": "5",
+        "unity": 53,
+        "keycode": 53
+      },
+      {
+        "name": "6",
+        "ahk": "6",
+        "unity": 54,
+        "keycode": 54
+      },
+      {
+        "name": "7",
+        "ahk": "7",
+        "unity": 55,
+        "keycode": 55
+      },
+      {
+        "name": "8",
+        "ahk": "8",
+        "unity": 56,
+        "keycode": 56
+      },
+      {
+        "name": "9",
+        "ahk": "9",
+        "unity": 57,
+        "keycode": 57
+      },
+      {
+        "name": "-",
+        "ahk": "-",
+        "unity": 45,
+        "keycode": 189
+      },
+      {
+        "name": "=",
+        "ahk": "=",
+        "unity": 61,
+        "keycode": 187
+      },
+      {
+        "name": "[",
+        "ahk": "[",
+        "unity": 91,
+        "keycode": 219
+      },
+      {
+        "name": "]",
+        "ahk": "]",
+        "unity": 93,
+        "keycode": 221
+      },
+      {
+        "name": "\\",
+        "ahk": "\\",
+        "unity": 92,
+        "keycode": 220
+      },
+      {
+        "name": ";",
+        "ahk": ";",
+        "unity": 59,
+        "keycode": 186
+      },
+      {
+        "name": "'",
+        "ahk": "'",
+        "unity": 39,
+        "keycode": 222
+      },
+      {
+        "name": ",",
+        "ahk": ",",
+        "unity": 44,
+        "keycode": 188
+      },
+      {
+        "name": ".",
+        "ahk": ".",
+        "unity": 46,
+        "keycode": 190
+      },
+      {
+        "name": "/",
+        "ahk": "/",
+        "unity": 47,
+        "keycode": 191
+      },
+      {
+        "name": "`",
+        "ahk": "`",
+        "unity": 96,
+        "keycode": 192
+      },
+      {
+        "name": "F1",
+        "ahk": "F1",
+        "unity": 282,
+        "keycode": 112
+      },
+      {
+        "name": "F2",
+        "ahk": "F2",
+        "unity": 283,
+        "keycode": 113
+      },
+      {
+        "name": "F3",
+        "ahk": "F3",
+        "unity": 284,
+        "keycode": 114
+      },
+      {
+        "name": "F4",
+        "ahk": "F4",
+        "unity": 285,
+        "keycode": 115
+      },
+      {
+        "name": "F5",
+        "ahk": "F5",
+        "unity": 286,
+        "keycode": 116
+      },
+      {
+        "name": "F6",
+        "ahk": "F6",
+        "unity": 287,
+        "keycode": 117
+      },
+      {
+        "name": "F7",
+        "ahk": "F7",
+        "unity": 288,
+        "keycode": 118
+      },
+      {
+        "name": "F8",
+        "ahk": "F8",
+        "unity": 289,
+        "keycode": 119
+      },
+      {
+        "name": "F9",
+        "ahk": "F9",
+        "unity": 290,
+        "keycode": 120
+      },
+      {
+        "name": "F10",
+        "ahk": "F10",
+        "unity": 291,
+        "keycode": 121
+      },
+      {
+        "name": "F11",
+        "ahk": "F11",
+        "unity": 292,
+        "keycode": 122
+      },
+      {
+        "name": "F12",
+        "ahk": "F12",
+        "unity": 293,
+        "keycode": 123
+      }
+    ]
+}
