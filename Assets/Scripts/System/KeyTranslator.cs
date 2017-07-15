@@ -14,7 +14,15 @@ public class KeyTranslator {
 
 
     public KeyCode fromAHK(string ahkStr) {
-        return (KeyCode) findAHK(ahkStr)["unity"].AsInt;
+        string needle = findAHK(ahkStr)["unity"];
+
+        foreach (KeyCode key in Enum.GetValues(typeof(KeyCode))) {
+            if (key.ToString().Equals(needle)) {
+                return key;
+            }
+        }
+
+        return KeyCode.None;
     }
 
     public string toAHK(KeyCode keyCode) {
@@ -23,7 +31,7 @@ public class KeyTranslator {
 
     private JSONNode findUnity(KeyCode keyCode) {
         foreach (JSONNode keyData in translation) {
-            if (keyData["unity"].AsInt == (int) keyCode) {
+            if ((string) keyData["unity"] == keyCode.ToString()) {
                 return keyData;
             }
         }

@@ -251,7 +251,6 @@ public class Game
 
     private string insertKeyMapping(string ahkFile) {
         string keymap = "";
-        // Debug.Log("********************************************* IT'S HAPPENING " + this.name + " *********************************************");
 
         for(int pNum = 1; pNum <= 4; pNum++) {
             JSONNode playerKeys = savedMetadata["keys"]["bindings"][pNum.ToString()];
@@ -275,7 +274,6 @@ public class Game
             }
         }
 
-        // Debug.Log("KEYMAP FOR " + name + ": " + keymap);
         return ahkFile.Replace("{KEYMAP}", keymap);
     }
 
