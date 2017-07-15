@@ -199,7 +199,7 @@ public class Game
 
             case Game.GameType.LEGACY:
 
-                newAHKfile = Resources.Load<TextAsset>("AHK_templates/LegacyGameTemplate").text;
+                newAHKfile = Resources.Load<TextAsset>("AHK_templates/ExeGameTemplate").text;
 
                 newAHKfile = newAHKfile.Replace("{GAME_PATH}", executable);
                 newAHKfile = newAHKfile.Replace("{GAME_NAME}", name);
