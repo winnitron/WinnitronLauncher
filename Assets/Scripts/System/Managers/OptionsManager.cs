@@ -55,12 +55,32 @@ public class KeyBindings {
 
 
     public void SetKey(int playerNum, string control, KeyCode key) {
+        try {
+            if (allKeys().Contains(key)) {
+                GM.Oops(GM.Text("error", "invalidKeymap"), true);
+            }
+        } catch (KeyNotFoundException) {
+            // NOP. This (only) gets thrown on initialization. We can ignore it.
+        }
+
         keymap[playerNum - 1][control] = key;
     }
 
     public KeyCode GetKey(int playerNum, string control) {
         return keymap[playerNum - 1][control];
     }
+
+    private List<KeyCode> allKeys() {
+        List<KeyCode> keys = new List<KeyCode>();
+
+        for (int p = 1; p <= 4; p++) {
+            foreach (string control in CONTROLS) {
+                keys.Add(GetKey(p, control));
+            }
+        }
+        return keys;
+    }
+
 }
 
 public class OptionsManager : MonoBehaviour {
