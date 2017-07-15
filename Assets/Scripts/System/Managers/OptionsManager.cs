@@ -5,8 +5,17 @@ using System.Collections.Generic;
 using SimpleJSON;
 
 [System.Serializable]
-public class KeyBindings
-{
+public class KeyBindings {
+
+    public static string[] CONTROLS = new string[6] {
+        "up",
+        "down",
+        "left",
+        "right",
+        "button1",
+        "button2"
+    };
+
     private Dictionary<string, KeyCode>[] keymap = new Dictionary<string, KeyCode>[4];
 
     public KeyBindings() {
@@ -29,7 +38,19 @@ public class KeyBindings
         SetKey(2, "button1", KeyCode.BackQuote);
         SetKey(2, "button2", KeyCode.Alpha1);
 
-        // TODO: players 3 and 4
+        SetKey(3, "up", KeyCode.I);
+        SetKey(3, "down", KeyCode.K);
+        SetKey(3, "left", KeyCode.J);
+        SetKey(3, "right", KeyCode.L);
+        SetKey(3, "button1", KeyCode.G);
+        SetKey(3, "button2", KeyCode.H);
+
+        SetKey(4, "up", KeyCode.Keypad8);
+        SetKey(4, "down", KeyCode.Keypad5);
+        SetKey(4, "left", KeyCode.Keypad4);
+        SetKey(4, "right", KeyCode.Keypad6);
+        SetKey(4, "button1", KeyCode.Keypad1);
+        SetKey(4, "button2", KeyCode.Keypad2);
     }
 
 
@@ -70,6 +91,7 @@ public class OptionsManager : MonoBehaviour {
 
     //Keys
     public KeyBindings keys;
+    public KeyTranslator keyTranslator;
 
     //language
     public JSONNode language;
@@ -89,6 +111,8 @@ public class OptionsManager : MonoBehaviour {
         language = GM.data.GetDefautLanguage();
         defaultOptionsPath = Path.Combine(Application.dataPath, "Options");
         optionsPath = defaultOptionsPath;
+        keyTranslator = new KeyTranslator(defaultOptionsPath);
+
         Debug.Log("DEFAULT OPTIONS PATH:" + optionsPath);
 
         // Figure out where the Options are by reading the .json in Options file
@@ -203,22 +227,12 @@ public class OptionsManager : MonoBehaviour {
         players[3] = O["keycodes"]["player3"];
         players[4] = O["keycodes"]["player4"];
 
-        string[] controls = new string[6];
-        controls[0] = "up";
-        controls[1] = "down";
-        controls[2] = "left";
-        controls[3] = "right";
-        controls[4] = "button1";
-        controls[5] = "button2";
-
-        KeyTranslator keytrans = new KeyTranslator(defaultOptionsPath);
-
         for(int pNum = 1; pNum <= 4; pNum++) {
             JSONNode player = players[pNum];
 
-            foreach(string control in controls) {
+            foreach(string control in KeyBindings.CONTROLS) {
                 if (player[control] != null) {
-                    KeyCode customKey = keytrans.fromAHK(player[control]);
+                    KeyCode customKey = keyTranslator.fromAHK(player[control]);
                     keys.SetKey(pNum, control, customKey);
                     Debug.Log("CUSTOM KEY (player " + pNum + " " + control + "): " + customKey);
                 }

@@ -337,7 +337,6 @@ public class GameSync : MonoBehaviour {
             keyTemplate = data["keys"]["template"];
             keyBindings = data["keys"]["bindings"];
 
-
             if (alreadyInstalled()) {
                 string file = Path.Combine(installDirectory, "winnitron_metadata.json");
                 string json = File.ReadAllText(file);

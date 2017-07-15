@@ -17,6 +17,20 @@ public class KeyTranslator {
         return (KeyCode) findAHK(ahkStr)["unity"].AsInt;
     }
 
+    public string toAHK(KeyCode keyCode) {
+        return findUnity(keyCode)["ahk"];
+    }
+
+    private JSONNode findUnity(KeyCode keyCode) {
+        foreach (JSONNode keyData in translation) {
+            if (keyData["unity"].AsInt == (int) keyCode) {
+                return keyData;
+            }
+        }
+
+        return null;
+    }
+
     private JSONNode findAHK(string ahkStr) {
 
         foreach (JSONNode keyData in translation) {
