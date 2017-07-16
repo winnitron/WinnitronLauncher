@@ -253,22 +253,24 @@ public class Game
         string keymap = "";
 
         for(int pNum = 1; pNum <= 4; pNum++) {
-            JSONNode playerKeys = savedMetadata["keys"]["bindings"][pNum.ToString()];
+            JSONNode playerKeys;
 
-            if (playerKeys == null)
-                continue;
+            try {
+                playerKeys = savedMetadata["keys"]["bindings"][pNum.ToString()];
+            } catch (System.NullReferenceException e) {
+                break;
+            }
 
             foreach(string control in KeyBindings.CONTROLS) {
                 KeyCode key = GM.options.keys.GetKey(pNum, control);
                 string launcherKey = GM.options.keyTranslator.toAHK(key);
 
                 string gameKey = playerKeys[control];
-                if (gameKey != null && launcherKey != gameKey) {
-                    // TODO: but what if we're swapping keys?
-                    // eg https://autohotkey.com/board/topic/98284-how-to-swap-two-keys-colonsemicolon/
+                if (pNum > savedMetadata["max_players"].AsInt || gameKey == null) {
+                    gameKey = "return";
+                }
 
-                    // TODO: also, should we have a reserved /dev/null key to map unassigned controls
-                    // and players to? PAUSE or something?
+                if (launcherKey != gameKey) {
                     keymap += (launcherKey + "::" + gameKey + "\n");
                 }
             }

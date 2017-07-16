@@ -369,7 +369,7 @@ public class GameSync : MonoBehaviour {
             installationMetadata.Add("keys", keymap);
 
             string filename = Path.Combine(installDirectory, "winnitron_metadata.json");
-            Debug.Log("writing to " + filename + ": " + installationMetadata.ToString());
+            // Debug.Log("writing to " + filename + ": " + installationMetadata.ToString());
             System.IO.File.WriteAllText(filename, installationMetadata.ToString());
         }
     }
