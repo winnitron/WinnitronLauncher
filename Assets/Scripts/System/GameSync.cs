@@ -319,6 +319,7 @@ public class GameSync : MonoBehaviour {
         public int maxPlayers;
         public string executable;
         public string keyTemplate;
+        public JSONNode keyBindings;
 
         public JSONNode installationMetadata;
 
@@ -334,6 +335,7 @@ public class GameSync : MonoBehaviour {
             executable = data["executable"];
             imageURL = data["image_url"];
             keyTemplate = data["keys"]["template"];
+            keyBindings = data["keys"]["bindings"];
 
             if (alreadyInstalled()) {
                 string file = Path.Combine(installDirectory, "winnitron_metadata.json");
@@ -363,10 +365,11 @@ public class GameSync : MonoBehaviour {
 
             JSONClass keymap = new JSONClass();
             keymap.Add("template", new JSONData(keyTemplate));
+            keymap.Add("bindings", keyBindings);
             installationMetadata.Add("keys", keymap);
 
             string filename = Path.Combine(installDirectory, "winnitron_metadata.json");
-            Debug.Log("writing to " + filename + ": " + installationMetadata.ToString());
+            // Debug.Log("writing to " + filename + ": " + installationMetadata.ToString());
             System.IO.File.WriteAllText(filename, installationMetadata.ToString());
         }
     }

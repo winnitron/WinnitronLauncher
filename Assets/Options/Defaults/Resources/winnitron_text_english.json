@@ -1,17 +1,18 @@
 {
   "error": {
-		"cannotFindJson" : "Hmm!  It seems that we couldn't load winnitron_options.json.  Please double check that it is in the winnitron_data folder.  If you can't find it, download it again from the Winnitron GitHub page.",
-		"cannotFindUserDataPathJson" : "Why can't we find the winnitron_userdata_path.json file?  That's not good.",
-		"test" : "Congrats!  You've successfully tested the Oops screen. :)",
-		"noAPIkey" : "You need an API key to sync!  Please get one from network.winnitron.com or change syncMode in winnitron_options.json to 'local' to skip syncing.",
-		"fetchPlaylistError" : "Error fetching playlists!  Check to make sure your API key is correct in winnitron_options.json and try again.  Or set sync.type to 'local'.",
-		"noLegacyControlExe" : "Cannot find the legacy control EXE.  Please re-install!",
-		"noRunGameExe" : "Cannot find the RunGame.exe file in the Resources folder.   Please re-install and try again!",
-		"couldNotFindGame" : "Cannot find the executable file for this game.  Please notify the owner!"
-	},
+    "cannotFindJson" : "Hmm!  It seems that we couldn't load winnitron_options.json.  Please double check that it is in the winnitron_data folder.  If you can't find it, download it again from the Winnitron GitHub page.",
+    "cannotFindUserDataPathJson" : "Why can't we find the winnitron_userdata_path.json file?  That's not good.",
+    "test" : "Congrats!  You've successfully tested the Oops screen. :)",
+    "noAPIkey" : "You need an API key to sync!  Please get one from network.winnitron.com or change sync.type in winnitron_options.json to 'local' to skip syncing.",
+    "fetchPlaylistError" : "Error fetching playlists!  Check to make sure your API key is correct in winnitron_options.json and try again.  Or set sync.type to 'local'.",
+    "noLegacyControlExe" : "Cannot find the legacy control EXE.  Please re-install!",
+    "noRunGameExe" : "Cannot find the RunGame.exe file in the Resources folder.   Please re-install and try again!",
+    "couldNotFindGame" : "Cannot find the executable file for this game.  Please notify the owner!",
+    "invalidKeymap" : "Invalid key map - duplicate keys are not allowed."
+  },
 
-	"ui" : {
-		"oopsQuit" : "Press Home/Esc to quit",
-		"oopsRestart" : "Press Home/Esc to restart launcher"
-	}
+  "ui" : {
+    "oopsQuit" : "Press Home/Esc to quit",
+    "oopsRestart" : "Press Home/Esc to restart launcher"
+  }
 }

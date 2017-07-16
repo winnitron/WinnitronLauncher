@@ -32,14 +32,14 @@ KillApp()
   global process_id_2
 
   WriteLog("Killing app with pids " . process_id_1 . " and " . process_id_2)
-  
+
   ; Nuke the site from orbit. SOMETHING should work....
 
   WinKill, ahk_exe %executable% ; Tries to close using .exe
   WinKill, ahk_exe %exec_file%
 
   WinKill, ahk_pid process_id_2 ; Tries to close using process id
-  WinKill, ahk_pid process_id_1  
+  WinKill, ahk_pid process_id_1
 
   WinKill, %game_name%
 
@@ -77,7 +77,7 @@ Loop
 InitialWait:
   ; Some games launch a second process
   WinGet, process_id_2, PID, %game_name%
-  
+
   WriteLog("Completed initial wait (pid2: " . process_id_2 . ")")
 
   SetTimer,  CloseOnIdle, % idleLimit+150
@@ -140,4 +140,5 @@ WriteLog(message)
   }
 }
 
-; KEYMAPS BELOW (none in default)
+; KEYMAPS BELOW
+{KEYMAP}

@@ -113,12 +113,4 @@ WriteLog(message)
 }
 
 ; KEYMAPS BELOW
-
-/::m
-.::n
-a::s
-s::d
-d::f
-w::e
-`::q
-1::w
+{KEYMAP}

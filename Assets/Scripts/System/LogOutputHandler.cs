@@ -37,11 +37,13 @@ public class LogOutputHandler : MonoBehaviour {
   }
 
     public IEnumerator SendData(WWWForm form) {
-        string token = GM.options.logger["token"];
-        string url = "http://logs-01.loggly.com/inputs/" + token;
+        if (GM.options.logger != null) {
+            string token = GM.options.logger["token"];
+            string url = "http://logs-01.loggly.com/inputs/" + token;
 
-        // Send WWW Form to Loggly, replace TOKEN with your unique ID from Loggly
-        WWW sendLog = new WWW(url, form);
-        yield return sendLog;
+            // Send WWW Form to Loggly, replace TOKEN with your unique ID from Loggly
+            WWW sendLog = new WWW(url, form);
+            yield return sendLog;
+        }
     }
 }
