@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.IO;
 using System.Collections;
 using System.Runtime.InteropServices;
 
@@ -8,27 +9,28 @@ public class GM : Singleton<GM> {
     public string versionNumber;
     public static string VersionNumber;
 
-	//reference to the
-	public static Runner runner;
-	public static DataManager data;
+    //reference to the
+    public static Runner runner;
+    public static DataManager data;
     public static OptionsManager options;
-	public static StateManager state;
+    public static StateManager state;
     public static Dbug dbug;
     public static GameSync sync;
     public static LogOutputHandler logOutput;
 
     public static Jukebox jukebox;
 
-	new void Awake() {
+    new void Awake() {
         VersionNumber = versionNumber;
         Debug.Log("#####  VERSION " + versionNumber + " #####");
+        writeProcessInfo();
 
-		Cursor.visible = false;
+        Cursor.visible = false;
 
-		runner = GetComponent<Runner>();
-		data = GetComponent<DataManager> ();
+        runner = GetComponent<Runner>();
+        data = GetComponent<DataManager> ();
         options = GetComponent<OptionsManager> ();
-		state = GetComponent<StateManager> ();
+        state = GetComponent<StateManager> ();
         dbug = GetComponent<Dbug>();
         sync = GetComponent<GameSync>();
         logOutput = GetComponent<LogOutputHandler>();
@@ -39,18 +41,18 @@ public class GM : Singleton<GM> {
 
         //Do Windows window management shizzle
         ResetScreen();
-	}
+    }
 
 
-	/// <summary>
+    /// <summary>
     /// Causes an Oops screen to appear.  This function calls the real Oops in StateManager.cs
     /// </summary>
     /// <param name="text">Text to show on the Oops screen</param>
     /// <param name="isCritical">Critical will force quit the launcher</param>
-	public static void Oops(string text, bool isCritical)
-	{
+    public static void Oops(string text, bool isCritical)
+    {
         state.Oops(text, isCritical);
-	}
+    }
 
     /// <summary>
     /// Causes an Oops screen to appear and assumes Non-Critical.  This function calls the real Oops in StateManager.cs
@@ -61,10 +63,10 @@ public class GM : Singleton<GM> {
         state.Oops(text, false);
     }
 
-	public static string Text(string category, string type)
-	{
-		return options.GetText (category, type);
-	}
+    public static string Text(string category, string type)
+    {
+        return options.GetText (category, type);
+    }
 
     /// <summary>
     /// Restarts the launcher
@@ -75,23 +77,26 @@ public class GM : Singleton<GM> {
         ResetScreen();
     }
 
+    private void writeProcessInfo() {
+        string info = System.Diagnostics.Process.GetCurrentProcess().Id +
+                      "\n" +
+                      Path.Combine(Path.GetFullPath("."), "WINNITRON.exe");
 
-	/*
-	 *   VERY IMPORTANT!!!!!!
-	 *
-	 * 	 Comment out the text below in order to debug on non-windows properly
-	 *
-	 */
+        File.WriteAllText(PID_FILE, info);
+    }
 
-	//*
-	#if UNITY_STANDALONE_WIN
-	[DllImport("user32.dll", EntryPoint = "SetWindowPos")]
-	private static extern bool SetWindowPos(IntPtr hwnd, int hWndInsertAfter, int x, int Y, int cx, int cy, int wFlags);
-	[DllImport("user32.dll", EntryPoint = "FindWindow")]
-	public static extern IntPtr FindWindow(System.String className, System.String windowName);
+
+    //*
+    #if UNITY_STANDALONE_WIN
+
+    [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
+    private static extern bool SetWindowPos(IntPtr hwnd, int hWndInsertAfter, int x, int Y, int cx, int cy, int wFlags);
+    [DllImport("user32.dll", EntryPoint = "FindWindow")]
+    public static extern IntPtr FindWindow(System.String className, System.String windowName);
     [DllImport("user32.dll", EntryPoint = "SetWindowLong")]
     public static extern long SetWindowLong(long hwnd, long nIndex, long dwNewLong);
 
+    public const string PID_FILE = "C:/winnitron.pid";
 
     public static void ResetScreen() {
         SetWindowLong(FindWindow(null, Application.productName).ToInt32(), -16L, 0x00800000L);
@@ -99,12 +104,14 @@ public class GM : Singleton<GM> {
         Screen.fullScreen = true;
     }
 
-	#else
+    #else
 
-	public static void ResetScreen() {
-	}
+    public const string PID_FILE = "/tmp/winnitron.pid";
 
-	#endif
+    public static void ResetScreen() {
+    }
+
+    #endif
     //*/
 
 }
