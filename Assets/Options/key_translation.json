@@ -1,102 +1,102 @@
 {
   "meta": {
-    "source": "url"
+    "source": "https://gist.github.com/aaronklaassen/1f36387745b3d7cc27e6a3b5b55cfebd"
   },
   "keys": [
     {
       "name": "Numpad0",
       "ahk": "Numpad0",
-      "keycode": null,
+      "keycode": 96,
       "unity": "Keypad0"
     },
     {
       "name": "Numpad1",
       "ahk": "Numpad1",
-      "keycode": null,
+      "keycode": 97,
       "unity": "Keypad1"
     },
     {
       "name": "Numpad2",
       "ahk": "Numpad2",
-      "keycode": null,
+      "keycode": 98,
       "unity": "Keypad2"
     },
     {
       "name": "Numpad3",
       "ahk": "Numpad3",
-      "keycode": null,
+      "keycode": 99,
       "unity": "Keypad3"
     },
     {
       "name": "Numpad4",
       "ahk": "Numpad4",
-      "keycode": null,
+      "keycode": 100,
       "unity": "Keypad4"
     },
     {
       "name": "Numpad5",
       "ahk": "Numpad5",
-      "keycode": null,
+      "keycode": 101,
       "unity": "Keypad5"
     },
     {
       "name": "Numpad6",
       "ahk": "Numpad6",
-      "keycode": null,
+      "keycode": 102,
       "unity": "Keypad6"
     },
     {
       "name": "Numpad7",
       "ahk": "Numpad7",
-      "keycode": null,
+      "keycode": 103,
       "unity": "Keypad7"
     },
     {
       "name": "Numpad8",
       "ahk": "Numpad8",
-      "keycode": null,
+      "keycode": 104,
       "unity": "Keypad8"
     },
     {
       "name": "Numpad9",
       "ahk": "Numpad9",
-      "keycode": null,
+      "keycode": 105,
       "unity": "Keypad9"
     },
     {
       "name": "NumpadDot",
       "ahk": "NumpadDot",
-      "keycode": null,
+      "keycode": 110,
       "unity": "KeypadPeriod"
     },
     {
       "name": "NumpadDiv",
       "ahk": "NumpadDiv",
-      "keycode": null,
+      "keycode": 111,
       "unity": "KeypadDivide"
     },
     {
       "name": "NumpadMult",
       "ahk": "NumpadMult",
-      "keycode": null,
+      "keycode": 106,
       "unity": "KeypadMultiply"
     },
     {
       "name": "NumpadSub",
       "ahk": "NumpadSub",
-      "keycode": null,
+      "keycode": 109,
       "unity": "KeypadMinus"
     },
     {
       "name": "NumpadAdd",
       "ahk": "NumpadAdd",
-      "keycode": null,
+      "keycode": 107,
       "unity": "KeypadPlus"
     },
     {
       "name": "NumpadEnter",
       "ahk": "NumpadEnter",
-      "keycode": null,
+      "keycode": 13,
       "unity": "KeypadEnter"
     },
     {
@@ -108,7 +108,7 @@
     {
       "name": "RControl",
       "ahk": "RControl",
-      "keycode": null,
+      "keycode": 17,
       "unity": "RightControl"
     },
     {
@@ -138,37 +138,37 @@
     {
       "name": "Delete",
       "ahk": "Delete",
-      "keycode": null,
+      "keycode": 46,
       "unity": "Delete"
     },
     {
       "name": "Insert",
       "ahk": "Insert",
-      "keycode": null,
+      "keycode": 45,
       "unity": "Insert"
     },
     {
       "name": "Home",
       "ahk": "Home",
-      "keycode": null,
+      "keycode": 36,
       "unity": "Home"
     },
     {
       "name": "End",
       "ahk": "End",
-      "keycode": null,
+      "keycode": 35,
       "unity": "End"
     },
     {
       "name": "PgUp",
       "ahk": "PgUp",
-      "keycode": null,
+      "keycode": 33,
       "unity": "PageUp"
     },
     {
       "name": "PgDn",
       "ahk": "PgDn",
-      "keycode": null,
+      "keycode": 34,
       "unity": "PageDown"
     },
     {
