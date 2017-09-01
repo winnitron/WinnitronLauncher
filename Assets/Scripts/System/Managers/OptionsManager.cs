@@ -55,8 +55,14 @@ public class KeyBindings {
 
 
     public void SetKey(int playerNum, string control, KeyCode key) {
+       
         try {
+            if (keymap[playerNum - 1][control] == key) {
+                return; // nothing to do here.
+            }
+
             if (allKeys().Contains(key)) {
+                Debug.Log("Duplicate key found: " + key);
                 GM.Oops(GM.Text("error", "invalidKeymap"), true);
             }
         } catch (KeyNotFoundException) {
