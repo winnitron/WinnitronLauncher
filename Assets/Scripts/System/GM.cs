@@ -44,6 +44,11 @@ public class GM : Singleton<GM> {
     }
 
 
+    void OnApplicationQuit()
+    {
+        File.Delete(PidFile());
+    }
+
     /// <summary>
     /// Causes an Oops screen to appear.  This function calls the real Oops in StateManager.cs
     /// </summary>
@@ -78,16 +83,12 @@ public class GM : Singleton<GM> {
     }
 
     private void writeProcessInfo() {
-        string drive = Environment.GetEnvironmentVariable("HOMEDRIVE");
-        string path = Environment.GetEnvironmentVariable("HOMEPATH");
-        string pidFile = Path.Combine(Path.Combine(drive, path), "winnitron.pid");
-
         string info = System.Diagnostics.Process.GetCurrentProcess().Id +
                       "\n" +
                       Path.Combine(Path.GetFullPath("."), "WINNITRON.exe");
 
-        Debug.Log("writing pid and exe path to " + pidFile);
-        File.WriteAllText(pidFile, info);
+        Debug.Log("writing pid and exe path to " + PidFile());
+        File.WriteAllText(PidFile(), info);
     }
 
 
@@ -107,9 +108,21 @@ public class GM : Singleton<GM> {
         Screen.fullScreen = true;
     }
 
+    public static string PidFile() {
+        string drive = Environment.GetEnvironmentVariable("HOMEDRIVE");
+        string path = Environment.GetEnvironmentVariable("HOMEPATH");
+
+        return Path.Combine(Path.Combine(drive, path), "winnitron.pid");
+    }
+
     #else
 
     public static void ResetScreen() {
+    }
+
+    public static string PidFile() {
+        string path = Environment.GetEnvironmentVariable("HOME");
+        return Path.Combine(path, "winnitron.pid");
     }
 
     #endif
