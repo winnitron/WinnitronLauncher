@@ -78,11 +78,16 @@ public class GM : Singleton<GM> {
     }
 
     private void writeProcessInfo() {
+        string drive = Environment.GetEnvironmentVariable("HOMEDRIVE");
+        string path = Environment.GetEnvironmentVariable("HOMEPATH");
+        string pidFile = Path.Combine(Path.Combine(drive, path), "winnitron.pid");
+
         string info = System.Diagnostics.Process.GetCurrentProcess().Id +
                       "\n" +
                       Path.Combine(Path.GetFullPath("."), "WINNITRON.exe");
 
-        File.WriteAllText(PID_FILE, info);
+        Debug.Log("writing pid and exe path to " + pidFile);
+        File.WriteAllText(pidFile, info);
     }
 
 
@@ -96,8 +101,6 @@ public class GM : Singleton<GM> {
     [DllImport("user32.dll", EntryPoint = "SetWindowLong")]
     public static extern long SetWindowLong(long hwnd, long nIndex, long dwNewLong);
 
-    public const string PID_FILE = "C:/winnitron.pid";
-
     public static void ResetScreen() {
         SetWindowLong(FindWindow(null, Application.productName).ToInt32(), -16L, 0x00800000L);
         SetWindowPos(FindWindow(null, Application.productName), 0, 0, 0, Screen.currentResolution.width, Screen.currentResolution.height, 0x0020);
@@ -105,8 +108,6 @@ public class GM : Singleton<GM> {
     }
 
     #else
-
-    public const string PID_FILE = "/tmp/winnitron.pid";
 
     public static void ResetScreen() {
     }
