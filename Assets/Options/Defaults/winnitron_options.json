@@ -35,7 +35,8 @@
     }
   },
   "logger": {
-    "token": ""
+    "token": "YOUR LOGGLY API KEY HERE (optional)",
+    "level": "info"
   },
   "keycodes": {
     "player1": {

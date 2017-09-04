@@ -158,11 +158,33 @@ public class OptionsManager : MonoBehaviour {
 
         //Load that JSON
         GM.logger.Info("Loading options from " + optionsFile);
-        GM.logger.Info("Options file exists: " + System.IO.File.Exists(optionsFile));
+        GM.logger.Debug("Options file exists: " + System.IO.File.Exists(optionsFile));
 
         if (System.IO.File.Exists(optionsFile))
         {
             O = GM.data.LoadJson(optionsFile);
+
+            logger = O["logger"];
+            switch(logger["level"]) {
+                case "debug":
+                    Logger.logLevel = Logger.LogLevels.Debug;
+                    break;
+                case "info":
+                case null:
+                    Logger.logLevel = Logger.LogLevels.Info;
+                    break;
+                case "warn":
+                    Logger.logLevel = Logger.LogLevels.Warn;
+                    break;
+                case "error":
+                    Logger.logLevel = Logger.LogLevels.Error;
+                    break;
+                default:
+                    Logger.logLevel = Logger.LogLevels.Info;
+                    GM.logger.Warn("Invalid log level '" + logger["level"] + "'. Setting to default 'info'. Valid values are 'debug', 'info', 'warn', 'error'.");
+                    break;
+            }
+
             SetKeys();
 
             //Launcher Settings
@@ -204,8 +226,6 @@ public class OptionsManager : MonoBehaviour {
             GM.logger.Info(this, "OPTIONS: Time to Update is " + GM.sync.timeToUpdate.ToString());
 
             GM.sync.syncOnStartup = O["sync"]["syncOnStartup"].AsBool;
-
-            logger = O["logger"];
 
             // Tell GM that Options is done with all the Init stuff
             initializing = false;

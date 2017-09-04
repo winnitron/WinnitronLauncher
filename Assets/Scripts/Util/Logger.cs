@@ -7,7 +7,7 @@ public class Logger: MonoBehaviour {
 
     public enum LogLevels { Debug, Info, Warn, Error }
 
-    public static int logLevel = (int) LogLevels.Info;
+    public static LogLevels logLevel = LogLevels.Info;
 
     public bool globalOn = false;
     public bool showNull = false;
@@ -18,7 +18,7 @@ public class Logger: MonoBehaviour {
 
     public void Log(string msg, LogLevels msgLevel)
     {
-        if ((int) msgLevel < logLevel)
+        if ((int) msgLevel < (int) logLevel)
             return;
 
         if (showTimestamps) {
