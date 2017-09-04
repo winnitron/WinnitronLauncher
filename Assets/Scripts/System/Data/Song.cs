@@ -10,7 +10,7 @@ public class Song
 	public AudioClip clip;
 
 	public Song(string name, string author, AudioClip clip) {
-		GM.dbug.Info(null, "Creating New Song!");
+		GM.logger.Info(null, "Creating New Song!");
 		this.name = name;
 		this.author = author;
 		this.clip = clip;

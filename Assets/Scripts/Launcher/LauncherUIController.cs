@@ -43,14 +43,14 @@ public class LauncherUIController : MonoBehaviour
         //Hook in the UpdateData function to the DataManager's
         //Update data function so we always get the data at the
         //right time
-        GM.dbug.Info(this, "LauncherUIController: Hooking in OnDataUpdated delegate");
+        GM.logger.Info(this, "LauncherUIController: Hooking in OnDataUpdated delegate");
         GM.data.OnDataUpdated += UpdateData;
     }
 
     void UpdateData()
     {
         //Called when the DataManager finishes updating the data model
-        GM.dbug.Info(this, "LauncherUIController: Updating Data!");
+        GM.logger.Info(this, "LauncherUIController: Updating Data!");
         playlistData = GM.data.playlists;
         BuildPlaylists();
     }

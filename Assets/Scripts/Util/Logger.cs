@@ -3,11 +3,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Dbug: MonoBehaviour {
+public class Logger: MonoBehaviour {
 
     public enum LogLevels { Debug, Info, Warn, Error }
 
-    public int logLevel = (int) LogLevels.Debug;
+    public static int logLevel = (int) LogLevels.Info;
 
     public bool globalOn = false;
     public bool showNull = false;

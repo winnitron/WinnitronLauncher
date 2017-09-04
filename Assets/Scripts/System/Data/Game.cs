@@ -42,13 +42,13 @@ public class Game
     /// Builds a game from scratch using only what it can find in the directory.
     /// </summary>
     private void BuildGame() {
-        GM.dbug.Warn("GAME: No JSON!  Determining game...");
+        GM.logger.Warn("GAME: No JSON!  Determining game...");
 
         if (DetermineGameType()) {
             this.name = GetGameNameFromFolderName();
             this.screenshot = GetScreenshot();
         } else {
-            GM.dbug.Error("GAME: Could not determine game type.  Voiding game " + directory);
+            GM.logger.Error("GAME: Could not determine game type.  Voiding game " + directory);
             voidGame = true;
         }
     }
@@ -90,7 +90,7 @@ public class Game
                 break;
         }
 
-        GM.dbug.Info(null, "Game Built JSON! Name: " + name + " Screenshot: " + screenshot.name + " exe path: " + executable);
+        GM.logger.Info(null, "Game Built JSON! Name: " + name + " Screenshot: " + screenshot.name + " exe path: " + executable);
     }
 
 
@@ -104,17 +104,17 @@ public class Game
 
         if (Directory.GetFiles(this.directory.ToString(), "*.png").Length > 0)
         {
-            GM.dbug.Info("GAME: Loading custom screenshot " + Directory.GetFiles(this.directory.ToString(), "*.png")[0]);
+            GM.logger.Info("GAME: Loading custom screenshot " + Directory.GetFiles(this.directory.ToString(), "*.png")[0]);
             screenshotTex.LoadImage(File.ReadAllBytes(Directory.GetFiles(directory.FullName + Path.DirectorySeparatorChar, "*.png")[0]));
         }
         else if (gameType == GameType.PICO8)
         {
-            GM.dbug.Info("GAME: Loading default PICO8 screenshot ");
+            GM.logger.Info("GAME: Loading default PICO8 screenshot ");
             screenshotTex = Resources.Load<Texture2D>("default_images/pico8") as Texture2D;
         }
         else
         {
-            GM.dbug.Info("GAME: Loading default screenshot");
+            GM.logger.Info("GAME: Loading default screenshot");
             screenshotTex = Resources.Load<Texture2D>("default_images/exe") as Texture2D;
         }
 
@@ -146,13 +146,13 @@ public class Game
         if (Directory.GetFiles(this.directory.ToString(), "*.html").Length == 1)
         {
             executable = Directory.GetFiles(this.directory.ToString(), "*.html")[0];
-            GM.dbug.Info("Determined PICO8! " + executable);
+            GM.logger.Info("Determined PICO8! " + executable);
             gameType = GameType.PICO8;
             return true;
         }
         else if (Directory.GetFiles(this.directory.ToString(), "*.exe").Length == 1)
         {
-            GM.dbug.Info("Determined EXE!");
+            GM.logger.Info("Determined EXE!");
             executable = Directory.GetFiles(this.directory.ToString(), "*.exe")[0];
             gameType = GameType.EXE;
             return true;
@@ -168,7 +168,7 @@ public class Game
     /// and put them in the same folder as the game.
     /// </summary>
     public void BuildHelperScripts() {
-        GM.dbug.Info("GAME: Create scripts for game " + name);
+        GM.logger.Info("GAME: Create scripts for game " + name);
 
         string newAHKfile = "";
         string execFile = Path.GetFileName(executable);
@@ -240,7 +240,7 @@ public class Game
             string source = Path.Combine(directory.ToString(), "Pico8Launcher.js");
             string dest   = Path.Combine(GM.options.dataPath, "Options/Pico8/Pico8Launcher.js");
 
-            GM.dbug.Info("GAME: PreRun copying " + source + " to " + dest);
+            GM.logger.Info("GAME: PreRun copying " + source + " to " + dest);
             File.Copy(source, dest, true);
         }
     }
@@ -286,6 +286,6 @@ public class Game
 
         File.Delete(file);
         System.IO.File.WriteAllText(file, text);
-        GM.dbug.Info("GAME: Writing file " + file);
+        GM.logger.Info("GAME: Writing file " + file);
     }
 }

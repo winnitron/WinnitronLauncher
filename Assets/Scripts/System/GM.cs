@@ -14,7 +14,7 @@ public class GM : Singleton<GM> {
     public static DataManager data;
     public static OptionsManager options;
     public static StateManager state;
-    public static Dbug dbug;
+    public static Logger logger;
     public static GameSync sync;
     public static LogOutputHandler logOutput;
 
@@ -27,12 +27,12 @@ public class GM : Singleton<GM> {
         data = GetComponent<DataManager> ();
         options = GetComponent<OptionsManager> ();
         state = GetComponent<StateManager> ();
-        dbug = GetComponent<Dbug>();
+        logger = GetComponent<Logger>();
         sync = GetComponent<GameSync>();
         logOutput = GetComponent<LogOutputHandler>();
 
         VersionNumber = versionNumber;
-        GM.dbug.Info("#####  VERSION " + versionNumber + " #####");
+        GM.logger.Info("#####  VERSION " + versionNumber + " #####");
         writeProcessInfo();
 
         //Not 100% sure why the jukebox is here. :S
@@ -87,7 +87,7 @@ public class GM : Singleton<GM> {
                       "\n" +
                       Path.Combine(Path.GetFullPath("."), "WINNITRON.exe");
 
-        GM.dbug.Debug("writing pid and exe path to " + PidFile());
+        GM.logger.Debug("writing pid and exe path to " + PidFile());
         File.WriteAllText(PidFile(), info);
     }
 

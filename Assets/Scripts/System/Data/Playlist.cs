@@ -23,7 +23,7 @@ public class Playlist
 
         name = this.directory.Name;
 
-        GM.dbug.Debug("Playlist: Name before fixes " + name);
+        GM.logger.Debug("Playlist: Name before fixes " + name);
 
         name = name.TrimStart('_');
         name = name.Replace('_', ' ').Replace('-', ' ');
@@ -31,7 +31,7 @@ public class Playlist
         //Replace the underscores for a cleaner name
         name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name);
 
-        GM.dbug.Debug("Playlist: Name after fixes " + name);
+        GM.logger.Debug("Playlist: Name after fixes " + name);
 
         //Init the games list
         this.games = new List<Game>();
@@ -63,7 +63,7 @@ public class Playlist
 			}
 		}
 
-		GM.dbug.Info(null, "Playlist Built! : " + name);
+		GM.logger.Info(null, "Playlist Built! : " + name);
 	}
 
 	public void BuildPlaylistJSON()

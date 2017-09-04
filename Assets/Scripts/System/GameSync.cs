@@ -59,7 +59,7 @@ public class GameSync : MonoBehaviour {
     {
         if (syncType != SyncType.NONE)
         {
-            GM.dbug.Info(this, "GameSync: Running Sync...");
+            GM.logger.Info(this, "GameSync: Running Sync...");
             SyncText("INITIALIZING SYNC!");
 
             initConfig();
@@ -69,7 +69,7 @@ public class GameSync : MonoBehaviour {
 
         else
         {
-            GM.dbug.Info(this, "GameSync: Skipping Sync...");
+            GM.logger.Info(this, "GameSync: Skipping Sync...");
             EndSync();
         }
     }
@@ -88,7 +88,7 @@ public class GameSync : MonoBehaviour {
         yield return www;
 
         if (www.error == null) {
-            GM.dbug.Info(this, "fetched playlists: " + www.text);
+            GM.logger.Info(this, "fetched playlists: " + www.text);
             var data = JSON.Parse(www.text);
             foreach (JSONNode playlist_data in data["playlists"].AsArray) {
                 playlists.Add(new Playlist(playlist_data, games_dir));
@@ -98,7 +98,7 @@ public class GameSync : MonoBehaviour {
             SluggedItem.deleteExtraDirectories(games_dir, playlists);
 
             foreach(Playlist playlist in playlists) {
-                GM.dbug.Info(this, "creating " + playlist.parentDirectory);
+                GM.logger.Info(this, "creating " + playlist.parentDirectory);
 
                 SyncText("Initializing playlist " + playlist.title);
 
@@ -110,7 +110,7 @@ public class GameSync : MonoBehaviour {
                 // since the last sync.
                 ArrayList gamesToDownload = playlist.gamesToDownload();
                 foreach (Game game in gamesToDownload) {
-                    GM.dbug.Info(this, "Downloading: " + game.title);
+                    GM.logger.Info(this, "Downloading: " + game.title);
 
                     //Start the downloadin'!
 
@@ -129,7 +129,7 @@ public class GameSync : MonoBehaviour {
                     if (!string.IsNullOrEmpty(download.error))
                     {
                         // error!
-                        GM.dbug.Error("Error downloading '" + download.url + "': " + download.error);
+                        GM.logger.Error("Error downloading '" + download.url + "': " + download.error);
                         yield return SyncText("Error downloading " + game.title + "!", 3);
                     }
                     else
@@ -175,7 +175,7 @@ public class GameSync : MonoBehaviour {
             EndSync();
 
         } else {
-            GM.dbug.Error("Error fetching playlists: " + www.error);
+            GM.logger.Error("Error fetching playlists: " + www.error);
             GM.Oops(GM.options.GetText("error", "fetchPlaylistError"));
         }
     }
@@ -187,7 +187,7 @@ public class GameSync : MonoBehaviour {
     private void EndSync()
     {
         lastUpdate = DateTime.Now;
-        GM.dbug.Info(this, "GameSync: Sync complete at " + lastUpdate.ToString());
+        GM.logger.Info(this, "GameSync: Sync complete at " + lastUpdate.ToString());
 
         //Just double check the the proper data is loaded
         GM.data.ReloadData();
@@ -244,7 +244,7 @@ public class GameSync : MonoBehaviour {
                 string directory = new DirectoryInfo(dirFullPath).Name;
 
                 if (SluggedItem.directoryIsDeletable(directory, keepers)) {
-                    GM.dbug.Info("deleting " + dirFullPath);
+                    GM.logger.Info("deleting " + dirFullPath);
                     Directory.Delete(dirFullPath, true);
                 }
             }
@@ -282,7 +282,7 @@ public class GameSync : MonoBehaviour {
         }
 
         public ArrayList gamesToDownload() {
-            GM.dbug.Info("Syncing games for playlist '" + title + "'");
+            GM.logger.Info("Syncing games for playlist '" + title + "'");
 
 
             ArrayList toInstall = new ArrayList();
@@ -294,7 +294,7 @@ public class GameSync : MonoBehaviour {
                 }
 
                 if (!game.alreadyInstalled() || game.lastModified > installModified) {
-                    GM.dbug.Info("Gonna install " + game.title);
+                    GM.logger.Info("Gonna install " + game.title);
                     toInstall.Add(game);
                 }
             }
