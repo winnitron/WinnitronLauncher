@@ -28,7 +28,7 @@ public class DataManager : Singleton<DataManager>  {
         //Call the delegate and all methods hooked in
         //Primarily used in LauncherUIController.cs to update the data model
         //But could be used elsewhere
-        GM.dbug.Log(this, "DataManager: finished updating data.");
+        GM.logger.Info(this, "DataManager: finished updating data.");
 
         OnDataUpdated();
 	}
@@ -61,16 +61,16 @@ public class DataManager : Singleton<DataManager>  {
         var info = new DirectoryInfo(GM.options.musicPath);
         var songFiles = info.GetFiles();
 
-        GM.dbug.Log(this, "JUKEBOX: Started Loading Song Files.");
+        GM.logger.Info(this, "JUKEBOX: Started Loading Song Files.");
 
         foreach (var song in songFiles)
         {
             var fileExt = song.FullName.Substring(Mathf.Max(0, song.FullName.Length - 4));
-            GM.dbug.Log(this, "JUKEBOX: song extension is " + fileExt);
+            GM.logger.Info(this, "JUKEBOX: song extension is " + fileExt);
 
             if (song.Name.Substring(0, 1) != "." && fileExt == ".ogg")
             {
-                GM.dbug.Log(this, "JUKEBOX: Started loading " + song.FullName);
+                GM.logger.Info(this, "JUKEBOX: Started loading " + song.FullName);
 
                 WWW audioLoader = new WWW("file://" + song.FullName);
 
@@ -88,13 +88,13 @@ public class DataManager : Singleton<DataManager>  {
                 var author = words[1];
 
                 //We're done!
-                GM.dbug.Log(this, "JUKEBOX: Can load song: " + audioLoader.GetAudioClip(false));
+                GM.logger.Info(this, "JUKEBOX: Can load song: " + audioLoader.GetAudioClip(false));
                 songs.Add(new Song(name, author, audioLoader.GetAudioClip(false)));
-                GM.dbug.Log(this, "JUKEBOX: Done loading " + song.FullName);
+                GM.logger.Info(this, "JUKEBOX: Done loading " + song.FullName);
             }
             else
             {
-                GM.dbug.Log(this, "JUKEBOX: Skipped " + song.FullName + " // not an .ogg");
+                GM.logger.Warn(this, "JUKEBOX: Skipped " + song.FullName + " // not an .ogg");
             }
         }
     }
@@ -114,7 +114,7 @@ public class DataManager : Singleton<DataManager>  {
 		}
 		catch
 		{
-			Debug.Log("Error loading JSON file: " + fileLocation);
+			GM.logger.Error("Error loading JSON file: " + fileLocation);
 			GM.Oops (GM.Text("error", "cannotFindJson"));
 			return null;
 		}

@@ -14,26 +14,26 @@ public class GM : Singleton<GM> {
     public static DataManager data;
     public static OptionsManager options;
     public static StateManager state;
-    public static Dbug dbug;
+    public static Logger logger;
     public static GameSync sync;
     public static LogOutputHandler logOutput;
 
     public static Jukebox jukebox;
 
     new void Awake() {
-        VersionNumber = versionNumber;
-        Debug.Log("#####  VERSION " + versionNumber + " #####");
-        writeProcessInfo();
-
         Cursor.visible = false;
 
         runner = GetComponent<Runner>();
         data = GetComponent<DataManager> ();
         options = GetComponent<OptionsManager> ();
         state = GetComponent<StateManager> ();
-        dbug = GetComponent<Dbug>();
+        logger = GetComponent<Logger>();
         sync = GetComponent<GameSync>();
         logOutput = GetComponent<LogOutputHandler>();
+
+        VersionNumber = versionNumber;
+        GM.logger.Info("#####  VERSION " + versionNumber + " #####");
+        writeProcessInfo();
 
         //Not 100% sure why the jukebox is here. :S
         if (GameObject.Find("Jukebox"))
@@ -87,7 +87,7 @@ public class GM : Singleton<GM> {
                       "\n" +
                       Path.Combine(Path.GetFullPath("."), "WINNITRON.exe");
 
-        Debug.Log("writing pid and exe path to " + PidFile());
+        GM.logger.Debug("writing pid and exe path to " + PidFile());
         File.WriteAllText(PidFile(), info);
     }
 

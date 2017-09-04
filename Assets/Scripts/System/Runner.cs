@@ -19,18 +19,15 @@ public class Runner : MonoBehaviour {
         //Store the legacyController in the Awake
         gameRunner = new Process();
         gameRunner.StartInfo.FileName = rungame;
-        GM.dbug.Log(this, "gameRunner path " + gameRunner.StartInfo.FileName);
+        GM.logger.Info(this, "gameRunner path " + gameRunner.StartInfo.FileName);
 
         if(gameRunner == null)
             GM.Oops(GM.Text("error", "noLegacyControlExe"));
     }
 
-
-
-
 	public void Run(Game game) {
 
-        GM.dbug.Log(this, "Running Game " + game.name);
+        GM.logger.Info(this, "Running Game: " + game.name);
 
         LoadAHKScript(game);
         game.PreRun();
@@ -46,13 +43,13 @@ public class Runner : MonoBehaviour {
 
 		yield return new WaitForSeconds(1.0f);
 
-        GM.dbug.Log(this, "RUNNER: Running game " + process.StartInfo.FileName);
+        // GM.logger.Info(this, "RUNNER: Running game " + process.StartInfo.FileName);
 
         process.Start();
         process.WaitForExit();
         process.Close();
 
-        GM.dbug.Log(this, "RUNNER: Finished running game " + process.StartInfo.FileName);
+        GM.logger.Info(this, "RUNNER: Finished running game " + process.StartInfo.FileName);
 
         GM.Restart();
 	}
