@@ -55,14 +55,14 @@ public class KeyBindings {
 
 
     public void SetKey(int playerNum, string control, KeyCode key) {
-       
+
         try {
             if (keymap[playerNum - 1][control] == key) {
                 return; // nothing to do here.
             }
 
             if (allKeys().Contains(key)) {
-                Debug.Log("Duplicate key found: " + key);
+                GM.dbug.Error("Duplicate key found: " + key);
                 GM.Oops(GM.Text("error", "invalidKeymap"), true);
             }
         } catch (KeyNotFoundException) {
@@ -139,11 +139,11 @@ public class OptionsManager : MonoBehaviour {
         optionsPath = defaultOptionsPath;
         keyTranslator = new KeyTranslator(defaultOptionsPath);
 
-        Debug.Log("DEFAULT OPTIONS PATH:" + optionsPath);
+        GM.dbug.Info("DEFAULT OPTIONS PATH:" + optionsPath);
 
         // Figure out where the Options are by reading the .json in Options file
         string userdataFile = Path.Combine(optionsPath, "winnitron_userdata_path.json");
-        Debug.Log("reading userdata location from " + userdataFile);
+        GM.dbug.Info("reading userdata location from " + userdataFile);
         if (System.IO.File.Exists(userdataFile))
         {
             dataPath = GM.data.LoadJson(userdataFile)["userDataPath"];
@@ -151,14 +151,14 @@ public class OptionsManager : MonoBehaviour {
             GM.Oops(GM.Text("error", "cannotFindUserDataPathJson"), true);
         }
 
-        Debug.Log("DATA PATH:" + dataPath);
+        GM.dbug.Info("DATA PATH:" + dataPath);
         optionsPath = Path.Combine(dataPath, "Options");
-        Debug.Log("CONFIGURED OPTIONS PATH:" + optionsPath);
+        GM.dbug.Info("CONFIGURED OPTIONS PATH:" + optionsPath);
         string optionsFile = Path.Combine(optionsPath, "winnitron_options.json");
 
         //Load that JSON
-        Debug.Log("Loading options from " + optionsFile);
-        Debug.Log("Options file exists: " + System.IO.File.Exists(optionsFile));
+        GM.dbug.Info("Loading options from " + optionsFile);
+        GM.dbug.Info("Options file exists: " + System.IO.File.Exists(optionsFile));
 
         if (System.IO.File.Exists(optionsFile))
         {
@@ -166,7 +166,7 @@ public class OptionsManager : MonoBehaviour {
             SetKeys();
 
             //Launcher Settings
-            GM.dbug.Log(this, "O:" + O.ToString());
+            GM.dbug.Info(this, "OPTIONS:" + O.ToString());
             if (O["launcher"]["widescreen"] != null) widescreen = O["launcher"]["widescreen"].AsBool;
             if (O["launcher"]["idleTimeBeforeAttract"] != null) launcherIdleTimeBeforeAttract = O["launcher"]["idleTimeBeforeAttract"].AsInt;
 
@@ -184,14 +184,14 @@ public class OptionsManager : MonoBehaviour {
             if (O["launcher"]["language"] != null)
             {
                 string langFile = Path.Combine(optionsPath, "winnitron_text_" + O["launcher"]["language"] + ".json");
-                GM.dbug.Log(this, "LANGUAGE FILE: " + langFile);
+                GM.dbug.Info(this, "LANGUAGE FILE: " + langFile);
                 language = GM.data.LoadJson(langFile);
             }
 
             //Sync Options
             var mode = O["sync"]["type"].Value.ToLower();
 
-            GM.dbug.Log(this, "SYNCMODE " + mode);
+            GM.dbug.Info(this, "SYNCMODE " + mode);
 
             if (mode == "local" || mode == "localonly" || mode == "none")
                 GM.sync.syncType = GameSync.SyncType.NONE;
@@ -201,7 +201,7 @@ public class OptionsManager : MonoBehaviour {
                 GM.sync.syncType = GameSync.SyncType.ALWAYS;
 
             GM.sync.timeToUpdate = new TimeSpan(O["sync"]["dailySyncTime"]["hour"].AsInt, O["sync"]["dailySyncTime"]["minute"].AsInt, 0);
-            GM.dbug.Log(this, "OPTIONS: Time to Update is " + GM.sync.timeToUpdate.ToString());
+            GM.dbug.Info(this, "OPTIONS: Time to Update is " + GM.sync.timeToUpdate.ToString());
 
             GM.sync.syncOnStartup = O["sync"]["syncOnStartup"].AsBool;
 
@@ -235,7 +235,7 @@ public class OptionsManager : MonoBehaviour {
         if (path.ToString().Contains("default"))
             path = Path.Combine(dataPath, dirName);
 
-        GM.dbug.Log(this, "OPTIONS: " + dirName + " path is " + path);
+        GM.dbug.Info(this, "OPTIONS: " + dirName + " path is " + path);
 
         if (!Directory.Exists(path))
         {
@@ -260,7 +260,7 @@ public class OptionsManager : MonoBehaviour {
                 if (player[control] != null) {
                     KeyCode customKey = keyTranslator.fromAHK(player[control]);
                     keys.SetKey(pNum, control, customKey);
-                    Debug.Log("CUSTOM KEY (player " + pNum + " " + control + "): " + customKey);
+                    GM.dbug.Debug("CUSTOM KEY (player " + pNum + " " + control + "): " + customKey);
                 }
             }
         }

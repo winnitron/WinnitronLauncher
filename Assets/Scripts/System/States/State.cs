@@ -24,13 +24,13 @@ public class State : MonoBehaviour {
 		foreach(GameObject gameObject in objectsToToggleOnForState) gameObject.SetActive(false);
 		foreach(GameObject gameObject in objectsToToggleOffForState) gameObject.SetActive(true);
 		foreach(Animation anim in animationsToRewind) {
-			GM.dbug.Log(this, anim + " " + gameObject.name);
+			GM.dbug.Debug(this, anim + " " + gameObject.name);
 			anim.Stop();
 			anim.Rewind();
-			GM.dbug.Log(this, "rewinding: " + anim.name);
+			GM.dbug.Debug(this, "rewinding: " + anim.name);
 		}
 		foreach (Canvas canvas in canvasesToToggleActivation) {
-			GM.dbug.Log(this, "deactivating: " + canvas.name);
+			GM.dbug.Debug(this, "deactivating: " + canvas.name);
 			canvas.enabled = false;
 		}
 	}

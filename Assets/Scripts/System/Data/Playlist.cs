@@ -12,18 +12,18 @@ public class Playlist
 
 	/*
 	 *  Playlist Constructor
-	 * 
-	 *  Playlist only takes in the directory that the DataManager hands it 
+	 *
+	 *  Playlist only takes in the directory that the DataManager hands it
 	 *  and builds everything from there
 	 */
-	public Playlist(string directory) 
+	public Playlist(string directory)
 	{
 		//Find out the name of the directory
 		this.directory = new DirectoryInfo(directory);
 
         name = this.directory.Name;
 
-        Debug.Log("Playlist: Name before fixes " + name);
+        GM.dbug.Debug("Playlist: Name before fixes " + name);
 
         name = name.TrimStart('_');
         name = name.Replace('_', ' ').Replace('-', ' ');
@@ -31,7 +31,7 @@ public class Playlist
         //Replace the underscores for a cleaner name
         name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name);
 
-        Debug.Log("Playlist: Name after fixes " + name);
+        GM.dbug.Debug("Playlist: Name after fixes " + name);
 
         //Init the games list
         this.games = new List<Game>();
@@ -49,21 +49,21 @@ public class Playlist
 
 	//Where the magic happens
 	public void BuildPlaylist()
-	{	
-		foreach (var gameDir in directory.GetDirectories()) 
+	{
+		foreach (var gameDir in directory.GetDirectories())
 		{
 			//Don't pick any directories that start with a dot
-			if(!gameDir.Name.Substring(0, 1).Equals(".")) 
+			if(!gameDir.Name.Substring(0, 1).Equals("."))
 			{
-				//Make a new game                
+				//Make a new game
 				Game newGame = new Game(gameDir.FullName);
 
 				//Add a game!  Pass the Game constructor the directory where the game is contained
 				games.Add(newGame);
 			}
-		}   
+		}
 
-		GM.dbug.Log(null, "Playlist Built! : " + name);
+		GM.dbug.Info(null, "Playlist Built! : " + name);
 	}
 
 	public void BuildPlaylistJSON()

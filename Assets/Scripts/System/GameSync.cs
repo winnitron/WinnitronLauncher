@@ -59,7 +59,7 @@ public class GameSync : MonoBehaviour {
     {
         if (syncType != SyncType.NONE)
         {
-            GM.dbug.Log(this, "GameSync: Running Sync...");
+            GM.dbug.Info(this, "GameSync: Running Sync...");
             SyncText("INITIALIZING SYNC!");
 
             initConfig();
@@ -69,7 +69,7 @@ public class GameSync : MonoBehaviour {
 
         else
         {
-            GM.dbug.Log(this, "GameSync: Skipping Sync...");
+            GM.dbug.Info(this, "GameSync: Skipping Sync...");
             EndSync();
         }
     }
@@ -88,7 +88,7 @@ public class GameSync : MonoBehaviour {
         yield return www;
 
         if (www.error == null) {
-            GM.dbug.Log(this, "fetched playlists: " + www.text);
+            GM.dbug.Info(this, "fetched playlists: " + www.text);
             var data = JSON.Parse(www.text);
             foreach (JSONNode playlist_data in data["playlists"].AsArray) {
                 playlists.Add(new Playlist(playlist_data, games_dir));
@@ -98,7 +98,7 @@ public class GameSync : MonoBehaviour {
             SluggedItem.deleteExtraDirectories(games_dir, playlists);
 
             foreach(Playlist playlist in playlists) {
-                GM.dbug.Log(this, "creating " + playlist.parentDirectory);
+                GM.dbug.Info(this, "creating " + playlist.parentDirectory);
 
                 SyncText("Initializing playlist " + playlist.title);
 
@@ -110,7 +110,7 @@ public class GameSync : MonoBehaviour {
                 // since the last sync.
                 ArrayList gamesToDownload = playlist.gamesToDownload();
                 foreach (Game game in gamesToDownload) {
-                    GM.dbug.Log(this, "Downloading: " + game.title);
+                    GM.dbug.Info(this, "Downloading: " + game.title);
 
                     //Start the downloadin'!
 
@@ -129,7 +129,7 @@ public class GameSync : MonoBehaviour {
                     if (!string.IsNullOrEmpty(download.error))
                     {
                         // error!
-                        Debug.LogError("Error downloading '" + download.url + "': " + download.error);
+                        GM.dbug.Error("Error downloading '" + download.url + "': " + download.error);
                         yield return SyncText("Error downloading " + game.title + "!", 3);
                     }
                     else
@@ -175,7 +175,7 @@ public class GameSync : MonoBehaviour {
             EndSync();
 
         } else {
-            Debug.LogError("Error fetching playlists: " + www.error);
+            GM.dbug.Error("Error fetching playlists: " + www.error);
             GM.Oops(GM.options.GetText("error", "fetchPlaylistError"));
         }
     }
@@ -187,7 +187,7 @@ public class GameSync : MonoBehaviour {
     private void EndSync()
     {
         lastUpdate = DateTime.Now;
-        GM.dbug.Log(this, "GameSync: Sync complete at " + lastUpdate.ToString());
+        GM.dbug.Info(this, "GameSync: Sync complete at " + lastUpdate.ToString());
 
         //Just double check the the proper data is loaded
         GM.data.ReloadData();
@@ -243,10 +243,8 @@ public class GameSync : MonoBehaviour {
             foreach (string dirFullPath in installed) {
                 string directory = new DirectoryInfo(dirFullPath).Name;
 
-                //Debug.Log("checking " + directory + " for deletion...");
-
                 if (SluggedItem.directoryIsDeletable(directory, keepers)) {
-                    Debug.Log("deleting " + dirFullPath);
+                    GM.dbug.Info("deleting " + dirFullPath);
                     Directory.Delete(dirFullPath, true);
                 }
             }
@@ -284,7 +282,7 @@ public class GameSync : MonoBehaviour {
         }
 
         public ArrayList gamesToDownload() {
-            Debug.Log("Syncing games for playlist '" + title + "'");
+            GM.dbug.Info("Syncing games for playlist '" + title + "'");
 
 
             ArrayList toInstall = new ArrayList();
@@ -296,7 +294,7 @@ public class GameSync : MonoBehaviour {
                 }
 
                 if (!game.alreadyInstalled() || game.lastModified > installModified) {
-                    Debug.Log("Gonna install " + game.title);
+                    GM.dbug.Info("Gonna install " + game.title);
                     toInstall.Add(game);
                 }
             }
@@ -348,7 +346,6 @@ public class GameSync : MonoBehaviour {
 
 
         public bool alreadyInstalled() {
-            //Debug.Log("checking for installation: " + installDirectory);
             return File.Exists(Path.Combine(installDirectory, "winnitron_metadata.json"));
         }
 
@@ -369,7 +366,6 @@ public class GameSync : MonoBehaviour {
             installationMetadata.Add("keys", keymap);
 
             string filename = Path.Combine(installDirectory, "winnitron_metadata.json");
-            // Debug.Log("writing to " + filename + ": " + installationMetadata.ToString());
             System.IO.File.WriteAllText(filename, installationMetadata.ToString());
         }
     }

@@ -4,28 +4,73 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Dbug: MonoBehaviour {
-	
-	public bool globalOn = false;
+
+    public enum LogLevels { Debug, Info, Warn, Error }
+
+    public int logLevel = (int) LogLevels.Debug;
+
+    public bool globalOn = false;
     public bool showNull = false;
     public bool showTimestamps = true;
 
     public List<UnityEngine.Object> supress;
     public List<UnityEngine.Object> show;
 
-    public void Log(string x)
+    public void Log(string msg, LogLevels msgLevel)
     {
-        if (showTimestamps) Debug.Log(DateTime.Now.ToLocalTime().ToString() + " -- " + x);
-        else Debug.Log(x);
+        if ((int) msgLevel < logLevel)
+            return;
+
+        if (showTimestamps) {
+            string timestamp = DateTime.Now.ToLocalTime().ToString();
+            msg = timestamp + " -- " + msg;
+        }
+
+        msg = msgLevel.ToString().ToUpper() + " -- " + msg;
+        UnityEngine.Debug.Log(msg);
     }
 
-	public void Log(UnityEngine.Object mb, string x) 
-	{
+    public void Log(UnityEngine.Object mb, string msg, LogLevels msgLevel)
+    {
         if (CanShow(mb))
-            Log(x);
-	}
+            Log(msg, msgLevel);
+    }
 
-	public void On() { globalOn = true; }
-	public void Off() { globalOn = false; }
+    public void On() { globalOn = true; }
+    public void Off() { globalOn = false; }
+
+
+    public void Debug(string msg) {
+        Log(msg, LogLevels.Debug);
+    }
+
+    public void Debug(UnityEngine.Object mb, string msg) {
+        Log(mb, msg, LogLevels.Debug);
+    }
+
+    public void Info(string msg) {
+        Log(msg, LogLevels.Info);
+    }
+
+    public void Info(UnityEngine.Object mb, string msg) {
+        Log(mb, msg, LogLevels.Info);
+    }
+
+    public void Warn(string msg) {
+        Log(msg, LogLevels.Warn);
+    }
+
+    public void Warn(UnityEngine.Object mb, string msg) {
+        Log(mb, msg, LogLevels.Warn);
+    }
+
+    public void Error(string msg) {
+        Log(msg, LogLevels.Error);
+    }
+
+    public void Error(UnityEngine.Object mb, string msg) {
+        Log(mb, msg, LogLevels.Error);
+    }
 
     private bool CanShow(UnityEngine.Object mb)
     {

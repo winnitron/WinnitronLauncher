@@ -7,7 +7,7 @@ public class TesselatedPlane : MonoBehaviour {
 	public Transform farResetPoint;
 
 	void OnTriggerEnter(Collider other) {
-		//GM.dbug.Log(this, "Collided with " + other.name);
+		GM.dbug.Debug(this, "Collided with " + other.name);
 
 		if (other.name == "Close Plane Trigger") {
 			gameObject.transform.position = farResetPoint.position;

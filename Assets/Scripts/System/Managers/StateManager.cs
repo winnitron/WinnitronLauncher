@@ -28,7 +28,7 @@ public class StateManager : MonoBehaviour {
         //Wait for options script to get all the folders before continuing
         while (GM.options.initializing) yield return null;
 
-		foreach (State state in states) 
+		foreach (State state in states)
 			state.gameObject.SetActive (true);
 
         //This just changes the state to the first state that's in the inspector
@@ -41,7 +41,7 @@ public class StateManager : MonoBehaviour {
         }
 	}
 
-	void Update () {
+	void Update() {
 
 		//DEBUG KEYS
 		//Switch states for testing.  These keys aren't used on Winnitrons yet
@@ -60,22 +60,22 @@ public class StateManager : MonoBehaviour {
 	}
 
     /// <summary>
-    /// Change the state of the Launcher.  
+    /// Change the state of the Launcher.
     /// </summary>
     /// <param name="newState">Uses StateManager.WorldState enums.</param>
     public void ChangeState(WorldState newState) {
 
 		foreach (var state in states) {
 			if (newState == state.worldState) {
-				GM.dbug.Log (this, "STATE: activating state " + state.worldState);
-				state.Activate ();
+				GM.dbug.Info(this, "STATE: activating state " + state.worldState);
+				state.Activate();
 				worldState = state.worldState;
 			}
 			else
-				state.Deactivate ();
+				state.Deactivate();
 		}
 
-        GM.dbug.Log(this, "STATE: new state is " + worldState);
+        GM.dbug.Info(this, "STATE: new state is " + worldState);
 
         GM.ResetScreen();
 	}
