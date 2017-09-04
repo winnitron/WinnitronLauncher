@@ -128,7 +128,7 @@ public class OptionsManager : MonoBehaviour {
     public JSONNode logger;
 
     //Options JSON
-    private JSONNode O;
+    public JSONNode O;
 
     // Use this for initialization
     void Awake() {
