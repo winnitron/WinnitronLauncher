@@ -1356,9 +1356,9 @@ BoxCollider:
   m_GameObject: {fileID: 386930923}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 164.19342, y: 1, z: -544.9682}
+  m_Size: {x: 164.19342, y: 1, z: 544.9682}
   m_Center: {x: -68.17575, y: 0, z: 109.28139}
 --- !u!1 &394484845
 GameObject:
@@ -1828,7 +1828,7 @@ ParticleSystem:
   m_GameObject: {fileID: 468106700}
   serializedVersion: 5
   lengthInSec: 1
-  speed: 1
+  simulationSpeed: 1
   looping: 0
   prewarm: 0
   playOnAwake: 1
@@ -4810,7 +4810,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 164.19342, y: 1, z: -544.9682}
+  m_Size: {x: 164.19342, y: 1, z: 544.9682}
   m_Center: {x: -68.17575, y: 0, z: 109.28139}
 --- !u!114 &674055246
 MonoBehaviour:
@@ -7403,7 +7403,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1508310659}
   serializedVersion: 5
   lengthInSec: 1
-  speed: 1
+  simulationSpeed: 1
   looping: 0
   prewarm: 0
   playOnAwake: 1
@@ -10638,7 +10638,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1749710217}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -13443,11 +13443,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a834322dec9a43bc974594b13148de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  globalOn: 1
-  showNull: 0
-  showTimestamps: 1
-  supress: []
-  show: []
 --- !u!114 &1803195763
 MonoBehaviour:
   m_ObjectHideFlags: 0
