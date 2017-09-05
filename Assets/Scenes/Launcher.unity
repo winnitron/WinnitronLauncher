@@ -1796,7 +1796,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -1875,7 +1875,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 0
+  randomSeed: 428294561
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -2431,11 +2431,11 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
       minMaxState: 0
-    cnt0: 30
+    cnt0: 300
     cnt1: 30
     cnt2: 30
     cnt3: 30
-    cntmax0: 30
+    cntmax0: 300
     cntmax1: 30
     cntmax2: 30
     cntmax3: 30
@@ -7371,7 +7371,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -7450,12 +7450,12 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 0
+  randomSeed: -461177196
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
-      scalar: 1.1
+      scalar: 1.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -7906,7 +7906,7 @@ ParticleSystem:
     serializedVersion: 3
     enabled: 1
     type: 1
-    radius: 0.01
+    radius: 489.49
     angle: 25
     length: 5
     boxX: 1
@@ -10492,7 +10492,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1692272705
 Transform:
   m_ObjectHideFlags: 0
@@ -13440,9 +13440,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1803195755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a834322dec9a43bc974594b13148de5, type: 3}
+  m_Script: {fileID: 11500000, guid: 267f9bb973d10493ab68be600e565a56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  globalOn: 0
+  showNull: 0
+  showTimestamps: 1
+  supress: []
+  show: []
 --- !u!114 &1803195763
 MonoBehaviour:
   m_ObjectHideFlags: 0
