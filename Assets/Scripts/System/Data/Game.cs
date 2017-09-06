@@ -248,6 +248,7 @@ public class Game
 
     private string insertKeyMapping(string ahkFile) {
         string keymap = "";
+        ArrayList gameKeys = allGameKeys(savedMetadata["keys"]["bindings"]);
 
         for(int pNum = 1; pNum <= 4; pNum++) {
             JSONNode playerKeys;
@@ -261,19 +262,35 @@ public class Game
             foreach(string control in KeyBindings.CONTROLS) {
                 KeyCode key = GM.options.keys.GetKey(pNum, control);
                 string launcherKey = GM.options.keyTranslator.toAHK(key);
-
                 string gameKey = playerKeys[control];
+
                 if (pNum > savedMetadata["max_players"].AsInt || gameKey == null) {
                     gameKey = "return";
                 }
 
-                if (launcherKey != gameKey) {
+                bool keyAlreadyMapped = gameKeys.Contains(launcherKey);
+                if (!keyAlreadyMapped && (launcherKey != gameKey)) {
                     keymap += (launcherKey + "::" + gameKey + "\n");
                 }
             }
         }
 
         return ahkFile.Replace("{KEYMAP}", keymap);
+    }
+
+    private ArrayList allGameKeys(JSONNode bindings) {
+        ArrayList keys = new ArrayList();
+
+        for(int pNum = 1; pNum <= 4; pNum++) {
+            foreach(string control in KeyBindings.CONTROLS) {
+                string key = bindings[pNum.ToString()][control];
+
+                if (key != null)
+                    keys.Add(key);
+            }
+        }
+
+        return keys;
     }
 
     /// <summary>
