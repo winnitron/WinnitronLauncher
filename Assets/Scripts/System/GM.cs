@@ -46,7 +46,7 @@ public class GM : Singleton<GM> {
 
     void OnApplicationQuit()
     {
-        File.Delete(PidFile());
+        // File.Delete(PidFile());
     }
 
     /// <summary>
@@ -85,7 +85,7 @@ public class GM : Singleton<GM> {
     private void writeProcessInfo() {
         string info = System.Diagnostics.Process.GetCurrentProcess().Id +
                       "\n" +
-                      Path.Combine(Path.GetFullPath("."), "WINNITRON.exe");
+                      Path.Combine(Path.GetFullPath("."), "WINNITRON.bat");
 
         GM.logger.Debug("writing pid and exe path to " + PidFile());
         File.WriteAllText(PidFile(), info);
