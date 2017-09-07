@@ -6,7 +6,7 @@
 - support for the launcher with custom key bindings!
 - remote logging
 - configurable log levels
-- support for `launcher_keep_awake`
+- support for [`launcher_keep_awake`](https://github.com/winnitron/launcher_keep_awake)
 
 ## v2.0
 
