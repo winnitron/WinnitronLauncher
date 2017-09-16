@@ -10,6 +10,7 @@ public class Ping : MonoBehaviour {
         if (GM.options.O["launcher"]["pingFreq"] != null && pingFreq == 0) {
             pingEnabled = true;
             pingFreq = Math.Max(GM.options.O["launcher"]["pingFreq"].AsInt, 1);
+            GM.logger.Debug("Enabling " + pingFreq + "s ping.");
         }
 
         if (pingEnabled && Time.time >= lastPing + pingFreq) {
