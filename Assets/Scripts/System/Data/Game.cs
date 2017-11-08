@@ -250,8 +250,6 @@ public class Game
         string keymap = "";
         ArrayList gameKeys = allGameKeys(getKeyBindings());
 
-        GM.logger.Debug("GET KEY BINDINGS (" + name + "): " + getKeyBindings().ToString());
-
         for(int pNum = 1; pNum <= 4; pNum++) {
             JSONNode playerKeys;
 
@@ -297,6 +295,7 @@ public class Game
 
     private JSONNode getKeyBindings() {
         string tmpl = savedMetadata["keys"]["template"];
+        JSONNode bindings = null;
 
         if (tmpl == null) {
             if (savedMetadata["keys"]["bindings"] == null) {
@@ -307,11 +306,10 @@ public class Game
             }
         }
 
-
         switch(tmpl) {
             case "custom":
                 GM.logger.Debug("Loading custom key bindings for " + name);
-                return savedMetadata["keys"]["bindings"];
+                bindings = savedMetadata["keys"]["bindings"];
                 break;
 
             case "default":
@@ -320,7 +318,7 @@ public class Game
             case "pico8":
                 string file = Path.Combine(GM.options.defaultOptionsPath, "keymap_templates.json");
                 GM.logger.Debug("LOADING " + tmpl + " BINDINGS FROM KEY TEMPLATE FILE: " + file);
-                return GM.data.LoadJson(file)[tmpl];
+                bindings = GM.data.LoadJson(file)[tmpl];
                 break;
 
             default:
@@ -329,7 +327,14 @@ public class Game
                 break;
         }
 
-        return null;
+        // Remove controls for players that don't exist.
+        for (int p = savedMetadata["max_players"].AsInt + 1; p <= 4; p++) {
+            bindings.Remove(p.ToString());
+        }
+
+        GM.logger.Debug("GET KEY BINDINGS (" + name + "): " + bindings.ToString());
+        return bindings;
+
     }
 
     /// <summary>
