@@ -248,13 +248,15 @@ public class Game
 
     private string insertKeyMapping(string ahkFile) {
         string keymap = "";
-        ArrayList gameKeys = allGameKeys(savedMetadata["keys"]["bindings"]);
+        ArrayList gameKeys = allGameKeys(getKeyBindings());
+
+        GM.logger.Debug("GET KEY BINDINGS (" + name + "): " + getKeyBindings().ToString());
 
         for(int pNum = 1; pNum <= 4; pNum++) {
             JSONNode playerKeys;
 
             try {
-                playerKeys = savedMetadata["keys"]["bindings"][pNum.ToString()];
+                playerKeys = getKeyBindings()[pNum.ToString()];
             } catch (System.NullReferenceException) {
                 break;
             }
@@ -291,6 +293,43 @@ public class Game
         }
 
         return keys;
+    }
+
+    private JSONNode getKeyBindings() {
+        string tmpl = savedMetadata["keys"]["template"];
+
+        if (tmpl == null) {
+            if (savedMetadata["keys"]["bindings"] == null) {
+                GM.logger.Debug("No key binding info provided for " + name + ". Using defaults.");
+                tmpl = "default";
+            } else {
+                tmpl = "custom";
+            }
+        }
+
+
+        switch(tmpl) {
+            case "custom":
+                GM.logger.Debug("Loading custom key bindings for " + name);
+                return savedMetadata["keys"]["bindings"];
+                break;
+
+            case "default":
+            case "legacy":
+            case "flash":
+            case "pico8":
+                string file = Path.Combine(GM.options.defaultOptionsPath, "keymap_templates.json");
+                GM.logger.Debug("LOADING " + tmpl + " BINDINGS FROM KEY TEMPLATE FILE: " + file);
+                return GM.data.LoadJson(file)[tmpl];
+                break;
+
+            default:
+                GM.logger.Error("Invalid key template type '" + tmpl + "' for " + name);
+                GM.logger.Error("Valid templates are 'default', 'legacy', 'pico8', 'custom'.");
+                break;
+        }
+
+        return null;
     }
 
     /// <summary>
