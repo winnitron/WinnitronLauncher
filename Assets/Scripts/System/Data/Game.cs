@@ -248,13 +248,14 @@ public class Game
 
     private string insertKeyMapping(string ahkFile) {
         string keymap = "";
-        ArrayList gameKeys = allGameKeys(savedMetadata["keys"]["bindings"]);
+        JSONNode parsedBindings = getKeyBindings();
+        ArrayList gameKeys = allGameKeys(parsedBindings);
 
         for(int pNum = 1; pNum <= 4; pNum++) {
             JSONNode playerKeys;
 
             try {
-                playerKeys = savedMetadata["keys"]["bindings"][pNum.ToString()];
+                playerKeys = parsedBindings[pNum.ToString()];
             } catch (System.NullReferenceException) {
                 break;
             }
@@ -291,6 +292,51 @@ public class Game
         }
 
         return keys;
+    }
+
+    private JSONNode getKeyBindings() {
+        string tmpl = savedMetadata["keys"]["template"];
+        JSONNode bindings = null;
+
+        string tmplFile = Path.Combine(GM.options.defaultOptionsPath, "keymap_templates.json");
+        JSONNode bindingTemplates = GM.data.LoadJson(tmplFile);
+
+        if (tmpl == null) {
+            if (savedMetadata["keys"]["bindings"] == null) {
+                GM.logger.Debug("No key binding info provided for " + name + ". Using defaults.");
+                tmpl = "default";
+            } else {
+                tmpl = "custom";
+            }
+        }
+
+        switch(tmpl) {
+            case "custom":
+                GM.logger.Debug("Loading custom key bindings for " + name);
+                bindings = savedMetadata["keys"]["bindings"];
+                break;
+
+            case "default":
+            case "legacy":
+            case "flash":
+            case "pico8":
+                GM.logger.Debug("Loading " + tmpl + " bindings from tmplFile: " + tmplFile);
+                bindings = bindingTemplates[tmpl];
+                break;
+
+            default:
+                GM.logger.Error("Invalid key template type '" + tmpl + "' for " + name + ". (Using default.) Valid templates are 'default', 'legacy', 'pico8', 'custom'.");
+                GM.logger.Debug("Loading " + tmpl + " bindings from tmplFile: " + tmplFile);
+                bindings = bindingTemplates["default"];
+                break;
+        }
+
+        // Remove controls for players that don't exist.
+        for (int p = savedMetadata["max_players"].AsInt + 1; p <= 4; p++) {
+            bindings.Remove(p.ToString());
+        }
+
+        return bindings;
     }
 
     /// <summary>

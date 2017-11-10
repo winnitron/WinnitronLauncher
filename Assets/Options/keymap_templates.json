@@ -1,0 +1,122 @@
+{
+  "default": {
+    "1": {
+      "up": "Up",
+      "down": "Down",
+      "right": "Right",
+      "left": "Left",
+      "button1": ".",
+      "button2": "/"
+    },
+    "2": {
+      "up": "w",
+      "down": "s",
+      "right": "d",
+      "left": "a",
+      "button1": "`",
+      "button2": "1"
+    },
+    "3": {
+      "up": "i",
+      "down": "k",
+      "right": "l",
+      "left": "j",
+      "button1": "g",
+      "button2": "h"
+    },
+    "4": {
+      "up": "Numpad8",
+      "down": "Numpad5",
+      "right": "Numpad6",
+      "left": "Numpad4",
+      "button1": "Numpad1",
+      "button2": "Numpad2"
+    }
+  },
+  "legacy": {
+    "1": {
+      "up": "Up",
+      "down": "Down",
+      "right": "Right",
+      "left": "Left",
+      "button1": "x",
+      "button2": "z"
+    },
+    "2": {
+      "up": "i",
+      "down": "k",
+      "right": "l",
+      "left": "j",
+      "button1": "n",
+      "button2": "m"
+    },
+    "3": {
+      "up": "i",
+      "down": "k",
+      "right": "l",
+      "left": "j",
+      "button1": "g",
+      "button2": "h"
+    },
+    "4": {
+      "up": "Numpad8",
+      "down": "Numpad5",
+      "right": "Numpad6",
+      "left": "Numpad4",
+      "button1": "Numpad1",
+      "button2": "Numpad2"
+    }
+  },
+  "flash": {
+    "1": {
+      "up": "Up",
+      "down": "Down",
+      "right": "Right",
+      "left": "Left",
+      "button1": "x",
+      "button2": "z"
+    },
+    "2": {
+      "up": "i",
+      "down": "k",
+      "right": "l",
+      "left": "j",
+      "button1": "n",
+      "button2": "m"
+    },
+    "3": {
+      "up": "i",
+      "down": "k",
+      "right": "l",
+      "left": "j",
+      "button1": "g",
+      "button2": "h"
+    },
+    "4": {
+      "up": "Numpad8",
+      "down": "Numpad5",
+      "right": "Numpad6",
+      "left": "Numpad4",
+      "button1": "Numpad1",
+      "button2": "Numpad2"
+    }
+  },
+  "pico8": {
+    "1": {
+      "up": "Up",
+      "down": "Down",
+      "right": "Right",
+      "left": "Left",
+      "button1": "m",
+      "button2": "n"
+    },
+    "2": {
+      "up": "e",
+      "down": "d",
+      "right": "f",
+      "left": "s",
+      "button1": "q",
+      "button2": "w"
+    }
+  }
+}
