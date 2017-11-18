@@ -7,6 +7,7 @@ using System.Collections;
 
 public class Runner : MonoBehaviour {
 
+    private Game game;
     Process gameRunner;
 
     void Awake()
@@ -25,34 +26,42 @@ public class Runner : MonoBehaviour {
             GM.Oops(GM.Text("error", "noLegacyControlExe"));
     }
 
-	public void Run(Game game) {
+    public void Run(Game game) {
+        this.game = game;
 
         GM.logger.Info(this, "Running Game: " + game.name);
 
         LoadAHKScript(game);
         game.PreRun();
         StartCoroutine(RunProcess(gameRunner));
-	}
+    }
 
-	IEnumerator RunProcess(Process process){
+    IEnumerator RunProcess(Process process){
 
-		if (GM.jukebox) GM.jukebox.Stop();
+        if (GM.jukebox) GM.jukebox.Stop();
 
-		GM.state.ChangeState(StateManager.WorldState.Idle);
-		Screen.fullScreen = false;
+        GM.state.ChangeState(StateManager.WorldState.Idle);
+        Screen.fullScreen = false;
 
-		yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(1.0f);
 
         // GM.logger.Info(this, "RUNNER: Running game " + process.StartInfo.FileName);
+
+        WinnitronNetwork network = new WinnitronNetwork();
+        int playID = network.startGame(game.slug);
+        //
+        GM.logger.Debug("PLAYID: " + playID);
 
         process.Start();
         process.WaitForExit();
         process.Close();
 
+        network.stopGame(playID);
+
         GM.logger.Info(this, "RUNNER: Finished running game " + process.StartInfo.FileName);
 
         GM.Restart();
-	}
+    }
 
     /// <summary>
     /// Places the proper AHK script named "RunGame.ahk"
