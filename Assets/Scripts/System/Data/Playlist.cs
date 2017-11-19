@@ -28,7 +28,7 @@ public class Playlist
     }
 
     public void SetName() {
-        string file = this.directory + "/winnitron_metadata.json";
+        string file = Path.Combine(this.directory.FullName, "winnitron_metadata.json");
         if(System.IO.File.Exists(file)) {
             string json = File.ReadAllText(file);
             JSONNode data = JSONNode.Parse(json);
