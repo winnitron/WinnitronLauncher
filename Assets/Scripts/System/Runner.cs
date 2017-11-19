@@ -47,16 +47,13 @@ public class Runner : MonoBehaviour {
 
         // GM.logger.Info(this, "RUNNER: Running game " + process.StartInfo.FileName);
 
-        WinnitronNetwork network = new WinnitronNetwork();
-        int playID = network.startGame(game.slug);
-        //
-        GM.logger.Debug("PLAYID: " + playID);
+        GM.network.startGame(game.slug);
 
         process.Start();
         process.WaitForExit();
         process.Close();
 
-        network.stopGame(playID);
+        GM.network.stopGame(game.slug);
 
         GM.logger.Info(this, "RUNNER: Finished running game " + process.StartInfo.FileName);
 

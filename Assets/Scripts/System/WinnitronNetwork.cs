@@ -9,40 +9,33 @@ using System;
 
 [System.Serializable]
 public class WinnitronNetwork : MonoBehaviour {
-    private string apiKey;
-    private string libraryURL;
 
-    public WinnitronNetwork() {
-        // TODO: someday, inject these dependencies.
-        apiKey = GM.options.GetSyncSettings()["apiKey"];
-        libraryURL = GM.options.GetSyncSettings()["libraryURL"];
-    }
-
-    public int startGame(string game) {
+    public void startGame(string game) {
+        GM.logger.Debug("sending START GAME: " + game);
 
         Dictionary<string, string> headers = new Dictionary<string, string>();
         headers.Add("User-Agent", "Winnitron Launcher/" + GM.VersionNumber + " (http://winnitron.com)");
 
         WWWForm form = new WWWForm();
-        form.AddField("api_key", apiKey);
+        form.AddField("api_key", GM.options.GetSyncSettings()["apiKey"]);
         form.AddField("game", game);
 
-        WWW www = new WWW(libraryURL + "/api/v1/plays/start", form.data, headers);
+        WWW www = new WWW(GM.options.GetSyncSettings()["libraryURL"] + "/api/v1/plays/start", form.data, headers);
 
         StartCoroutine(WaitForPlaySessionCreation(www));
-
-        return -1;
     }
 
-    public void stopGame(int playID) {
+    public void stopGame(string game) {
+        GM.logger.Debug("sending STOP GAME: " + game);
+
         Dictionary<string, string> headers = new Dictionary<string, string>();
         headers.Add("User-Agent", "Winnitron Launcher/" + GM.VersionNumber + " (http://winnitron.com)");
         headers.Add("X-HTTP-Method-Override", "PUT");
 
         WWWForm form = new WWWForm();
-        form.AddField("api_key", apiKey);
+        form.AddField("api_key", GM.options.GetSyncSettings()["apiKey"]);
 
-        WWW www = new WWW(libraryURL + "/api/v1/plays/" + playID + "/stop", form.data, headers);
+        WWW www = new WWW(GM.options.GetSyncSettings()["libraryURL"] + "/api/v1/plays/" + game + "/stop", form.data, headers);
 
         StartCoroutine(WaitForPlaySessionUpdate(www));
     }
