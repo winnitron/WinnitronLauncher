@@ -14,7 +14,7 @@ public class GameSync : MonoBehaviour {
 
     private string apiKey;
     private string libraryURL;
-    private string games_dir;
+    private string gamesDir;
 
     private ArrayList playlists = new ArrayList();
 
@@ -43,7 +43,7 @@ public class GameSync : MonoBehaviour {
             GM.Oops(GM.options.GetText("error", "noAPIkey"));
 
         libraryURL = GM.options.GetSyncSettings()["libraryURL"];
-        games_dir = GM.options.playlistsPath;
+        gamesDir = GM.options.playlistsPath;
     }
 
     void Update()
@@ -90,19 +90,18 @@ public class GameSync : MonoBehaviour {
         if (www.error == null) {
             GM.logger.Info(this, "fetched playlists: " + www.text);
             var data = JSON.Parse(www.text);
-            foreach (JSONNode playlist_data in data["playlists"].AsArray) {
-                playlists.Add(new Playlist(playlist_data, games_dir));
+            foreach (JSONNode playlistData in data["playlists"].AsArray) {
+                playlists.Add(new Playlist(playlistData, gamesDir));
             }
 
             // delete unsubscribed playlists
-            SluggedItem.deleteExtraDirectories(games_dir, playlists);
+            SluggedItem.deleteExtraDirectories(gamesDir, playlists);
 
             foreach(Playlist playlist in playlists) {
                 GM.logger.Info(this, "creating " + playlist.parentDirectory);
 
-                SyncText("Initializing playlist " + playlist.title);
+                SyncText("Initializing games in " + playlist.title);
 
-                Directory.CreateDirectory(playlist.parentDirectory);
                 playlist.deleteRemovedGames();
 
 
@@ -252,10 +251,12 @@ public class GameSync : MonoBehaviour {
 
         // Careful here that you don't pass in a full path as `directory`
         private static bool directoryIsDeletable(string directory, ArrayList keepers) {
-            // Playlist or Game directories that start with an underscore are local additions,
-            // and won't be deleted just because they're not in the website data.
-            // In the future it'd be better to have that be a setting in the options or metadata json or something.
-            if (directory[0] == '_')
+            JSONNode json = readMetadata(directory);
+
+            // Playlist or Game directories that start with an underscore or are specified
+            // "local": true in the metadatajson are local additions, and they won't be
+            // deleted just because they're not in the website data.
+            if (directory[0] == '_' || json["local"].AsBool)
                 return false;
 
             foreach (SluggedItem keeper in keepers) {
@@ -265,16 +266,26 @@ public class GameSync : MonoBehaviour {
 
             return true;
         }
+
+        private static JSONNode readMetadata(string directory) {
+            directory = Path.Combine(GM.options.playlistsPath, directory);
+            string file = Path.Combine(directory, "winnitron_metadata.json");
+            return JSONNode.Parse(File.ReadAllText(file));
+        }
     }
 
     private class Playlist : SluggedItem {
         public ArrayList games = new ArrayList();
         public string parentDirectory;
+        public string description;
 
         public Playlist(JSONNode data, string parentDir) {
             title = data["title"];
             slug = data["slug"];
+            description = data["description"];
             parentDirectory = parentDir;
+
+            writeMetadataFile(data);
 
             foreach(JSONNode game_data in data["games"].AsArray) {
                 games.Add(new Game(game_data, Path.Combine(parentDirectory, slug)));
@@ -304,6 +315,14 @@ public class GameSync : MonoBehaviour {
 
         public void deleteRemovedGames() {
             SluggedItem.deleteExtraDirectories(Path.Combine(parentDirectory, slug), games);
+        }
+
+        private void writeMetadataFile(JSONNode data) {
+            Directory.CreateDirectory(Path.Combine(parentDirectory, slug));
+            data.Add("local", new JSONData(false));
+
+            string filename = Path.Combine(Path.Combine(parentDirectory, slug), "winnitron_metadata.json");
+            System.IO.File.WriteAllText(filename, data.ToString());
         }
     }
 
