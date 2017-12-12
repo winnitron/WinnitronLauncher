@@ -174,14 +174,6 @@ public class Game
         string execFile = Path.GetFileName(executable);
 
         switch (gameType) {
-            case Game.GameType.EXE:
-
-                newAHKfile = Resources.Load<TextAsset>("AHK_templates/ExeGameTemplate").text;
-
-                newAHKfile = newAHKfile.Replace("{GAME_PATH}", executable);
-                newAHKfile = newAHKfile.Replace("{GAME_NAME}", name);
-
-                break;
 
             case Game.GameType.PICO8:
 
@@ -191,16 +183,6 @@ public class Game
 
                 newAHKfile = Resources.Load<TextAsset>("AHK_templates/Pico8GameTemplate").text;
                 newAHKfile = newAHKfile.Replace("{GAME_PATH}", GM.options.dataPath + "/Options/Pico8/nw.exe");
-
-                break;
-
-            case Game.GameType.LEGACY:
-
-                newAHKfile = Resources.Load<TextAsset>("AHK_templates/ExeGameTemplate").text;
-
-                newAHKfile = newAHKfile.Replace("{GAME_PATH}", executable);
-                newAHKfile = newAHKfile.Replace("{GAME_NAME}", name);
-
                 break;
 
             case Game.GameType.FLASH:
@@ -209,10 +191,13 @@ public class Game
 
                 newAHKfile = newAHKfile.Replace("{GAME_PATH}", executable);
                 newAHKfile = newAHKfile.Replace("{GAME_NAME}", name);
-
                 break;
 
-            case Game.GameType.CUSTOM:
+            default:
+                newAHKfile = Resources.Load<TextAsset>("AHK_templates/ExeGameTemplate").text;
+
+                newAHKfile = newAHKfile.Replace("{GAME_PATH}", executable);
+                newAHKfile = newAHKfile.Replace("{GAME_NAME}", name);
                 break;
         }
 
