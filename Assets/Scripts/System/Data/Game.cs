@@ -12,6 +12,7 @@ public class Game
     public string author;
     public Sprite screenshot;
     public string executable;
+    public string slug;
 
     public enum GameType { EXE, PICO8, CUSTOM, LEGACY, FLASH }
     public GameType gameType;
@@ -63,6 +64,7 @@ public class Game
         this.author = null; //No author stuff just yet
         this.screenshot = GetScreenshot();
         this.executable = Path.Combine(directory.FullName, savedMetadata["executable"]);
+        this.slug = savedMetadata["slug"];
 
         switch(savedMetadata["keys"]["template"]) {
             case "default":

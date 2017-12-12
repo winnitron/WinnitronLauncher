@@ -16,6 +16,7 @@ public class GM : Singleton<GM> {
     public static StateManager state;
     public static Logger logger;
     public static GameSync sync;
+    public static WinnitronNetwork network;
     public static LogOutputHandler logOutput;
 
     public static Jukebox jukebox;
@@ -29,6 +30,7 @@ public class GM : Singleton<GM> {
         state = GetComponent<StateManager> ();
         logger = GetComponent<Logger>();
         sync = GetComponent<GameSync>();
+        network = GetComponent<WinnitronNetwork>();
         logOutput = GetComponent<LogOutputHandler>();
 
         VersionNumber = versionNumber;
