@@ -363,10 +363,27 @@ public class Game
     /// <param name="text">The text to encode into the file.</param>
     /// <param name="fileName">The name of the file.</param>
     private void WriteStringToFile(string text, string fileName) {
-        string file = Path.Combine(directory.FullName, fileName);
+        string behaviour = GM.options.O["launcher"]["writeScripts"];
+        if (behaviour == null)
+            behaviour = "always"; // backwards-compatible default behavior
 
-        File.Delete(file);
-        System.IO.File.WriteAllText(file, text);
-        GM.logger.Info("GAME: Writing file " + file);
+        string file = Path.Combine(directory.FullName, fileName);
+        if (behaviour == "always") {
+            GM.logger.Info("Overwriting launch script: " + file);
+            File.Delete(file);
+            System.IO.File.WriteAllText(file, text);
+        } else if (behaviour == "new") {
+            if (File.Exists(file)) {
+                GM.logger.Debug("Using existing launch script: " + file);
+            } else {
+                GM.logger.Info("Writing new launch script: " + file);
+                System.IO.File.WriteAllText(file, text);
+            }
+        } else if (behaviour == "never") {
+            GM.logger.Debug("Skipping writing launch script: " + file);
+            if (!File.Exists(file)) {
+                GM.logger.Error("Game launch script does not exist and launcher.writeScripts option set to 'never': " + file);
+            }
+        }
     }
 }
