@@ -158,7 +158,6 @@ public class OptionsManager : MonoBehaviour {
 
         //Load that JSON
         GM.logger.Info("Loading options from " + optionsFile);
-        GM.logger.Debug("Options file exists: " + System.IO.File.Exists(optionsFile));
 
         if (System.IO.File.Exists(optionsFile))
         {

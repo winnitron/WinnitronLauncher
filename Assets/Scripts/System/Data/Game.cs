@@ -104,24 +104,55 @@ public class Game
         // Load the screenshot from the games directory as a Texture2D
         var screenshotTex = new Texture2D(1024, 768);
 
-        if (Directory.GetFiles(this.directory.ToString(), "*.png").Length > 0)
-        {
-            GM.logger.Info("GAME: Loading custom screenshot " + Directory.GetFiles(this.directory.ToString(), "*.png")[0]);
-            screenshotTex.LoadImage(File.ReadAllBytes(Directory.GetFiles(directory.FullName + Path.DirectorySeparatorChar, "*.png")[0]));
-        }
-        else if (gameType == GameType.PICO8)
-        {
+        string imageFile = pickImageFile();
+        if (imageFile != null) {
+            GM.logger.Info("GAME: Loading custom screenshot " + imageFile);
+            screenshotTex.LoadImage(File.ReadAllBytes(imageFile));
+        } else if (gameType == GameType.PICO8) {
             GM.logger.Info("GAME: Loading default PICO8 screenshot ");
             screenshotTex = Resources.Load<Texture2D>("default_images/pico8") as Texture2D;
-        }
-        else
-        {
+        } else {
             GM.logger.Info("GAME: Loading default screenshot");
             screenshotTex = Resources.Load<Texture2D>("default_images/exe") as Texture2D;
         }
 
         // Turn the Texture2D into a sprite
         return Sprite.Create(screenshotTex, new Rect(0, 0, screenshotTex.width, screenshotTex.height), new Vector2(0.5f, 0.5f));
+    }
+
+    private string pickImageFile() {
+
+        string specified = null;
+        bool haveData = savedMetadata["image_url"] != null;
+        if (haveData) {
+            System.Uri dlFrom = new System.Uri(savedMetadata["image_url"]);
+            specified = Path.Combine(directory.FullName, Path.GetFileName(dlFrom.AbsolutePath));
+        }
+
+        string png = findFirstImage("png");
+        string jpg = findFirstImage("jpg");
+
+        if (haveData && File.Exists(specified)) {
+            GM.logger.Debug("Using specified cover image: " + specified);
+            return specified;
+        } else if (png != null && File.Exists(png)) {
+            GM.logger.Debug("Using found png file: " + png);
+            return png;
+        } else if (jpg != null && File.Exists(jpg)) {
+            GM.logger.Debug("Using found jpg file: " + jpg);
+            return jpg;
+        } else {
+            GM.logger.Debug("No cover image found in " + directory.FullName);
+            return null;
+        }
+    }
+
+    private string findFirstImage(string ext) {
+        try {
+            return Directory.GetFiles(directory.FullName, "*." + ext)[0];
+        } catch (System.IndexOutOfRangeException e) {
+            return null;
+        }
     }
 
     private string GetExecutablePath() {
