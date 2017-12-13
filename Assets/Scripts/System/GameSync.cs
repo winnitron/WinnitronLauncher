@@ -66,7 +66,6 @@ public class GameSync : MonoBehaviour {
             GM.state.ChangeState(StateManager.WorldState.Sync);
             fetchPlaylistSubscriptions();
         }
-
         else
         {
             GM.logger.Info(this, "GameSync: Skipping Sync...");
@@ -98,8 +97,6 @@ public class GameSync : MonoBehaviour {
             SluggedItem.deleteExtraDirectories(gamesDir, playlists);
 
             foreach(Playlist playlist in playlists) {
-                GM.logger.Info(this, "creating " + playlist.parentDirectory);
-
                 SyncText("Initializing games in " + playlist.title);
 
                 playlist.deleteRemovedGames();
@@ -240,27 +237,25 @@ public class GameSync : MonoBehaviour {
             string[] installed = Directory.GetDirectories(parent);
 
             foreach (string dirFullPath in installed) {
-                string directory = new DirectoryInfo(dirFullPath).Name;
-
-                if (SluggedItem.directoryIsDeletable(directory, keepers)) {
+                if (SluggedItem.directoryIsDeletable(dirFullPath, keepers)) {
                     GM.logger.Info("deleting " + dirFullPath);
                     Directory.Delete(dirFullPath, true);
                 }
             }
         }
 
-        // Careful here that you don't pass in a full path as `directory`
-        private static bool directoryIsDeletable(string directory, ArrayList keepers) {
-            JSONNode json = readMetadata(directory);
+        private static bool directoryIsDeletable(string dirFullPath, ArrayList keepers) {
+            string name = new DirectoryInfo(dirFullPath).Name;
+            JSONNode json = readMetadata(dirFullPath);
 
             // Playlist or Game directories that start with an underscore or are specified
             // "local": true in the metadatajson are local additions, and they won't be
             // deleted just because they're not in the website data.
-            if (directory[0] == '_' || json["local"].AsBool)
+            if (name[0] == '_' || json["local"].AsBool)
                 return false;
 
             foreach (SluggedItem keeper in keepers) {
-                if (directory == keeper.slug)
+                if (name == keeper.slug)
                     return false;
             }
 
@@ -268,7 +263,6 @@ public class GameSync : MonoBehaviour {
         }
 
         private static JSONNode readMetadata(string directory) {
-            directory = Path.Combine(GM.options.playlistsPath, directory);
             string file = Path.Combine(directory, "winnitron_metadata.json");
             return JSONNode.Parse(File.ReadAllText(file));
         }
@@ -287,8 +281,8 @@ public class GameSync : MonoBehaviour {
 
             writeMetadataFile(data);
 
-            foreach(JSONNode game_data in data["games"].AsArray) {
-                games.Add(new Game(game_data, Path.Combine(parentDirectory, slug)));
+            foreach(JSONNode gameData in data["games"].AsArray) {
+                games.Add(new Game(gameData, Path.Combine(parentDirectory, slug)));
             }
         }
 
