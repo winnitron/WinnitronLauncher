@@ -269,7 +269,8 @@ public class Game
         JSONNode parsedBindings = getKeyBindings();
         ArrayList gameKeys = allGameKeys(parsedBindings);
 
-        for(int pNum = 1; pNum <= 4; pNum++) {
+        // Write keys for players we have.
+        for(int pNum = 1; pNum <= savedMetadata["max_players"].AsInt; pNum++) {
             JSONNode playerKeys;
 
             try {
@@ -283,14 +284,22 @@ public class Game
                 string launcherKey = GM.options.keyTranslator.toAHK(key);
                 string gameKey = playerKeys[control];
 
-                if (pNum > savedMetadata["max_players"].AsInt || gameKey == null) {
+                if (gameKey == null) { // this shouldn't happen, but just in case.
                     gameKey = "return";
                 }
 
-                bool keyAlreadyMapped = gameKeys.Contains(launcherKey);
-                if (!keyAlreadyMapped && (launcherKey != gameKey)) {
-                    keymap += (launcherKey + "::" + gameKey + "\n");
-                }
+                keymap += (launcherKey + "::" + gameKey + "\n");
+            }
+        }
+
+        // Write keys for players we don't have (e.g., players 3 & 4 on 2-player game)
+        for(int pNum = savedMetadata["max_players"].AsInt + 1; pNum <= 4; pNum++) {
+            foreach(string control in KeyBindings.CONTROLS) {
+                KeyCode key = GM.options.keys.GetKey(pNum, control);
+                string launcherKey = GM.options.keyTranslator.toAHK(key);
+
+                if (!gameKeys.Contains(launcherKey))
+                    keymap += (launcherKey + "::return\n");
             }
         }
 
