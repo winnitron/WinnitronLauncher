@@ -269,7 +269,8 @@ public class Game
         JSONNode parsedBindings = getKeyBindings();
         ArrayList gameKeys = allGameKeys(parsedBindings);
 
-        for(int pNum = 1; pNum <= 4; pNum++) {
+        // Write keys for players we have.
+        for(int pNum = 1; pNum <= savedMetadata["max_players"].AsInt; pNum++) {
             JSONNode playerKeys;
 
             try {
@@ -283,14 +284,22 @@ public class Game
                 string launcherKey = GM.options.keyTranslator.toAHK(key);
                 string gameKey = playerKeys[control];
 
-                if (pNum > savedMetadata["max_players"].AsInt || gameKey == null) {
+                if (gameKey == null) { // this shouldn't happen, but just in case.
                     gameKey = "return";
                 }
 
-                bool keyAlreadyMapped = gameKeys.Contains(launcherKey);
-                if (!keyAlreadyMapped && (launcherKey != gameKey)) {
-                    keymap += (launcherKey + "::" + gameKey + "\n");
-                }
+                keymap += (launcherKey + "::" + gameKey + "\n");
+            }
+        }
+
+        // Write keys for players we don't have (e.g., players 3 & 4 on 2-player game)
+        for(int pNum = savedMetadata["max_players"].AsInt + 1; pNum <= 4; pNum++) {
+            foreach(string control in KeyBindings.CONTROLS) {
+                KeyCode key = GM.options.keys.GetKey(pNum, control);
+                string launcherKey = GM.options.keyTranslator.toAHK(key);
+
+                if (!gameKeys.Contains(launcherKey))
+                    keymap += (launcherKey + "::return\n");
             }
         }
 
@@ -363,10 +372,27 @@ public class Game
     /// <param name="text">The text to encode into the file.</param>
     /// <param name="fileName">The name of the file.</param>
     private void WriteStringToFile(string text, string fileName) {
-        string file = Path.Combine(directory.FullName, fileName);
+        string behaviour = GM.options.O["launcher"]["writeScripts"];
+        if (behaviour == null)
+            behaviour = "always"; // backwards-compatible default behavior
 
-        File.Delete(file);
-        System.IO.File.WriteAllText(file, text);
-        GM.logger.Info("GAME: Writing file " + file);
+        string file = Path.Combine(directory.FullName, fileName);
+        if (behaviour == "always") {
+            GM.logger.Info("Overwriting launch script: " + file);
+            File.Delete(file);
+            System.IO.File.WriteAllText(file, text);
+        } else if (behaviour == "new") {
+            if (File.Exists(file)) {
+                GM.logger.Debug("Using existing launch script: " + file);
+            } else {
+                GM.logger.Info("Writing new launch script: " + file);
+                System.IO.File.WriteAllText(file, text);
+            }
+        } else if (behaviour == "never") {
+            GM.logger.Debug("Skipping writing launch script: " + file);
+            if (!File.Exists(file)) {
+                GM.logger.Error("Game launch script does not exist and launcher.writeScripts option set to 'never': " + file);
+            }
+        }
     }
 }
