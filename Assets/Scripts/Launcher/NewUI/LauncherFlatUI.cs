@@ -14,7 +14,7 @@ public class LauncherFlatUI : MonoBehaviour {
 	void Start () {
         gameLabels = gameLabelContainer.GetComponentsInChildren<NUI_GameLabel>();
 
-        RefreshUI();
+        RefreshUI(0);
 	}
 	
 	// Update is called once per frame
@@ -28,21 +28,23 @@ public class LauncherFlatUI : MonoBehaviour {
 
     private void MoveUp()
     {
-        //if(gameSelector > 0) 
-        gameSelector--;
-        
-        RefreshUI();
+        if (gameSelector > 0)
+        {
+            gameSelector--;
+            RefreshUI(-1);
+        }
     }
 
     private void MoveDown()
     {
-        //if(gameSelector < GM.data.playlists[playlistSelector].games.Count) 
-        gameSelector++;
-        
-        RefreshUI();
+        if (gameSelector < GM.data.playlists[playlistSelector].games.Count - 1)
+        {
+            gameSelector++;
+            RefreshUI(1);
+        }
     }
 
-    private void RefreshUI()
+    private void RefreshUI(int direction)
     {
         foreach (NUI_GameLabel label in gameLabels)
         {
@@ -55,6 +57,9 @@ public class LauncherFlatUI : MonoBehaviour {
             {
                 label.text.text = "";
             }
+
+            if (direction == 1) label.MoveDown();
+            if (direction == -1) label.MoveUp();
         }
     }
 }

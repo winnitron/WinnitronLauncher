@@ -7,6 +7,7 @@ public class NUI_GameLabel : MonoBehaviour {
 
     public Text text;
     public int position;
+    private Tweenable tween;
     public GameObject targetAbove;
     public GameObject target;
     public GameObject targetBelow;
@@ -14,6 +15,7 @@ public class NUI_GameLabel : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         text = GetComponent<Text>();
+        tween = GetComponent<Tweenable>();
 	}
 	
 	// Update is called once per frame
@@ -21,28 +23,30 @@ public class NUI_GameLabel : MonoBehaviour {
 		
 	}
 
-    public void MoveUp()
-    {
-        SetToTarget(targetBelow);
-        TweenToTarget();
-    }
-
     public void MoveDown()
     {
+        SetToTarget(targetBelow);
+    }
+
+    public void MoveUp()
+    {
         SetToTarget(targetAbove);
-        TweenToTarget();
     }
 
     private void SetToTarget(GameObject obj)
     {
         transform.localPosition = obj.transform.localPosition;
         transform.localRotation = obj.transform.localRotation;
+        transform.localScale = obj.transform.localScale;
+        TweenToTarget();
     }
 
     private void TweenToTarget()
     {
+        tween.TweenLocal(target.transform.localPosition, target.transform.localRotation, target.transform.localScale, 0.5f);
+
         //Will be tweened but for now snap
-        transform.localPosition = target.transform.localPosition;
-        transform.localRotation = target.transform.localRotation;
+        //transform.localPosition = target.transform.localPosition;
+        //transform.localRotation = target.transform.localRotation;
     }
 }

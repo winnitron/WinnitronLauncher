@@ -44,6 +44,19 @@ public class Tweenable : MonoBehaviour {
         currentTween.setOnCompleteHandler(c => { onMoveComplete(); });
     }
 
+    public void TweenLocal(Vector3 position, Quaternion rotation, Vector3 scale, float time)
+    {
+        if (currentTween != null) StopTween();
+
+        currentTween = Go.to(transform, time, new GoTweenConfig()
+            .localPosition(position)
+            .localRotation(rotation)
+            .scale(scale)
+            .setEaseType(GoEaseType.ExpoOut));
+
+        currentTween.setOnCompleteHandler(c => { onMoveComplete(); });
+    }
+
     private void onMoveComplete()
     {
         //ResetTempTransform();

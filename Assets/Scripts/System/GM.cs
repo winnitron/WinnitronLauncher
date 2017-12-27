@@ -26,11 +26,11 @@ public class GM : Singleton<GM> {
 
         runner = GetComponent<Runner>();
         data = GetComponent<DataManager> ();
-        options = GetComponent<OptionsManager> ();
-        state = GetComponent<StateManager> ();
+        //options = GetComponent<OptionsManager> ();
+        //state = GetComponent<StateManager> ();
         logger = GetComponent<Logger>();
-        sync = GetComponent<GameSync>();
-        network = GetComponent<WinnitronNetwork>();
+        //sync = GetComponent<GameSync>();
+        //network = GetComponent<WinnitronNetwork>();
         logOutput = GetComponent<LogOutputHandler>();
 
         VersionNumber = versionNumber;
