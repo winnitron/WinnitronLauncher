@@ -70,6 +70,12 @@ public class GM : Singleton<GM> {
         state.Oops(text, false);
     }
 
+    /// <summary>
+    /// Gets text from the apporpriate language file.
+    /// </summary>
+    /// <param name="category"></param>
+    /// <param name="type"></param>
+    /// <returns>A plain text string.</returns>
     public static string Text(string category, string type)
     {
         return options.GetText (category, type);

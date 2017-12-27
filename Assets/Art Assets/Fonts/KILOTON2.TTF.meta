@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: c0bb0e9790bc65b46a045084112f644b
+timeCreated: 1514351556
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Kiloton Italic
+  fontNames:
+  - Kiloton Italic
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

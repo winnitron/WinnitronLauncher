@@ -97,6 +97,9 @@ public class OptionsManager : MonoBehaviour {
 
     public bool initializing = true;
 
+    //This just turns off looking for the options file for when you're just working locally in Unity.
+    public bool debugMode = false;
+
     public float tweenTime = 0.7f;
 
     //Default Folders
@@ -228,6 +231,10 @@ public class OptionsManager : MonoBehaviour {
 
             // Tell GM that Options is done with all the Init stuff
             initializing = false;
+        }
+        else if(debugMode)
+        {
+            //Don't load the options file
         }
         else
         {
