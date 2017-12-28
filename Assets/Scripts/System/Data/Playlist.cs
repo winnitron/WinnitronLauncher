@@ -11,6 +11,7 @@ public class Playlist
     public string description;
     public DirectoryInfo directory;
     public List<Game> games;
+    public int selectedIndex = 0;
 
     /*
      *  Playlist Constructor

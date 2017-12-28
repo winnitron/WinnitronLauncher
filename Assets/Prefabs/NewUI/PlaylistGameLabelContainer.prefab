@@ -317,6 +317,7 @@ MonoBehaviour:
   targetAbove: {fileID: 1247534391040286}
   target: {fileID: 1897339181910152}
   targetBelow: {fileID: 1091941692196986}
+  controller: {fileID: 0}
 --- !u!114 &114066680295571014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -333,6 +334,7 @@ MonoBehaviour:
   targetAbove: {fileID: 1749292391790362}
   target: {fileID: 1901165192379946}
   targetBelow: {fileID: 1247534391040286}
+  controller: {fileID: 0}
 --- !u!114 &114118354201574874
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -393,6 +395,7 @@ MonoBehaviour:
   targetAbove: {fileID: 1901165192379946}
   target: {fileID: 1247534391040286}
   targetBelow: {fileID: 1897339181910152}
+  controller: {fileID: 0}
 --- !u!114 &114234300547943716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -421,6 +424,7 @@ MonoBehaviour:
   targetAbove: {fileID: 1637744170899280}
   target: {fileID: 1257304596839482}
   targetBelow: {fileID: 1985183223464226}
+  controller: {fileID: 0}
 --- !u!114 &114259493274899366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -569,6 +573,7 @@ MonoBehaviour:
   targetAbove: {fileID: 1587393804554458}
   target: {fileID: 1749292391790362}
   targetBelow: {fileID: 1901165192379946}
+  controller: {fileID: 0}
 --- !u!114 &114511407974141372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -646,6 +651,7 @@ MonoBehaviour:
   targetAbove: {fileID: 1091941692196986}
   target: {fileID: 1637744170899280}
   targetBelow: {fileID: 1257304596839482}
+  controller: {fileID: 0}
 --- !u!114 &114606767710336244
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -731,6 +737,7 @@ MonoBehaviour:
   targetAbove: {fileID: 1897339181910152}
   target: {fileID: 1091941692196986}
   targetBelow: {fileID: 1637744170899280}
+  controller: {fileID: 0}
 --- !u!114 &114809660810998674
 MonoBehaviour:
   m_ObjectHideFlags: 1

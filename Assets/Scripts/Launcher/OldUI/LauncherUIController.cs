@@ -163,7 +163,7 @@ public class LauncherUIController : MonoBehaviour
             playlistLabel.transform.localScale = new Vector3(1, 1, 1);
 
             //Commit
-            playlistLabel.TweenLocalPosition(newPosition);
+            playlistLabel.TweenLocalPosition(newPosition, 0.25f, false);
 
             i++;
         }

@@ -4,6 +4,7 @@ using System.Collections;
 public class Tweenable : MonoBehaviour {
 
     GoTween currentTween;
+    private bool destroyOnTweenEnd = false;
 
     public void TweenPosition(Vector3 position)
     {
@@ -16,15 +17,17 @@ public class Tweenable : MonoBehaviour {
         currentTween.setOnCompleteHandler(c => { onMoveComplete(); });
     }
 
-    public void TweenLocalPosition(Vector3 position)
+    public void TweenLocalPosition(Vector3 position, float tweenTime, bool destroyOnEnd)
     {
         if (currentTween != null) StopTween();
 
-        currentTween = Go.to(transform, GM.options.tweenTime, new GoTweenConfig()
+        currentTween = Go.to(transform, tweenTime, new GoTweenConfig()
             .localPosition(position)
             .setEaseType(GoEaseType.ExpoOut));
 
         currentTween.setOnCompleteHandler(c => { onMoveComplete(); });
+
+        destroyOnTweenEnd = destroyOnEnd;
     }
 
     public void Tween(Vector3 position, Vector3 scale)
@@ -60,6 +63,7 @@ public class Tweenable : MonoBehaviour {
     private void onMoveComplete()
     {
         //ResetTempTransform();
+        if (destroyOnTweenEnd) Destroy(gameObject);
     }
 
     public void StopTween()
