@@ -19,6 +19,7 @@ public class GM : Singleton<GM> {
     public static WinnitronNetwork network;
     public static LogOutputHandler logOutput;
     public static VideoManager video;
+    public static StateMachineHelper stateMachineHelper;
 
     public static Jukebox jukebox;
 
@@ -34,6 +35,7 @@ public class GM : Singleton<GM> {
         //network = GetComponent<WinnitronNetwork>();
         logOutput = GetComponent<LogOutputHandler>();
         video = GetComponent<VideoManager>();
+        stateMachineHelper = GetComponent<StateMachineHelper>();
 
         VersionNumber = versionNumber;
         GM.logger.Info("#####  VERSION " + versionNumber + " #####");

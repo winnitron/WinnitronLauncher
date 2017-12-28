@@ -1257,7 +1257,7 @@ VideoPlayer:
   m_AspectRatio: 2
   m_DataSource: 0
   m_PlaybackSpeed: 1
-  m_AudioOutputMode: 0
+  m_AudioOutputMode: 2
   m_TargetAudioSources: []
   m_DirectAudioVolumes: []
   m_Url: file://E:/BattleBrothers 2017-03-10 14-37-43-145.mp4
@@ -2284,7 +2284,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1532549171
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2739,10 +2739,10 @@ GameObject:
   - component: {fileID: 1803195768}
   - component: {fileID: 1803195767}
   - component: {fileID: 1803195766}
-  - component: {fileID: 1803195765}
   - component: {fileID: 1803195764}
   - component: {fileID: 1803195763}
   - component: {fileID: 1803195762}
+  - component: {fileID: 1803195765}
   m_Layer: 0
   m_Name: GM
   m_TagString: Untagged
@@ -2967,52 +2967,20 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1803195755}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c8e8521c7105144784ad1cc3c9aafcc, type: 3}
+  m_Script: {fileID: 11500000, guid: 37f1f2e96e59b4047ae3b60fb43f6002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldState: 0
-  states:
-  - worldState: 0
-    objectsToToggleOnForState: []
-    objectsToToggleOffForState: []
-    clipToPlay: {fileID: 0}
-    pauseEngine: 0
-  - worldState: 1
-    objectsToToggleOnForState: []
-    objectsToToggleOffForState: []
-    clipToPlay: {fileID: 0}
-    pauseEngine: 0
-  - worldState: 2
-    objectsToToggleOnForState: []
-    objectsToToggleOffForState: []
-    clipToPlay: {fileID: 0}
-    pauseEngine: 0
-  - worldState: 3
-    objectsToToggleOnForState: []
-    objectsToToggleOffForState: []
-    clipToPlay: {fileID: 0}
-    pauseEngine: 1
-  - worldState: 4
-    objectsToToggleOnForState: []
-    objectsToToggleOffForState: []
-    clipToPlay: {fileID: 0}
-    pauseEngine: 0
-  - worldState: 5
-    objectsToToggleOnForState: []
-    objectsToToggleOffForState: []
-    clipToPlay: {fileID: 0}
-    pauseEngine: 0
-  oopsController: {fileID: 0}
-  oops: 
+  launcher: {fileID: 1532549170}
+  topBar: {fileID: 1754689883}
 --- !u!114 &1803195766
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1803195755}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 975709d10f512564ba41bf2a965f0c9e, type: 3}
   m_Name: 

@@ -15,7 +15,7 @@ public class StateManager : MonoBehaviour {
     //Oops
 	public OopsScreenController oopsController;
 	public string oops = "";
-
+    /*
 	public void Init() {
         //Need to make sure that the launcherUI can hook in it's delegate so it knows when the data
         //GameObject.Find("LauncherUI").GetComponent<LauncherUIController>().Init();
@@ -55,8 +55,11 @@ public class StateManager : MonoBehaviour {
     /// Change the state of the Launcher.
     /// </summary>
     /// <param name="newState">Uses StateManager.WorldState enums.</param>
+    ///
+    */
+        
     public void ChangeState(WorldState newState) {
-
+        /*
 		foreach (var state in states) {
 			if (newState == state.worldState) {
 				GM.logger.Debug(this, "STATE: activating state " + state.worldState);
@@ -70,7 +73,9 @@ public class StateManager : MonoBehaviour {
         GM.logger.Debug(this, "STATE: new state is " + worldState);
 
         GM.ResetScreen();
+        */
 	}
+    
 
     /// <summary>
     /// Causes and Oops screen to appear.

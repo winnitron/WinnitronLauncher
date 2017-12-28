@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OopsState : StateMachineBehaviour
+public class OopsState : State
 {
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo info, int layerIndex)

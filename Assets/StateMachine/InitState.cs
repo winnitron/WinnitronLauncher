@@ -2,21 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InitState : StateMachineBehaviour
+public class InitState : State
 {
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo info, int layerIndex)
-    {
-
-    }
-
-    override public void OnStateExit(Animator animator, AnimatorStateInfo info, int layerIndex)
-    {
-
-    }
-
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo info, int layerIndex)
     {
+        //Wait until GM is completed initializing.
 
+        //Then either go to intro, Sync, or Oops depending on what happens.
+
+        animator.SetTrigger("NextState");
     }
-
 }
