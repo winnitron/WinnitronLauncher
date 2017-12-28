@@ -2736,6 +2736,13 @@ GameObject:
   - component: {fileID: 1803195759}
   - component: {fileID: 1803195758}
   - component: {fileID: 1803195761}
+  - component: {fileID: 1803195768}
+  - component: {fileID: 1803195767}
+  - component: {fileID: 1803195766}
+  - component: {fileID: 1803195765}
+  - component: {fileID: 1803195764}
+  - component: {fileID: 1803195763}
+  - component: {fileID: 1803195762}
   m_Layer: 0
   m_Name: GM
   m_TagString: Untagged
@@ -2912,6 +2919,143 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abe826531e0584aaf9920a5ed787580e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1803195762
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1803195755}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e2e9d516b9842584cafbe4d8c5fb8b59, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1803195763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1803195755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ce56f7ed6a98ee41bae864577e9e9b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 589982017}
+  defaultVideo: {fileID: 32900000, guid: ffd3cc5849c265946b5fb34703bc396a, type: 3}
+  currentVideo: {fileID: 0}
+--- !u!114 &1803195764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1803195755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39ded3ff955324ecd81f719aae28a336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1803195765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1803195755}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c8e8521c7105144784ad1cc3c9aafcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldState: 0
+  states:
+  - worldState: 0
+    objectsToToggleOnForState: []
+    objectsToToggleOffForState: []
+    clipToPlay: {fileID: 0}
+    pauseEngine: 0
+  - worldState: 1
+    objectsToToggleOnForState: []
+    objectsToToggleOffForState: []
+    clipToPlay: {fileID: 0}
+    pauseEngine: 0
+  - worldState: 2
+    objectsToToggleOnForState: []
+    objectsToToggleOffForState: []
+    clipToPlay: {fileID: 0}
+    pauseEngine: 0
+  - worldState: 3
+    objectsToToggleOnForState: []
+    objectsToToggleOffForState: []
+    clipToPlay: {fileID: 0}
+    pauseEngine: 1
+  - worldState: 4
+    objectsToToggleOnForState: []
+    objectsToToggleOffForState: []
+    clipToPlay: {fileID: 0}
+    pauseEngine: 0
+  - worldState: 5
+    objectsToToggleOnForState: []
+    objectsToToggleOffForState: []
+    clipToPlay: {fileID: 0}
+    pauseEngine: 0
+  oopsController: {fileID: 0}
+  oops: 
+--- !u!114 &1803195766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1803195755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 975709d10f512564ba41bf2a965f0c9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1803195767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1803195755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9693d118836260a4e8bc9e93c46e5895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  widescreen: 1
+  launcherIdleTimeBeforeAttract: 0
+  initializing: 1
+  debugMode: 0
+  tweenTime: 0.7
+  dataPath: 
+  defaultOptionsPath: 
+  optionsPath: 
+  playlistsPath: /Playlists
+  musicPath: /Music
+  attractPath: /Attract
+  runnerSecondsIdle: 10
+  runnerSecondsESCHeld: 3
+  runnerSecondsIdleInitial: 30
+--- !u!114 &1803195768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1803195755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 039a599164a8f6b419056ab9d3c91d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDescription: {fileID: 0}
+  syncType: 2
+  syncOnStartup: 1
 --- !u!1 &2005593531
 GameObject:
   m_ObjectHideFlags: 0

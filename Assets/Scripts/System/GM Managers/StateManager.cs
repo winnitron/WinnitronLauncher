@@ -16,20 +16,12 @@ public class StateManager : MonoBehaviour {
 	public OopsScreenController oopsController;
 	public string oops = "";
 
-    void Awake()
-    {
-        StartCoroutine("Init");
-    }
-
-	IEnumerator Init() {
+	public void Init() {
         //Need to make sure that the launcherUI can hook in it's delegate so it knows when the data
-        GameObject.Find("LauncherUI").GetComponent<LauncherUIController>().Init();
+        //GameObject.Find("LauncherUI").GetComponent<LauncherUIController>().Init();
 
-        //Wait for options script to get all the folders before continuing
-        while (GM.options.initializing) yield return null;
-
-		foreach (State state in states)
-			state.gameObject.SetActive (true);
+		//foreach (State state in states)
+		//	state.gameObject.SetActive (true);
 
         //This just changes the state to the first state that's in the inspector
         //This will primarily be for testing, generally you want to sync when things start up

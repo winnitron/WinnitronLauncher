@@ -18,6 +18,7 @@ public class GM : Singleton<GM> {
     public static GameSync sync;
     public static WinnitronNetwork network;
     public static LogOutputHandler logOutput;
+    public static VideoManager video;
 
     public static Jukebox jukebox;
 
@@ -27,11 +28,12 @@ public class GM : Singleton<GM> {
         runner = GetComponent<Runner>();
         data = GetComponent<DataManager> ();
         //options = GetComponent<OptionsManager> ();
-        //state = GetComponent<StateManager> ();
+        state = GetComponent<StateManager> ();
         logger = GetComponent<Logger>();
         //sync = GetComponent<GameSync>();
         //network = GetComponent<WinnitronNetwork>();
         logOutput = GetComponent<LogOutputHandler>();
+        video = GetComponent<VideoManager>();
 
         VersionNumber = versionNumber;
         GM.logger.Info("#####  VERSION " + versionNumber + " #####");
