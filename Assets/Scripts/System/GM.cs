@@ -38,8 +38,8 @@ public class GM : Singleton<GM> {
         writeProcessInfo();
 
         //Not 100% sure why the jukebox is here. :S
-        if (GameObject.Find("Jukebox"))
-            jukebox = GameObject.Find("Jukebox").GetComponent<Jukebox>();
+        //if (GameObject.Find("Jukebox"))
+        //    jukebox = GameObject.Find("Jukebox").GetComponent<Jukebox>();
 
         //Do Windows window management shizzle
         ResetScreen();
