@@ -8,7 +8,7 @@ public class NUI_GameLabel : MonoBehaviour {
     public Text text;
     public int position;
 
-    private Tweenable tween;
+    public Tweenable tween;
 
     public GameObject targetAbove;
     public GameObject target;
@@ -18,9 +18,6 @@ public class NUI_GameLabel : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        text = GetComponent<Text>();
-        tween = GetComponent<Tweenable>();
-
         //Hook in the delegates into the UI Controller
         controller.moveDown += MoveDown;
         controller.moveUp += MoveUp;

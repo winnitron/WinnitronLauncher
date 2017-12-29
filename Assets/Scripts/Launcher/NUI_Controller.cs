@@ -119,6 +119,7 @@ public class NUI_Controller : MonoBehaviour {
 
             else
             {
+                Debug.Log("label " + label.name);
                 label.text.text = "";
             }
         }

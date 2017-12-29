@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public class ImageFade : MonoBehaviour {
 
     public float FadeRate;
-    private Image image;
+    public Image image;
+
     private float targetAlpha;
 
     // Use this for initialization
     void Start()
     {
-        this.image = this.GetComponent<Image>();
         if (this.image == null)
         {
             Debug.LogError("Error: No image on " + this.name);

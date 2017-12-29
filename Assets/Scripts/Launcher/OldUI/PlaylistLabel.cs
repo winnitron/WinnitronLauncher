@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 public class PlaylistLabel : Tweenable {
 
-
     public List<Text> textList;                 // List of the different text objects that make up the pulsing label
     float[] alphaList;              // Starting alpha levels for each individual text object
 

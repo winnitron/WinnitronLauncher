@@ -17,6 +17,8 @@ public class Jukebox : MonoBehaviour {
     public GameObject tweenOffScreenTarget;
     public float tweenTime;
 
+    private bool init = true;
+
     void Start() {
 		source = gameObject.GetComponent<AudioSource> ();
         Stop();
@@ -24,7 +26,11 @@ public class Jukebox : MonoBehaviour {
 
     void OnEnable()
     {
-        PlayRandom();
+        //Just making sure that the very first enable (when the prog starts) doesn't trigger an error
+        if (!init)
+            PlayRandom();
+        else
+            init = false;
     }
 
     void OnDisable()
