@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LauncherState : State {
 
+    public NUI_Controller launcher;
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo info, int layerIndex)
     {
         base.OnStateEnter(animator, info, layerIndex);
@@ -17,7 +19,7 @@ public class LauncherState : State {
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo info, int layerIndex)
     {
-
+        
     }
 
 }

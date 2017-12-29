@@ -2308,7 +2308,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.000015258789}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1532549172
@@ -2323,7 +2323,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameLabelContainer: {fileID: 384177353}
-  gameLabels: []
+  gameLabels:
+  - {fileID: 420641065}
+  - {fileID: 527888668}
+  - {fileID: 251575898}
+  - {fileID: 1607550467}
+  - {fileID: 708358984}
+  - {fileID: 534293873}
+  - {fileID: 1278409118}
   playlist: {fileID: 183851964}
   playlistTweenTargetRight: {fileID: 1133331403}
   playlistTweenTargetSelected: {fileID: 1503507011}

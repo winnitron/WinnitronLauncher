@@ -10,45 +10,24 @@ Material:
   m_Shader: {fileID: 4800000, guid: c314ee91a9ba8e044ab7ceed4337d5e3, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
+  disabledShaderPasses: []
   m_SavedProperties:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TexEnvs:
-      data:
-        first:
-          name: _MainTex
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-      data:
-        first:
-          name: _Intensity
-        second: .280000001
-      data:
-        first:
-          name: _Exponent1
-        second: 5.92000008
-      data:
-        first:
-          name: _Exponent2
-        second: .939999998
+    - _Exponent1: 5.92
+    - _Exponent2: 0.94
+    - _Intensity: 0.28
     m_Colors:
-      data:
-        first:
-          name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _Color1
-        second: {r: 0, g: .0494420528, b: .551470578, a: 0}
-      data:
-        first:
-          name: _Color2
-        second: {r: .100063324, g: 0, b: .838235259, a: 0}
-      data:
-        first:
-          name: _Color3
-        second: {r: .522058845, g: .269639313, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color1: {r: 0, g: 0, b: 0, a: 0}
+    - _Color2: {r: 0, g: 0, b: 0, a: 0}
+    - _Color3: {r: 0.52205884, g: 0.2696393, b: 0, a: 0}

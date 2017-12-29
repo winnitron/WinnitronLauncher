@@ -21,23 +21,24 @@ public class NUI_Controller : MonoBehaviour {
 
     public float tweenTimeBase = 0.25f;
 
-    //Delegates for the tweening UI elements to hook into
+    //Need a flag to update in LateUpdate
+    public bool refreshUI = true;
 
+    //Delegates for the tweening UI elements to hook into
     public delegate void MoveUp();
     public MoveUp moveUp;
 
     public delegate void MoveDown();
     public MoveDown moveDown;
 
-	// Use this for initialization
-	void Start () {
-        gameLabels = gameLabelContainer.GetComponentsInChildren<NUI_GameLabel>();
+    private void OnEnable()
+    {
+        RefreshUI();
+    }
 
-        UpdateGameUI(0);
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update ()
+    {
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && gameSelector > 0)
             UpdateGameUI(-1);
@@ -50,6 +51,15 @@ public class NUI_Controller : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.RightArrow) && playlistSelector < GM.data.playlists.Count - 1)
             MovePlaylist(1);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+            RefreshUI();
+    }
+
+    void LateUpdate()
+    {
+        if (refreshUI)
+            UpdateGameUI(0);
     }
 
     private void MovePlaylist(int direction)
@@ -91,6 +101,12 @@ public class NUI_Controller : MonoBehaviour {
         UpdateGameUI(0);
     }
 
+    public void RefreshUI()
+    {
+        //Set the toggle so it updates in LateUpdate
+        refreshUI = true;
+    }
+
     private void UpdateGameUI(int direction)
     {
         gameSelector += direction;
@@ -98,11 +114,13 @@ public class NUI_Controller : MonoBehaviour {
         //Move the Game Labels to their right spots and feed them the right text
         foreach (NUI_GameLabel label in gameLabels)
         {
-            if(label.position + gameSelector >= 0 && label.position + gameSelector < GetCurrentPlaylist().games.Count)
+            if (label.position + gameSelector >= 0 && label.position + gameSelector < GetCurrentPlaylist().games.Count)
                 label.text.text = GetCurrentPlaylist().games[gameSelector + label.position].name.ToUpper();
 
             else
-                label.text.text = "";   
+            {
+                label.text.text = "";
+            }
         }
 
         //Move the Game Images to the right spots and feed them the image they need
@@ -114,6 +132,8 @@ public class NUI_Controller : MonoBehaviour {
         if (direction == -1) moveUp();
 
         gameImageSelected.sprite = GetCurrentGame().screenshot;
+
+        refreshUI = false;
     }
 
     private Game GetCurrentGame()

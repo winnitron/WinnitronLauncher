@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class InitState : State
 {
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo info, int layerIndex)
+    {
+    }
+
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+
+    }
+
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo info, int layerIndex)
     {
         //Wait until GM is completed initializing.

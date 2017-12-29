@@ -26,10 +26,7 @@ public class IntroState : State
             introLoaded = true;
 
         if (introLoaded && !GM.video.player.isPlaying)
-        {
-            Debug.Log("NOT PLAYING");
             animator.SetTrigger("NextState");
-        }
     }
 
 }
