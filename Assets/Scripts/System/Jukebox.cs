@@ -12,9 +12,24 @@ public class Jukebox : MonoBehaviour {
 
 	private AudioSource source;
 
-	protected void Start() {
+    public GameObject container;
+    public GameObject tweenTarget;
+    public GameObject tweenOffScreenTarget;
+    public float tweenTime;
+
+    void Start() {
 		source = gameObject.GetComponent<AudioSource> ();
-        NextTrack();
+        Stop();
+    }
+
+    void OnEnable()
+    {
+        PlayRandom();
+    }
+
+    void OnDisable()
+    {
+        Stop();
     }
 
     void Update() {
@@ -38,18 +53,16 @@ public class Jukebox : MonoBehaviour {
 	    // Check for song end
 	    if (!source.isPlaying && isPlaying)
 	        NextTrack();
-
-        //Make sure there's a track playing when the launcher is going
-        if (GM.state.worldState == StateManager.WorldState.Launcher && !isPlaying)
-            PlayRandom();
     }
 
-    public void Stop() {
+    private void Stop() {
         source.Stop();
         isPlaying = false;
+
+        container.transform.localPosition = tweenOffScreenTarget.transform.localPosition;
     }
 
-    public void PlayRandom() {
+    private void PlayRandom() {
         if (GM.data.songs.Count > 0) {
             currentTrack = UnityEngine.Random.Range(0, GM.data.songs.Count);
             source.clip = GM.data.songs[currentTrack].clip;
@@ -57,7 +70,7 @@ public class Jukebox : MonoBehaviour {
         }
     }
 
-    public void NextTrack() {
+    private void NextTrack() {
 
         if (GM.data.songs.Count <= 0)
             return;
@@ -70,7 +83,7 @@ public class Jukebox : MonoBehaviour {
         Play();
     }
 
-    public void LastTrack() {
+    private void LastTrack() {
 
         Stop();
 
@@ -84,10 +97,11 @@ public class Jukebox : MonoBehaviour {
         Play();
     }
 
-    public void Play() {
+    private void Play() {
         isPlaying = true;
         source.Play();
-        songName.text = GM.data.songs[currentTrack].name;
-        artistName.text = GM.data.songs[currentTrack].author;
+        songName.text = GM.data.songs[currentTrack].name + " - " + GM.data.songs[currentTrack].author;
+
+        container.GetComponent<Tweenable>().TweenLocalPosition(tweenTarget.transform.localPosition, tweenTime, false);
     }
 }

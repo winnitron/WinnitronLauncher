@@ -12,5 +12,7 @@ public class StateMachineHelper : MonoBehaviour {
     public GameObject sync;
     public GameObject attract;
     public GameObject oops;
+    public GameObject jukebox;
+    public GameObject mainCanvas;
 
 }

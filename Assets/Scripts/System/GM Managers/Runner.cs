@@ -38,8 +38,6 @@ public class Runner : MonoBehaviour {
 
     IEnumerator RunProcess(Process process){
 
-        if (GM.jukebox) GM.jukebox.Stop();
-
         GM.state.ChangeState(StateManager.WorldState.Idle);
         Screen.fullScreen = false;
 

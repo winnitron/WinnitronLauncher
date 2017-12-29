@@ -4,16 +4,16 @@ using System.IO;
 using System.Collections.Generic;
 using SimpleJSON;
 
-public class OptionsManager : MonoBehaviour {
+
+
+public class OptionsManager : MonoBehaviour
+{
 
     //Launcher Options
     public bool widescreen = true;
     public int launcherIdleTimeBeforeAttract;
 
     public bool initializing = true;
-
-    //This just turns off looking for the options file for when you're just working locally in Unity.
-    public bool debugMode = false;
 
     public float tweenTime = 0.7f;
 
@@ -49,7 +49,9 @@ public class OptionsManager : MonoBehaviour {
     public JSONNode O;
 
     // Use this for initialization
-    void Awake() {
+    void Awake()
+    {
+        Debug.Log("Does keys exist " + keys);
 
         // we need to load default language here, so we can display errors
         language = GM.data.GetDefautLanguage();
@@ -65,7 +67,9 @@ public class OptionsManager : MonoBehaviour {
         if (System.IO.File.Exists(userdataFile))
         {
             dataPath = GM.data.LoadJson(userdataFile)["userDataPath"];
-        } else {
+        }
+        else
+        {
             GM.Oops(GM.Text("error", "cannotFindUserDataPathJson"), true);
         }
 
@@ -82,7 +86,8 @@ public class OptionsManager : MonoBehaviour {
             O = GM.data.LoadJson(optionsFile);
 
             logger = O["logger"];
-            switch(logger["level"]) {
+            switch (logger["level"])
+            {
                 case "debug":
                     Logger.logLevel = Logger.LogLevels.Debug;
                     break;
@@ -147,10 +152,6 @@ public class OptionsManager : MonoBehaviour {
             // Tell GM that Options is done with all the Init stuff
             initializing = false;
         }
-        else if(debugMode)
-        {
-            //Don't load the options file
-        }
         else
         {
             GM.Oops(GM.Text("error", "cannotFindJson"), true);
@@ -194,11 +195,14 @@ public class OptionsManager : MonoBehaviour {
         players[3] = O["keycodes"]["player3"];
         players[4] = O["keycodes"]["player4"];
 
-        for(int pNum = 1; pNum <= 4; pNum++) {
+        for (int pNum = 1; pNum <= 4; pNum++)
+        {
             JSONNode player = players[pNum];
 
-            foreach(string control in KeyBindings.CONTROLS) {
-                if (player[control] != null) {
+            foreach (string control in KeyBindings.CONTROLS)
+            {
+                if (player[control] != null)
+                {
                     KeyCode customKey = keyTranslator.fromAHK(player[control]);
                     keys.SetKey(pNum, control, customKey);
                     GM.logger.Debug("CUSTOM KEY (player " + pNum + " " + control + "): " + customKey);
