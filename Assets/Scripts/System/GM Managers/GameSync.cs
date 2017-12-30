@@ -63,7 +63,7 @@ public class GameSync : MonoBehaviour {
             SyncText("INITIALIZING SYNC!");
 
             initConfig();
-            GM.state.ChangeState(StateManager.WorldState.Sync);
+            GM.state.SetTrigger("Sync");
             fetchPlaylistSubscriptions();
         }
         else
@@ -189,7 +189,7 @@ public class GameSync : MonoBehaviour {
         GM.data.ReloadData();
 
         //Change state back to intro when completed
-        GM.state.ChangeState(StateManager.WorldState.Intro);
+        GM.state.SetTrigger("NextState");
     }
 
     /// <summary>
@@ -213,9 +213,7 @@ public class GameSync : MonoBehaviour {
     /// <returns>True if safe to sync, false if not.</returns>
     private bool SafeToSync()
     {
-        return GM.state.worldState != StateManager.WorldState.Intro &&
-               GM.state.worldState != StateManager.WorldState.Idle  &&
-               GM.state.worldState != StateManager.WorldState.Sync;
+        return GM.state.GetCurrentAnimatorStateInfo(0).IsName("Launcher");
     }
 
 

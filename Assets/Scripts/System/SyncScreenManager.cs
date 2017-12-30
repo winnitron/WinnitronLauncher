@@ -41,15 +41,13 @@ public class SyncScreenManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-        if (GM.state.worldState == StateManager.WorldState.Sync)
+        punctuationDelayCountdown -= Time.deltaTime;
+        if (punctuationDelayCountdown < 0)
         {
-            punctuationDelayCountdown -= Time.deltaTime;
-            if (punctuationDelayCountdown < 0)
-            {
-                UpdateSyncText();
-                punctuationDelayCountdown = delayBetweenPunctuation;
-            }
+            UpdateSyncText();
+            punctuationDelayCountdown = delayBetweenPunctuation;
         }
+        
 	}
 
 	void PickRandomText()

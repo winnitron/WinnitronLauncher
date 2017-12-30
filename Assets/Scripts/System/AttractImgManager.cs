@@ -16,42 +16,33 @@ public class AttractImgManager :  MonoBehaviour {
 
     public bool switchDelay = false;
 
-    void Start() {
+    void OnEnable() {
         BuildAttractImagesList();
         ResetSlides();
     }
 
     void Update() {
 
-        //Make sure you're only doing stuff if it's actually the Attract state
-        //Cause pesky Unity might be running this even if this component is disabled
-        //CAN'T TRUST IT
-        if (GM.state.worldState == StateManager.WorldState.Attract) {
+        //Go to launcher on any key pressed
+        if (Input.anyKeyDown)
+            GM.state.SetTrigger("NextState");
 
-            //Go to launcher on any key pressed
-            if (Input.anyKeyDown)
-                GM.state.ChangeState(StateManager.WorldState.Launcher);
-
-            if (timePassed == 0) {
-                GM.logger.Debug(this, "hey!  first time running attract");
-                slideNum = -1;
-                NextSlide();
-            }
-
-            timePassed += Time.deltaTime;
-
-            try {
-                if(!attractSprites[slideNum].GetComponent<Animation>().isPlaying)
-                    NextSlide ();
-            } catch (ArgumentOutOfRangeException) {
-                // NOP. This gets thrown when the Attract folder is empty.
-            }
-
-        } else {
-            //start from the beginning next time
-            timePassed = 0;
-            ResetSlides();
+        if (timePassed == 0) {
+            GM.logger.Debug(this, "hey!  first time running attract");
+            slideNum = -1;
+            NextSlide();
         }
+
+        timePassed += Time.deltaTime;
+
+        try {
+            if(!attractSprites[slideNum].GetComponent<Animation>().isPlaying)
+                NextSlide ();
+        } catch (ArgumentOutOfRangeException) {
+            // NOP. This gets thrown when the Attract folder is empty.
+        }
+
+        
     }
 
     void ResetSlides() {

@@ -13,7 +13,7 @@ public class GM : Singleton<GM> {
     public static Runner runner;
     public static DataManager data;
     public static OptionsManager options;
-    public static StateManager state;
+    public static Animator state;
     public static Logger logger;
     public static GameSync sync;
     public static WinnitronNetwork network;
@@ -29,7 +29,7 @@ public class GM : Singleton<GM> {
         runner = GetComponent<Runner>();
         data = GetComponent<DataManager> ();
         options = GetComponent<OptionsManager> ();
-        state = GetComponent<StateManager> ();
+        state = GetComponent<Animator> ();
         logger = GetComponent<Logger>();
         sync = GetComponent<GameSync>();
         network = GetComponent<WinnitronNetwork>();
@@ -62,7 +62,7 @@ public class GM : Singleton<GM> {
     /// <param name="isCritical">Critical will force quit the launcher</param>
     public static void Oops(string text, bool isCritical)
     {
-        state.Oops(text, isCritical);
+        //state.Oops(text, isCritical);
     }
 
     /// <summary>
@@ -71,7 +71,7 @@ public class GM : Singleton<GM> {
     /// <param name="text">Text to show on the Oops screen</param>
     public static void Oops(string text)
     {
-        state.Oops(text, false);
+        //state.Oops(text, false);
     }
 
     /// <summary>
@@ -90,7 +90,7 @@ public class GM : Singleton<GM> {
     /// </summary>
     public static void Restart()
     {
-        state.ChangeState(StateManager.WorldState.Intro);
+        state.SetTrigger("Init");
         ResetScreen();
     }
 

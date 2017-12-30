@@ -38,12 +38,13 @@ public class Runner : MonoBehaviour {
 
     IEnumerator RunProcess(Process process){
 
-        GM.state.ChangeState(StateManager.WorldState.Idle);
+        GM.state.SetTrigger("NextState");
+
         Screen.fullScreen = false;
 
         yield return new WaitForSeconds(1.0f);
 
-        // GM.logger.Info(this, "RUNNER: Running game " + process.StartInfo.FileName);
+        GM.logger.Info(this, "RUNNER: Running game " + process.StartInfo.FileName);
 
         GM.network.startGame(game.slug);
 
