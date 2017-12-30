@@ -10,6 +10,7 @@ public class Game
 
     public string name;
     public string author;
+    public string description;
     public Sprite screenshot;
     public string executable;
     public string slug;

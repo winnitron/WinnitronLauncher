@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class InitState : State
 {
+
     public override void OnStateEnter(Animator animator, AnimatorStateInfo info, int layerIndex)
     {
+        base.OnStateEnter(animator, info, layerIndex);
+
+        helper.jukebox.SetActive(false);
+        helper.launcher.SetActive(false);
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

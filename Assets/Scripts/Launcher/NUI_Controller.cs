@@ -31,9 +31,12 @@ public class NUI_Controller : MonoBehaviour {
     public delegate void MoveDown();
     public MoveDown moveDown;
 
+    public delegate void RefreshLauncherUI();
+    public RefreshLauncherUI refreshLauncherUI;
+
     private void OnEnable()
     {
-        RefreshUI();
+        UpdateLauncherUI();
     }
 
     // Update is called once per frame
@@ -41,10 +44,10 @@ public class NUI_Controller : MonoBehaviour {
     {
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && gameSelector > 0)
-            UpdateGameUI(-1);
+            MoveGames(-1);
 
         if (Input.GetKeyDown(KeyCode.DownArrow) && gameSelector < GetCurrentPlaylist().games.Count - 1)
-            UpdateGameUI(1);
+            MoveGames(1);
 
         if (Input.GetKeyDown(KeyCode.LeftArrow) && playlistSelector > 0)
             MovePlaylist(-1);
@@ -53,14 +56,23 @@ public class NUI_Controller : MonoBehaviour {
             MovePlaylist(1);
 
         if (Input.GetKeyDown(KeyCode.Space))
-            RefreshUI();
+            UpdateLauncherUI();
     }
 
-    void LateUpdate()
+
+    private void MoveGames(int direction)
     {
-        if (refreshUI)
-            UpdateGameUI(0);
+        //Apply the direciton
+        gameSelector += direction;
+
+        //Call delegates.  Used in the Game Labels
+        if (direction == 1) moveDown();
+        if (direction == -1) moveUp();
+
+        //Update the list
+        UpdateLauncherUI();
     }
+
 
     private void MovePlaylist(int direction)
     {
@@ -98,19 +110,42 @@ public class NUI_Controller : MonoBehaviour {
         //Tween the copy offscreen, and the original onscreen
         playlist.GetComponent<Tweenable>().TweenLocalPosition(playlistTweenTargetSelected.transform.localPosition, tweenTimeBase, false);
 
-        UpdateGameUI(0);
+        UpdateLauncherUI();
     }
 
-    public void RefreshUI()
+
+    public void UpdateLauncherUI()
     {
         //Set the toggle so it updates in LateUpdate
         refreshUI = true;
     }
 
-    private void UpdateGameUI(int direction)
-    {
-        gameSelector += direction;
 
+    void LateUpdate()
+    {
+        if (refreshUI)
+        {
+            
+            if (refreshLauncherUI != null)
+            {
+                //Updates the list of games here.
+                UpdateGameList();
+
+                //Fire the delegate in case anything's linked in
+                //Game Info uses this so far.
+                refreshLauncherUI();
+
+                //Reset that flag.
+                refreshUI = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Makes sure that all the games are in the right spots.
+    /// </summary>
+    private void UpdateGameList()
+    {
         //Move the Game Labels to their right spots and feed them the right text
         foreach (NUI_GameLabel label in gameLabels)
         {
@@ -119,7 +154,6 @@ public class NUI_Controller : MonoBehaviour {
 
             else
             {
-                Debug.Log("label " + label.name);
                 label.text.text = "";
             }
         }
@@ -128,21 +162,15 @@ public class NUI_Controller : MonoBehaviour {
         gameImageToFade.sprite = gameImageSelected.sprite;
         gameImageToFade.GetComponent<ImageFade>().SetOpaqueAndFade();
         gameImageSelected.sprite = GetCurrentGame().screenshot;
-
-        if (direction == 1) moveDown();
-        if (direction == -1) moveUp();
-
-        gameImageSelected.sprite = GetCurrentGame().screenshot;
-
-        refreshUI = false;
     }
 
-    private Game GetCurrentGame()
+
+    public Game GetCurrentGame()
     {
         return GetCurrentPlaylist().games[gameSelector];
     }
 
-    private Playlist GetCurrentPlaylist()
+    public Playlist GetCurrentPlaylist()
     {
         return GM.data.playlists[playlistSelector];
     }

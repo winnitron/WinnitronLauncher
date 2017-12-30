@@ -1597,6 +1597,8 @@ GameObject:
   - component: {fileID: 972915915}
   - component: {fileID: 972915917}
   - component: {fileID: 972915916}
+  - component: {fileID: 972915918}
+  - component: {fileID: 972915919}
   m_Layer: 5
   m_Name: GameInfo
   m_TagString: Untagged
@@ -1611,7 +1613,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 972915914}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.000025371839}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9999891, y: 0.9999898, z: 0.9999898}
   m_Children: []
   m_Father: {fileID: 1532549171}
@@ -1619,8 +1621,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 352.99997, y: -272.00015}
-  m_SizeDelta: {x: 541.99, y: 94.6}
+  m_AnchoredPosition: {x: 352.99997, y: -236}
+  m_SizeDelta: {x: 541.99, y: 165.39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &972915916
 MonoBehaviour:
@@ -1665,6 +1667,36 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 972915914}
+--- !u!114 &972915918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 972915914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49f8bce5c1f18f647bb31f423624ef56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 1532549172}
+  text: {fileID: 972915916}
+  endTarget: {x: 0, y: 0, z: 0}
+  startTarget: {x: 353, y: -666.5, z: 0}
+  tweenTime: 0.9
+--- !u!114 &972915919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 972915914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: 1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1043383343
 GameObject:
   m_ObjectHideFlags: 0
@@ -2446,7 +2478,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1532549171
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2586,6 +2618,8 @@ GameObject:
   - component: {fileID: 1607550467}
   - component: {fileID: 1607550465}
   - component: {fileID: 1607550466}
+  - component: {fileID: 1607550472}
+  - component: {fileID: 1607550471}
   m_Layer: 5
   m_Name: SelectedText
   m_TagString: Untagged
@@ -2667,7 +2701,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1607550463}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -2716,6 +2750,34 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1607550463}
+--- !u!114 &1607550471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1607550463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 5, y: 5}
+  m_UseGraphicAlpha: 0
+--- !u!114 &1607550472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1607550463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 5, y: 5}
+  m_UseGraphicAlpha: 0
 --- !u!1 &1631272409
 GameObject:
   m_ObjectHideFlags: 0
@@ -2987,14 +3049,16 @@ MonoBehaviour:
     description: This is a test.
     games:
     - name: Sumo Topplers
-      author: 
+      author: Marlon Wiebe
+      description: Topple stuff and eat foods and whatever.
       screenshot: {fileID: 21300000, guid: 60795d9e2b165e147a93fc0d714f323d, type: 3}
       executable: 
-      slug: 
+      slug: This is a game about stuff.
       gameType: 0
       voidGame: 0
     - name: Frankfurter Game
-      author: 
+      author: Jon Hamburger
+      description: This is another game with stuff and things.
       screenshot: {fileID: 21300000, guid: e5d5901a5a2d3d64f9f8ddd87390a6c9, type: 3}
       executable: 
       slug: 
@@ -3002,6 +3066,7 @@ MonoBehaviour:
       voidGame: 0
     - name: Habinjero
       author: 
+      description: 
       screenshot: {fileID: 21300000, guid: 259df81cc073c814f8f2a6697fb1e3e4, type: 3}
       executable: 
       slug: 
@@ -3009,6 +3074,7 @@ MonoBehaviour:
       voidGame: 0
     - name: Time Jumper
       author: 
+      description: 
       screenshot: {fileID: 21300000, guid: b1b93e106d03b9e418777a94ae6f3c26, type: 3}
       executable: 
       slug: 
@@ -3016,6 +3082,7 @@ MonoBehaviour:
       voidGame: 0
     - name: Launchman McQuack
       author: 
+      description: 
       screenshot: {fileID: 21300000, guid: 16e4f332b9e02dc479e497219ca54a47, type: 3}
       executable: 
       slug: 
@@ -3023,6 +3090,7 @@ MonoBehaviour:
       voidGame: 0
     - name: Samuel L. Jackson
       author: 
+      description: 
       screenshot: {fileID: 21300000, guid: 4b49cdeafcd5a454bb2395bb26a55599, type: 3}
       executable: 
       slug: 
@@ -3030,6 +3098,7 @@ MonoBehaviour:
       voidGame: 0
     - name: Podunkery
       author: 
+      description: 
       screenshot: {fileID: 21300000, guid: 16e4f332b9e02dc479e497219ca54a47, type: 3}
       executable: 
       slug: 
@@ -3041,6 +3110,7 @@ MonoBehaviour:
     games:
     - name: Puma Popplers
       author: 
+      description: 
       screenshot: {fileID: 21300000, guid: e48a84580b37044afbe5ec02b13adb91, type: 3}
       executable: 
       slug: 
@@ -3048,6 +3118,7 @@ MonoBehaviour:
       voidGame: 0
     - name: Trankturter Game
       author: 
+      description: 
       screenshot: {fileID: 21300000, guid: f7b8159a4190da147ac5480967c34fa8, type: 3}
       executable: 
       slug: 
@@ -3055,6 +3126,7 @@ MonoBehaviour:
       voidGame: 0
     - name: Blabinjero
       author: 
+      description: 
       screenshot: {fileID: 21300000, guid: 259df81cc073c814f8f2a6697fb1e3e4, type: 3}
       executable: 
       slug: 
@@ -3062,6 +3134,7 @@ MonoBehaviour:
       voidGame: 0
     - name: Rhyme Plumper
       author: 
+      description: 
       screenshot: {fileID: 21300000, guid: 924caa49f93102e408be3fd21586401c, type: 3}
       executable: 
       slug: 
@@ -3069,6 +3142,7 @@ MonoBehaviour:
       voidGame: 0
     - name: Paunchman McSmack
       author: 
+      description: 
       screenshot: {fileID: 21300000, guid: e5d5901a5a2d3d64f9f8ddd87390a6c9, type: 3}
       executable: 
       slug: 
