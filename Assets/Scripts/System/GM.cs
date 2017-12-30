@@ -32,7 +32,7 @@ public class GM : Singleton<GM> {
         state = GetComponent<StateManager> ();
         logger = GetComponent<Logger>();
         sync = GetComponent<GameSync>();
-        //network = GetComponent<WinnitronNetwork>();
+        network = GetComponent<WinnitronNetwork>();
         logOutput = GetComponent<LogOutputHandler>();
         video = GetComponent<VideoManager>();
         stateMachineHelper = GetComponent<StateMachineHelper>();

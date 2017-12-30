@@ -43,20 +43,30 @@ public class NUI_Controller : MonoBehaviour {
     void Update ()
     {
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && gameSelector > 0)
+        if (Input.GetKeyDown(GM.options.keys.GetKey(1, "up")) && gameSelector > 0)
             MoveGames(-1);
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) && gameSelector < GetCurrentPlaylist().games.Count - 1)
+        if (Input.GetKeyDown(GM.options.keys.GetKey(1, "down")) && gameSelector < GetCurrentPlaylist().games.Count - 1)
             MoveGames(1);
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && playlistSelector > 0)
+        if (Input.GetKeyDown(GM.options.keys.GetKey(1, "left")) && playlistSelector > 0)
             MovePlaylist(-1);
 
-        if (Input.GetKeyDown(KeyCode.RightArrow) && playlistSelector < GM.data.playlists.Count - 1)
+        if (Input.GetKeyDown(GM.options.keys.GetKey(1, "right")) && playlistSelector < GM.data.playlists.Count - 1)
             MovePlaylist(1);
+
+        if (Input.GetKeyDown(GM.options.keys.GetKey(1, "button1")) ||
+            Input.GetKeyDown(GM.options.keys.GetKey(1, "button2")) ||
+            Input.GetKeyDown(KeyCode.Escape))
+            LaunchGame();
 
         if (Input.GetKeyDown(KeyCode.Space))
             UpdateLauncherUI();
+    }
+
+    private void LaunchGame()
+    {
+
     }
 
 
