@@ -9,8 +9,8 @@ public class InitState : State
     {
         base.OnStateEnter(animator, info, layerIndex);
 
-        helper.jukebox.SetActive(false);
-        helper.launcher.SetActive(false);
+        //Make sure all states are off
+        helper.DeactivateAll();
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

@@ -23,10 +23,6 @@ public class AttractImgManager :  MonoBehaviour {
 
     void Update() {
 
-        //Go to launcher on any key pressed
-        if (Input.anyKeyDown)
-            GM.state.SetTrigger("NextState");
-
         if (timePassed == 0) {
             GM.logger.Debug(this, "hey!  first time running attract");
             slideNum = -1;
