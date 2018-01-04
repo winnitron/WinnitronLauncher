@@ -10,26 +10,26 @@ public class Runner : MonoBehaviour {
     private Game game;
     Process gameRunner;
 
-    void Awake()
+    public void Init()
     {
         string rungame = Path.Combine(Application.dataPath, "Options/RunGame.exe");
 
         if (!System.IO.File.Exists(rungame))
-            GM.Oops(GM.Text("error", "noRunGameExe"), true);
+            GM.Instance.Oops(GM.Instance.Text("error", "noRunGameExe"), true);
 
         //Store the legacyController in the Awake
         gameRunner = new Process();
         gameRunner.StartInfo.FileName = rungame;
-        GM.logger.Info(this, "gameRunner path " + gameRunner.StartInfo.FileName);
+        GM.Instance.logger.Info(this, "gameRunner path " + gameRunner.StartInfo.FileName);
 
         if(gameRunner == null)
-            GM.Oops(GM.Text("error", "noLegacyControlExe"));
+            GM.Instance.Oops(GM.Instance.Text("error", "noLegacyControlExe"));
     }
 
     public void Run(Game game) {
         this.game = game;
 
-        GM.logger.Info(this, "Running Game: " + game.name);
+        GM.Instance.logger.Info(this, "Running Game: " + game.name);
 
         LoadAHKScript(game);
         game.PreRun();
@@ -38,25 +38,25 @@ public class Runner : MonoBehaviour {
 
     IEnumerator RunProcess(Process process){
 
-        GM.state.SetTrigger("NextState");
+        GM.Instance.state.SetTrigger("NextState");
 
         Screen.fullScreen = false;
 
         yield return new WaitForSeconds(1.0f);
 
-        GM.logger.Info(this, "RUNNER: Running game " + process.StartInfo.FileName);
+        GM.Instance.logger.Info(this, "RUNNER: Running game " + process.StartInfo.FileName);
 
-        GM.network.startGame(game.slug);
+        GM.Instance.network.startGame(game.slug);
 
         process.Start();
         process.WaitForExit();
         process.Close();
 
-        GM.network.stopGame(game.slug);
+        GM.Instance.network.stopGame(game.slug);
 
-        GM.logger.Info(this, "RUNNER: Finished running game " + process.StartInfo.FileName);
+        GM.Instance.logger.Info(this, "RUNNER: Finished running game " + process.StartInfo.FileName);
 
-        GM.Restart();
+        GM.Instance.Restart();
     }
 
     /// <summary>

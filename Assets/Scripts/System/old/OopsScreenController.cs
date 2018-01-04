@@ -17,16 +17,16 @@ public class OopsScreenController : MonoBehaviour {
     {
         if(isCritical)
         {
-            quitText.text = GM.Text("ui", "oopsQuit");
+            quitText.text = GM.Instance.Text("ui", "oopsQuit");
             if (Input.GetKeyDown(KeyCode.Escape))
                 Application.Quit();
         }
 
         else
         {
-            quitText.text = GM.Text("ui", "oopsRestart");
+            quitText.text = GM.Instance.Text("ui", "oopsRestart");
             if (Input.GetKeyDown(KeyCode.Escape))
-                GM.Restart();
+                GM.Instance.Restart();
         }
     }
 }

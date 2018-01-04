@@ -25,7 +25,7 @@ public class Playlist
 
         SetName();
         BuildGameList();
-        GM.logger.Info(null, "Playlist Built! : " + name);
+        GM.Instance.logger.Info(null, "Playlist Built! : " + name);
     }
 
     public void SetName() {
@@ -36,15 +36,15 @@ public class Playlist
             name = data["title"];
             description = data["description"];
 
-            GM.logger.Debug("Setting playlist name from json: " + file);
+            GM.Instance.logger.Debug("Setting playlist name from json: " + file);
         } else {
             name = this.directory.Name;
             name = name.TrimStart('_');
             name = name.Replace('_', ' ').Replace('-', ' ');
             name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name);
 
-            GM.logger.Debug("Playlist metadata file not found: " + file);
-            GM.logger.Debug("Setting playlist name from directory: " + name);
+            GM.Instance.logger.Debug("Playlist metadata file not found: " + file);
+            GM.Instance.logger.Debug("Setting playlist name from directory: " + name);
         }
     }
 

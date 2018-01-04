@@ -33,17 +33,22 @@ public class GameSync : MonoBehaviour {
     public TimeSpan timeToUpdate;
 
     public bool syncOnStartup = true;
+    public bool isFinished = true;
 
     //Called during GM init
-    private void initConfig()
+    public void Init()
     {
-        apiKey = GM.options.GetSyncSettings()["apiKey"];
+        isFinished = false;
+
+        apiKey = GM.Instance.options.GetSyncSettings()["apiKey"];
 
         if (apiKey == "" || apiKey == null)
-            GM.Oops(GM.options.GetText("error", "noAPIkey"));
+            GM.Instance.Oops(GM.Instance.options.GetText("error", "noAPIkey"));
 
-        libraryURL = GM.options.GetSyncSettings()["libraryURL"];
-        gamesDir = GM.options.playlistsPath;
+        libraryURL = GM.Instance.options.GetSyncSettings()["libraryURL"];
+        gamesDir = GM.Instance.options.playlistsPath;
+
+        execute();
     }
 
     void Update()
@@ -59,16 +64,14 @@ public class GameSync : MonoBehaviour {
     {
         if (syncType != SyncType.NONE)
         {
-            GM.logger.Info(this, "GameSync: Running Sync...");
+            GM.Instance.logger.Info(this, "GameSync: Running Sync...");
             SyncText("INITIALIZING SYNC!");
 
-            initConfig();
-            GM.state.SetTrigger("Sync");
             fetchPlaylistSubscriptions();
         }
         else
         {
-            GM.logger.Info(this, "GameSync: Skipping Sync...");
+            GM.Instance.logger.Info(this, "GameSync: Skipping Sync...");
             EndSync();
         }
     }
@@ -76,7 +79,7 @@ public class GameSync : MonoBehaviour {
     private void fetchPlaylistSubscriptions()
     {
         Dictionary<string, string> headers = new Dictionary<string, string>();
-        headers.Add("User-Agent", "Winnitron Launcher/" + GM.VersionNumber + " (http://winnitron.com)");
+        headers.Add("User-Agent", "Winnitron Launcher/" + GM.Instance.versionNumber + " (http://winnitron.com)");
         WWW www = new WWW(libraryURL + "/api/v1/playlists/?api_key=" + apiKey, null, headers);
 
         StartCoroutine(WaitForSubscriptionList(www));
@@ -87,7 +90,7 @@ public class GameSync : MonoBehaviour {
         yield return www;
 
         if (www.error == null) {
-            GM.logger.Info(this, "fetched playlists: " + www.text);
+            GM.Instance.logger.Info(this, "fetched playlists: " + www.text);
             var data = JSON.Parse(www.text);
             foreach (JSONNode playlistData in data["playlists"].AsArray) {
                 playlists.Add(new Playlist(playlistData, gamesDir));
@@ -106,7 +109,7 @@ public class GameSync : MonoBehaviour {
                 // since the last sync.
                 ArrayList gamesToDownload = playlist.gamesToDownload();
                 foreach (Game game in gamesToDownload) {
-                    GM.logger.Info(this, "Downloading: " + game.title);
+                    GM.Instance.logger.Info(this, "Downloading: " + game.title);
 
                     //Start the downloadin'!
 
@@ -125,7 +128,7 @@ public class GameSync : MonoBehaviour {
                     if (!string.IsNullOrEmpty(download.error))
                     {
                         // error!
-                        GM.logger.Error("Error downloading '" + download.url + "': " + download.error);
+                        GM.Instance.logger.Error("Error downloading '" + download.url + "': " + download.error);
                         yield return SyncText("Error downloading " + game.title + "!", 3);
                     }
                     else
@@ -171,8 +174,8 @@ public class GameSync : MonoBehaviour {
             EndSync();
 
         } else {
-            GM.logger.Error("Error fetching playlists: " + www.error);
-            GM.Oops(GM.options.GetText("error", "fetchPlaylistError"));
+            GM.Instance.logger.Error("Error fetching playlists: " + www.error);
+            GM.Instance.Oops(GM.Instance.options.GetText("error", "fetchPlaylistError"));
         }
     }
 
@@ -183,13 +186,9 @@ public class GameSync : MonoBehaviour {
     private void EndSync()
     {
         lastUpdate = DateTime.Now;
-        GM.logger.Info(this, "GameSync: Sync complete at " + lastUpdate.ToString());
+        GM.Instance.logger.Info(this, "GameSync: Sync complete at " + lastUpdate.ToString());
 
-        //Just double check the the proper data is loaded
-        GM.data.ReloadData();
-
-        //Change state back to intro when completed
-        GM.state.SetTrigger("NextState");
+        isFinished = true;
     }
 
     /// <summary>
@@ -213,7 +212,7 @@ public class GameSync : MonoBehaviour {
     /// <returns>True if safe to sync, false if not.</returns>
     private bool SafeToSync()
     {
-        return GM.state.GetCurrentAnimatorStateInfo(0).IsName("Launcher");
+        return GM.Instance.state.GetCurrentAnimatorStateInfo(0).IsName("Launcher");
     }
 
 
@@ -236,7 +235,7 @@ public class GameSync : MonoBehaviour {
 
             foreach (string dirFullPath in installed) {
                 if (SluggedItem.directoryIsDeletable(dirFullPath, keepers)) {
-                    GM.logger.Info("deleting " + dirFullPath);
+                    GM.Instance.logger.Info("deleting " + dirFullPath);
                     Directory.Delete(dirFullPath, true);
                 }
             }
@@ -285,7 +284,7 @@ public class GameSync : MonoBehaviour {
         }
 
         public ArrayList gamesToDownload() {
-            GM.logger.Info("Syncing games for playlist '" + title + "'");
+            GM.Instance.logger.Info("Syncing games for playlist '" + title + "'");
 
 
             ArrayList toInstall = new ArrayList();
@@ -297,7 +296,7 @@ public class GameSync : MonoBehaviour {
                 }
 
                 if (!game.alreadyInstalled() || game.lastModified > installModified) {
-                    GM.logger.Info("Gonna install " + game.title);
+                    GM.Instance.logger.Info("Gonna install " + game.title);
                     toInstall.Add(game);
                 }
             }

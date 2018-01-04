@@ -8,35 +8,34 @@ public class DataManager : Singleton<DataManager>  {
 
 	public List<Playlist> playlists;
 	public List<Song> songs;
-	public List<Sprite> attractModeImages;
 
-    public delegate void DataUpdatedAction();
-    public event DataUpdatedAction OnDataUpdated;
+    public void Init()
+    {
+        GM.Instance.logger.Debug("DATA: Starting Init...");
+        //Do initial stuff here.
+        ReloadData();
+    }
 
-	public void ReloadData()
+    public void ReloadData()
 	{
         //Start with new lists
         playlists = new List<Playlist>();
         songs = new List<Song>();
-        attractModeImages = new List<Sprite>();
 
 		//Load everything!
 		GetPlaylists ();
-		GetAttractModeImages ();
 		GetMusic ();
 
         //Call the delegate and all methods hooked in
         //Primarily used in LauncherUIController.cs to update the data model
         //But could be used elsewhere
-        GM.logger.Info(this, "DataManager: finished updating data.");
-
-        OnDataUpdated();
+        GM.Instance.logger.Info(this, "DataManager: finished updating data.");
 	}
 
 	// Builds a list of Game objects based on the game directory inside its main directory. Then instantiates the GameNavigationManager, which then instantiates the ScreenShotDisplayManager
 	public void GetPlaylists()
 	{
-		var playlistDir = new DirectoryInfo(GM.options.playlistsPath);
+		var playlistDir = new DirectoryInfo(GM.Instance.options.playlistsPath);
 
 		foreach (var dir in playlistDir.GetDirectories())
 		{
@@ -50,27 +49,22 @@ public class DataManager : Singleton<DataManager>  {
 		}
 	}
 
-	public void GetAttractModeImages()
-	{
-		//Get stuff here
-	}
-
 	public void GetMusic()
 	{
         // get all valid files
-        var info = new DirectoryInfo(GM.options.musicPath);
+        var info = new DirectoryInfo(GM.Instance.options.musicPath);
         var songFiles = info.GetFiles();
 
-        GM.logger.Info(this, "JUKEBOX: Started Loading Song Files.");
+        GM.Instance.logger.Info(this, "JUKEBOX: Started Loading Song Files.");
 
         foreach (var song in songFiles)
         {
             var fileExt = song.FullName.Substring(Mathf.Max(0, song.FullName.Length - 4));
-            GM.logger.Info(this, "JUKEBOX: song extension is " + fileExt);
+            GM.Instance.logger.Info(this, "JUKEBOX: song extension is " + fileExt);
 
             if (song.Name.Substring(0, 1) != "." && fileExt == ".ogg")
             {
-                GM.logger.Info(this, "JUKEBOX: Started loading " + song.FullName);
+                GM.Instance.logger.Info(this, "JUKEBOX: Started loading " + song.FullName);
 
                 WWW audioLoader = new WWW("file://" + song.FullName);
 
@@ -88,13 +82,13 @@ public class DataManager : Singleton<DataManager>  {
                 var author = words[1];
 
                 //We're done!
-                GM.logger.Info(this, "JUKEBOX: Can load song: " + audioLoader.GetAudioClip(false));
+                GM.Instance.logger.Info(this, "JUKEBOX: Can load song: " + audioLoader.GetAudioClip(false));
                 songs.Add(new Song(name, author, audioLoader.GetAudioClip(false)));
-                GM.logger.Info(this, "JUKEBOX: Done loading " + song.FullName);
+                GM.Instance.logger.Info(this, "JUKEBOX: Done loading " + song.FullName);
             }
             else
             {
-                GM.logger.Warn(this, "JUKEBOX: Skipped " + song.FullName + " // not an .ogg");
+                GM.Instance.logger.Warn(this, "JUKEBOX: Skipped " + song.FullName + " // not an .ogg");
             }
         }
     }
@@ -114,8 +108,8 @@ public class DataManager : Singleton<DataManager>  {
 		}
 		catch
 		{
-			GM.logger.Error("Error loading JSON file: " + fileLocation);
-			GM.Oops (GM.Text("error", "cannotFindJson"));
+			GM.Instance.logger.Error("Error loading JSON file: " + fileLocation);
+			GM.Instance.Oops (GM.Instance.Text("error", "cannotFindJson"));
 			return null;
 		}
 	}

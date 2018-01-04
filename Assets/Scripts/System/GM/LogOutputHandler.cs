@@ -29,7 +29,7 @@ public class LogOutputHandler : MonoBehaviour {
         loggingForm.AddField("LEVEL", level);
         loggingForm.AddField("Message", logString);
         loggingForm.AddField("Stack_Trace", stackTrace);
-        loggingForm.AddField("API_Key", GM.options.GetSyncSettings()["apiKey"]);
+        loggingForm.AddField("API_Key", GM.Instance.options.GetSyncSettings()["apiKey"]);
 
         // Add any User, Game, or Device MetaData that would be useful to finding issues later
         loggingForm.AddField("Device_Model", SystemInfo.deviceModel);
@@ -37,8 +37,8 @@ public class LogOutputHandler : MonoBehaviour {
   }
 
     public IEnumerator SendData(WWWForm form) {
-        if (GM.options.logger != null) {
-            string token = GM.options.logger["token"];
+        if (GM.Instance.options.logger != null) {
+            string token = GM.Instance.options.logger["token"];
             string url = "http://logs-01.loggly.com/inputs/" + token;
 
             // Send WWW Form to Loggly, replace TOKEN with your unique ID from Loggly

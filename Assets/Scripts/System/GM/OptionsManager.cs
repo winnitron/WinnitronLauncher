@@ -49,41 +49,39 @@ public class OptionsManager : MonoBehaviour
     public JSONNode O;
 
     // Use this for initialization
-    void Awake()
+    public void Init()
     {
-        Debug.Log("Does keys exist " + keys);
-
         // we need to load default language here, so we can display errors
-        language = GM.data.GetDefautLanguage();
+        language = GM.Instance.data.GetDefautLanguage();
         defaultOptionsPath = Path.Combine(Application.dataPath, "Options");
         optionsPath = defaultOptionsPath;
         keyTranslator = new KeyTranslator(defaultOptionsPath);
 
-        GM.logger.Info("DEFAULT OPTIONS PATH:" + optionsPath);
+        GM.Instance.logger.Info("DEFAULT OPTIONS PATH:" + optionsPath);
 
         // Figure out where the Options are by reading the .json in Options file
         string userdataFile = Path.Combine(optionsPath, "winnitron_userdata_path.json");
-        GM.logger.Info("reading userdata location from " + userdataFile);
+        GM.Instance.logger.Info("reading userdata location from " + userdataFile);
         if (System.IO.File.Exists(userdataFile))
         {
-            dataPath = GM.data.LoadJson(userdataFile)["userDataPath"];
+            dataPath = GM.Instance.data.LoadJson(userdataFile)["userDataPath"];
         }
         else
         {
-            GM.Oops(GM.Text("error", "cannotFindUserDataPathJson"), true);
+            GM.Instance.Oops(GM.Instance.Text("error", "cannotFindUserDataPathJson"), true);
         }
 
-        GM.logger.Info("DATA PATH:" + dataPath);
+        GM.Instance.logger.Info("DATA PATH:" + dataPath);
         optionsPath = Path.Combine(dataPath, "Options");
-        GM.logger.Info("CONFIGURED OPTIONS PATH:" + optionsPath);
+        GM.Instance.logger.Info("CONFIGURED OPTIONS PATH:" + optionsPath);
         string optionsFile = Path.Combine(optionsPath, "winnitron_options.json");
 
         //Load that JSON
-        GM.logger.Info("Loading options from " + optionsFile);
+        GM.Instance.logger.Info("Loading options from " + optionsFile);
 
         if (System.IO.File.Exists(optionsFile))
         {
-            O = GM.data.LoadJson(optionsFile);
+            O = GM.Instance.data.LoadJson(optionsFile);
 
             logger = O["logger"];
             switch (logger["level"])
@@ -103,14 +101,14 @@ public class OptionsManager : MonoBehaviour
                     break;
                 default:
                     Logger.logLevel = Logger.LogLevels.Info;
-                    GM.logger.Warn("Invalid log level '" + logger["level"] + "'. Setting to default 'info'. Valid values are 'debug', 'info', 'warn', 'error'.");
+                    GM.Instance.logger.Warn("Invalid log level '" + logger["level"] + "'. Setting to default 'info'. Valid values are 'debug', 'info', 'warn', 'error'.");
                     break;
             }
 
             SetKeys();
 
             //Launcher Settings
-            GM.logger.Info(this, "OPTIONS:" + O.ToString());
+            GM.Instance.logger.Info(this, "OPTIONS:" + O.ToString());
             if (O["launcher"]["widescreen"] != null) widescreen = O["launcher"]["widescreen"].AsBool;
             if (O["launcher"]["idleTimeBeforeAttract"] != null) launcherIdleTimeBeforeAttract = O["launcher"]["idleTimeBeforeAttract"].AsInt;
 
@@ -128,34 +126,33 @@ public class OptionsManager : MonoBehaviour
             if (O["launcher"]["language"] != null)
             {
                 string langFile = Path.Combine(optionsPath, "winnitron_text_" + O["launcher"]["language"] + ".json");
-                GM.logger.Info(this, "LANGUAGE FILE: " + langFile);
-                language = GM.data.LoadJson(langFile);
+                GM.Instance.logger.Info(this, "LANGUAGE FILE: " + langFile);
+                language = GM.Instance.data.LoadJson(langFile);
             }
 
             //Sync Options
             var mode = O["sync"]["type"].Value.ToLower();
 
-            GM.logger.Info(this, "SYNCMODE " + mode);
+            GM.Instance.logger.Info(this, "SYNCMODE " + mode);
 
             if (mode == "local" || mode == "localonly" || mode == "none")
-                GM.sync.syncType = GameSync.SyncType.NONE;
+                GM.Instance.sync.syncType = GameSync.SyncType.NONE;
             else if (mode == "daily")
-                GM.sync.syncType = GameSync.SyncType.DAILY;
+                GM.Instance.sync.syncType = GameSync.SyncType.DAILY;
             else
-                GM.sync.syncType = GameSync.SyncType.ALWAYS;
+                GM.Instance.sync.syncType = GameSync.SyncType.ALWAYS;
 
-            GM.sync.timeToUpdate = new TimeSpan(O["sync"]["dailySyncTime"]["hour"].AsInt, O["sync"]["dailySyncTime"]["minute"].AsInt, 0);
-            GM.logger.Info(this, "OPTIONS: Time to Update is " + GM.sync.timeToUpdate.ToString());
+            GM.Instance.sync.timeToUpdate = new TimeSpan(O["sync"]["dailySyncTime"]["hour"].AsInt, O["sync"]["dailySyncTime"]["minute"].AsInt, 0);
+            GM.Instance.logger.Info("OPTIONS: Time to Update is " + GM.Instance.sync.timeToUpdate.ToString());
 
-            GM.sync.syncOnStartup = O["sync"]["syncOnStartup"].AsBool;
-
-            // Tell GM that Options is done with all the Init stuff
-            initializing = false;
+            GM.Instance.sync.syncOnStartup = O["sync"]["syncOnStartup"].AsBool;
         }
         else
         {
-            GM.Oops(GM.Text("error", "cannotFindJson"), true);
+            GM.Instance.Oops(GM.Instance.Text("error", "cannotFindJson"), true);
         }
+
+        GM.Instance.logger.Debug("OPTIONS: Done Init.");
     }
 
     public string GetText(string category, string text)
@@ -177,7 +174,7 @@ public class OptionsManager : MonoBehaviour
         if (path.ToString().Contains("default"))
             path = Path.Combine(dataPath, dirName);
 
-        GM.logger.Info(this, "OPTIONS: " + dirName + " path is " + path);
+        GM.Instance.logger.Info(this, "OPTIONS: " + dirName + " path is " + path);
 
         if (!Directory.Exists(path))
         {
@@ -205,7 +202,7 @@ public class OptionsManager : MonoBehaviour
                 {
                     KeyCode customKey = keyTranslator.fromAHK(player[control]);
                     keys.SetKey(pNum, control, customKey);
-                    GM.logger.Debug("CUSTOM KEY (player " + pNum + " " + control + "): " + customKey);
+                    GM.Instance.logger.Debug("CUSTOM KEY (player " + pNum + " " + control + "): " + customKey);
                 }
             }
         }

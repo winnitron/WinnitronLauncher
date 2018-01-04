@@ -7,7 +7,9 @@ public class Logger: MonoBehaviour {
 
     public enum LogLevels { Debug, Info, Warn, Error }
 
-    public static LogLevels logLevel = LogLevels.Info;
+    //Just here to expose it in the inspector
+    public LogLevels initialLogLevel = LogLevels.Debug;
+    public static LogLevels logLevel;
 
     public bool globalOn = false;
     public bool showNull = false;
@@ -15,6 +17,11 @@ public class Logger: MonoBehaviour {
 
     public List<UnityEngine.Object> supress;
     public List<UnityEngine.Object> show;
+
+    private void Start()
+    {
+        logLevel = initialLogLevel;
+    }
 
     public void Log(string msg, LogLevels msgLevel)
     {

@@ -10,7 +10,7 @@ public class Tweenable : MonoBehaviour {
     {
         if (currentTween != null) StopTween();
 
-        currentTween = Go.to(transform, GM.options.tweenTime, new GoTweenConfig()
+        currentTween = Go.to(transform, GM.Instance.options.tweenTime, new GoTweenConfig()
             .position(position)
             .setEaseType(GoEaseType.ExpoOut));
 
@@ -32,7 +32,7 @@ public class Tweenable : MonoBehaviour {
 
     public void Tween(Vector3 position, Vector3 scale)
     {
-        Tween(position, scale, GM.options.tweenTime);
+        Tween(position, scale, GM.Instance.options.tweenTime);
     }
 
     public void Tween(Vector3 position, Vector3 scale, float time)

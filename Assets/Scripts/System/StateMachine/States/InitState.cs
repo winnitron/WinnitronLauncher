@@ -11,6 +11,8 @@ public class InitState : State
 
         //Make sure all states are off
         helper.DeactivateAll();
+
+        GM.Instance.Init();
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -24,6 +26,6 @@ public class InitState : State
 
         //Then either go to intro, Sync, or Oops depending on what happens.
 
-        animator.SetTrigger("NextState");
+        //animator.SetTrigger("NextState");
     }
 }

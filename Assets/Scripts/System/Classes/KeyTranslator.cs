@@ -8,8 +8,8 @@ public class KeyTranslator {
 
     public KeyTranslator(string optionsPath) {
         string file = Path.Combine(optionsPath, "key_translation.json");
-        GM.logger.Debug("KEY TRANSLATION FILE: " + file);
-        translation = GM.data.LoadJson(file)["keys"].AsArray;
+        GM.Instance.logger.Debug("KEY TRANSLATION FILE: " + file);
+        translation = GM.Instance.data.LoadJson(file)["keys"].AsArray;
     }
 
 

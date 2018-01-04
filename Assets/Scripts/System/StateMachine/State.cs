@@ -10,6 +10,6 @@ public class State : StateMachineBehaviour {
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo info, int layerIndex)
     {
-        helper = GM.stateMachineHelper;
+        helper = GM.Instance.stateMachineHelper;
     }
 }

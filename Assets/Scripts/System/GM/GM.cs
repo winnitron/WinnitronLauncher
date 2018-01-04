@@ -7,46 +7,67 @@ using System.Runtime.InteropServices;
 public class GM : Singleton<GM> {
 
     public string versionNumber;
-    public static string VersionNumber;
 
     //reference to the
-    public static Runner runner;
-    public static DataManager data;
-    public static OptionsManager options;
-    public static Animator state;
-    public static Logger logger;
-    public static GameSync sync;
-    public static WinnitronNetwork network;
-    public static LogOutputHandler logOutput;
-    public static VideoManager video;
-    public static StateMachineHelper stateMachineHelper;
+    public Runner runner;
+    public DataManager data;
+    public OptionsManager options;
+    public Animator state;
+    public Logger logger;
+    public GameSync sync;
+    public WinnitronNetwork network;
+    public LogOutputHandler logOutput;
+    public VideoManager video;
+    public StateMachineHelper stateMachineHelper;
+    public Jukebox jukebox;
 
-    public static Jukebox jukebox;
 
-    new void Awake() {
-        Cursor.visible = false;
+    //SINGLETON STUFF
 
-        runner = GetComponent<Runner>();
-        data = GetComponent<DataManager> ();
-        options = GetComponent<OptionsManager> ();
-        state = GetComponent<Animator> ();
-        logger = GetComponent<Logger>();
-        sync = GetComponent<GameSync>();
-        network = GetComponent<WinnitronNetwork>();
-        logOutput = GetComponent<LogOutputHandler>();
-        video = GetComponent<VideoManager>();
-        stateMachineHelper = GetComponent<StateMachineHelper>();
+    protected GM () { }
 
-        VersionNumber = versionNumber;
-        GM.logger.Info("#####  VERSION " + versionNumber + " #####");
+    //END SINGLETON STUFF
+
+
+    void Start() {
+
+        //Get the version number and other bulljazz
+        logger.Info("#####  VERSION " + versionNumber + " #####");
         writeProcessInfo();
+    }
 
-        //Not 100% sure why the jukebox is here. :S
-        if (GameObject.Find("Jukebox"))
-            jukebox = GameObject.Find("Jukebox").GetComponent<Jukebox>();
+    /// <summary>
+    /// Reinitializes all the data in the GM.Instance.
+    /// </summary>
+    public void Init()
+    {
+        logger.Debug("GM initializing!");
+
+        Cursor.visible = false;
 
         //Do Windows window management shizzle
         ResetScreen();
+
+        Instance.StartCoroutine("Initialize");
+    }
+
+    IEnumerator Initialize()
+    {
+        //Let's initialize stuff in order
+        logger.Debug("Options INit!");
+        options.Init();
+        logger.Debug("runner INit!");
+        runner.Init();
+        logger.Debug("sync INit!");
+        sync.Init();
+
+        while (!sync.isFinished)
+            yield return null;
+
+        logger.Debug("Data INit!");
+        data.Init();
+
+        state.SetTrigger("NextState");
     }
 
 
@@ -60,7 +81,7 @@ public class GM : Singleton<GM> {
     /// </summary>
     /// <param name="text">Text to show on the Oops screen</param>
     /// <param name="isCritical">Critical will force quit the launcher</param>
-    public static void Oops(string text, bool isCritical)
+    public void Oops(string text, bool isCritical)
     {
         //state.Oops(text, isCritical);
     }
@@ -69,7 +90,7 @@ public class GM : Singleton<GM> {
     /// Causes an Oops screen to appear and assumes Non-Critical.  This function calls the real Oops in StateManager.cs
     /// </summary>
     /// <param name="text">Text to show on the Oops screen</param>
-    public static void Oops(string text)
+    public void Oops(string text)
     {
         //state.Oops(text, false);
     }
@@ -80,7 +101,7 @@ public class GM : Singleton<GM> {
     /// <param name="category"></param>
     /// <param name="type"></param>
     /// <returns>A plain text string.</returns>
-    public static string Text(string category, string type)
+    public string Text(string category, string type)
     {
         return options.GetText (category, type);
     }
@@ -88,7 +109,7 @@ public class GM : Singleton<GM> {
     /// <summary>
     /// Restarts the launcher
     /// </summary>
-    public static void Restart()
+    public void Restart()
     {
         state.SetTrigger("Init");
         ResetScreen();
@@ -99,7 +120,7 @@ public class GM : Singleton<GM> {
                       "\n" +
                       Path.Combine(Path.GetFullPath("."), "WINNITRON.bat");
 
-        GM.logger.Debug("writing pid and exe path to " + PidFile());
+        GM.Instance.logger.Debug("writing pid and exe path to " + PidFile());
         File.WriteAllText(PidFile(), info);
     }
 

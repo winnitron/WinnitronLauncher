@@ -41,13 +41,13 @@ public class Jukebox : MonoBehaviour {
     void Update() {
 
 	    // Player 2 Joystick controls song
-	    if (Input.GetKeyDown(GM.options.keys.GetKey(2, "left")) || Input.GetKey(KeyCode.Minus))
+	    if (Input.GetKeyDown(GM.Instance.options.keys.GetKey(2, "left")) || Input.GetKey(KeyCode.Minus))
 	        LastTrack();
-	    if (Input.GetKeyDown(GM.options.keys.GetKey(2, "right")) || Input.GetKey(KeyCode.Equals))
+	    if (Input.GetKeyDown(GM.Instance.options.keys.GetKey(2, "right")) || Input.GetKey(KeyCode.Equals))
 	        NextTrack();
 
 	    // Stop & Play from keyboard
-	    if (Input.GetKeyDown(GM.options.keys.GetKey(2, "button1")) || Input.GetKeyDown(GM.options.keys.GetKey(2, "button2"))) {
+	    if (Input.GetKeyDown(GM.Instance.options.keys.GetKey(2, "button1")) || Input.GetKeyDown(GM.Instance.options.keys.GetKey(2, "button2"))) {
 
 	        if (isPlaying)
 	            Stop();
@@ -69,22 +69,22 @@ public class Jukebox : MonoBehaviour {
     }
 
     private void PlayRandom() {
-        if (GM.data.songs.Count > 0) {
-            currentTrack = UnityEngine.Random.Range(0, GM.data.songs.Count);
-            source.clip = GM.data.songs[currentTrack].clip;
+        if (GM.Instance.data.songs.Count > 0) {
+            currentTrack = UnityEngine.Random.Range(0, GM.Instance.data.songs.Count);
+            source.clip = GM.Instance.data.songs[currentTrack].clip;
             Play();
         }
     }
 
     private void NextTrack() {
 
-        if (GM.data.songs.Count <= 0)
+        if (GM.Instance.data.songs.Count <= 0)
             return;
 
         Stop();
 
-        currentTrack = (currentTrack + 1) % GM.data.songs.Count;
-        source.clip = GM.data.songs[currentTrack].clip;
+        currentTrack = (currentTrack + 1) % GM.Instance.data.songs.Count;
+        source.clip = GM.Instance.data.songs[currentTrack].clip;
 
         Play();
     }
@@ -94,11 +94,11 @@ public class Jukebox : MonoBehaviour {
         Stop();
 
         if (currentTrack <= 1)
-            currentTrack = GM.data.songs.Count - 1;
+            currentTrack = GM.Instance.data.songs.Count - 1;
         else
             currentTrack--;
 
-        source.clip = GM.data.songs[currentTrack].clip;
+        source.clip = GM.Instance.data.songs[currentTrack].clip;
 
         Play();
     }
@@ -106,7 +106,7 @@ public class Jukebox : MonoBehaviour {
     private void Play() {
         isPlaying = true;
         source.Play();
-        songName.text = GM.data.songs[currentTrack].name + " - " + GM.data.songs[currentTrack].author;
+        songName.text = GM.Instance.data.songs[currentTrack].name + " - " + GM.Instance.data.songs[currentTrack].author;
 
         container.GetComponent<Tweenable>().TweenLocalPosition(tweenTarget.transform.localPosition, tweenTime, false);
     }

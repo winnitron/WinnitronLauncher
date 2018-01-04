@@ -67,8 +67,8 @@ public class KeyBindings
 
             if (allKeys().Contains(key))
             {
-                GM.logger.Error("Duplicate key found: " + key);
-                GM.Oops(GM.Text("error", "invalidKeymap"), true);
+                GM.Instance.logger.Error("Duplicate key found: " + key);
+                GM.Instance.Oops(GM.Instance.Text("error", "invalidKeymap"), true);
             }
         }
         catch (KeyNotFoundException)

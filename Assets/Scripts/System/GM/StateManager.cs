@@ -25,10 +25,10 @@ public class StateManager : MonoBehaviour {
 
         //This just changes the state to the first state that's in the inspector
         //This will primarily be for testing, generally you want to sync when things start up
-        if (worldState == WorldState.Sync || GM.sync.syncOnStartup) GM.sync.execute();
+        if (worldState == WorldState.Sync || GM.Instance.sync.syncOnStartup) GM.Instance.sync.execute();
         else
         {
-            GM.data.ReloadData();
+            GM.Instance.data.ReloadData();
             ChangeState(worldState);
         }
 	}
@@ -48,7 +48,7 @@ public class StateManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.F5) || Input.GetKeyDown(KeyCode.Return))
             ChangeState(WorldState.Sync);
         if (Input.GetKeyDown(KeyCode.F6))
-            GM.Oops(GM.Text("error", "test"));
+            GM.Instance.Oops(GM.Instance.Text("error", "test"));
 	}
 
     /// <summary>
@@ -62,7 +62,7 @@ public class StateManager : MonoBehaviour {
         /*
 		foreach (var state in states) {
 			if (newState == state.worldState) {
-				GM.logger.Debug(this, "STATE: activating state " + state.worldState);
+				GM.Instance.logger.Debug(this, "STATE: activating state " + state.worldState);
 				state.Activate();
 				worldState = state.worldState;
 			}
@@ -70,9 +70,9 @@ public class StateManager : MonoBehaviour {
 				state.Deactivate();
 		}
 
-        GM.logger.Debug(this, "STATE: new state is " + worldState);
+        GM.Instance.logger.Debug(this, "STATE: new state is " + worldState);
 
-        GM.ResetScreen();
+        GM.Instance.ResetScreen();
         */
 	}
     

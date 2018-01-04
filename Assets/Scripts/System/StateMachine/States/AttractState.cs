@@ -11,7 +11,7 @@ public class AttractState : State {
     {
         base.OnStateEnter(animator, info, layerIndex);
 
-        GM.video.PlayVideo(attractVideo, true);
+        GM.Instance.video.PlayVideo(attractVideo, true);
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo info, int layerIndex)

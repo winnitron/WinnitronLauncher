@@ -24,7 +24,7 @@ public class AttractImgManager :  MonoBehaviour {
     void Update() {
 
         if (timePassed == 0) {
-            GM.logger.Debug(this, "hey!  first time running attract");
+            GM.Instance.logger.Debug(this, "hey!  first time running attract");
             slideNum = -1;
             NextSlide();
         }
@@ -55,7 +55,7 @@ public class AttractImgManager :  MonoBehaviour {
 
             slideNum += 1;
 
-            GM.logger.Debug(this, "Calling Next Slide: " + slideNum + " of " + attractSprites.Count);
+            GM.Instance.logger.Debug(this, "Calling Next Slide: " + slideNum + " of " + attractSprites.Count);
 
             if (slideNum > attractSprites.Count - 1) slideNum = 0;
 
@@ -69,17 +69,17 @@ public class AttractImgManager :  MonoBehaviour {
     }
 
     void BuildAttractImagesList() {
-        GM.logger.Info(this, "Attract path: " + GM.options.attractPath);
-        var attractDir = new DirectoryInfo(GM.options.attractPath);
+        GM.Instance.logger.Info(this, "Attract path: " + GM.Instance.options.attractPath);
+        var attractDir = new DirectoryInfo(GM.Instance.options.attractPath);
 
         foreach (var attractImg in attractDir.GetFiles()) {
             //Make sure only .png's get through!
-            GM.logger.Debug(this, "Loading image with ending: " + attractImg.FullName.Substring(Math.Max(0, attractImg.FullName.Length - 4)) + ".png");
+            GM.Instance.logger.Debug(this, "Loading image with ending: " + attractImg.FullName.Substring(Math.Max(0, attractImg.FullName.Length - 4)) + ".png");
 
             if(attractImg.FullName.Substring(Math.Max(0, attractImg.FullName.Length - 4)) == ".png") {
                 GameObject newImgObj = Instantiate(attractSpritePrefab, new Vector3(0, -36.52403f, 0), transform.rotation) as GameObject;
 
-                GM.logger.Debug(this, "Load Attract Image: " + attractImg);
+                GM.Instance.logger.Debug(this, "Load Attract Image: " + attractImg);
                 // Load the screenshot from the games directory as a Texture2D
                 var SpriteTexture = new Texture2D(1024, 768);
                 SpriteTexture.LoadImage(File.ReadAllBytes(attractImg.FullName));
