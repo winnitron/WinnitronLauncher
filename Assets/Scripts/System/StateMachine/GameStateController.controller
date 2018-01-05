@@ -94,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   helper: {fileID: 0}
   launcher: {fileID: 0}
+  videoClip: {fileID: 32900000, guid: ffd3cc5849c265946b5fb34703bc396a, type: 3}
   timeToAttractMode: 10
   currentIdleTime: 0
 --- !u!114 &114469543225622168

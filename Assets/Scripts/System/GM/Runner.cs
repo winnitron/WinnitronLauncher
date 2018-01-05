@@ -56,7 +56,7 @@ public class Runner : MonoBehaviour {
 
         GM.Instance.logger.Info(this, "RUNNER: Finished running game " + process.StartInfo.FileName);
 
-        GM.Instance.Restart();
+        GM.Instance.state.SetTrigger("NextState");
     }
 
     /// <summary>

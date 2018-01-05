@@ -10,8 +10,6 @@ public class IdleState : State {
 
         //turn everything off to save those cycles!
         helper.mainCanvas.SetActive(false);
-
-        animator.SetTrigger("NextState");
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo info, int layerIndex)

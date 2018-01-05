@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class LauncherState : State {
 
     public NUI_Controller launcher;
+    public VideoClip videoClip;
     public float timeToAttractMode;
     public float currentIdleTime = 0;
 
@@ -14,9 +16,9 @@ public class LauncherState : State {
 
         //Start the lawncher!
         helper.launcher.SetActive(true);
-
-        //Make sure the Jukebox is on
         helper.jukebox.SetActive(true);
+
+        GM.Instance.video.PlayVideo(videoClip, true);
 
         ResetIdleTime();
 }
