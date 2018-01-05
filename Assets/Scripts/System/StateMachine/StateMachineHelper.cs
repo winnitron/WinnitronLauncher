@@ -14,6 +14,8 @@ public class StateMachineHelper : MonoBehaviour {
     public GameObject info;
     public GameObject mainCanvas;
 
+    public bool oopsIsCritical = false;
+
     public void DeactivateAll()
     {
         launcher.SetActive(false);

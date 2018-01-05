@@ -87,16 +87,9 @@ public class GM : Singleton<GM> {
     /// <param name="isCritical">Critical will force quit the launcher</param>
     public void Oops(string text, bool isCritical)
     {
-        //state.Oops(text, isCritical);
-    }
-
-    /// <summary>
-    /// Causes an Oops screen to appear and assumes Non-Critical.  This function calls the real Oops in StateManager.cs
-    /// </summary>
-    /// <param name="text">Text to show on the Oops screen</param>
-    public void Oops(string text)
-    {
-        //state.Oops(text, false);
+        GM.Instance.state.SetTrigger("Oops");
+        stateMachineHelper.oopsIsCritical = isCritical;
+        InfoText(text);
     }
 
     /// <summary>
