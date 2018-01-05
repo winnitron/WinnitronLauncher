@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
+/// <summary>
+/// The behaviour attached to the Intro state in the Animator component of the GM GameObject.
+/// 
+/// The functions of this script get called using the Animator transitions and conditions
+/// set within Unity's built in Animator.  Please see the Animator component of the GM 
+/// GameObject to find out more.
+/// </summary>
 public class IntroState : State
 {
     public VideoClip introClip;

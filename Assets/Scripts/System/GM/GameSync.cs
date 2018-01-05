@@ -7,6 +7,10 @@ using SimpleJSON;
 using ICSharpCode.SharpZipLib.Zip;
 using System;
 
+/// <summary>
+/// This is responsible for Syncing the launcher with the Winnitron Network and handling
+/// all HTTP requests etc.
+/// </summary>
 [System.Serializable]
 public class GameSync : MonoBehaviour {
 
@@ -33,7 +37,9 @@ public class GameSync : MonoBehaviour {
     public bool syncOnStartup = true;
     public bool isFinished = true;
 
-    //Called during GM init
+    /// <summary>
+    /// Called during GM's Init phase.
+    /// </summary>
     public void Init()
     {
         isFinished = false;
@@ -49,6 +55,9 @@ public class GameSync : MonoBehaviour {
         execute();
     }
 
+    /// <summary>
+    /// This is where we check for scheduled updates.
+    /// </summary>
     void Update()
     {
         if (timeToUpdate < DateTime.Now.TimeOfDay && syncType == SyncType.DAILY && SafeToSync())
@@ -65,7 +74,7 @@ public class GameSync : MonoBehaviour {
             GM.Instance.logger.Info(this, "GameSync: Running Sync...");
             SyncText("INITIALIZING SYNC!");
 
-            fetchPlaylistSubscriptions();
+            FetchPlaylistSubscriptions();
         }
         else
         {
@@ -74,7 +83,11 @@ public class GameSync : MonoBehaviour {
         }
     }
 
-    private void fetchPlaylistSubscriptions()
+    /// <summary>
+    /// Using the unique API_Key, it checks with the Winnitron Network to download and
+    /// update all the games from the site.
+    /// </summary>
+    private void FetchPlaylistSubscriptions()
     {
         Dictionary<string, string> headers = new Dictionary<string, string>();
         headers.Add("User-Agent", "Winnitron Launcher/" + GM.Instance.versionNumber + " http://winnitron.com");

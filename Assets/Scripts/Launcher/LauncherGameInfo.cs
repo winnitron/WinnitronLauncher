@@ -6,9 +6,9 @@ using UnityEngine.UI;
 /// <summary>
 /// Takes two targets and tweens to the endTarget 
 /// </summary>
-public class NUI_GameInfo : Tweenable {
+public class LauncherGameInfo : Tweenable {
 
-    public NUI_Controller controller;
+    public LauncherController controller;
     public Text text;
 
     public Vector3 endTarget;

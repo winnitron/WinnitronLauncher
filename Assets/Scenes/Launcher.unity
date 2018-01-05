@@ -1611,7 +1611,7 @@ VideoPlayer:
   m_PlayOnAwake: 1
   m_SkipOnDrop: 1
   m_Looping: 1
-  m_WaitForFirstFrame: 1
+  m_WaitForFirstFrame: 0
   m_FrameReadyEventEnabled: 0
 --- !u!1 &708358981
 GameObject:
@@ -3237,7 +3237,6 @@ GameObject:
   - component: {fileID: 1607550465}
   - component: {fileID: 1607550466}
   - component: {fileID: 1607550472}
-  - component: {fileID: 1607550471}
   m_Layer: 5
   m_Name: SelectedText
   m_TagString: Untagged
@@ -3368,20 +3367,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1607550463}
---- !u!114 &1607550471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1607550463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 5, y: 5}
-  m_UseGraphicAlpha: 0
 --- !u!114 &1607550472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3393,8 +3378,8 @@ MonoBehaviour:
   m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 5, y: 5}
+  m_EffectColor: {r: 0.058823526, g: 0.058823526, b: 0.058823526, a: 1}
+  m_EffectDistance: {x: 8, y: 8}
   m_UseGraphicAlpha: 0
 --- !u!1 &1631272409
 GameObject:
@@ -3855,10 +3840,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launcher: {fileID: 1532549170}
   topBar: {fileID: 1754689883}
-  oops: {fileID: 0}
   jukebox: {fileID: 1512600789}
   info: {fileID: 1198073737}
   mainCanvas: {fileID: 398763836}
+  oopsIsCritical: 0
 --- !u!114 &1803195766
 MonoBehaviour:
   m_ObjectHideFlags: 0

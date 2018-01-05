@@ -4,12 +4,17 @@ using System.IO;
 using System.Diagnostics;
 using System.Collections;
 
-
+/// <summary>
+/// This handles launching and running games.
+/// </summary>
 public class Runner : MonoBehaviour {
 
     private Game game;
     Process gameRunner;
 
+    /// <summary>
+    /// Called by GM during the Init state.
+    /// </summary>
     public void Init()
     {
         string rungame = Path.Combine(Application.dataPath, "Options/RunGame.exe");
@@ -26,6 +31,10 @@ public class Runner : MonoBehaviour {
             GM.Instance.Oops(GM.Instance.Text("error", "noLegacyControlExe"));
     }
 
+    /// <summary>
+    /// Called by the Launcher Controller, this attempts to run the game that's passed to it.
+    /// </summary>
+    /// <param name="game">The Game object to attempt to run.</param>
     public void Run(Game game) {
         this.game = game;
 
@@ -36,6 +45,12 @@ public class Runner : MonoBehaviour {
         StartCoroutine(RunProcess(gameRunner));
     }
 
+    /// <summary>
+    /// The coroutine that runs while the game's executable is running.  It puts the launcher
+    /// into the Idle state and waits for the game process to end before continuing.
+    /// </summary>
+    /// <param name="process">The process to check if it's running.</param>
+    /// <returns></returns>
     IEnumerator RunProcess(Process process){
 
         GM.Instance.state.SetTrigger("NextState");

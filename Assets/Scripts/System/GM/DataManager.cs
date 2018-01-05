@@ -4,18 +4,27 @@ using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
 
-public class DataManager : Singleton<DataManager>  {
+/// <summary>
+/// This class holds all the necessary user data.
+/// </summary>
+public class DataManager : MonoBehaviour {
 
 	public List<Playlist> playlists;
 	public List<Song> songs;
 
+    /// <summary>
+    /// Called by the GM to get the initial round of data.
+    /// </summary>
     public void Init()
     {
         GM.Instance.logger.Debug("DATA: Starting Init...");
-        //Do initial stuff here.
         ReloadData();
     }
 
+    /// <summary>
+    /// Rebuilds all the data.  This is required for when the launcher first starts up,
+    /// as well as after every sync with the Winnitron Network.
+    /// </summary>
     public void ReloadData()
 	{
         //Start with new lists
@@ -32,8 +41,11 @@ public class DataManager : Singleton<DataManager>  {
         GM.Instance.logger.Info(this, "DataManager: finished updating data.");
 	}
 
-	// Builds a list of Game objects based on the game directory inside its main directory. Then instantiates the GameNavigationManager, which then instantiates the ScreenShotDisplayManager
-	public void GetPlaylists()
+    /// <summary>
+    /// Builds a list of Game objects based on the game directory inside its main directory. 
+    /// Then instantiates the GameNavigationManager, which then instantiates the ScreenShotDisplayManager
+    /// </summary>
+    public void GetPlaylists()
 	{
 		var playlistDir = new DirectoryInfo(GM.Instance.options.playlistsPath);
 
@@ -49,6 +61,10 @@ public class DataManager : Singleton<DataManager>  {
 		}
 	}
 
+    /// <summary>
+    /// Builds a list of all the user added music and stores references in the 
+    /// music array to be accessed by the Jukebox.
+    /// </summary>
 	public void GetMusic()
 	{
         // get all valid files
@@ -93,12 +109,21 @@ public class DataManager : Singleton<DataManager>  {
         }
     }
 
+    /// <summary>
+    /// Finds the language JSON as required by the options JSON.
+    /// </summary>
+    /// <returns>A JSONNode object.</returns>
     public JSONNode GetDefautLanguage()
     {
         TextAsset rawJson = Resources.Load<TextAsset>("winnitron_text_english");
         return JSONNode.Parse(rawJson.text);
     }
 
+    /// <summary>
+    /// Loads a JSON from disk and parses it into a Unity readable JSONNode.
+    /// </summary>
+    /// <param name="fileLocation">Where on the disk the JSON is located.</param>
+    /// <returns>A JSONNode parsing of the file.</returns>
 	public JSONNode LoadJson(string fileLocation)
 	{
 		try

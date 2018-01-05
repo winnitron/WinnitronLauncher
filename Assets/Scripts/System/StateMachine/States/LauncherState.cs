@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
+/// <summary>
+/// The behaviour attached to the Launcher state in the Animator component of the GM GameObject.
+/// 
+/// The functions of this script get called using the Animator transitions and conditions
+/// set within Unity's built in Animator.  Please see the Animator component of the GM 
+/// GameObject to find out more.
+/// </summary>
 public class LauncherState : State {
 
-    public NUI_Controller launcher;
+    public LauncherController launcher;
     public VideoClip videoClip;
     public float timeToAttractMode;
     public float currentIdleTime = 0;

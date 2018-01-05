@@ -5,11 +5,14 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Runtime.InteropServices;
 
+/// <summary>
+/// Main Game Mananger class.  Because it is a singleton, when referencing in another
+/// script, you need to call it's instance.  Like so: GM.Instance.data etc.
+/// </summary>
 public class GM : Singleton<GM> {
 
     public string versionNumber;
 
-    //reference to the
     public Runner runner;
     public DataManager data;
     public OptionsManager options;
@@ -54,6 +57,7 @@ public class GM : Singleton<GM> {
         Instance.StartCoroutine("Initialize");
     }
 
+
     IEnumerator Initialize()
     {
         //Let's initialize stuff in order
@@ -90,6 +94,15 @@ public class GM : Singleton<GM> {
         GM.Instance.state.SetTrigger("Oops");
         stateMachineHelper.oopsIsCritical = isCritical;
         InfoText(text);
+    }
+
+    /// <summary>
+    /// Overloaded method that just takes text and assumes non-critical.
+    /// </summary>
+    /// <param name="text">Text to show.</param>
+    public void Oops(string text)
+    {
+        Oops(text, false);
     }
 
     /// <summary>

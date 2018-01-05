@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NUI_Controller : MonoBehaviour {
+/// <summary>
+/// This is the main controller for the Launcher interface.
+/// </summary>
+public class LauncherController : MonoBehaviour {
 
     public GameObject playlistLabelContainer;
 
     public GameObject gameLabelContainer;
-    public NUI_GameLabel[] gameLabels;
+    public LauncherGameLabel[] gameLabels;
 
     public GameObject playlist;
     public GameObject playlistTweenTargetRight;
@@ -39,12 +42,19 @@ public class NUI_Controller : MonoBehaviour {
     public delegate void RefreshLauncherUI();
     public RefreshLauncherUI refreshLauncherUI;
 
+    /// <summary>
+    /// The LauncherState behaviour on the GM's Animator component will toggle this GameObject
+    /// on and off depending on if it's the launcher state.  When it gets toggled on, we just
+    /// need to make sure that the UI is properly updated with the latest data.
+    /// </summary>
     private void OnEnable()
     {
         UpdateLauncherUI();
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// This is where we get all the inputs for the launcher.
+    /// </summary>
     void Update ()
     {
 
@@ -69,13 +79,18 @@ public class NUI_Controller : MonoBehaviour {
             UpdateLauncherUI();
     }
 
+
     private void LaunchGame()
     {
         Debug.Log("Attempting to run game");
         GM.Instance.runner.Run(GetCurrentGame());
     }
 
-
+    /// <summary>
+    /// Called by the Inputs in the Update function, this will increment the game selector
+    /// and make sure that the UI gets updated.
+    /// </summary>
+    /// <param name="direction">-1 for up, 1 for down, 0 for refreshing the UI.</param>
     private void MoveGames(int direction)
     {
         //Apply the direciton
@@ -89,7 +104,11 @@ public class NUI_Controller : MonoBehaviour {
         UpdateLauncherUI();
     }
 
-
+    /// <summary>
+    /// Called by the Inputs in the Update function, this will increment the playlist selector
+    /// and make sure the UI gets updated properly.
+    /// </summary>
+    /// <param name="direction">-1 for left, 1 for right, 0 to just refresh UI.</param>
     private void MovePlaylist(int direction)
     {
         //Save the current position of the playlist for later
@@ -129,14 +148,19 @@ public class NUI_Controller : MonoBehaviour {
         UpdateLauncherUI();
     }
 
-
+    /// <summary>
+    /// Makes sure the UI is displaying the correct info.  We do this by setting a toggle and having it update
+    /// in LateUpdate so that we make sure that we have the latest information after button presses etc.
+    /// </summary>
     public void UpdateLauncherUI()
     {
         //Set the toggle so it updates in LateUpdate
         refreshUI = true;
     }
 
-
+    /// <summary>
+    /// This is where we actually apply the Launcher refresh.
+    /// </summary>
     void LateUpdate()
     {
         if (refreshUI)
@@ -172,7 +196,7 @@ public class NUI_Controller : MonoBehaviour {
         else arrowRight.SetActive(true);
 
         //Move the Game Labels to their right spots and feed them the right text
-        foreach (NUI_GameLabel label in gameLabels)
+        foreach (LauncherGameLabel label in gameLabels)
         {
             if (label.position + gameSelector >= 0 && label.position + gameSelector < GetCurrentPlaylist().games.Count)
                 label.text.text = GetCurrentPlaylist().games[gameSelector + label.position].name.ToUpper();
@@ -189,12 +213,19 @@ public class NUI_Controller : MonoBehaviour {
         gameImageSelected.sprite = GetCurrentGame().screenshot;
     }
 
-
+    /// <summary>
+    /// Checks in with GM's Data Manager component and retrieves the currently selected Game class.
+    /// </summary>
+    /// <returns>Populated Game class</returns>
     public Game GetCurrentGame()
     {
         return GetCurrentPlaylist().games[gameSelector];
     }
 
+    /// <summary>
+    /// Checks in with GM's Data Manager component and retrieves the currently selected Playlist class.
+    /// </summary>
+    /// <returns>Populated Playlist class</returns>
     public Playlist GetCurrentPlaylist()
     {
         return GM.Instance.data.playlists[playlistSelector];

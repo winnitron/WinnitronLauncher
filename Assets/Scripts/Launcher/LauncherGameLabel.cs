@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NUI_GameLabel : MonoBehaviour {
+public class LauncherGameLabel : MonoBehaviour {
 
     public Text text;
     public int position;
@@ -14,7 +14,7 @@ public class NUI_GameLabel : MonoBehaviour {
     public GameObject target;
     public GameObject targetBelow;
 
-    public NUI_Controller controller;
+    public LauncherController controller;
 
 	// Use this for initialization
 	void Start () {
