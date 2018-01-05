@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Takes two targets and tweens to the endTarget 
+/// Displays the current game info.  Takes two targets and tweens to the endTarget. 
 /// </summary>
 public class LauncherGameInfo : Tweenable {
 
@@ -32,18 +32,18 @@ public class LauncherGameInfo : Tweenable {
         TweenLocalPosition(endTarget, tweenTime, false);
     }
 
-    public void ResetPosition()
+    private void ResetPosition()
     {
         transform.localPosition = startTarget;        
     }
 
-    public void CompileString()
+    private void CompileString()
     {
         var game = controller.GetCurrentGame();
         var newString = "";
 
-        if (game.author != "") newString += "Developed by: " + game.author + "\n";
-        newString += game.description + "\n";
+        if (game.author.Length > 2) newString += "Developed by: " + game.author + "\n";
+        if (game.description.Length > 4)newString += game.description + "\n";
 
         text.text = newString;
     }
