@@ -18,6 +18,9 @@ public class NUI_Controller : MonoBehaviour {
     public Image gameImageSelected;
     public Image gameImageToFade;
 
+    public GameObject arrowRight;
+    public GameObject arrowLeft;
+
     public int gameSelector = 0;
     public int playlistSelector = 0;
 
@@ -161,6 +164,12 @@ public class NUI_Controller : MonoBehaviour {
     {
         //Update the playlist name
         playlistLabelContainer.GetComponent<Text>().text = GetCurrentPlaylist().name.ToUpper();
+
+        if (playlistSelector == 0) arrowLeft.SetActive(false);
+        else arrowLeft.SetActive(true);
+
+        if (playlistSelector == GM.Instance.data.playlists.Count - 1) arrowRight.SetActive(false);
+        else arrowRight.SetActive(true);
 
         //Move the Game Labels to their right spots and feed them the right text
         foreach (NUI_GameLabel label in gameLabels)
