@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
+using UnityEngine.Video;
 
 /// <summary>
 /// This class holds all the necessary user data.
@@ -11,6 +12,10 @@ public class DataManager : MonoBehaviour {
 
 	public List<Playlist> playlists;
 	public List<Song> songs;
+
+    public string introVideo;
+    public string launcherBackground;
+    public List<string> attractFiles;
 
     /// <summary>
     /// Called by the GM to get the initial round of data.
@@ -34,12 +39,39 @@ public class DataManager : MonoBehaviour {
 		//Load everything!
 		GetPlaylists ();
 		GetMusic ();
+        GetVideos ();
 
         //Call the delegate and all methods hooked in
         //Primarily used in LauncherUIController.cs to update the data model
         //But could be used elsewhere
         GM.Instance.logger.Info(this, "DataManager: finished updating data.");
 	}
+
+    public void GetVideos()
+    {
+        var attractDir = new DirectoryInfo(GM.Instance.options.attractPath).GetFiles();
+
+        foreach(var file in attractDir)
+        {
+            
+            if(file.Name.Contains("mp4"))
+            {
+                GM.Instance.logger.Debug("DATA: Getting attract file " + file.Name + "with extension: " + file.Name.Split('.')[1]);
+
+                if (file.Name.Contains("ntro"))
+                    introVideo = file.FullName;
+                else if (file.Name.Contains("ackground"))
+                    launcherBackground = file.FullName;
+                else
+                    attractFiles.Add(file.FullName);
+            }
+
+            else
+            {
+                GM.Instance.logger.Debug("DATA: Attract file is not a supported type.");
+            }
+        }
+    }
 
     /// <summary>
     /// Builds a list of Game objects based on the game directory inside its main directory. 

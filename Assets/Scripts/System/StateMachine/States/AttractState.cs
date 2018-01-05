@@ -5,13 +5,19 @@ using UnityEngine.Video;
 
 public class AttractState : State {
 
-    public VideoClip attractVideo;
+    public int numberOfItems;
+    public int currentItem;
+
+    private float playDelay;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo info, int layerIndex)
     {
         base.OnStateEnter(animator, info, layerIndex);
 
-        GM.Instance.video.PlayVideo(attractVideo, true);
+        numberOfItems = GM.Instance.data.attractFiles.Count;
+        currentItem = 0;
+
+        PlayVideo(0);   
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo info, int layerIndex)
@@ -23,5 +29,26 @@ public class AttractState : State {
     {
         if (Input.anyKeyDown)
             animator.SetTrigger("NextState");
+
+        playDelay -= Time.deltaTime;
+
+        if (playDelay < 0 && !GM.Instance.video.player.isPlaying)
+            PlayNextVideo();
+    }
+
+    private void PlayVideo(int number)
+    {
+        playDelay = 1;
+        GM.Instance.video.PlayVideo(GM.Instance.data.attractFiles[number], false, null);
+    }
+
+    private void PlayNextVideo()
+    {
+        currentItem++;
+
+        if (currentItem > numberOfItems - 1)
+            currentItem = 0;
+
+        PlayVideo(currentItem);
     }
 }

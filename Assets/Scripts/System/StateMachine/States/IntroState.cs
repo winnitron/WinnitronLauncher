@@ -21,11 +21,15 @@ public class IntroState : State
     {
         base.OnStateEnter(animator, info, layerIndex);
 
-        introLoaded = false;
-        GM.Instance.video.PlayVideo(introClip, false, audioClip);
-
         //Make sure the jukebox is off
         helper.jukebox.SetActive(false);
+
+        introLoaded = false;
+
+        if (GM.Instance.data.introVideo != null)
+            GM.Instance.video.PlayVideo(GM.Instance.data.introVideo, false, audioClip);
+        else
+            animator.SetTrigger("NextState");
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo info, int layerIndex)

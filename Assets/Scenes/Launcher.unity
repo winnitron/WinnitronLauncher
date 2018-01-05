@@ -3772,6 +3772,9 @@ MonoBehaviour:
   - name: BossRush
     author: Matt Thorson
     clip: {fileID: 8300000, guid: 01053009e41a5e146ad167d59dcde45a, type: 3}
+  introVideo: 
+  launcherBackground: 
+  attractFiles: []
 --- !u!114 &1803195761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3814,7 +3817,6 @@ MonoBehaviour:
   player: {fileID: 589982017}
   audioSource: {fileID: 589982011}
   audioClip: {fileID: 0}
-  defaultVideo: {fileID: 32900000, guid: ffd3cc5849c265946b5fb34703bc396a, type: 3}
   currentVideo: {fileID: 0}
 --- !u!114 &1803195764
 MonoBehaviour:
