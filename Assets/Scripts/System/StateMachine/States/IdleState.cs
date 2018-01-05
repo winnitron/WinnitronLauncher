@@ -17,6 +17,7 @@ public class IdleState : State {
 
         //turn everything off to save those cycles!
         helper.mainCanvas.SetActive(false);
+        GM.Instance.video.StopVideo();
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo info, int layerIndex)

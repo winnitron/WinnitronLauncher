@@ -58,4 +58,12 @@ public class VideoManager : MonoBehaviour {
     {
         PlayVideo(newVideo, loop, null);
     }
+
+    /// <summary>
+    /// Just stops any video that's currently playing.
+    /// </summary>
+    public void StopVideo()
+    {
+        player.Stop();
+    }
 }

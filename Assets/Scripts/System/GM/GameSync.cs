@@ -72,7 +72,7 @@ public class GameSync : MonoBehaviour {
         if (syncType != SyncType.NONE)
         {
             GM.Instance.logger.Info(this, "GameSync: Running Sync...");
-            SyncText("INITIALIZING SYNC!");
+            SyncText("Updating with Winnitron Network...");
 
             FetchPlaylistSubscriptions();
         }
