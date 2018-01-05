@@ -2868,6 +2868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df80f2d36195416448ea5fe5b42495d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playlistLabelContainer: {fileID: 2005593531}
   gameLabelContainer: {fileID: 384177353}
   gameLabels:
   - {fileID: 420641065}
