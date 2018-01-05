@@ -6,6 +6,7 @@ using UnityEngine.Video;
 public class IntroState : State
 {
     public VideoClip introClip;
+    public AudioClip audioClip;
 
     private bool introLoaded;
 
@@ -14,7 +15,7 @@ public class IntroState : State
         base.OnStateEnter(animator, info, layerIndex);
 
         introLoaded = false;
-        GM.Instance.video.PlayVideo(introClip, false);
+        GM.Instance.video.PlayVideo(introClip, false, audioClip);
 
         //Make sure the jukebox is off
         helper.jukebox.SetActive(false);
@@ -28,7 +29,9 @@ public class IntroState : State
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo info, int layerIndex)
     {
         if (GM.Instance.video.player.isPrepared)
+        {
             introLoaded = true;
+        }
 
         if (introLoaded && !GM.Instance.video.player.isPlaying)
             animator.SetTrigger("NextState");

@@ -12,19 +12,28 @@ VideoClipImporter:
   frameRange: 0
   startFrame: -1
   endFrame: -1
-  frameCount: 386
-  frameRate: 56.59245681762695
+  frameCount: 412
+  frameRate: 59.940059661865234
   colorSpace: 0
   deinterlace: 0
-  sourceFileSize: 21068475
+  sourceFileSize: 14102857
   encodeAlpha: 0
   sourceHasAlpha: 0
   flipVertical: 0
   flipHorizontal: 0
-  importAudio: 0
-  sourceAudioChannelCount: 
-  sourceAudioSampleRate: 
-  targetSettings: {}
+  importAudio: 1
+  sourceAudioChannelCount: 0200
+  sourceAudioSampleRate: 80bb0000
+  targetSettings:
+    0:
+      enableTranscoding: 0
+      codec: 0
+      resizeFormat: 0
+      aspectRatio: 0
+      customWidth: 1920
+      customHeight: 1080
+      bitrateMode: 2
+      spatialQuality: 2
   output:
     format: 1
     settings:
@@ -39,11 +48,11 @@ VideoClipImporter:
     encodedWidth: 1920
     encodedHeight: 1080
     encodedStartFrame: 0
-    encodedEndFrame: 386
+    encodedEndFrame: 412
     streamedResource:
       source: 
       offset: 0
-      size: 21068475
+      size: 14102857
   userData: 
   assetBundleName: 
   assetBundleVariant: 
