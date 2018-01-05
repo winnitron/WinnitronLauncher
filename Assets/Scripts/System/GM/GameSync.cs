@@ -10,8 +10,6 @@ using System;
 [System.Serializable]
 public class GameSync : MonoBehaviour {
 
-    public Text syncDescription;
-
     private string apiKey;
     private string libraryURL;
     private string gamesDir;
@@ -79,7 +77,7 @@ public class GameSync : MonoBehaviour {
     private void fetchPlaylistSubscriptions()
     {
         Dictionary<string, string> headers = new Dictionary<string, string>();
-        headers.Add("User-Agent", "Winnitron Launcher/" + GM.Instance.versionNumber + " (http://winnitron.com)");
+        headers.Add("User-Agent", "Winnitron Launcher/" + GM.Instance.versionNumber + " http://winnitron.com");
         WWW www = new WWW(libraryURL + "/api/v1/playlists/?api_key=" + apiKey, null, headers);
 
         StartCoroutine(WaitForSubscriptionList(www));
@@ -197,7 +195,7 @@ public class GameSync : MonoBehaviour {
     /// <param name="text">Text to be displayed.</param>
     private void SyncText(string text)
     {
-        syncDescription.text = text;
+        GM.Instance.InfoText(text);
     }
 
     private IEnumerator SyncText(string text, float timeToWait)

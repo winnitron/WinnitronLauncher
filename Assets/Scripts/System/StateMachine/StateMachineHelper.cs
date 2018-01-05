@@ -9,16 +9,14 @@ public class StateMachineHelper : MonoBehaviour {
 
     public GameObject launcher;
     public GameObject topBar;
-    public GameObject sync;
     public GameObject oops;
     public GameObject jukebox;
+    public GameObject info;
     public GameObject mainCanvas;
 
     public void DeactivateAll()
     {
         launcher.SetActive(false);
-        sync.SetActive(false);
-        oops.SetActive(false);
         jukebox.SetActive(false);
     }
 }

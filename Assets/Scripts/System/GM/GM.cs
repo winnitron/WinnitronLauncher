@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.IO;
+using UnityEngine.UI;
 using System.Collections;
 using System.Runtime.InteropServices;
 
@@ -20,6 +21,8 @@ public class GM : Singleton<GM> {
     public VideoManager video;
     public StateMachineHelper stateMachineHelper;
     public Jukebox jukebox;
+
+    public Text info;
 
 
     //SINGLETON STUFF
@@ -54,19 +57,20 @@ public class GM : Singleton<GM> {
     IEnumerator Initialize()
     {
         //Let's initialize stuff in order
-        logger.Debug("Options INit!");
+        InfoText("Loading Options...");
         options.Init();
-        logger.Debug("runner INit!");
+        InfoText("Loading Runner...");
         runner.Init();
-        logger.Debug("sync INit!");
+        InfoText("Checking Sync...");
         sync.Init();
 
         while (!sync.isFinished)
             yield return null;
 
-        logger.Debug("Data INit!");
+        InfoText("Compiling Games...");
         data.Init();
 
+        InfoText("Done!");
         state.SetTrigger("NextState");
     }
 
@@ -93,6 +97,15 @@ public class GM : Singleton<GM> {
     public void Oops(string text)
     {
         //state.Oops(text, false);
+    }
+
+    /// <summary>
+    /// Displays info text.
+    /// </summary>
+    /// <param name="text"></param>
+    public void InfoText(string text)
+    {
+        info.text = text;
     }
 
     /// <summary>

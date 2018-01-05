@@ -12,12 +12,14 @@ public class InitState : State
         //Make sure all states are off
         helper.DeactivateAll();
 
+        helper.info.SetActive(true);
+
         GM.Instance.Init();
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        helper.info.SetActive(false);
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo info, int layerIndex)

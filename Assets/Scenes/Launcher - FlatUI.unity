@@ -760,7 +760,6 @@ RectTransform:
   - {fileID: 1754689884}
   - {fileID: 1532549171}
   - {fileID: 1198073738}
-  - {fileID: 426086645}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 20.2106, y: 0, z: 0}
@@ -932,39 +931,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 420641062}
---- !u!1 &426086644
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 426086645}
-  m_Layer: 5
-  m_Name: Oops
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &426086645
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 426086644}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 398763837}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.000015258789}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &452560184
 GameObject:
   m_ObjectHideFlags: 0
@@ -2005,13 +1971,15 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1198073738}
+  - component: {fileID: 1198073740}
+  - component: {fileID: 1198073739}
   m_Layer: 5
-  m_Name: Sync
+  m_Name: Info
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1198073738
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2028,8 +1996,47 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.000015258789}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 1082.58, y: 414}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1198073739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1198073737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: faa291cc542c3be4bb19e9d335368563, type: 3}
+    m_FontSize: 81
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 143
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: INITIALIZING
+--- !u!222 &1198073740
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1198073737}
 --- !u!1 &1245247241
 GameObject:
   m_ObjectHideFlags: 0
@@ -2477,7 +2484,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1532549171
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2643,7 +2650,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: -507.45, y: 39.999954}
-  m_SizeDelta: {x: 1018.9, y: 221.3}
+  m_SizeDelta: {x: 1873.15, y: 221.3}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1607550465
 MonoBehaviour:
@@ -2992,6 +2999,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   versionNumber: 2.3.0
+  runner: {fileID: 1803195761}
+  data: {fileID: 1803195760}
+  options: {fileID: 1803195767}
+  state: {fileID: 1803195762}
+  logger: {fileID: 1803195759}
+  sync: {fileID: 1803195768}
+  network: {fileID: 1803195764}
+  logOutput: {fileID: 1803195758}
+  video: {fileID: 1803195763}
+  stateMachineHelper: {fileID: 1803195765}
+  jukebox: {fileID: 1512600791}
+  info: {fileID: 1198073739}
 --- !u!4 &1803195757
 Transform:
   m_ObjectHideFlags: 0
@@ -3027,6 +3046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267f9bb973d10493ab68be600e565a56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialLogLevel: 0
   globalOn: 0
   showNull: 0
   showTimestamps: 1
@@ -3051,7 +3071,7 @@ MonoBehaviour:
       author: Marlon Wiebe
       description: Topple stuff and eat foods and whatever.
       screenshot: {fileID: 21300000, guid: 60795d9e2b165e147a93fc0d714f323d, type: 3}
-      executable: 
+      executable: C:\WINNITRON_UserData\Playlists\official-winnitron\binary-system\Binary-System.exe
       slug: This is a game about stuff.
       gameType: 0
       voidGame: 0
@@ -3155,7 +3175,6 @@ MonoBehaviour:
   - name: BossRush
     author: Matt Thorson
     clip: {fileID: 8300000, guid: 01053009e41a5e146ad167d59dcde45a, type: 3}
-  attractModeImages: []
 --- !u!114 &1803195761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3222,9 +3241,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launcher: {fileID: 1532549170}
   topBar: {fileID: 1754689883}
-  sync: {fileID: 1198073737}
-  oops: {fileID: 426086644}
+  oops: {fileID: 0}
   jukebox: {fileID: 1512600789}
+  info: {fileID: 1198073737}
   mainCanvas: {fileID: 398763836}
 --- !u!114 &1803195766
 MonoBehaviour:
@@ -3272,9 +3291,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 039a599164a8f6b419056ab9d3c91d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDescription: {fileID: 0}
   syncType: 2
   syncOnStartup: 1
+  isFinished: 1
 --- !u!1 &1843706572
 GameObject:
   m_ObjectHideFlags: 0
