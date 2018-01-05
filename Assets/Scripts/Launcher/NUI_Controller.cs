@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class NUI_Controller : MonoBehaviour {
 
+    public GameObject playlistLabelContainer;
+
     public GameObject gameLabelContainer;
     public NUI_GameLabel[] gameLabels;
 
@@ -157,6 +159,9 @@ public class NUI_Controller : MonoBehaviour {
     /// </summary>
     private void UpdateGameList()
     {
+        //Update the playlist name
+        playlistLabelContainer.GetComponent<Text>().text = GetCurrentPlaylist().name.ToUpper();
+
         //Move the Game Labels to their right spots and feed them the right text
         foreach (NUI_GameLabel label in gameLabels)
         {
