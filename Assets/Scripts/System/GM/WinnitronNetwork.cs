@@ -14,7 +14,7 @@ public class WinnitronNetwork : MonoBehaviour {
         GM.Instance.logger.Debug("sending START GAME: " + game);
 
         Dictionary<string, string> headers = new Dictionary<string, string>();
-        headers.Add("User-Agent", "Winnitron Launcher/" + GM.Instance.versionNumber + " (http://winnitron.com)");
+        headers.Add("User-Agent", "Winnitron Launcher/" + GM.Instance.versionNumber + " http://winnitron.com");
 
         WWWForm form = new WWWForm();
         form.AddField("api_key", GM.Instance.options.GetSyncSettings()["apiKey"]);
@@ -29,7 +29,7 @@ public class WinnitronNetwork : MonoBehaviour {
         GM.Instance.logger.Debug("sending STOP GAME: " + game);
 
         Dictionary<string, string> headers = new Dictionary<string, string>();
-        headers.Add("User-Agent", "Winnitron Launcher/" + GM.Instance.versionNumber + " (http://winnitron.com)");
+        headers.Add("User-Agent", "Winnitron Launcher/" + GM.Instance.versionNumber + " http://winnitron.com");
         headers.Add("X-HTTP-Method-Override", "PUT");
 
         WWWForm form = new WWWForm();
