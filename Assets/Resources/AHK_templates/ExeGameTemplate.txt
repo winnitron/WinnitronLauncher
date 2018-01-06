@@ -131,11 +131,16 @@ WaitForESCRelease:
 return
 
 ReadLauncherPid() {
-  pid_file := "C:\Users\aaron\winnitron.pid"
+  EnvGet, homedrive, HOMEDRIVE
+  EnvGet, homepath, HOMEPATH
+
+  pid_file := homedrive . homepath . "\winnitron.pid"
   FileReadLine, pid, %pid_file%, 1
+    
   WriteLog("Winnitron Launcher PID: " . pid)
   return pid
 }
+
 
 ; DEBUGGING STUFF
 
