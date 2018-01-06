@@ -7,11 +7,13 @@
 debug := {DEBUG_OUTPUT}
 
 executable := "{GAME_PATH}"
+SplitPath, executable , , game_dir
 exec_file := "{GAME_FILE}"
 game_name := "{GAME_NAME}"
 forceQuitHoldTime := {ESC_HOLD}000
 idleLimit := {IDLE_TIME}000
 initialWait := {IDLE_INITIAL}000
+launcher_pid := ReadLauncherPid()
 
 start := SecondsToday()
 WriteLog("START ---------------- " . A_Now)
@@ -48,14 +50,26 @@ KillApp()
   Run, TaskKill /f /im %exec_file%
 
   SetTitleMatchMode, RegEx
+  
   IfWinExist, i)WinnitronLauncher
   {
-    WriteLog("winnitron window id " . WinExist("A"))
+    WriteLog("Found Winnitron Launcher window via title. ID: " . WinExist("A"))
     WinActivate, i)WinnitronLauncher
-    WinWaitActive, i)WinnitronLauncher, , 2
+    ;WinWaitActive, i)WinnitronLauncher, , 1
     PostMessage, 0x112, 0xF030,,, i)WinnitronLauncher  ; 0x112 = WM_SYSCOMMAND, 0xF030 = SC_MAXIMIZE
-  } else {
-    WriteLog("couldn't find winnitron window")
+    
+    if ErrorLevel
+      WriteLog("Error activating Launcher via title: " . A_LastError)
+  }
+  
+  if launcher_pid
+  {
+    WriteLog("Attempting to find Winnitron Launcher window via PID (" . launcher_pid . ").")
+    WinActivate, ahk_pid %launcher_pid%
+    PostMessage, 0x112, 0xF030,,, ahk_pid %launcher_pid%
+    
+    if ErrorLevel
+      WriteLog("Error activating Launcher via PID: " . A_LastError)
   }
 
   ExitApp
@@ -116,6 +130,12 @@ WaitForESCRelease:
   KillApp()
 return
 
+ReadLauncherPid() {
+  pid_file := "C:\Users\aaron\winnitron.pid"
+  FileReadLine, pid, %pid_file%, 1
+  WriteLog("Winnitron Launcher PID: " . pid)
+  return pid
+}
 
 ; DEBUGGING STUFF
 
@@ -128,10 +148,11 @@ WriteLog(message)
 {
   global debug
   global start
+  global game_dir
 
   if (debug) {
     runningTimeSec := SecondsToday() - start
-    debugLog := "ahk_output.txt"
+    debugLog := game_dir . "\ahk_output.txt"
     FileAppend,
     (
     %runningTimeSec%s %A_Tab% %message%
