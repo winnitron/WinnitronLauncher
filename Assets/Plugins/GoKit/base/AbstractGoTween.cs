@@ -10,7 +10,8 @@ using System.Collections.Generic;
 /// </summary>
 public abstract class AbstractGoTween
 {
-	public int id = 0; // optional id used for identifying this tween
+	public int id { get; set; } // optional id used for identifying this tween
+	public string tag { get; set; } // optional tag used for identifying this tween	
 	public GoTweenState state { get; protected set; } // current state of the tween
 	public float duration { get; protected set; } // duration for a single loop
 	public float totalDuration { get; protected set; } // duration for all loops of this tween
@@ -414,13 +415,21 @@ public abstract class AbstractGoTween
 		goTo( isReversed ? 0 : totalDuration, true );
 	}
 
-
 	/// <summary>
 	/// goes to the specified time clamping it from 0 to the total duration of the tween. if the tween is
 	/// not playing it can optionally be force updated to the time specified. delays are not taken into effect.
+	/// </summary>
+	public void goTo( float time )
+	{
+		goTo( time, true );
+	}
+
+	/// <summary>
+	/// goes to the specified time clamping it from 0 to the total duration of the tween. if the tween is
+	/// not playing it can optionally be force updated to the time specified.
 	/// (must be implemented by inherited classes.)
 	/// </summary>
-	public abstract void goTo( float time, bool skipDelay = true );
+	public abstract void goTo( float time, bool skipDelay);
 
 	/// <summary>
 	/// goes to the time and starts playback skipping any delays

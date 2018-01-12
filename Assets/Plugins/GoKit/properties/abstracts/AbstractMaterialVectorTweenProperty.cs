@@ -3,19 +3,19 @@ using System.Collections;
 
 
 /// <summary>
-/// base class for any color tweens (MaterialColor and ColorTween)
+/// base class for any vector tweens (MaterialVector)
 /// </summary>
-public abstract class AbstractColorTweenProperty : AbstractTweenProperty
+public abstract class AbstractMaterialVectorTweenProperty : AbstractTweenProperty
 {
 	protected Material _target;
 	
-	protected Color _originalEndValue;
-	protected Color _startValue;
-	protected Color _endValue;
-	protected Color _diffValue;
+	protected Vector4 _originalEndValue;
+	protected Vector4 _startValue;
+	protected Vector4 _endValue;
+	protected Vector4 _diffValue;
 	
 	
-	public AbstractColorTweenProperty( Color endValue, bool isRelative ) : base( isRelative )
+	public AbstractMaterialVectorTweenProperty( Vector4 endValue, bool isRelative ) : base( isRelative )
 	{
 		_originalEndValue = endValue;
 	}

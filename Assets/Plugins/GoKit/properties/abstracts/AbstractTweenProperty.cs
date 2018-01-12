@@ -12,8 +12,6 @@ public abstract class AbstractTweenProperty
 	protected GoTween _ownerTween;
 	
 	protected Func<float, float, float, float, float> _easeFunction;
-	
-	
 
 	public AbstractTweenProperty( bool isRelative = false )
 	{
@@ -66,15 +64,15 @@ public abstract class AbstractTweenProperty
 	/// <summary>
 	/// clones the instance
 	/// </summary>
-    public AbstractTweenProperty clone()
-    {
+	public AbstractTweenProperty clone()
+	{
 		var clone = MemberwiseClone() as AbstractTweenProperty;
 		clone._ownerTween = null;
 		clone._isInitialized = false;
 		clone._easeFunction = null;
 		
 		return clone;
-    }
+	}
 	
 	
 	/// <summary>
@@ -83,17 +81,17 @@ public abstract class AbstractTweenProperty
 	/// </summary>
 	public void setEaseType( GoEaseType easeType )
 	{
-		_easeFunction = GoTweenUtils.easeFunctionForType( easeType );
+		_easeFunction = GoTweenUtils.easeFunctionForType( easeType, _ownerTween );
 	}
 	
 	
-    /// <summary>
-    /// each TweenProperty should override this to ensure the object is the correct type
-    /// </summary>
-    public virtual bool validateTarget( object target )
-    {
-        return true;
-    }
+	/// <summary>
+	/// each TweenProperty should override this to ensure the object is the correct type
+	/// </summary>
+	public virtual bool validateTarget( object target )
+	{
+		return true;
+	}
 	
 	
 	/// <summary>
