@@ -62,7 +62,7 @@ public class VideoManager : MonoBehaviour {
         player.isLooping = true;
         if (!loop) player.isLooping = false;
 
-        if (url != null)
+        if (url != null && url != "")
             player.url = url;
 
         //There's a bug in Unity 2017.1 where the audio doesn't play from a

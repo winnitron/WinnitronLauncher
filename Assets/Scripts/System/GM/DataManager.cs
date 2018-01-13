@@ -54,7 +54,7 @@ public class DataManager : MonoBehaviour {
         foreach(var file in attractDir)
         {
             string ext = Path.GetExtension(file.FullName);
-            if (ext == "mp4")
+            if (ext == ".mp4")
             {
                 GM.Instance.logger.Debug("DATA: Getting attract file " + file.Name + " with extension: " + ext);
 
@@ -71,6 +71,9 @@ public class DataManager : MonoBehaviour {
                 GM.Instance.logger.Warn("DATA: Attract file " + file.Name + " is not a supported type.");
             }
         }
+
+        if (introVideo == null || introVideo == "")
+            GM.Instance.logger.Warn("DATA: No intro video found. (WINNITRON_UserData/Attract/intro.mp4)");
     }
 
     /// <summary>
