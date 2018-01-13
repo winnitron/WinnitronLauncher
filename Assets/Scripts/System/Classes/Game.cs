@@ -9,8 +9,31 @@ public class Game
     public DirectoryInfo directory;
 
     public string name;
-    public string author;
-    public string description;
+    private string author;
+    public string Author
+    {
+        get
+        {
+            return this.author == null ? "" : this.author;
+        }
+        set
+        {
+            this.author = value;
+        }
+    }
+    private string description;
+    public string Description
+    {
+        get
+        {
+            return this.description == null ? "" : this.description;
+        }
+        set
+        {
+            this.description = value;
+        }
+    }
+
     public Sprite screenshot;
     public string executable;
     public string slug;

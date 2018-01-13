@@ -40,11 +40,12 @@ public class LauncherGameInfo : Tweenable {
     private void CompileString()
     {
         var game = controller.GetCurrentGame();
-        var newString = "";
+        var info = "";
 
-        if (game.author.Length > 2) newString += "Developed by: " + game.author + "\n";
-        if (game.description.Length > 4)newString += game.description + "\n";
 
-        text.text = newString;
+        if (game.Author.Length > 2) info += "Developed by: " + game.Author + "\n";
+        if (game.Description.Length > 4) info += game.Description + "\n";
+
+        text.text = info;
     }
 }
