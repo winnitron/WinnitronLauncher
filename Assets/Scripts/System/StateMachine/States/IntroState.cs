@@ -26,7 +26,7 @@ public class IntroState : State
 
         introLoaded = false;
 
-        if (GM.Instance.data.introVideo != null)
+        if (GM.Instance.data.introVideo != null && GM.Instance.data.introVideo != "")
             GM.Instance.video.PlayVideo(GM.Instance.data.introVideo, false, audioClip);
         else
             animator.SetTrigger("NextState");
