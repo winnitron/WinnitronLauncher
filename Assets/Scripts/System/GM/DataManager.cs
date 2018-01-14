@@ -62,7 +62,7 @@ public class DataManager : MonoBehaviour {
                     introVideo = file.FullName;
                 else if (file.Name.ToLower().Contains("background"))
                     launcherBackground = file.FullName;
-                else
+                else if (file.Name.ToLower().Contains("attract"))
                     attractFiles.Add(file.FullName);
             }
 
