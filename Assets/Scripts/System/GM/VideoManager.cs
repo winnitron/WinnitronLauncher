@@ -55,6 +55,8 @@ public class VideoManager : MonoBehaviour {
     /// <returns>Whether it was successful.</returns>
     public void PlayVideo(string url, bool loop, AudioClip audioClip)
     {
+        Debug.Log("Playing video: " + url);
+
         //Stop the video just in case
         player.Stop();
 
@@ -92,6 +94,6 @@ public class VideoManager : MonoBehaviour {
     /// </summary>
     public void StopVideo()
     {
-        player.Stop();
+        player.Stop();     
     }
 }

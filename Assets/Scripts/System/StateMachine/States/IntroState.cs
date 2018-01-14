@@ -29,12 +29,16 @@ public class IntroState : State
         if (GM.Instance.data.introVideo != null && GM.Instance.data.introVideo != "")
             GM.Instance.video.PlayVideo(GM.Instance.data.introVideo, false, audioClip);
         else
+        {
+            GM.Instance.video.StopVideo();
             animator.SetTrigger("NextState");
+        }
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo info, int layerIndex)
     {
-        
+        //Makes sure no vid is playing when transitioning to the next state
+        GM.Instance.video.StopVideo();
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo info, int layerIndex)

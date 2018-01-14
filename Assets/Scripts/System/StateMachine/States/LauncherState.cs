@@ -25,7 +25,10 @@ public class LauncherState : State {
         helper.launcher.SetActive(true);
         helper.jukebox.SetActive(true);
 
-        if (GM.Instance.data.launcherBackground != null)
+        //Start from a clean video background slate
+        GM.Instance.video.StopVideo();
+
+        if (GM.Instance.data.launcherBackground != null && GM.Instance.data.launcherBackground != "")
             GM.Instance.video.PlayVideo(GM.Instance.data.launcherBackground, true, null);
 
         ResetIdleTime();
