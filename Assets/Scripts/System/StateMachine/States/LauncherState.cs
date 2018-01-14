@@ -29,7 +29,7 @@ public class LauncherState : State {
         GM.Instance.video.StopVideo();
 
         if (GM.Instance.data.launcherBackground != null && GM.Instance.data.launcherBackground != "")
-            GM.Instance.video.PlayVideo(GM.Instance.data.launcherBackground, true, null);
+            GM.Instance.video.PlayVideo(GM.Instance.data.launcherBackground, true, false);
 
         ResetIdleTime();
 }

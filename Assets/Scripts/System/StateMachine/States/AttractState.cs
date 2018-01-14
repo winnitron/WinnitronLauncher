@@ -39,7 +39,7 @@ public class AttractState : State {
     private void PlayVideo(int number)
     {
         playDelay = 1;
-        GM.Instance.video.PlayVideo(GM.Instance.data.attractFiles[number], false, null);
+        GM.Instance.video.PlayVideo(GM.Instance.data.attractFiles[number], false, true);
     }
 
     private void PlayNextVideo()

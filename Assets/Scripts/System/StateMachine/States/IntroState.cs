@@ -15,8 +15,6 @@ public class IntroState : State
     public VideoClip introClip;
     public AudioClip audioClip;
 
-    private bool introLoaded;
-
     override public void OnStateEnter(Animator animator, AnimatorStateInfo info, int layerIndex)
     {
         base.OnStateEnter(animator, info, layerIndex);
@@ -24,10 +22,8 @@ public class IntroState : State
         //Make sure the jukebox is off
         helper.jukebox.SetActive(false);
 
-        introLoaded = false;
-
         if (GM.Instance.data.introVideo != null && GM.Instance.data.introVideo != "")
-            GM.Instance.video.PlayVideo(GM.Instance.data.introVideo, false, audioClip);
+            GM.Instance.video.PlayVideo(GM.Instance.data.introVideo, false, true);
         else
         {
             GM.Instance.video.StopVideo();
@@ -43,12 +39,7 @@ public class IntroState : State
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo info, int layerIndex)
     {
-        if (GM.Instance.video.player.isPrepared)
-        {
-            introLoaded = true;
-        }
-
-        if (introLoaded && !GM.Instance.video.player.isPlaying)
+        if (GM.Instance.video.state == VideoManager.VideoState.Stopped)
             animator.SetTrigger("NextState");
     }
 

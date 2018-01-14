@@ -8,12 +8,12 @@ using UnityEngine.Video;
 /// </summary>
 public class VideoManager : MonoBehaviour {
 
+    public enum VideoState { Loading, Playing, Stopped }
+    public VideoState state = VideoState.Stopped;
+
     public VideoPlayer player;
-
     public AudioSource audioSource;
-    public AudioClip audioClip;
-
-    public VideoClip currentVideo;
+    public string currentVideo;
 
     /// <summary>
     /// Plays a new video in the background.
@@ -22,61 +22,20 @@ public class VideoManager : MonoBehaviour {
     /// <param name="loop">Whether the video should loop.</param>
     /// <param name="audioClip">If there is a audio component to the video.</param>
     /// <returns>Whether it was successful.</returns>
-    public void PlayVideo(VideoClip newVideo, bool loop, AudioClip audioClip)
+    public void PlayVideo(string url, bool loop, bool playAudio)
     {
-        //Stop the video just in case
-        player.Stop();
+        StopVideo();
 
-        //Set the looping stuffs
-        player.isLooping = true;
-        if (!loop) player.isLooping = false;
-        
-        if (newVideo != null)
-            player.clip = newVideo;
-
-        //There's a bug in Unity 2017.1 where the audio doesn't play from a
-        //VideoPlayer, so this is a hacky way of fixing that by playing the
-        //sound separately for now. :/
-        if (audioClip != null)
+        if (url != "" && url != null)
         {
-            audioSource.clip = audioClip;
-            audioSource.Play();
+            state = VideoState.Loading;
+
+            currentVideo = url;
+            player.isLooping = loop;
+            audioSource.enabled = playAudio;
+
+            StartCoroutine(playVideo(url));
         }
-
-        player.Play();
-    }
-
-    /// <summary>
-    /// Plays a new video in the background.
-    /// </summary>
-    /// <param name="newVideo">A VideoClip to play in the background.</param>
-    /// <param name="loop">Whether the video should loop.</param>
-    /// <param name="audioClip">If there is a audio component to the video.</param>
-    /// <returns>Whether it was successful.</returns>
-    public void PlayVideo(string url, bool loop, AudioClip audioClip)
-    {
-        Debug.Log("Playing video: " + url);
-
-        //Stop the video just in case
-        player.Stop();
-
-        //Set the looping stuffs
-        player.isLooping = true;
-        if (!loop) player.isLooping = false;
-
-        if (url != null && url != "")
-            player.url = url;
-
-        //There's a bug in Unity 2017.1 where the audio doesn't play from a
-        //VideoPlayer, so this is a hacky way of fixing that by playing the
-        //sound separately for now. :/
-        if (audioClip != null)
-        {
-            audioSource.clip = audioClip;
-            audioSource.Play();
-        }
-
-        player.Play();
     }
 
     /// <summary>
@@ -84,9 +43,47 @@ public class VideoManager : MonoBehaviour {
     /// </summary>
     /// <param name="newVideo"></param>
     /// <param name="loop"></param>
-    public void PlayVideo(VideoClip newVideo, bool loop)
+    public void PlayVideo(VideoClip newVideo, bool loop, bool playAudio)
     {
-        PlayVideo(newVideo, loop, null);
+        PlayVideo(newVideo.originalPath, loop, playAudio);
+    }
+
+    IEnumerator playVideo(string url)
+    {
+        //Disable Play on Awake for both Video and Audio
+        player.playOnAwake = true;
+        audioSource.playOnAwake = true;
+
+        //We want to play from video clip not from url
+        player.source = VideoSource.Url;
+        player.url = currentVideo;
+
+        //Set video To Play then prepare Audio to prevent Buffering
+        player.Prepare();
+
+        //Wait until video is prepared
+        while (!player.isPrepared)
+        {
+            Debug.Log("Preparing Video");
+            yield return null;
+        }
+
+        Debug.Log("Done Preparing Video");
+
+        //Play Video
+        state = VideoState.Playing;
+        player.Play();
+
+        Debug.Log("Playing Video");
+        while (player.isPlaying)
+        {
+            Debug.LogWarning("Video Time: " + Mathf.FloorToInt((float)player.time));
+            yield return null;
+        }
+
+        Debug.Log("Done Playing Video");
+
+        state = VideoState.Stopped;
     }
 
     /// <summary>
@@ -94,6 +91,12 @@ public class VideoManager : MonoBehaviour {
     /// </summary>
     public void StopVideo()
     {
-        player.Stop();     
+        player.Stop();
+        state = VideoState.Stopped;
+    }
+
+    public VideoState GetState()
+    {
+        return state;
     }
 }

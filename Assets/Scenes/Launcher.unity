@@ -1471,7 +1471,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 589982010}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -1484,13 +1484,13 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 0
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 1
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
+  rolloffMode: 2
+  BypassEffects: 1
+  BypassListenerEffects: 1
+  BypassReverbZones: 1
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1502,13 +1502,13 @@ AudioSource:
       tangentMode: 0
     - serializedVersion: 2
       time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
+      value: 1.0005875
+      inSlope: -0.027469352
+      outSlope: -0.027469352
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   panLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1601,7 +1601,7 @@ VideoPlayer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 589982010}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: ffd3cc5849c265946b5fb34703bc396a, type: 3}
+  m_VideoClip: {fileID: 0}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 589982015}
@@ -1611,16 +1611,18 @@ VideoPlayer:
   m_TargetMaterialProperty: _MainTex
   m_RenderMode: 0
   m_AspectRatio: 2
-  m_DataSource: 0
+  m_DataSource: 1
   m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
-  m_TargetAudioSources: []
-  m_DirectAudioVolumes: []
-  m_Url: file://E:/BattleBrothers 2017-03-10 14-37-43-145.mp4
-  m_EnabledAudioTracks: 
-  m_DirectAudioMutes: 
-  m_ControlledAudioTrackCount: 0
-  m_PlayOnAwake: 1
+  m_AudioOutputMode: 1
+  m_TargetAudioSources:
+  - {fileID: 589982011}
+  m_DirectAudioVolumes:
+  - 1
+  m_Url: 
+  m_EnabledAudioTracks: 01
+  m_DirectAudioMutes: 00
+  m_ControlledAudioTrackCount: 1
+  m_PlayOnAwake: 0
   m_SkipOnDrop: 1
   m_Looping: 1
   m_WaitForFirstFrame: 0
@@ -3635,7 +3637,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1803195755}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3325760dea3014740b6146a19667f2f7, type: 3}
   m_Name: 
@@ -3646,12 +3648,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1803195755}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 267f9bb973d10493ab68be600e565a56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialLogLevel: 0
+  initialLogLevel: 3
   globalOn: 0
   showNull: 0
   showTimestamps: 1
@@ -3798,10 +3800,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce56f7ed6a98ee41bae864577e9e9b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 2
   player: {fileID: 589982017}
   audioSource: {fileID: 589982011}
-  audioClip: {fileID: 0}
-  currentVideo: {fileID: 0}
+  currentVideo: 
 --- !u!114 &1803195764
 MonoBehaviour:
   m_ObjectHideFlags: 0
