@@ -77,15 +77,18 @@ LightmapSettings:
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
-    m_PVRFiltering: 0
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
     m_PVRFilteringMode: 1
     m_PVRCulling: 1
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
     m_PVRFilteringGaussRadiusAO: 2
-    m_PVRFilteringAtrousColorSigma: 1
-    m_PVRFilteringAtrousNormalSigma: 1
-    m_PVRFilteringAtrousPositionSigma: 1
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 0
 --- !u!196 &5
@@ -107,6 +110,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    debug:
+      m_Flags: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1 &65674688
 GameObject:
@@ -146,6 +151,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -161,6 +167,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -358,6 +365,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -373,6 +381,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -672,6 +681,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -687,6 +697,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1460,7 +1471,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 589982010}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -1565,11 +1576,11 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
 --- !u!4 &589982016
 Transform:
   m_ObjectHideFlags: 0
@@ -1592,6 +1603,7 @@ VideoPlayer:
   m_Enabled: 1
   m_VideoClip: {fileID: 32900000, guid: ffd3cc5849c265946b5fb34703bc396a, type: 3}
   m_TargetCameraAlpha: 1
+  m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 589982015}
   m_TargetTexture: {fileID: 0}
   m_TimeReference: 0
@@ -1601,7 +1613,7 @@ VideoPlayer:
   m_AspectRatio: 2
   m_DataSource: 0
   m_PlaybackSpeed: 1
-  m_AudioOutputMode: 1
+  m_AudioOutputMode: 2
   m_TargetAudioSources: []
   m_DirectAudioVolumes: []
   m_Url: file://E:/BattleBrothers 2017-03-10 14-37-43-145.mp4
@@ -1797,6 +1809,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1812,6 +1825,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2301,7 +2315,6 @@ GameObject:
   - component: {fileID: 1081089429}
   - component: {fileID: 1081089428}
   - component: {fileID: 1081089427}
-  - component: {fileID: 1081089426}
   - component: {fileID: 1081089425}
   - component: {fileID: 1081089430}
   m_Layer: 0
@@ -2313,13 +2326,6 @@ GameObject:
   m_IsActive: 1
 --- !u!81 &1081089425
 AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1081089424}
-  m_Enabled: 1
---- !u!92 &1081089426
-Behaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -2363,11 +2369,11 @@ Camera:
   m_TargetEye: 3
   m_HDR: 0
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
 --- !u!4 &1081089429
 Transform:
   m_ObjectHideFlags: 0
@@ -2879,6 +2885,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2894,6 +2901,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -3627,7 +3635,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1803195755}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3325760dea3014740b6146a19667f2f7, type: 3}
   m_Name: 
@@ -3638,7 +3646,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1803195755}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 267f9bb973d10493ab68be600e565a56, type: 3}
   m_Name: 
@@ -3665,56 +3673,42 @@ MonoBehaviour:
     description: This is a test.
     games:
     - name: Sumo Topplers
-      author: Marlon Wiebe
-      description: Topple stuff and eat foods and whatever.
       screenshot: {fileID: 21300000, guid: 60795d9e2b165e147a93fc0d714f323d, type: 3}
       executable: C:\WINNITRON_UserData\Playlists\official-winnitron\binary-system\Binary-System.exe
       slug: This is a game about stuff.
       gameType: 0
       voidGame: 0
     - name: Frankfurter Game
-      author: Jon Hamburger
-      description: This is another game with stuff and things.
       screenshot: {fileID: 21300000, guid: e5d5901a5a2d3d64f9f8ddd87390a6c9, type: 3}
       executable: 
       slug: 
       gameType: 0
       voidGame: 0
     - name: Habinjero
-      author: 
-      description: 
       screenshot: {fileID: 21300000, guid: 259df81cc073c814f8f2a6697fb1e3e4, type: 3}
       executable: 
       slug: 
       gameType: 0
       voidGame: 0
     - name: Time Jumper
-      author: 
-      description: 
       screenshot: {fileID: 21300000, guid: b1b93e106d03b9e418777a94ae6f3c26, type: 3}
       executable: 
       slug: 
       gameType: 0
       voidGame: 0
     - name: Launchman McQuack
-      author: 
-      description: 
       screenshot: {fileID: 21300000, guid: 16e4f332b9e02dc479e497219ca54a47, type: 3}
       executable: 
       slug: 
       gameType: 0
       voidGame: 0
     - name: Samuel L. Jackson
-      author: 
-      description: 
       screenshot: {fileID: 21300000, guid: 4b49cdeafcd5a454bb2395bb26a55599, type: 3}
       executable: 
       slug: 
       gameType: 0
       voidGame: 0
     - name: Podunkery
-      author: 
-      description: 
       screenshot: {fileID: 21300000, guid: 16e4f332b9e02dc479e497219ca54a47, type: 3}
       executable: 
       slug: 
@@ -3725,40 +3719,30 @@ MonoBehaviour:
     description: This is a test.
     games:
     - name: Puma Popplers
-      author: 
-      description: 
       screenshot: {fileID: 21300000, guid: e48a84580b37044afbe5ec02b13adb91, type: 3}
       executable: 
       slug: 
       gameType: 0
       voidGame: 0
     - name: Trankturter Game
-      author: 
-      description: 
       screenshot: {fileID: 21300000, guid: f7b8159a4190da147ac5480967c34fa8, type: 3}
       executable: 
       slug: 
       gameType: 0
       voidGame: 0
     - name: Blabinjero
-      author: 
-      description: 
       screenshot: {fileID: 21300000, guid: 259df81cc073c814f8f2a6697fb1e3e4, type: 3}
       executable: 
       slug: 
       gameType: 0
       voidGame: 0
     - name: Rhyme Plumper
-      author: 
-      description: 
       screenshot: {fileID: 21300000, guid: 924caa49f93102e408be3fd21586401c, type: 3}
       executable: 
       slug: 
       gameType: 0
       voidGame: 0
     - name: Paunchman McSmack
-      author: 
-      description: 
       screenshot: {fileID: 21300000, guid: e5d5901a5a2d3d64f9f8ddd87390a6c9, type: 3}
       executable: 
       slug: 
