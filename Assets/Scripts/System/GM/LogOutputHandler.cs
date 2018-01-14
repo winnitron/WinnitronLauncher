@@ -29,7 +29,9 @@ public class LogOutputHandler : MonoBehaviour {
         loggingForm.AddField("LEVEL", level);
         loggingForm.AddField("Message", logString);
         loggingForm.AddField("Stack_Trace", stackTrace);
-        loggingForm.AddField("API_Key", GM.Instance.options.GetSyncSettings()["apiKey"]);
+        
+        if (GM.Instance.options.O != null)
+            loggingForm.AddField("API_Key", GM.Instance.options.GetSyncSettings()["apiKey"]);
 
         // Add any User, Game, or Device MetaData that would be useful to finding issues later
         loggingForm.AddField("Device_Model", SystemInfo.deviceModel);
