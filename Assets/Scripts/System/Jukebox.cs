@@ -12,21 +12,42 @@ public class Jukebox : MonoBehaviour {
 
 	private AudioSource source;
 
-	protected void Start() {
+    public GameObject container;
+    public GameObject tweenTarget;
+    public GameObject tweenOffScreenTarget;
+    public float tweenTime;
+
+    private bool init = true;
+
+    void Start() {
 		source = gameObject.GetComponent<AudioSource> ();
-        NextTrack();
+        Stop();
+    }
+
+    void OnEnable()
+    {
+        //Just making sure that the very first enable (when the prog starts) doesn't trigger an error
+        if (!init)
+            PlayRandom();
+        else
+            init = false;
+    }
+
+    void OnDisable()
+    {
+        Stop();
     }
 
     void Update() {
 
 	    // Player 2 Joystick controls song
-	    if (Input.GetKeyDown(GM.options.keys.GetKey(2, "left")) || Input.GetKey(KeyCode.Minus))
+	    if (Input.GetKeyDown(GM.Instance.options.keys.GetKey(2, "left")) || Input.GetKey(KeyCode.Minus))
 	        LastTrack();
-	    if (Input.GetKeyDown(GM.options.keys.GetKey(2, "right")) || Input.GetKey(KeyCode.Equals))
+	    if (Input.GetKeyDown(GM.Instance.options.keys.GetKey(2, "right")) || Input.GetKey(KeyCode.Equals))
 	        NextTrack();
 
 	    // Stop & Play from keyboard
-	    if (Input.GetKeyDown(GM.options.keys.GetKey(2, "button1")) || Input.GetKeyDown(GM.options.keys.GetKey(2, "button2"))) {
+	    if (Input.GetKeyDown(GM.Instance.options.keys.GetKey(2, "button1")) || Input.GetKeyDown(GM.Instance.options.keys.GetKey(2, "button2"))) {
 
 	        if (isPlaying)
 	            Stop();
@@ -38,56 +59,55 @@ public class Jukebox : MonoBehaviour {
 	    // Check for song end
 	    if (!source.isPlaying && isPlaying)
 	        NextTrack();
-
-        //Make sure there's a track playing when the launcher is going
-        if (GM.state.worldState == StateManager.WorldState.Launcher && !isPlaying)
-            PlayRandom();
     }
 
-    public void Stop() {
+    private void Stop() {
         source.Stop();
         isPlaying = false;
+
+        container.transform.localPosition = tweenOffScreenTarget.transform.localPosition;
     }
 
-    public void PlayRandom() {
-        if (GM.data.songs.Count > 0) {
-            currentTrack = UnityEngine.Random.Range(0, GM.data.songs.Count);
-            source.clip = GM.data.songs[currentTrack].clip;
+    private void PlayRandom() {
+        if (GM.Instance.data.songs.Count > 0) {
+            currentTrack = UnityEngine.Random.Range(0, GM.Instance.data.songs.Count);
+            source.clip = GM.Instance.data.songs[currentTrack].clip;
             Play();
         }
     }
 
-    public void NextTrack() {
+    private void NextTrack() {
 
-        if (GM.data.songs.Count <= 0)
+        if (GM.Instance.data.songs.Count <= 0)
             return;
 
         Stop();
 
-        currentTrack = (currentTrack + 1) % GM.data.songs.Count;
-        source.clip = GM.data.songs[currentTrack].clip;
+        currentTrack = (currentTrack + 1) % GM.Instance.data.songs.Count;
+        source.clip = GM.Instance.data.songs[currentTrack].clip;
 
         Play();
     }
 
-    public void LastTrack() {
+    private void LastTrack() {
 
         Stop();
 
         if (currentTrack <= 1)
-            currentTrack = GM.data.songs.Count - 1;
+            currentTrack = GM.Instance.data.songs.Count - 1;
         else
             currentTrack--;
 
-        source.clip = GM.data.songs[currentTrack].clip;
+        source.clip = GM.Instance.data.songs[currentTrack].clip;
 
         Play();
     }
 
-    public void Play() {
+    private void Play() {
         isPlaying = true;
         source.Play();
-        songName.text = GM.data.songs[currentTrack].name;
-        artistName.text = GM.data.songs[currentTrack].author;
+        songName.text = GM.Instance.data.songs[currentTrack].name + " - " + GM.Instance.data.songs[currentTrack].author;
+
+        container.GetComponent<Tweenable>().TweenLocalPosition(tweenTarget.transform.localPosition, tweenTime, false);
     }
 }

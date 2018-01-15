@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 
 
-public class ColorTweenProperty : AbstractColorTweenProperty, IGenericProperty
+public sealed class ColorTweenProperty : AbstractMaterialColorTweenProperty, IGenericProperty
 {
 	public string propertyName { get; private set; }
 	private Action<Color> _setter;

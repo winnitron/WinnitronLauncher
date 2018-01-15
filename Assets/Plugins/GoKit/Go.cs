@@ -127,27 +127,27 @@ public class Go : MonoBehaviour
 	#endregion
 
 
-    /// <summary>
-    /// this only runs as needed and handles time scale independent Tweens
-    /// </summary>
-    private IEnumerator timeScaleIndependentUpdate()
-    {
+	/// <summary>
+	/// this only runs as needed and handles time scale independent Tweens
+	/// </summary>
+	private IEnumerator timeScaleIndependentUpdate()
+	{
 		_timeScaleIndependentUpdateIsRunning = true;
 		var time = Time.realtimeSinceStartup;
 
-        while( _tweens.Count > 0 )
-        {
-            var elapsed = Time.realtimeSinceStartup - time;
-            time = Time.realtimeSinceStartup;
+		while( _tweens.Count > 0 )
+		{
+			var elapsed = Time.realtimeSinceStartup - time;
+			time = Time.realtimeSinceStartup;
 
-            // update tweens
-            handleUpdateOfType( GoUpdateType.TimeScaleIndependentUpdate, elapsed );
+			// update tweens
+			handleUpdateOfType( GoUpdateType.TimeScaleIndependentUpdate, elapsed );
 
-            yield return null;
-        }
+			yield return null;
+		}
 
 		_timeScaleIndependentUpdateIsRunning = false;
-    }
+	}
 
 
 	/// <summary>
@@ -166,16 +166,20 @@ public class Go : MonoBehaviour
 		// TODO: perhaps only perform the check on running Tweens?
 
 		// loop through all the tweens with the same target
-		foreach( var tweenWithTarget in allTweensWithTarget )
+		for( int k = 0; k < allTweensWithTarget.Count; ++k )
 		{
+			GoTween tweenWithTarget = allTweensWithTarget[k];
+
 			// loop through all the properties in the tween and see if there are any dupes
-			foreach( var tweenProp in allProperties )
+			for( int z = 0; z < allProperties.Count; ++z )
 			{
-				warn( "found duplicate TweenProperty {0} in tween {1}", tweenProp, tween );
+				AbstractTweenProperty tweenProp = allProperties[z];
 
 				// check for a matched property
 				if( tweenWithTarget.containsTweenProperty( tweenProp ) )
 				{
+					warn( "found duplicate TweenProperty {0} in tween {1}", tweenProp, tween );
+					
 					// handle the different duplicate property rules
 					if( duplicatePropertyRule == GoDuplicatePropertyRuleType.DontAddCurrentProperty )
 					{
@@ -246,13 +250,23 @@ public class Go : MonoBehaviour
 	/// </summary>
 	public static GoTween to( object target, float duration, GoTweenConfig config )
 	{
-        config.setIsTo();
+		config.setIsTo();
 		var tween = new GoTween( target, duration, config );
 		addTween( tween );
 
 		return tween;
 	}
 
+	public static GoTween to( object target, GoSpline path, float speed, GoTweenConfig config )
+	{
+		config.setIsTo();
+		path.buildPath();
+		float duration = path.pathLength / speed;
+		var tween = new GoTween( target, duration, config );
+		addTween( tween );
+		
+		return tween;
+	}
 
 	/// <summary>
 	/// helper function that creates a "from" Tween and adds it to the pool
@@ -266,6 +280,17 @@ public class Go : MonoBehaviour
 		return tween;
 	}
 
+
+	public static GoTween from( object target, GoSpline path, float speed, GoTweenConfig config )
+	{
+		config.setIsFrom();
+		path.buildPath();
+		float duration = path.pathLength / speed;
+		var tween = new GoTween( target, duration, config );
+		addTween( tween );
+		
+		return tween;
+	}
 
 	/// <summary>
 	/// adds an AbstractTween (Tween, TweenChain or TweenFlow) to the current list of running Tweens
@@ -338,6 +363,39 @@ public class Go : MonoBehaviour
 		return false;
 	}
 
+	/// <summary>
+	/// removes the Tween with specific tag
+	/// </summary>
+	public static void removeTweenWithTag( string tag )
+	{
+		List<AbstractGoTween> tweenList = tweensWithTag( tag );
+		if( tweenList != null )
+		{
+			foreach( var tween in tweenList )
+			{
+				removeTween( tween );
+			}
+		}
+	}	
+	
+	/// <summary>
+	/// returns a list of all Tweens, TweenChains and TweenFlows with the given tag
+	/// </summary>
+	public static List<AbstractGoTween> tweensWithTag( string tag )
+	{
+		List<AbstractGoTween> list = null;
+		foreach( var tween in _tweens )
+		{
+			if( tween.tag == tag )
+			{
+				if( list == null )
+					list = new List<AbstractGoTween>();
+				list.Add( tween );
+			}
+		}
+		
+		return list;
+	}
 
 	/// <summary>
 	/// returns a list of all Tweens, TweenChains and TweenFlows with the given id
@@ -346,8 +404,10 @@ public class Go : MonoBehaviour
 	{
 		List<AbstractGoTween> list = null;
 
-		foreach( var tween in _tweens )
+		for( int k = 0; k < _tweens.Count; ++k )
 		{
+			AbstractGoTween tween = _tweens[k];
+
 			if( tween.id == id )
 			{
 				if( list == null )
@@ -368,8 +428,9 @@ public class Go : MonoBehaviour
 	{
 		List<GoTween> list = new List<GoTween>();
 
-		foreach( var item in _tweens )
+		for( int k = 0; k < _tweens.Count; ++k )
 		{
+			AbstractGoTween item = _tweens[k];
 			// we always check Tweens so handle them first
 			var tween = item as GoTween;
 			if( tween != null && tween.target == target )
@@ -397,8 +458,13 @@ public class Go : MonoBehaviour
 	/// </summary>
 	public static void killAllTweensWithTarget( object target )
 	{
-		foreach( var tween in tweensWithTarget( target, true ) )
+		List<GoTween> items = tweensWithTarget( target, true );
+
+		for( int k = 0; k < items.Count; ++k )
+		{
+			GoTween tween = items[k];
 			tween.destroy();
+		}
 	}
 
 	#endregion

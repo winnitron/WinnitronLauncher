@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 
-public class GoTweenChain : AbstractGoTweenCollection
+public sealed class GoTweenChain : AbstractGoTweenCollection
 {
 	public GoTweenChain() : this(new GoTweenCollectionConfig()) {}
 	public GoTweenChain(GoTweenCollectionConfig config) : base(config) {}
@@ -21,20 +21,20 @@ public class GoTweenChain : AbstractGoTweenCollection
 			return;
 		}
 
-        if ( item.tween != null )
-        {
-            if ( item.tween.isReversed != isReversed )
-            {
-                Debug.LogError( "adding a Tween that doesn't match the isReversed property of the TweenChain is not permitted." );
-                return;
-            }
+		if ( item.tween != null )
+		{
+			if ( item.tween.isReversed != isReversed )
+			{
+				Debug.LogError( "adding a Tween that doesn't match the isReversed property of the TweenChain is not permitted." );
+				return;
+			}
 
-            // ensure the tween isnt already live
-            Go.removeTween(item.tween);
+			// ensure the tween isnt already live
+			Go.removeTween(item.tween);
 
-            // ensure that the item is marked to play.
-            item.tween.play();
-        }
+			// ensure that the item is marked to play.
+			item.tween.play();
+		}
 		
 		_tweenFlows.Add( item );
 		
@@ -44,7 +44,7 @@ public class GoTweenChain : AbstractGoTweenCollection
 		if( iterations < 0 )
 			totalDuration = float.PositiveInfinity;
 		else
-            totalDuration = duration * iterations;
+			totalDuration = duration * iterations;
 	}
 	
 	
@@ -60,35 +60,38 @@ public class GoTweenChain : AbstractGoTweenCollection
 			return;
 		}
 
-        if ( item.tween != null )
-        {
-            if ( item.tween.isReversed != isReversed )
-            {
-                Debug.LogError( "adding a Tween that doesn't match the isReversed property of the TweenChain is not permitted." );
-                return;
-            }
+		if ( item.tween != null )
+		{
+			if ( item.tween.isReversed != isReversed )
+			{
+				Debug.LogError( "adding a Tween that doesn't match the isReversed property of the TweenChain is not permitted." );
+				return;
+			}
 
-            // ensure the tween isnt already live
-            Go.removeTween( item.tween );
+			// ensure the tween isnt already live
+			Go.removeTween( item.tween );
 
-            // ensure that the item is marked to play.
-            item.tween.play();
-        }
+			// ensure that the item is marked to play.
+			item.tween.play();
+		}
 		
 		// fix all the start times on our previous chains
-		foreach( var flowItem in _tweenFlows )
+		for ( int k = 0; k < _tweenFlows.Count; ++k )
+		{
+			TweenFlowItem flowItem = _tweenFlows[k];
 			flowItem.startTime += item.duration;
+		}
 
-        _tweenFlows.Insert( 0, item );
+		_tweenFlows.Insert( 0, item );
 		
 		// update the duration and total duration
 		duration += item.duration;
 
-        if ( iterations < 0 )
-            totalDuration = float.PositiveInfinity;
-        else
-            totalDuration = duration * iterations;
-    }
+		if ( iterations < 0 )
+			totalDuration = float.PositiveInfinity;
+		else
+			totalDuration = duration * iterations;
+	}
 	
 	#endregion
 	

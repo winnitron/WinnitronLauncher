@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 
-public class MaterialColorTweenProperty : AbstractColorTweenProperty
+public class MaterialColorTweenProperty : AbstractMaterialColorTweenProperty
 {
 	private string _materialColorName;
 	
