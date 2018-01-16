@@ -186,7 +186,7 @@ public class GameSync : MonoBehaviour {
 
         } else {
             GM.Instance.logger.Error("Error fetching playlists: " + www.error);
-            GM.Instance.Oops(GM.Instance.options.GetText("error", "fetchPlaylistError"));
+            GM.Instance.Oops(GM.Instance.options.GetText("error", "fetchPlaylistError"), true);
         }
     }
 
@@ -208,7 +208,7 @@ public class GameSync : MonoBehaviour {
     /// <param name="text">Text to be displayed.</param>
     private void SyncText(string text)
     {
-        GM.Instance.InfoText(text);
+        GM.Instance.InfoText("SYNCING WITH WINNITRON NETWORK", text);
     }
 
     private IEnumerator SyncText(string text, float timeToWait)

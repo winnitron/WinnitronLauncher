@@ -13,14 +13,26 @@ public class OopsState : State
 {
     override public void OnStateEnter(Animator animator, AnimatorStateInfo info, int layerIndex)
     {
+        base.OnStateEnter(animator, info, layerIndex);
+
         //All we need for this state is the Info object and the text included with it
         helper.DeactivateAll();
         helper.info.SetActive(true);
+
+        //Set the action text
+        var actionText = GM.Instance.infoAction;
+        actionText.gameObject.SetActive(true);
+
+        if (helper.oopsIsCritical)
+            actionText.text = "Press Home or ESC to Quit Application";
+
+        else
+            actionText.text = "Press Home to Continue";
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo info, int layerIndex)
     {
-
+        GM.Instance.infoAction.gameObject.SetActive(false);
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo info, int layerIndex)
@@ -31,13 +43,13 @@ public class OopsState : State
 
         if(helper.oopsIsCritical)
         {
-            if (Input.GetKey(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
                 Application.Quit();
         }
 
         else
         {
-            if (Input.GetKey(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
                 GM.Instance.state.SetTrigger("NextState");
         }
     }

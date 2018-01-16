@@ -25,8 +25,9 @@ public class GM : Singleton<GM> {
     public StateMachineHelper stateMachineHelper;
     public Jukebox jukebox;
 
+    public Text infoHeader;
     public Text info;
-
+    public Text infoAction;
 
     //SINGLETON STUFF
 
@@ -61,20 +62,20 @@ public class GM : Singleton<GM> {
     IEnumerator Initialize()
     {
         //Let's initialize stuff in order
-        InfoText("Loading Options...");
+        InfoText("STARTING UP", "Loading Options...");
         options.Init();
-        InfoText("Loading Runner...");
+        InfoText("STARTING UP", "Loading Runner...");
         runner.Init();
-        InfoText("Checking Sync...");
+        InfoText("STARTING UP", "Checking Sync...");
         sync.Init();
 
         while (!sync.isFinished)
             yield return null;
 
-        InfoText("Compiling Games...");
+        InfoText("STARTING UP", "Compiling Games...");
         data.Init();
 
-        InfoText("Done!");
+        InfoText("STARTING UP", "Done!");
         state.SetTrigger("NextState");
     }
 
@@ -93,7 +94,7 @@ public class GM : Singleton<GM> {
     {
         GM.Instance.state.SetTrigger("Oops");
         stateMachineHelper.oopsIsCritical = isCritical;
-        InfoText(text);
+        InfoText("OOPS!", text);
     }
 
     /// <summary>
@@ -109,8 +110,9 @@ public class GM : Singleton<GM> {
     /// Displays info text.
     /// </summary>
     /// <param name="text"></param>
-    public void InfoText(string text)
+    public void InfoText(string header, string text)
     {
+        infoHeader.text = header;
         info.text = text;
     }
 
