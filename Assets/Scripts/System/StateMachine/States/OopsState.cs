@@ -4,15 +4,17 @@ using UnityEngine;
 
 /// <summary>
 /// The behaviour attached to the Oops state in the Animator component of the GM GameObject.
-/// 
+///
 /// The functions of this script get called using the Animator transitions and conditions
-/// set within Unity's built in Animator.  Please see the Animator component of the GM 
+/// set within Unity's built in Animator.  Please see the Animator component of the GM
 /// GameObject to find out more.
 /// </summary>
 public class OopsState : State
 {
     override public void OnStateEnter(Animator animator, AnimatorStateInfo info, int layerIndex)
     {
+        base.OnStateEnter(animator, info, layerIndex);
+
         //All we need for this state is the Info object and the text included with it
         helper.DeactivateAll();
         helper.info.SetActive(true);
