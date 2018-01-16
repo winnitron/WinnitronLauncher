@@ -36,6 +36,8 @@ public class GameSync : MonoBehaviour {
 
     public bool syncOnStartup = true;
     public bool isFinished = true;
+    private float timer = 0;
+    private float timeout = 30;
 
     /// <summary>
     /// Called during GM's Init phase.
@@ -98,7 +100,26 @@ public class GameSync : MonoBehaviour {
 
     private IEnumerator WaitForSubscriptionList(WWW www) {
 
+        bool timedOut = false;
+        while(!www.isDone) {
+            if(timer > timeout) {
+                timedOut = true;
+                break;
+            }
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        if (timedOut) {
+            GM.Instance.logger.Error("Could not connect to Winnitron Network. Request timed out after " + timeout + "s.");
+            EndSync();
+        }
+
         yield return www;
+
+
+
 
         if (www.error == null) {
             GM.Instance.logger.Info(this, "fetched playlists: " + www.text);
@@ -186,7 +207,8 @@ public class GameSync : MonoBehaviour {
 
         } else {
             GM.Instance.logger.Error("Error fetching playlists: " + www.error);
-            GM.Instance.Oops(GM.Instance.options.GetText("error", "fetchPlaylistError"));
+            // GM.Instance.Oops(GM.Instance.options.GetText("error", "fetchPlaylistError"));
+            EndSync();
         }
     }
 
