@@ -4,9 +4,9 @@ using UnityEngine;
 
 /// <summary>
 /// The behaviour attached to the Oops state in the Animator component of the GM GameObject.
-/// 
+///
 /// The functions of this script get called using the Animator transitions and conditions
-/// set within Unity's built in Animator.  Please see the Animator component of the GM 
+/// set within Unity's built in Animator.  Please see the Animator component of the GM
 /// GameObject to find out more.
 /// </summary>
 public class OopsState : State

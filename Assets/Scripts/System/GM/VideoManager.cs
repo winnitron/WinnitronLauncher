@@ -61,27 +61,29 @@ public class VideoManager : MonoBehaviour {
         //Set video To Play then prepare Audio to prevent Buffering
         player.Prepare();
 
+        GM.Instance.logger.Debug("Preparing Video " + url);
+        
         //Wait until video is prepared
         while (!player.isPrepared)
         {
-            Debug.Log("Preparing Video");
+            
             yield return null;
         }
 
-        Debug.Log("Done Preparing Video");
+        GM.Instance.logger.Debug("Done Preparing Video " + url);
 
         //Play Video
         state = VideoState.Playing;
         player.Play();
 
-        Debug.Log("Playing Video");
+        GM.Instance.logger.Debug("Playing Video " + url);
         while (player.isPlaying)
         {
-            Debug.LogWarning("Video Time: " + Mathf.FloorToInt((float)player.time));
+            // Debug.LogWarning("Video Time: " + Mathf.FloorToInt((float)player.time));
             yield return null;
         }
 
-        Debug.Log("Done Playing Video");
+        GM.Instance.logger.Debug("Done Playing Video " + url);
 
         state = VideoState.Stopped;
     }
