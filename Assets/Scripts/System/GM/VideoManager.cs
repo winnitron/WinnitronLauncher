@@ -99,4 +99,13 @@ public class VideoManager : MonoBehaviour {
     {
         return state;
     }
+
+    /// <summary>
+    /// Quickly checks to see if the background is playing, and restarts it if it's not.
+    /// </summary>
+    public void PlayBackground()
+    {
+        if (player.url != GM.Instance.data.launcherBackground || !player.isPlaying)
+            PlayVideo(GM.Instance.data.launcherBackground, true, false);
+    }
 }

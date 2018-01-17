@@ -100,8 +100,10 @@ public class AttractState : State {
     private void DisplayImage()
     {
         //Turn off unused gameobjects
-        GM.Instance.video.StopVideo();
         helper.attractText.gameObject.SetActive(false);
+
+        //Play dat background vid
+        GM.Instance.video.PlayBackground();
 
         //Display the image
         helper.attractImage.gameObject.SetActive(true);
@@ -124,6 +126,9 @@ public class AttractState : State {
     {
         //Turn off unused gameObjects
         helper.attractImage.gameObject.SetActive(false);
+
+        //Get the background goin'
+        GM.Instance.video.PlayBackground();
 
         //Play background video, and display text
         GM.Instance.video.PlayVideo(GM.Instance.data.launcherBackground, true, false);
