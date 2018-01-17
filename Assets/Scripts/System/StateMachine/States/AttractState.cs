@@ -131,7 +131,7 @@ public class AttractState : State {
         GM.Instance.video.PlayBackground();
 
         //Play background video, and display text
-        GM.Instance.video.PlayVideo(GM.Instance.data.launcherBackground, true, false);
+        helper.attractText.gameObject.SetActive(true);
         helper.attractText.text = GetCurrentItem().text;
         displayTime = GetCurrentItem().displayTime;
     }

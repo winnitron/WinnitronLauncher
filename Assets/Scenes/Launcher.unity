@@ -526,6 +526,7 @@ GameObject:
   - component: {fileID: 221551397}
   - component: {fileID: 221551399}
   - component: {fileID: 221551398}
+  - component: {fileID: 221551400}
   m_Layer: 5
   m_Name: AttractText
   m_TagString: Untagged
@@ -540,7 +541,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 221551396}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 266}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2094144608}
@@ -549,7 +550,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1208.6, y: 528.6}
+  m_SizeDelta: {x: 1399, y: 528.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &221551398
 MonoBehaviour:
@@ -590,6 +591,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 221551396}
+--- !u!114 &221551400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 221551396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bee419a6c898849b3beb5946ce99b560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  relative: 0
+  force: {x: 0, y: 0, z: -2}
+  spin: {x: 0, y: 0, z: 0}
 --- !u!1 &251575895
 GameObject:
   m_ObjectHideFlags: 0
@@ -2823,6 +2838,7 @@ GameObject:
   - component: {fileID: 1209664888}
   - component: {fileID: 1209664890}
   - component: {fileID: 1209664889}
+  - component: {fileID: 1209664891}
   m_Layer: 5
   m_Name: AttractImage
   m_TagString: Untagged
@@ -2845,7 +2861,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.00005083798}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1209664889
@@ -2881,6 +2897,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1209664887}
+--- !u!114 &1209664891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1209664887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bee419a6c898849b3beb5946ce99b560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  relative: 0
+  force: {x: 0, y: 0, z: -2}
+  spin: {x: 0, y: 0, z: 0}
 --- !u!1 &1245247241
 GameObject:
   m_ObjectHideFlags: 0
@@ -3366,7 +3396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1532549171
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4548,7 +4578,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2094144608
 RectTransform:
   m_ObjectHideFlags: 0
