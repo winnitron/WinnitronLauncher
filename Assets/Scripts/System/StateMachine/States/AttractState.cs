@@ -22,7 +22,15 @@ public class AttractState : State {
 
         numberOfItems = GM.Instance.data.attractItems.Count;
 
-        ShowCurrentItem();
+        if (numberOfItems <= 0)
+        {
+            GM.Instance.logger.Warn("No valid files found in Attract folder (" + GM.Instance.options.attractPath + ")");
+            animator.SetTrigger("NextState");
+        }
+        else
+        {
+            ShowCurrentItem();
+        }
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo info, int layerIndex)
