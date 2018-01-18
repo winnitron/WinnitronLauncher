@@ -7,6 +7,7 @@ public class ImageFade : MonoBehaviour {
 
     public float FadeRate;
     public Image image;
+    public bool executeOnEnable = false;
 
     private float targetAlpha;
 
@@ -19,6 +20,12 @@ public class ImageFade : MonoBehaviour {
         }
 
         this.targetAlpha = this.image.color.a;
+    }
+
+    private void OnEnable()
+    {
+        if (executeOnEnable)
+            SetOpaqueAndFade();
     }
 
     // Update is called once per frame

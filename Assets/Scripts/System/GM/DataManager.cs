@@ -68,7 +68,9 @@ public class DataManager : MonoBehaviour {
             }
 
             else
+            {
                 attractItems.Add(new AttractItem(file.FullName));
+            }
             
         }
 

@@ -24,6 +24,8 @@ public class LauncherController : MonoBehaviour {
     public GameObject arrowRight;
     public GameObject arrowLeft;
 
+    public GameObject whiteScreenFade;
+
     public int gameSelector = 0;
     public int playlistSelector = 0;
 
@@ -49,7 +51,13 @@ public class LauncherController : MonoBehaviour {
     /// </summary>
     private void OnEnable()
     {
+        whiteScreenFade.SetActive(true);
         UpdateLauncherUI();
+    }
+
+    private void OnDisable()
+    {
+        whiteScreenFade.SetActive(false);
     }
 
     /// <summary>
