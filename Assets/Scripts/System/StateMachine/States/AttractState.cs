@@ -22,7 +22,6 @@ public class AttractState : State {
 
         numberOfItems = GM.Instance.data.attractItems.Count;
 
-
         if (numberOfItems <= 0)
         {
             GM.Instance.logger.Warn("No valid files found in Attract folder (" + GM.Instance.options.attractPath + ")");
@@ -98,10 +97,8 @@ public class AttractState : State {
 
     private void ShowNextItem()
     {
-        currentItem++;
-
-        if (currentItem > numberOfItems - 1)
-            currentItem = 0;
+        //Increment and loop back if over
+        currentItem = (currentItem + 1) % numberOfItems;
 
         ShowCurrentItem();
     }

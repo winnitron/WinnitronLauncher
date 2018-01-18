@@ -29,24 +29,26 @@ public class AttractItem {
     {
         pathToItem = filePath;
 
-        if (pathToItem.Contains("mp4"))
+        string ext = Path.GetExtension(filePath);
+
+        if (ext == ".mp4")
         {
             type = AttractItemType.Video;
             //Video player only requires a path to the video, so we don't need to load anything new here
         }
-        else if (pathToItem.Contains("png") || pathToItem.Contains("jpg") || pathToItem.Contains("jpeg"))
+        else if (ext == ".png" || ext == ".jpg" || ext == ".jpeg")
         {
             type = AttractItemType.Image;
             LoadImage();
         }
-        else if (pathToItem.Contains("txt"))
+        else if (ext == ".txt")
         {
             type = AttractItemType.Text;
             LoadText();
         }
         else
         {
-            Debug.Log("AttractItem - No valid file found.  Voiding file " + pathToItem);
+            GM.Instance.logger.Debug("AttractItem - No valid file found.  Voiding file " + pathToItem);
             voidItem = true;
         }
     }
@@ -58,7 +60,7 @@ public class AttractItem {
 
         if (pathToItem != null)
         {
-            Debug.Log("GAME: Loading custom screenshot " + pathToItem);
+            GM.Instance.logger.Debug("GAME: Loading custom screenshot " + pathToItem);
             screenshotTex.LoadImage(File.ReadAllBytes(pathToItem));
 
             // Turn the Texture2D into a sprite
