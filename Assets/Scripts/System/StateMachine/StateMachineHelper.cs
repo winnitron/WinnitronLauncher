@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// This script just holds a number of GameObjects that the State scripts can then reference in code.
@@ -13,6 +14,9 @@ public class StateMachineHelper : MonoBehaviour {
     public GameObject jukebox;
     public GameObject info;
     public GameObject mainCanvas;
+    public GameObject attract;
+    public Image attractImage;
+    public Text attractText;
 
     public bool oopsIsCritical = false;
 
@@ -24,5 +28,6 @@ public class StateMachineHelper : MonoBehaviour {
         info.SetActive(false);
         launcher.SetActive(false);
         jukebox.SetActive(false);
+        attract.SetActive(false);
     }
 }

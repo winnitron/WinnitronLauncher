@@ -12,10 +12,11 @@ public class DataManager : MonoBehaviour {
 
     public List<Playlist> playlists;
     public List<Song> songs;
+    public List<AttractItem> attractItems;
 
     public string introVideo;
     public string launcherBackground;
-    public List<string> attractFiles;
+    //public List<string> attractFiles;
 
     /// <summary>
     /// Called by the GM to get the initial round of data.
@@ -39,7 +40,7 @@ public class DataManager : MonoBehaviour {
         //Load everything!
         GetPlaylists();
         GetMusic();
-        GetVideos();
+        GetAttractItems();
 
         //Call the delegate and all methods hooked in
         //Primarily used in LauncherUIController.cs to update the data model
@@ -47,7 +48,7 @@ public class DataManager : MonoBehaviour {
         GM.Instance.logger.Info(this, "DataManager: finished updating data.");
     }
 
-    public void GetVideos()
+    public void GetAttractItems()
     {
         var attractDir = new DirectoryInfo(GM.Instance.options.attractPath).GetFiles();
 
@@ -62,14 +63,15 @@ public class DataManager : MonoBehaviour {
                     introVideo = file.FullName;
                 else if (file.Name.ToLower().Contains("background"))
                     launcherBackground = file.FullName;
-                else if (file.Name.ToLower().Contains("attract"))
-                    attractFiles.Add(file.FullName);
+                else
+                    attractItems.Add(new AttractItem(file.FullName));
             }
 
             else
             {
-                GM.Instance.logger.Warn("DATA: Attract file " + file.Name + " is not a supported type.");
+                attractItems.Add(new AttractItem(file.FullName));
             }
+            
         }
 
         if (introVideo == null || introVideo == "")

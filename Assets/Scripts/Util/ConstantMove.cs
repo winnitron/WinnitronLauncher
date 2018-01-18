@@ -6,9 +6,16 @@ public class ConstantMove : MonoBehaviour {
 	public bool relative = false;
 	public Vector3 force = new Vector3(0, 0, 0);
 	public Vector3 spin = new Vector3(0, 0, 0);
-	
-	// Update is called once per frame
-	void Update () {
+
+    private Vector3 startPosition;
+
+    private void Awake()
+    {
+        startPosition = transform.position;
+    }
+
+    // Update is called once per frame
+    void Update () {
 		if (GetComponent<Rigidbody>()) 
 		{
 			if (relative)
@@ -24,4 +31,9 @@ public class ConstantMove : MonoBehaviour {
 			transform.localEulerAngles += spin * Time.deltaTime;
 		}
 	}
+
+    private void OnEnable()
+    {
+        transform.position = startPosition;
+    }
 }
