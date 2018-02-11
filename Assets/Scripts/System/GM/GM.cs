@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Runtime.InteropServices;
 
+
 /// <summary>
 /// Main Game Mananger class.  Because it is a singleton, when referencing in another
 /// script, you need to call it's instance.  Like so: GM.Instance.data etc.
@@ -139,7 +140,9 @@ public class GM : Singleton<GM> {
     private void writeProcessInfo() {
         string info = System.Diagnostics.Process.GetCurrentProcess().Id +
                       "\n" +
-                      Path.Combine(Path.GetFullPath("."), "WINNITRON.bat");
+                      Path.Combine(Path.GetFullPath("."), "WINNITRON.bat") +
+                      "\n" +
+                      GetWindowHandle();
 
         GM.Instance.logger.Debug("writing pid and exe path to " + PidFile());
         File.WriteAllText(PidFile(), info);
@@ -169,6 +172,13 @@ public class GM : Singleton<GM> {
         return Path.Combine(Path.Combine(drive, path), "winnitron.pid");
     }
 
+    [System.Runtime.InteropServices.DllImport("user32.dll")]
+    private static extern System.IntPtr GetActiveWindow();
+     
+    public static System.IntPtr GetWindowHandle() {
+      return GetActiveWindow();
+    }
+
     #else
 
     public static void ResetScreen() {
@@ -177,6 +187,10 @@ public class GM : Singleton<GM> {
     public static string PidFile() {
         string path = Environment.GetEnvironmentVariable("HOME");
         return Path.Combine(path, "winnitron.pid");
+    }
+
+    public static System.IntPtr GetWindowHandle() {
+      return null;
     }
 
     #endif
