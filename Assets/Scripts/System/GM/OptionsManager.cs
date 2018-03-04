@@ -17,6 +17,9 @@ public class OptionsManager : MonoBehaviour
 
     public float tweenTime = 0.7f;
 
+    public GameObject launcherScaler;
+    public float launcherScale = 1f;
+
     //Default Folders
     public string dataPath;
     public string defaultOptionsPath;
@@ -111,6 +114,9 @@ public class OptionsManager : MonoBehaviour
             GM.Instance.logger.Info(this, "OPTIONS:" + O.ToString());
             if (O["launcher"]["widescreen"] != null) widescreen = O["launcher"]["widescreen"].AsBool;
             if (O["launcher"]["idleTimeBeforeAttract"] != null) launcherIdleTimeBeforeAttract = O["launcher"]["idleTimeBeforeAttract"].AsInt;
+            if (O["launcher"]["scale"] != null) launcherScale = O["launcher"]["scale"].AsFloat;
+
+            launcherScaler.transform.localScale = new Vector3(launcherScale, launcherScale, launcherScale);
 
             //Runner Settings
             if (O["runner"]["timeToHoldESCToQuit"] != null) runnerSecondsESCHeld = O["runner"]["timeToHoldESCToQuit"].AsInt;
