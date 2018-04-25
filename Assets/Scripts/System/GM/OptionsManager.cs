@@ -149,6 +149,7 @@ public class OptionsManager : MonoBehaviour
         }
         else
         {
+            GM.Instance.logger.Error("Cannot find options file: " + optionsFile);
             GM.Instance.Oops(GM.Instance.Text("error", "cannotFindJson"), true);
         }
 
