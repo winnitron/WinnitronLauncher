@@ -174,7 +174,7 @@ public class GM : Singleton<GM> {
 
     [System.Runtime.InteropServices.DllImport("user32.dll")]
     private static extern System.IntPtr GetActiveWindow();
-     
+
     public static System.IntPtr GetWindowHandle() {
       return GetActiveWindow();
     }
@@ -190,7 +190,7 @@ public class GM : Singleton<GM> {
     }
 
     public static System.IntPtr GetWindowHandle() {
-      return null;
+      return System.IntPtr.Zero;
     }
 
     #endif
