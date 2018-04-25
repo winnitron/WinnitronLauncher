@@ -22,17 +22,13 @@ def config_userdata_location
   end
   puts "\n"
 
-  puts "Enter:"
   puts " (k) keep using this folder"
   puts " (d) use default (#{default_userdata_folder})"
   puts " (n) enter a new path"
-  puts " (q) quit now"
 
   print "> "
   choice = STDIN.gets.chomp.downcase
-  new_user_folder = if choice == "q"
-    exit()
-  elsif choice == "d"
+  new_user_folder = if choice == "d"
     default_userdata_folder
   elsif choice == "n"
     print " new path> "
@@ -42,12 +38,39 @@ def config_userdata_location
   end
 
   File.open(userdata_config, "w") do |file|
-    contents = {
-      "userDataPath" => new_user_folder
-    }.to_json
-    file.write contents
+    file.write JSON.pretty_generate({ "userDataPath" => new_user_folder })
+  end
+
+  new_user_folder
+end
+
+def set_api_key(user_folder)
+  opts_file = "#{user_folder}/Options/winnitron_options.json"
+  options = JSON.load(File.read(opts_file))
+
+  puts "\n\n"
+  puts "Your Winnitron is currently using this API key:"
+  puts "\n\t#{options['sync']['apiKey']}"
+
+  puts "\nIf you don't have an API key yet, register your arcade machine at network.winnitron.com"
+  puts "\n"
+
+  puts " (k) keep using this key"
+  puts " (n) enter a new key"
+
+  print "> "
+  choice = STDIN.gets.chomp.downcase
+  options['sync']['apiKey'] = if choice == "n"
+    print " new key> "
+    STDIN.gets.chomp
+  else
+    options['sync']['apiKey']
+  end
+
+  File.open(opts_file, "w") do |file|
+    file.write JSON.pretty_generate(options)
   end
 end
 
-
-config_userdata_location
+user_folder = config_userdata_location
+set_api_key(user_folder)
