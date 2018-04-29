@@ -173,7 +173,7 @@ public class LauncherController : MonoBehaviour {
     {
         if (refreshUI)
         {
-            
+
             if (refreshLauncherUI != null)
             {
                 //Updates the list of games here.
@@ -218,7 +218,10 @@ public class LauncherController : MonoBehaviour {
         //Move the Game Images to the right spots and feed them the image they need
         gameImageToFade.sprite = gameImageSelected.sprite;
         gameImageToFade.GetComponent<ImageFade>().SetOpaqueAndFade();
-        gameImageSelected.sprite = GetCurrentGame().screenshot;
+        if (GetCurrentGame() == null)
+            gameImageSelected.sprite = null;
+        else
+            gameImageSelected.sprite = GetCurrentGame().screenshot;
     }
 
     /// <summary>
@@ -227,7 +230,10 @@ public class LauncherController : MonoBehaviour {
     /// <returns>Populated Game class</returns>
     public Game GetCurrentGame()
     {
-        return GetCurrentPlaylist().games[gameSelector];
+        if (GetCurrentPlaylist().games.Count > 0)
+            return GetCurrentPlaylist().games[gameSelector];
+        else
+            return null;
     }
 
     /// <summary>
