@@ -280,7 +280,8 @@ public class GameSync : MonoBehaviour {
             // Playlist or Game directories that start with an underscore or are specified
             // "local": true in the metadatajson are local additions, and they won't be
             // deleted just because they're not in the website data.
-            if (name[0] == '_' || json["local"].AsBool)
+            // Treat a pre-v2.3.0 local playlist dir the same always.
+            if (name[0] == '_' || (json != null && json["local"].AsBool))
                 return false;
 
             foreach (SluggedItem keeper in keepers) {
@@ -293,7 +294,12 @@ public class GameSync : MonoBehaviour {
 
         private static JSONNode readMetadata(string directory) {
             string file = Path.Combine(directory, "winnitron_metadata.json");
-            return JSONNode.Parse(File.ReadAllText(file));
+
+            try {
+                return JSON.Parse(File.ReadAllText(file));
+            } catch (FileNotFoundException ) {
+                return null;
+            }
         }
     }
 
