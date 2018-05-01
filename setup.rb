@@ -74,3 +74,7 @@ end
 
 user_folder = config_userdata_location
 set_api_key(user_folder)
+
+puts "\n\n"
+puts "All done! You can further configure your Winnitron by editing #{user_folder}/Options/winnitron_options.json"
+puts "\n\n"
