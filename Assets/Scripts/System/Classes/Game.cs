@@ -148,9 +148,17 @@ public class Game
 
         string specified = null;
         bool haveData = savedMetadata["image_url"] != null;
+        string imageFilename;
+
         if (haveData) {
-            System.Uri dlFrom = new System.Uri(savedMetadata["image_url"]);
-            specified = Path.Combine(directory.FullName, Path.GetFileName(dlFrom.AbsolutePath));
+            try {
+                System.Uri dlFrom = new System.Uri(savedMetadata["image_url"]);
+                imageFilename = Path.GetFileName(dlFrom.AbsolutePath);
+            } catch (System.UriFormatException) {
+                imageFilename = savedMetadata["image_url"];
+            }
+
+            specified = Path.Combine(directory.FullName, imageFilename);
         }
 
         string png = findFirstImage("png");
