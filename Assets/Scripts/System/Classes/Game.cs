@@ -155,7 +155,7 @@ public class Game
                 System.Uri dlFrom = new System.Uri(savedMetadata["image_url"]);
                 imageFilename = Path.GetFileName(dlFrom.AbsolutePath);
             } catch (System.UriFormatException) {
-                imageFilename = savedMetadata["image_url"];
+                imageFilename = Path.GetFullPath(savedMetadata["image_url"]);
             }
 
             specified = Path.Combine(directory.FullName, imageFilename);
