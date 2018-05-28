@@ -12,7 +12,8 @@
   "launcher": {
     "widescreen": "true",
     "language": "english",
-    "idleTimeBeforeAttract": "20"
+    "idleTimeBeforeAttract": "20",
+	"scale": "1"
   },
   "runner": {
     "initialIdleTimeSeconds": "30",
