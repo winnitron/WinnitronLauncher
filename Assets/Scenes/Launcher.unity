@@ -602,7 +602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bee419a6c898849b3beb5946ce99b560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relative: 0
+  relative: 1
   force: {x: 0, y: 0, z: -2}
   spin: {x: 0, y: 0, z: 0}
 --- !u!1 &251575895
@@ -2107,6 +2107,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 831884532}
+  - component: {fileID: 831884533}
   m_Layer: 5
   m_Name: Scaler
   m_TagString: Untagged
@@ -2135,6 +2136,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &831884533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 831884531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cac9291ae3b287247885c03c972aebb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetaspect: 1.777778
+  letterbox: 0
+  transformsToAlsoScale:
+  - {fileID: 2094144608}
+  mainCam: {fileID: 1081089428}
+  movieCam: {fileID: 589982015}
 --- !u!1 &844821023
 GameObject:
   m_ObjectHideFlags: 0
@@ -3021,7 +3039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bee419a6c898849b3beb5946ce99b560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relative: 0
+  relative: 1
   force: {x: 0, y: 0, z: -2}
   spin: {x: 0, y: 0, z: 0}
 --- !u!1 &1245247241
@@ -4237,8 +4255,6 @@ MonoBehaviour:
   launcherIdleTimeBeforeAttract: 0
   initializing: 1
   tweenTime: 0.7
-  launcherScaler: {fileID: 831884531}
-  launcherScale: 1
   dataPath: 
   defaultOptionsPath: 
   optionsPath: 
@@ -4547,7 +4563,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: -50.032, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.000036172703}
+  m_AnchoredPosition: {x: 0, y: 0.0000361727}
   m_SizeDelta: {x: 906.5, y: 45.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2005593533
