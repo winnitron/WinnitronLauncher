@@ -10,6 +10,8 @@ public class AttractState : State {
 
     public float displayTime;
 
+    private Vector3 imageStartPos;
+    private Vector3 textStartPos;
 
     //STATE BASE FUNCTIONS
 
@@ -110,6 +112,11 @@ public class AttractState : State {
         GM.Instance.video.PlayBackground();
 
         //Display the image
+        if (imageStartPos == null) {
+            imageStartPos = helper.attractImage.transform.position;
+        }
+
+        helper.attractImage.transform.position = imageStartPos;
         helper.attractImage.gameObject.SetActive(true);
         helper.attractImage.sprite = GetCurrentItem().sprite;
         displayTime = GetCurrentItem().displayTime;
@@ -134,7 +141,12 @@ public class AttractState : State {
         //Get the background goin'
         GM.Instance.video.PlayBackground();
 
+        if (textStartPos == null) {
+            textStartPos = helper.attractText.transform.position;
+        }
+
         //Play background video, and display text
+        helper.attractText.transform.position = textStartPos;
         helper.attractText.gameObject.SetActive(true);
         helper.attractText.text = GetCurrentItem().text;
         displayTime = GetCurrentItem().displayTime;
