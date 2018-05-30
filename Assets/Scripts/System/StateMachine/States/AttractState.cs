@@ -17,7 +17,7 @@ public class AttractState : State {
     {
         //Call the inherited functions to get the helper variable
         base.OnStateEnter(animator, info, layerIndex);
-        
+
         helper.attract.SetActive(true);
 
         numberOfItems = GM.Instance.data.attractItems.Count;
@@ -54,10 +54,9 @@ public class AttractState : State {
                 if (!GM.Instance.video.player.isPlaying)
                     ShowNextItem();
             }
-
-            //On text or image, just go to the next one
             else
             {
+                // On text or image, just go to the next one
                 ShowNextItem();
             }
         }
@@ -88,7 +87,6 @@ public class AttractState : State {
                     return;
             }
         }
-
         else
         {
             GM.Instance.logger.Debug("Attract: Item Number does not exist.");

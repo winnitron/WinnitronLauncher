@@ -9,7 +9,7 @@ using System.Linq;
 [System.Serializable]
 public class AttractItem {
 
-    public enum AttractItemType { Video, Image, Text }
+    public enum AttractItemType { None, Video, Image, Text }
     public AttractItemType type;
 
     public Sprite sprite;
@@ -17,8 +17,6 @@ public class AttractItem {
 
     public string pathToItem;
     public float displayTime = 10;
-
-    public bool voidItem = false;
 
     /// <summary>
     /// Constructs an AttractItem to be used later.
@@ -49,7 +47,7 @@ public class AttractItem {
         else
         {
             GM.Instance.logger.Debug("AttractItem - No valid file found.  Voiding file " + pathToItem);
-            voidItem = true;
+            type = AttractItemType.None;
         }
     }
 
@@ -66,10 +64,9 @@ public class AttractItem {
             // Turn the Texture2D into a sprite
             sprite = Sprite.Create(screenshotTex, new Rect(0, 0, screenshotTex.width, screenshotTex.height), new Vector2(0.5f, 0.5f));
         }
-
         else
         {
-            voidItem = true;
+            type = AttractItemType.None;
         }
     }
 
@@ -81,9 +78,10 @@ public class AttractItem {
             StreamReader reader = new StreamReader(pathToItem);
             text = reader.ReadToEnd();
         }
-
         else
-            voidItem = true;
+        {
+            type = AttractItemType.None;
+        }
     }
 
 }
