@@ -112,7 +112,7 @@ public class AttractState : State {
         GM.Instance.video.PlayBackground();
 
         //Display the image
-        if (imageStartPos == null) {
+        if (imageStartPos == Vector3.zero) {
             imageStartPos = helper.attractImage.transform.position;
         }
 
@@ -141,7 +141,7 @@ public class AttractState : State {
         //Get the background goin'
         GM.Instance.video.PlayBackground();
 
-        if (textStartPos == null) {
+        if (textStartPos == Vector3.zero) {
             textStartPos = helper.attractText.transform.position;
         }
 
