@@ -60,7 +60,9 @@ public class Game
             BuildGame();
         }
 
-        BuildHelperScripts();
+        AhkBuilder ahk = new AhkBuilder(this);
+        ahk.compile();
+        ahk.write();
     }
 
     /// <summary>
@@ -221,16 +223,6 @@ public class Game
         //Can't determine game type, voiding this game
         voidGame = true;
         return false;
-    }
-
-    /// <summary>
-    /// This will make the launcher AHK scripts, and/or other scripts (.html files in pico8 case)
-    /// and put them in the same folder as the game.
-    /// </summary>
-    public void BuildHelperScripts() {
-        AhkBuilder ahk = new AhkBuilder(this);
-        ahk.compile();
-        ahk.write();
     }
 
     /// <summary>

@@ -51,12 +51,35 @@ class AhkBuilder {
                 break;
 
             case Game.GameType.FLASH:
-                template = Resources.Load<TextAsset>("AHK_templates/FlashGameTemplate").text;
+                template = loadTemplate("flash");
+
+                if (template == null)
+                    template = Resources.Load<TextAsset>("AHK_templates/FlashGameTemplate").text;
                 break;
 
             default:
-                template = Resources.Load<TextAsset>("AHK_templates/ExeGameTemplate").text;
+                template = loadTemplate("default");
+
+                if (template == null)
+                    template = Resources.Load<TextAsset>("AHK_templates/ExeGameTemplate").text;
                 break;
+        }
+    }
+
+    private string loadTemplate(string type) {
+        string filename = GM.Instance.options.O["ahk"][type];
+
+        if (filename == null)
+            return null;
+
+        try {
+            return File.ReadAllText(filename);
+        } catch(FileNotFoundException) {
+            GM.Instance.logger.Warn("Could not find AHK template file " + filename + ". Using default.");
+            return null;
+        } catch(DirectoryNotFoundException) {
+            GM.Instance.logger.Warn("Could not find AHK template file " + filename + ". Using default.");
+            return null;
         }
     }
 
