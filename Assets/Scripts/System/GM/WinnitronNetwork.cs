@@ -11,6 +11,9 @@ using System;
 public class WinnitronNetwork : MonoBehaviour {
 
     public void startGame(string game) {
+        if (game == null)
+            return;
+
         GM.Instance.logger.Debug("sending START GAME: " + game);
 
         Dictionary<string, string> headers = new Dictionary<string, string>();
@@ -26,6 +29,9 @@ public class WinnitronNetwork : MonoBehaviour {
     }
 
     public void stopGame(string game) {
+        if (game == null)
+            return;
+
         GM.Instance.logger.Debug("sending STOP GAME: " + game);
 
         Dictionary<string, string> headers = new Dictionary<string, string>();

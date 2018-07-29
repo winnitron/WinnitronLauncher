@@ -91,6 +91,10 @@ public class Game
         this.screenshot = GetScreenshot();
         this.executable = Path.Combine(directory.FullName, savedMetadata["executable"]);
         this.slug = savedMetadata["slug"];
+        if (slug == null) {
+            GM.Instance.logger.Warn("Missing slug attribute in " + name + " winnitron_metadata.json. Using '" + directory.Name + "'.");
+            this.slug = directory.Name;
+        }
 
         switch(savedMetadata["keys"]["template"]) {
             case "default":
