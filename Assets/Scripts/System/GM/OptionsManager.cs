@@ -84,7 +84,7 @@ public class OptionsManager : MonoBehaviour
             O = GM.Instance.data.LoadJson(optionsFile);
 
             logger = O["logger"];
-            switch (logger["level"].ToString())
+            switch (logger["level"].Value.ToLower())
             {
                 case "debug":
                     Logger.logLevel = Logger.LogLevels.Debug;

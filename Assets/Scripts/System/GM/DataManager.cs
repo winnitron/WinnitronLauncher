@@ -170,8 +170,8 @@ public class DataManager : MonoBehaviour {
         }
         catch(System.Exception e)
         {
-            GM.Instance.logger.Error(e.ToString());
             GM.Instance.logger.Error("Error loading JSON file: " + fileLocation);
+            GM.Instance.logger.Error(e.ToString());
             GM.Instance.Oops (GM.Instance.Text("error", "cannotFindJson"));
             return null;
         }
