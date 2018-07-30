@@ -86,13 +86,17 @@ public class Game
     private void BuildGameJSON() {
         savedMetadata = GM.Instance.data.LoadJson(Path.Combine(directory.FullName, "winnitron_metadata.json"));
 
-        this.name = savedMetadata["title"];
+        this.name = savedMetadata["title"].Value;
         this.author = null; //No author stuff just yet
         this.screenshot = GetScreenshot();
         this.executable = Path.Combine(directory.FullName, savedMetadata["executable"]);
         this.slug = savedMetadata["slug"];
+        if (slug == null) {
+            GM.Instance.logger.Warn("Missing slug attribute in " + name + " winnitron_metadata.json. Using '" + directory.Name + "'.");
+            this.slug = directory.Name;
+        }
 
-        switch(savedMetadata["keys"]["template"]) {
+        switch(savedMetadata["keys"]["template"].Value.ToLower()) {
             case "default":
                 gameType = GameType.EXE;
                 break;

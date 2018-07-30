@@ -30,20 +30,23 @@ public class Playlist
 
     public void SetName() {
         string file = Path.Combine(this.directory.FullName, "winnitron_metadata.json");
-        if(System.IO.File.Exists(file)) {
-            string json = File.ReadAllText(file);
-            JSONNode data = JSONNode.Parse(json);
+        if (System.IO.File.Exists(file)) {
+            JSONNode data = GM.Instance.data.LoadJson(file);
+
             name = data["title"];
             description = data["description"];
 
             GM.Instance.logger.Debug("Setting playlist name from json: " + file);
-        } else {
+        }
+
+        // If we tried but the json was malformed or something.
+        if (!System.IO.File.Exists(file) || name == null) {
             name = this.directory.Name;
             name = name.TrimStart('_');
             name = name.Replace('_', ' ').Replace('-', ' ');
             name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name);
 
-            GM.Instance.logger.Debug("Playlist metadata file not found: " + file);
+            GM.Instance.logger.Warn("Playlist metadata file not found or invalid: " + file);
             GM.Instance.logger.Debug("Setting playlist name from directory: " + name);
         }
     }
