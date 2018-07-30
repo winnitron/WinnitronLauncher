@@ -348,7 +348,7 @@ public class GameSync : MonoBehaviour {
 
         private void writeMetadataFile(JSONNode data) {
             Directory.CreateDirectory(Path.Combine(parentDirectory, slug));
-            data.Add("local", new JSONData(false));
+            data.Add("local", new JSONBool(false));
 
             string filename = Path.Combine(Path.Combine(parentDirectory, slug), "winnitron_metadata.json");
             System.IO.File.WriteAllText(filename, data.ToString());
@@ -388,7 +388,7 @@ public class GameSync : MonoBehaviour {
                 string json = File.ReadAllText(file);
                 installationMetadata = JSON.Parse(json);
             } else {
-                installationMetadata = new JSONClass();
+                installationMetadata = new JSONObject();
             }
         }
 
@@ -399,17 +399,17 @@ public class GameSync : MonoBehaviour {
 
         public void writeMetadataFile() {
 
-            installationMetadata.Add("title", new JSONData(title));
-            installationMetadata.Add("slug", new JSONData(slug));
+            installationMetadata.Add("title", new JSONString(title));
+            installationMetadata.Add("slug", new JSONString(slug));
             //installationMetadata.Add("description", new JSONData(description)); // TODO buggy for some reason? Blank?
-            installationMetadata.Add("last_modified", new JSONData(System.DateTime.UtcNow.ToString("s", System.Globalization.CultureInfo.InvariantCulture)));
-            installationMetadata.Add("min_players", new JSONData(minPlayers));
-            installationMetadata.Add("max_players", new JSONData(maxPlayers));
-            installationMetadata.Add("executable", new JSONData(executable));
-            installationMetadata.Add("image_url", new JSONData(imageURL));
+            installationMetadata.Add("last_modified", new JSONString(System.DateTime.UtcNow.ToString("s", System.Globalization.CultureInfo.InvariantCulture)));
+            installationMetadata.Add("min_players", new JSONNumber(minPlayers));
+            installationMetadata.Add("max_players", new JSONNumber(maxPlayers));
+            installationMetadata.Add("executable", new JSONString(executable));
+            installationMetadata.Add("image_url", new JSONString(imageURL));
 
-            JSONClass keymap = new JSONClass();
-            keymap.Add("template", new JSONData(keyTemplate));
+            JSONObject keymap = new JSONObject();
+            keymap.Add("template", new JSONString(keyTemplate));
             keymap.Add("bindings", keyBindings);
             installationMetadata.Add("keys", keymap);
 

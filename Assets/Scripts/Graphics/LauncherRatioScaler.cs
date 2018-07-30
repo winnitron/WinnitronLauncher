@@ -59,7 +59,7 @@ public class LauncherRatioScaler : MonoBehaviour {
             movieCam.rect = rect;
         }
 
-        GM.Instance.logger.Info("LauncherRatioScaler: scale set to " + scaleAmnt);
+        GM.Instance.logger.Debug("LauncherRatioScaler: scale set to " + scaleAmnt);
         transform.localScale = new Vector3(scaleAmnt, scaleAmnt, scaleAmnt);
 
         foreach(Transform t in transformsToAlsoScale)

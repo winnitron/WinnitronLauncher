@@ -51,25 +51,25 @@ KillApp()
   Run, TaskKill /f /im %exec_file%
 
   SetTitleMatchMode, RegEx
-  
+
   IfWinExist, i)WinnitronLauncher
   {
     WriteLog("Found Winnitron Launcher window via title. ID: " . WinExist("A"))
     WinActivate, i)WinnitronLauncher
     WinWaitActive, i)WinnitronLauncher, , 1
     PostMessage, 0x112, 0xF030,,, i)WinnitronLauncher  ; 0x112 = WM_SYSCOMMAND, 0xF030 = SC_MAXIMIZE
-    
+
     if ErrorLevel
       WriteLog("Error activating Launcher via title: " . A_LastError)
   }
-  
+
   if launcher_pid
   {
     WriteLog("Attempting to find Winnitron Launcher window via PID (" . launcher_pid . ").")
     WinActivate, ahk_pid %launcher_pid%
     WinWaitActive, ahk_pid %launcher_pid%, , 1
     PostMessage, 0x112, 0xF030,,, ahk_pid %launcher_pid%
-    
+
     if ErrorLevel
       WriteLog("Error activating Launcher via PID: " . A_LastError)
   }
@@ -80,7 +80,7 @@ KillApp()
     WinActivate, ahk_id launcher_window_id
     WinWaitActive, ahk_id launcher_window_id, , 1
     PostMessage, 0x112, 0xF030,,, ahk_id %launcher_window_id%
-    
+
     if ErrorLevel
       WriteLog("Error activating Launcher via Window ID: " . A_LastError)
   }
@@ -126,16 +126,16 @@ return
 
 ; Do this stuff when Esc is pressed
 ~Esc::
-  If escIsPressed
+  If escIsDown
     return
-  escIsPressed := true
+  escIsDown := true
   SetTimer, WaitForESCRelease, %forceQuitHoldTime%
 return
 
 ; Do this stuff when Esc is UP
 ~Esc Up::
   SetTimer, WaitForESCRelease, Off
-  escIsPressed := false
+  escIsDown := false
 return
 
 WaitForESCRelease:
@@ -149,7 +149,7 @@ ReadLauncherPid() {
 
   pid_file := homedrive . homepath . "\winnitron.pid"
   FileReadLine, pid, %pid_file%, 1
-    
+
   WriteLog("Winnitron Launcher PID: " . pid)
   return pid
 }
@@ -160,7 +160,7 @@ ReadWindowLauncherID() {
 
   pid_file := homedrive . homepath . "\winnitron.pid"
   FileReadLine, wid, %pid_file%, 2
-    
+
   WriteLog("Winnitron Launcher Window ID: " . wid)
   return wid
 }

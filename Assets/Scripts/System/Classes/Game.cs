@@ -96,7 +96,7 @@ public class Game
             this.slug = directory.Name;
         }
 
-        switch(savedMetadata["keys"]["template"]) {
+        switch(savedMetadata["keys"]["template"].ToString()) {
             case "default":
                 gameType = GameType.EXE;
                 break;

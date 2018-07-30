@@ -71,7 +71,7 @@ public class DataManager : MonoBehaviour {
             {
                 attractItems.Add(new AttractItem(file.FullName));
             }
-            
+
         }
 
         if (introVideo == null || introVideo == "")
@@ -79,7 +79,7 @@ public class DataManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Builds a list of Game objects based on the game directory inside its main directory. 
+    /// Builds a list of Game objects based on the game directory inside its main directory.
     /// Then instantiates the GameNavigationManager, which then instantiates the ScreenShotDisplayManager
     /// </summary>
     public void GetPlaylists()
@@ -99,7 +99,7 @@ public class DataManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Builds a list of all the user added music and stores references in the 
+    /// Builds a list of all the user added music and stores references in the
     /// music array to be accessed by the Jukebox.
     /// </summary>
     public void GetMusic()
@@ -165,11 +165,12 @@ public class DataManager : MonoBehaviour {
     {
         try
         {
-            using (StreamReader r = new StreamReader(fileLocation))
-            return JSONNode.Parse(r.ReadToEnd());
+            string json = File.ReadAllText(fileLocation);
+            return JSON.Parse(json);
         }
-        catch
+        catch(System.Exception e)
         {
+            GM.Instance.logger.Error(e.ToString());
             GM.Instance.logger.Error("Error loading JSON file: " + fileLocation);
             GM.Instance.Oops (GM.Instance.Text("error", "cannotFindJson"));
             return null;
