@@ -10,7 +10,6 @@ public class LauncherRatioScaler : MonoBehaviour {
 
     private float windowaspect;
     private float scaleAmnt;
-    private float scaleApplyTime = 1;
 
     public Camera mainCam;
     public Camera movieCam;
