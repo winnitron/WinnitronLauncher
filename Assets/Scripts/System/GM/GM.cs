@@ -152,8 +152,14 @@ public class GM : Singleton<GM> {
 
 
     private string ArcadeID() {
-        // TODO: name in options || api key
-        return "winnitron-1000";
+        // TODO: If we have an API key, that means we could fetch all our machine data
+        // (name, slug, etc) from the Network.
+
+        string key = options.GetSyncSettings()["apiKey"];
+        if (key == "YOUR API KEY HERE")
+            key = "";
+
+        return key.Trim();
     }
 
     //*
