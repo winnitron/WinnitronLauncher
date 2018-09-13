@@ -61,10 +61,10 @@ public class GM : Singleton<GM> {
 
     IEnumerator Initialize()
     {
-        Environment.SetEnvironmentVariable("WINNITRON_LAUNCHER_VERSION", versionNumber);
-        Environment.SetEnvironmentVariable("WINNITRON_IDENTIFIER", ArcadeID());
+        Environment.SetEnvironmentVariable("WINNITRON_LAUNCHER_VERSION", versionNumber, EnvironmentVariableTarget.User);
+        Environment.SetEnvironmentVariable("WINNITRON_IDENTIFIER", ArcadeID(), EnvironmentVariableTarget.User);
 
-        //Let's initialize stuff in order
+        // Let's initialize stuff in order
         // Options are already loaded via Start()
         InfoText("STARTING UP", "Loading Runner...");
         runner.Init();
@@ -84,7 +84,8 @@ public class GM : Singleton<GM> {
 
     void OnApplicationQuit()
     {
-        // File.Delete(PidFile());
+        Environment.SetEnvironmentVariable("WINNITRON_LAUNCHER_VERSION", null, EnvironmentVariableTarget.User);
+        Environment.SetEnvironmentVariable("WINNITRON_IDENTIFIER", null, EnvironmentVariableTarget.User);
     }
 
     /// <summary>
