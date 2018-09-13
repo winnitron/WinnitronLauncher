@@ -63,8 +63,7 @@ public class GM : Singleton<GM> {
     IEnumerator Initialize()
     {
         //Let's initialize stuff in order
-        InfoText("STARTING UP", "Loading Options...");
-        options.Init();
+        // Options are already loaded via Start()
         InfoText("STARTING UP", "Loading Runner...");
         runner.Init();
         InfoText("STARTING UP", "Checking Sync...");
