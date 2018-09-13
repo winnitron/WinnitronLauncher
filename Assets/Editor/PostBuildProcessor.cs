@@ -15,9 +15,14 @@ public class PostBuildProcessor
 
         // Copy a file from the project folder to the build folder, alongside the built game.
         FileUtil.CopyFileOrDirectory("Assets/Options", pathToBuiltProject + "/WINNITRON_data/Options");
-        FileUtil.CopyFileOrDirectory("Assets/Options/WINNITRON.bat", pathToBuiltProject + "/WINNITRON.bat");
 
-        //Delete META files
+        string bat_dest = pathToBuiltProject + "/WINNITRON.bat";
+        if (File.Exists(bat_dest))
+            File.Delete(bat_dest);
+
+        FileUtil.CopyFileOrDirectory("Assets/Options/WINNITRON.bat", bat_dest);
+
+        // Delete META files
         var dir = new DirectoryInfo(pathToBuiltProject);
 
         foreach (var file in dir.GetFiles("*.meta"))

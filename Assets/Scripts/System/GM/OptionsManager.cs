@@ -25,9 +25,6 @@ public class OptionsManager : MonoBehaviour
     public string musicPath = "/Music";
     public string attractPath = "/Attract";
 
-    //Utilities
-    //public string legacyControlsPath = "/Util/WinnitronLegacy.exe";
-
     //Runner Settings
     public int runnerSecondsIdle = 10;
     public int runnerSecondsESCHeld = 3;
@@ -37,20 +34,13 @@ public class OptionsManager : MonoBehaviour
     public KeyBindings keys;
     public KeyTranslator keyTranslator;
 
-    //language
-    public JSONNode language;
-
-    //Sync Settings
-    public JSONNode sync;
-
-    public JSONNode logger;
-
-    //Options JSON
+    // Parsed winnitron_options.json
     public JSONNode O;
 
-    // Use this for initialization
-    public void Init()
-    {
+    public JSONNode language;
+    public JSONNode logger;
+
+    public void Start() {
         // we need to load default language here, so we can display errors
         language = GM.Instance.data.GetDefautLanguage();
         defaultOptionsPath = Path.Combine(Application.dataPath, "Options");
@@ -164,7 +154,13 @@ public class OptionsManager : MonoBehaviour
 
     public JSONNode GetSyncSettings()
     {
-        return O["sync"];
+        if (O == null) {
+            GM.Instance.logger.Error("Trying to access options before they've been loaded.");
+            return null;
+        } else {
+            return O["sync"];
+        }
+
     }
 
     private string InitDataFolder(string jsonKey)

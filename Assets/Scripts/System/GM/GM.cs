@@ -38,10 +38,9 @@ public class GM : Singleton<GM> {
 
 
     void Start() {
-
-        //Get the version number and other bulljazz
-        logger.Info("#####  VERSION " + versionNumber + " #####");
-        writeProcessInfo();
+        logger.Info("##### VERSION " + versionNumber + " #####");
+        SetWindowTitle();
+        WriteProcessInfo();
     }
 
     /// <summary>
@@ -62,9 +61,11 @@ public class GM : Singleton<GM> {
 
     IEnumerator Initialize()
     {
-        //Let's initialize stuff in order
-        InfoText("STARTING UP", "Loading Options...");
-        options.Init();
+        Environment.SetEnvironmentVariable("WINNITRON_LAUNCHER_VERSION", versionNumber, EnvironmentVariableTarget.User);
+        Environment.SetEnvironmentVariable("WINNITRON_IDENTIFIER", ArcadeID(), EnvironmentVariableTarget.User);
+
+        // Let's initialize stuff in order
+        // Options are already loaded via Start()
         InfoText("STARTING UP", "Loading Runner...");
         runner.Init();
         InfoText("STARTING UP", "Checking Sync...");
@@ -83,7 +84,8 @@ public class GM : Singleton<GM> {
 
     void OnApplicationQuit()
     {
-        // File.Delete(PidFile());
+        Environment.SetEnvironmentVariable("WINNITRON_LAUNCHER_VERSION", null, EnvironmentVariableTarget.User);
+        Environment.SetEnvironmentVariable("WINNITRON_IDENTIFIER", null, EnvironmentVariableTarget.User);
     }
 
     /// <summary>
@@ -137,7 +139,7 @@ public class GM : Singleton<GM> {
         ResetScreen();
     }
 
-    private void writeProcessInfo() {
+    private void WriteProcessInfo() {
         string info = System.Diagnostics.Process.GetCurrentProcess().Id +
                       "\n" +
                       Path.Combine(Path.GetFullPath("."), "WINNITRON.bat") +
@@ -149,6 +151,17 @@ public class GM : Singleton<GM> {
     }
 
 
+    private string ArcadeID() {
+        // TODO: If we have an API key, that means we could fetch all our machine data
+        // (name, slug, etc) from the Network.
+
+        string key = options.GetSyncSettings()["apiKey"];
+        if (key == "YOUR API KEY HERE")
+            key = "";
+
+        return key.Trim();
+    }
+
     //*
     #if UNITY_STANDALONE_WIN
 
@@ -158,6 +171,10 @@ public class GM : Singleton<GM> {
     public static extern IntPtr FindWindow(System.String className, System.String windowName);
     [DllImport("user32.dll", EntryPoint = "SetWindowLong")]
     public static extern long SetWindowLong(long hwnd, long nIndex, long dwNewLong);
+    [DllImport("user32.dll", EntryPoint = "SetWindowText")]
+    public static extern bool SetWindowText(System.IntPtr hwnd, System.String lpString);
+    [System.Runtime.InteropServices.DllImport("user32.dll")]
+    private static extern System.IntPtr GetActiveWindow();
 
     public static void ResetScreen() {
         SetWindowLong(FindWindow(null, Application.productName).ToInt32(), -16L, 0x00800000L);
@@ -172,11 +189,13 @@ public class GM : Singleton<GM> {
         return Path.Combine(Path.Combine(drive, path), "winnitron.pid");
     }
 
-    [System.Runtime.InteropServices.DllImport("user32.dll")]
-    private static extern System.IntPtr GetActiveWindow();
-
     public static System.IntPtr GetWindowHandle() {
       return GetActiveWindow();
+    }
+
+    private void SetWindowTitle() {
+        System.IntPtr window = GetWindowHandle();
+        SetWindowText(window, "WinnitronLauncher!");
     }
 
     #else
@@ -191,6 +210,10 @@ public class GM : Singleton<GM> {
 
     public static System.IntPtr GetWindowHandle() {
       return System.IntPtr.Zero;
+    }
+
+    private void SetWindowTitle() {
+        // NOOP
     }
 
     #endif
