@@ -38,10 +38,8 @@ public class GM : Singleton<GM> {
 
 
     void Start() {
-
-        //Get the version number and other bulljazz
-        logger.Info("#####  VERSION " + versionNumber + " #####");
-        writeProcessInfo();
+        logger.Info("##### VERSION " + versionNumber + " #####");
+        WriteProcessInfo();
     }
 
     /// <summary>
@@ -62,6 +60,9 @@ public class GM : Singleton<GM> {
 
     IEnumerator Initialize()
     {
+        Environment.SetEnvironmentVariable("WINNITRON_LAUNCHER_VERSION", versionNumber);
+        Environment.SetEnvironmentVariable("WINNITRON_IDENTIFIER", ArcadeID());
+
         //Let's initialize stuff in order
         // Options are already loaded via Start()
         InfoText("STARTING UP", "Loading Runner...");
@@ -136,7 +137,7 @@ public class GM : Singleton<GM> {
         ResetScreen();
     }
 
-    private void writeProcessInfo() {
+    private void WriteProcessInfo() {
         string info = System.Diagnostics.Process.GetCurrentProcess().Id +
                       "\n" +
                       Path.Combine(Path.GetFullPath("."), "WINNITRON.bat") +
@@ -147,6 +148,11 @@ public class GM : Singleton<GM> {
         File.WriteAllText(PidFile(), info);
     }
 
+
+    private string ArcadeID() {
+        // TODO: name in options || api key
+        return "winnitron-1000";
+    }
 
     //*
     #if UNITY_STANDALONE_WIN
