@@ -39,6 +39,7 @@ public class GM : Singleton<GM> {
 
     void Start() {
         logger.Info("##### VERSION " + versionNumber + " #####");
+        SetWindowTitle();
         WriteProcessInfo();
     }
 
@@ -163,6 +164,10 @@ public class GM : Singleton<GM> {
     public static extern IntPtr FindWindow(System.String className, System.String windowName);
     [DllImport("user32.dll", EntryPoint = "SetWindowLong")]
     public static extern long SetWindowLong(long hwnd, long nIndex, long dwNewLong);
+    [DllImport("user32.dll", EntryPoint = "SetWindowText")]
+    public static extern bool SetWindowText(System.IntPtr hwnd, System.String lpString);
+    [System.Runtime.InteropServices.DllImport("user32.dll")]
+    private static extern System.IntPtr GetActiveWindow();
 
     public static void ResetScreen() {
         SetWindowLong(FindWindow(null, Application.productName).ToInt32(), -16L, 0x00800000L);
@@ -177,11 +182,13 @@ public class GM : Singleton<GM> {
         return Path.Combine(Path.Combine(drive, path), "winnitron.pid");
     }
 
-    [System.Runtime.InteropServices.DllImport("user32.dll")]
-    private static extern System.IntPtr GetActiveWindow();
-
     public static System.IntPtr GetWindowHandle() {
       return GetActiveWindow();
+    }
+
+    private void SetWindowTitle() {
+        System.IntPtr window = GetWindowHandle();
+        SetWindowText(window, "WinnitronLauncher!");
     }
 
     #else
@@ -196,6 +203,10 @@ public class GM : Singleton<GM> {
 
     public static System.IntPtr GetWindowHandle() {
       return System.IntPtr.Zero;
+    }
+
+    private void SetWindowTitle() {
+        // NOOP
     }
 
     #endif
