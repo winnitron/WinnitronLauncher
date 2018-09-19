@@ -52,7 +52,7 @@ public class OptionsManager : MonoBehaviour
         // Figure out where the Options are by reading the .json in Options file
         string userdataFile = Path.Combine(optionsPath, "winnitron_userdata_path.json");
         GM.Instance.logger.Info("reading userdata location from " + userdataFile);
-        if (System.IO.File.Exists(userdataFile))
+        if (File.Exists(userdataFile))
         {
             dataPath = GM.Instance.data.LoadJson(userdataFile)["userDataPath"];
         }
@@ -69,7 +69,7 @@ public class OptionsManager : MonoBehaviour
         //Load that JSON
         GM.Instance.logger.Info("Loading options from " + optionsFile);
 
-        if (System.IO.File.Exists(optionsFile))
+        if (File.Exists(optionsFile))
         {
             O = GM.Instance.data.LoadJson(optionsFile);
 

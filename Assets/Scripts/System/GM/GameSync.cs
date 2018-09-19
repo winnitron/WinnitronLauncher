@@ -351,7 +351,7 @@ public class GameSync : MonoBehaviour {
             data.Add("local", new JSONBool(false));
 
             string filename = Path.Combine(Path.Combine(parentDirectory, slug), "winnitron_metadata.json");
-            System.IO.File.WriteAllText(filename, data.ToString());
+            File.WriteAllText(filename, data.ToString(2));
         }
     }
 
@@ -414,7 +414,7 @@ public class GameSync : MonoBehaviour {
             installationMetadata.Add("keys", keymap);
 
             string filename = Path.Combine(installDirectory, "winnitron_metadata.json");
-            System.IO.File.WriteAllText(filename, installationMetadata.ToString());
+            File.WriteAllText(filename, installationMetadata.ToString(2));
         }
     }
 }

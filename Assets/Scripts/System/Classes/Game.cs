@@ -257,13 +257,13 @@ public class Game
         if (behaviour == "always") {
             GM.Instance.logger.Info("Overwriting launch script: " + file);
             File.Delete(file);
-            System.IO.File.WriteAllText(file, text);
+            File.WriteAllText(file, text);
         } else if (behaviour == "new") {
             if (File.Exists(file)) {
                 GM.Instance.logger.Debug("Using existing launch script: " + file);
             } else {
                 GM.Instance.logger.Info("Writing new launch script: " + file);
-                System.IO.File.WriteAllText(file, text);
+                File.WriteAllText(file, text);
             }
         } else if (behaviour == "never") {
             GM.Instance.logger.Debug("Skipping writing launch script: " + file);
