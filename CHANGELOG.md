@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2.4.0
+
+- Unity 2018.2
+- Customizable AHK templates
+- Better error messages when parsing invalid json
+- Fix options loading so we can see very early Oops screens
+- Show Oops screen for any sync exception
+
 ## v2.3.0
 
 - OH MAN IT'S A WHOLE NEW LOOK
