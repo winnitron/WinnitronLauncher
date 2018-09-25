@@ -42,8 +42,7 @@ public class GameSync : MonoBehaviour {
     /// <summary>
     /// Called during GM's Init phase.
     /// </summary>
-    public void Init()
-    {
+    public void Init() {
         isFinished = false;
 
         apiKey = GM.Instance.options.GetSyncSettings()["apiKey"];
@@ -54,32 +53,30 @@ public class GameSync : MonoBehaviour {
         libraryURL = GM.Instance.options.GetSyncSettings()["libraryURL"];
         gamesDir = GM.Instance.options.playlistsPath;
 
-        execute();
+        try {
+            execute();
+        } catch(Exception e) {
+            GM.Instance.logger.Error(e.Message);
+            GM.Instance.Oops(e.Message, true);
+        }
     }
 
     /// <summary>
     /// This is where we check for scheduled updates.
     /// </summary>
-    void Update()
-    {
+    void Update() {
         if (timeToUpdate < DateTime.Now.TimeOfDay && syncType == SyncType.DAILY && SafeToSync())
             execute();
     }
 
-    /// <summary>
-    /// Initiates Sync, should only be called by StateManager.cs
-    /// </summary>
-    public void execute()
-    {
+    public void execute() {
         if (syncType != SyncType.NONE)
         {
             GM.Instance.logger.Info(this, "GameSync: Running Sync...");
             SyncText("Updating with Winnitron Network...");
 
             FetchPlaylistSubscriptions();
-        }
-        else
-        {
+        } else {
             GM.Instance.logger.Info(this, "GameSync: Skipping Sync...");
             EndSync();
         }
@@ -89,8 +86,7 @@ public class GameSync : MonoBehaviour {
     /// Using the unique API_Key, it checks with the Winnitron Network to download and
     /// update all the games from the site.
     /// </summary>
-    private void FetchPlaylistSubscriptions()
-    {
+    private void FetchPlaylistSubscriptions() {
         Dictionary<string, string> headers = new Dictionary<string, string>();
         headers.Add("User-Agent", "Winnitron Launcher/" + GM.Instance.versionNumber + " http://winnitron.com");
         WWW www = new WWW(libraryURL + "/api/v1/playlists/?api_key=" + apiKey, null, headers);
