@@ -1,84 +1,61 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class Tweenable : MonoBehaviour {
 
     //GoTween currentTween;
     private bool destroyOnTweenEnd = false;
-
+    private Sequence currentTween;
 
     public void TweenPosition(Vector3 position)
     {
-        /*
-        if (currentTween != null) StopTween();
-
-        currentTween =
-
-        currentTween = Go.to(transform, GM.Instance.options.tweenTime, new GoTweenConfig()
-            .position(position)
-            .setEaseType(GoEaseType.ExpoOut));
-
-        currentTween.setOnCompleteHandler(c => { onMoveComplete(); });
-        */
+        ResetTween();
+        currentTween.Append(transform.DOMove(position, GM.Instance.options.tweenTime, false));
+        currentTween.SetEase(DG.Tweening.Ease.OutExpo);
+        currentTween.PlayForward();
     }
 
     public void TweenLocalPosition(Vector3 position, float tweenTime, bool destroyOnEnd)
     {
-        /*
-        if (currentTween != null) StopTween();
-
-        currentTween = Go.to(transform, tweenTime, new GoTweenConfig()
-            .localPosition(position)
-            .setEaseType(GoEaseType.ExpoOut));
-
-        currentTween.setOnCompleteHandler(c => { onMoveComplete(); });
-
-        destroyOnTweenEnd = destroyOnEnd;
-        */
+        ResetTween();
+        currentTween.Append(transform.DOLocalMove(position, GM.Instance.options.tweenTime, false));
+        currentTween.SetEase(DG.Tweening.Ease.OutExpo);
+        currentTween.PlayForward();
     }
 
     public void Tween(Vector3 position, Vector3 scale)
     {
-        //Tween(position, scale, GM.Instance.options.tweenTime);
+        Tween(position, scale, GM.Instance.options.tweenTime);
     }
 
     public void Tween(Vector3 position, Vector3 scale, float time)
     {
-        /*
-        if (currentTween != null) StopTween();
-
-        currentTween = Go.to(transform, time, new GoTweenConfig()
-            .localPosition(position)
-            .scale(scale)
-            .setEaseType(GoEaseType.ExpoOut));
-
-        currentTween.setOnCompleteHandler(c => { onMoveComplete(); });
-        */
+        ResetTween();
+        currentTween.Append(transform.DOMove(position, GM.Instance.options.tweenTime, false));
+        currentTween.Append(transform.DOScale(scale, GM.Instance.options.tweenTime));
+        currentTween.SetEase(DG.Tweening.Ease.OutExpo);
+        currentTween.PlayForward();
     }
 
     public void TweenLocal(Vector3 position, Quaternion rotation, Vector3 scale, float time)
     {
-        /*
-        if (currentTween != null) StopTween();
+        ResetTween();
+        currentTween.Append(transform.DOLocalMove(position, GM.Instance.options.tweenTime, false));
+        currentTween.Append(transform.DOScale(scale, GM.Instance.options.tweenTime));
+        currentTween.SetEase(DG.Tweening.Ease.OutExpo);
+        currentTween.PlayForward();
 
-        currentTween = Go.to(transform, time, new GoTweenConfig()
-            .localPosition(position)
-            .localRotation(rotation)
-            .scale(scale)
-            .setEaseType(GoEaseType.ExpoOut));
-
-        currentTween.setOnCompleteHandler(c => { onMoveComplete(); });
-        */
     }
 
     private void onMoveComplete()
     {
-        //ResetTempTransform();
-        //if (destroyOnTweenEnd) Destroy(gameObject);
+        if (destroyOnTweenEnd) Destroy(gameObject);
     }
 
-    public void StopTween()
+    public void ResetTween()
     {
-        //currentTween.destroy();
+        currentTween.Kill();
+        currentTween = DOTween.Sequence();
     }
 }
