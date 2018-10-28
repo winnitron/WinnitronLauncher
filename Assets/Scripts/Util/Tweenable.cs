@@ -11,17 +11,15 @@ public class Tweenable : MonoBehaviour {
     public void TweenPosition(Vector3 position)
     {
         ResetTween();
-        currentTween.Append(transform.DOMove(position, GM.Instance.options.tweenTime, false));
-        currentTween.SetEase(DG.Tweening.Ease.OutExpo);
-        currentTween.PlayForward();
+        currentTween.Append(transform.DOMove(position, GM.Instance.options.tweenTime, false).OnComplete(MoveComplete));
+        FinalizeTween();
     }
 
     public void TweenLocalPosition(Vector3 position, float tweenTime, bool destroyOnEnd)
     {
         ResetTween();
-        currentTween.Append(transform.DOLocalMove(position, GM.Instance.options.tweenTime, false));
-        currentTween.SetEase(DG.Tweening.Ease.OutExpo);
-        currentTween.PlayForward();
+        currentTween.Append(transform.DOLocalMove(position, GM.Instance.options.tweenTime, false).OnComplete(MoveComplete));
+        FinalizeTween(destroyOnEnd);
     }
 
     public void Tween(Vector3 position, Vector3 scale)
@@ -32,25 +30,33 @@ public class Tweenable : MonoBehaviour {
     public void Tween(Vector3 position, Vector3 scale, float time)
     {
         ResetTween();
-        currentTween.Append(transform.DOMove(position, GM.Instance.options.tweenTime, false));
+        currentTween.Append(transform.DOMove(position, GM.Instance.options.tweenTime, false).OnComplete(MoveComplete));
         currentTween.Append(transform.DOScale(scale, GM.Instance.options.tweenTime));
-        currentTween.SetEase(DG.Tweening.Ease.OutExpo);
-        currentTween.PlayForward();
+        FinalizeTween();
     }
 
     public void TweenLocal(Vector3 position, Quaternion rotation, Vector3 scale, float time)
     {
         ResetTween();
-        currentTween.Append(transform.DOLocalMove(position, GM.Instance.options.tweenTime, false));
+        currentTween.Append(transform.DOLocalMove(position, GM.Instance.options.tweenTime, false).OnComplete(MoveComplete));
         currentTween.Append(transform.DOScale(scale, GM.Instance.options.tweenTime));
-        currentTween.SetEase(DG.Tweening.Ease.OutExpo);
-        currentTween.PlayForward();
+        FinalizeTween();
 
     }
 
-    private void onMoveComplete()
+    private void FinalizeTween(bool destroyOnEnd = false)
     {
-        if (destroyOnTweenEnd) Destroy(gameObject);
+        destroyOnTweenEnd = destroyOnEnd;
+        currentTween.SetEase(DG.Tweening.Ease.OutExpo);
+        currentTween.PlayForward();
+    }
+
+    private void MoveComplete()
+    {
+        if (destroyOnTweenEnd)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void ResetTween()
