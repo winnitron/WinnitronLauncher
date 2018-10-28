@@ -11,19 +11,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: pixelmix SDF
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: -985751803
   material: {fileID: 21216683926908354}
-  materialHashCode: 0
+  materialHashCode: 1450990446
   fontAssetType: 1
   m_fontInfo:
     Name: pixelmix
     PointSize: 140
-    Scale: 0
+    Scale: 1
     CharacterCount: 97
     LineHeight: 140
     Baseline: 0
     Ascender: 140
-    CapHeight: 0
+    CapHeight: 122.5
     Descender: 0
     CenterLine: 0
     SuperscriptOffset: 140
@@ -33,7 +33,7 @@ MonoBehaviour:
     UnderlineThickness: 6.9726562
     strikethrough: 50.909092
     strikethroughThickness: 6.9726562
-    TabWidth: 0
+    TabWidth: 875
     Padding: 5
     AtlasWidth: 1024
     AtlasHeight: 1024
@@ -42,10 +42,10 @@ MonoBehaviour:
   - id: 32
     x: 6
     y: 1029
-    width: 0
-    height: 0
+    width: 87.5
+    height: 140
     xOffset: 0
-    yOffset: 0
+    yOffset: 140
     xAdvance: 87.5
     scale: 1
   - id: 33
@@ -1022,7 +1022,7 @@ Material:
     - _BumpOutline: 0
     - _ColorMask: 15
     - _Diffuse: 0.5
-    - _FaceDilate: 0
+    - _FaceDilate: 1
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
     - _GlowInner: 0.05
@@ -1036,12 +1036,12 @@ Material:
     - _OutlineSoftness: 0
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
-    - _OutlineWidth: 0
+    - _OutlineWidth: 1
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
-    - _ScaleRatioA: 1
-    - _ScaleRatioB: 1
-    - _ScaleRatioC: 1
+    - _ScaleRatioA: 0.3809524
+    - _ScaleRatioB: 0
+    - _ScaleRatioC: 0
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
