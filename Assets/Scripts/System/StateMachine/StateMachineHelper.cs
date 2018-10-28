@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// This script just holds a number of GameObjects that the State scripts can then reference in code.
@@ -16,7 +17,7 @@ public class StateMachineHelper : MonoBehaviour {
     public GameObject mainCanvas;
     public GameObject attract;
     public Image attractImage;
-    public Text attractText;
+    public TextMeshProUGUI attractText;
 
     public bool oopsIsCritical = false;
 

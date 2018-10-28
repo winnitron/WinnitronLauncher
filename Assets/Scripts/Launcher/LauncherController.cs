@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// This is the main controller for the Launcher interface.
@@ -195,7 +196,7 @@ public class LauncherController : MonoBehaviour {
     private void UpdateGameList()
     {
         //Update the playlist name
-        playlistLabelContainer.GetComponent<Text>().text = GetCurrentPlaylist().name.ToUpper();
+        playlistLabelContainer.GetComponent<TextMeshProUGUI>().text = GetCurrentPlaylist().name.ToUpper();
 
         if (playlistSelector == 0) arrowLeft.SetActive(false);
         else arrowLeft.SetActive(true);
