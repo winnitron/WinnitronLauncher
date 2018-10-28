@@ -554,7 +554,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &221551397
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4418,7 +4418,7 @@ MonoBehaviour:
   widescreen: 1
   launcherIdleTimeBeforeAttract: 0
   initializing: 1
-  tweenTime: 0.7
+  tweenTime: 1.5
   dataPath: 
   defaultOptionsPath: 
   optionsPath: 
@@ -4879,7 +4879,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2094144608
 RectTransform:
   m_ObjectHideFlags: 0
