@@ -125,19 +125,12 @@ public class DataManager : MonoBehaviour {
 
                 //Figure out the song/author names
                 //take out the file extension
-                var fullName = song.Name.Replace(".ogg", "");
-
-                //find the '-' and split the string
-                string[] words = fullName.Split('-');
-
-                //First half is the song title, second the author
-                var name = words[0];
-                var author = words[1];
+                var name = song.Name.Replace(".ogg", "");
 
                 //We're done!
                 GM.Instance.logger.Info(this, "JUKEBOX: Can load song: " + audioLoader.GetAudioClip(false));
-                songs.Add(new Song(name, author, audioLoader.GetAudioClip(false)));
-                GM.Instance.logger.Info(this, "JUKEBOX: Done loading " + song.FullName);
+                songs.Add(new Song(name, audioLoader.GetAudioClip(false)));
+                GM.Instance.logger.Info(this, "JUKEBOX: Done loading " + name);
             }
             else
             {

@@ -6,13 +6,11 @@ public class Song
 {
 
 	public string name;
-	public string author;
 	public AudioClip clip;
 
-	public Song(string name, string author, AudioClip clip) {
+	public Song(string name, AudioClip clip) {
 		GM.Instance.logger.Info(null, "Creating New Song!");
 		this.name = name;
-		this.author = author;
 		this.clip = clip;
 	}
 }

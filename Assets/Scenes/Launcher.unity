@@ -654,7 +654,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 964.6, y: 485.7}
+  m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &221551398
 MonoBehaviour:
@@ -664,7 +664,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 221551396}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -675,7 +675,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Hey this is a bunch of text here that's for the attract mode.
+  m_text: Hey here's a bunch of text for the attract mode.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c98024256a7f32b4cbf4089f60ca84b2, type: 2}
   m_sharedMaterial: {fileID: 21484656394874128, guid: c98024256a7f32b4cbf4089f60ca84b2,
@@ -704,12 +704,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 676.6
-  m_fontSizeBase: 676.6
+  m_fontSize: 100
+  m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 100
   m_fontStyle: 0
   m_textAlignment: 514
   m_isAlignmentEnumConverted: 1
@@ -731,7 +731,7 @@ MonoBehaviour:
   checkPaddingRequired: 0
   m_isRichText: 1
   m_parseCtrlCharacters: 1
-  m_isOrthographic: 0
+  m_isOrthographic: 1
   m_isCullingEnabled: 0
   m_ignoreRectMaskCulling: 0
   m_ignoreCulling: 1
@@ -742,25 +742,24 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -400.92276, y: -226.48607, z: -449.48993, w: -240.3726}
   m_textInfo:
     textComponent: {fileID: 221551398}
-    characterCount: 61
+    characterCount: 48
     spriteCount: 0
-    spaceCount: 12
-    wordCount: 13
+    spaceCount: 9
+    wordCount: 10
     linkCount: 0
     lineCount: 2
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 221551401}
   m_subTextObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -770,7 +769,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  m_maskType: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &221551399
 CanvasRenderer:
   m_ObjectHideFlags: 2
@@ -4437,7 +4437,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlaying: 0
-  artistName: {fileID: 0}
   songName: {fileID: 203998173}
   container: {fileID: 466967172}
   tweenTarget: {fileID: 309065835}
@@ -5252,10 +5251,8 @@ MonoBehaviour:
     selectedIndex: 0
   songs:
   - name: Chwap!
-    author: Ashley Gwinnell
     clip: {fileID: 8300000, guid: b8639db074760fb42a143200a72e2e21, type: 3}
   - name: BossRush
-    author: Matt Thorson
     clip: {fileID: 8300000, guid: 01053009e41a5e146ad167d59dcde45a, type: 3}
   attractItems: []
   introVideo: 
@@ -5333,7 +5330,7 @@ MonoBehaviour:
   mainCanvas: {fileID: 398763836}
   attract: {fileID: 2094144607}
   attractImage: {fileID: 1209664889}
-  attractText: {fileID: 0}
+  attractText: {fileID: 221551398}
   oopsIsCritical: 0
 --- !u!114 &1803195766
 MonoBehaviour:

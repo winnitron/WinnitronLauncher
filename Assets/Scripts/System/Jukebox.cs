@@ -5,7 +5,6 @@ public class Jukebox : MonoBehaviour {
 
     public bool isPlaying;
 
-    public Text artistName;
     public Text songName;
 
     private int currentTrack;
@@ -78,6 +77,8 @@ public class Jukebox : MonoBehaviour {
 
     private void NextTrack() {
 
+        Debug.Log("NEXT TRACK");
+
         if (GM.Instance.data.songs.Count <= 0)
             return;
 
@@ -106,7 +107,7 @@ public class Jukebox : MonoBehaviour {
     private void Play() {
         isPlaying = true;
         source.Play();
-        songName.text = GM.Instance.data.songs[currentTrack].name + " - " + GM.Instance.data.songs[currentTrack].author;
+        songName.text = GM.Instance.data.songs[currentTrack].name;
 
         container.GetComponent<Tweenable>().TweenLocalPosition(tweenTarget.transform.localPosition, tweenTime, false);
     }
