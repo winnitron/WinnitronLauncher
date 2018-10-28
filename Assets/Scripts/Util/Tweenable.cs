@@ -31,15 +31,15 @@ public class Tweenable : MonoBehaviour {
     {
         ResetTween();
         currentTween.Append(transform.DOMove(position, GM.Instance.options.tweenTime, false).OnComplete(MoveComplete));
-        currentTween.Append(transform.DOScale(scale, GM.Instance.options.tweenTime));
+        currentTween.Join(transform.DOScale(scale, GM.Instance.options.tweenTime));
         FinalizeTween(destroyOnEnd);
     }
 
-    public void TweenLocal(Vector3 position, Quaternion rotation, Vector3 scale, float time, bool destroyOnEnd = false)
+    public void TweenLocal(Vector3 position, Vector3 scale, float time, bool destroyOnEnd = false)
     {
         ResetTween();
-        currentTween.Append(transform.DOLocalMove(position, GM.Instance.options.tweenTime, false).OnComplete(MoveComplete));
         currentTween.Append(transform.DOScale(scale, GM.Instance.options.tweenTime));
+        currentTween.Join(transform.DOLocalMove(position, GM.Instance.options.tweenTime, false).OnComplete(MoveComplete));
         FinalizeTween(destroyOnEnd);
 
     }

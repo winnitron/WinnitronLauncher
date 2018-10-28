@@ -37,14 +37,15 @@ public class LauncherGameLabel : MonoBehaviour {
     private void SetToTarget(GameObject obj)
     {
         transform.localPosition = obj.transform.localPosition;
-        transform.localRotation = obj.transform.localRotation;
+        //transform.localRotation = obj.transform.localRotation;
         transform.localScale = obj.transform.localScale;
         TweenToTarget();
     }
 
     private void TweenToTarget()
     {
-        tween.TweenLocal(target.transform.localPosition, target.transform.localRotation, target.transform.localScale, 0.5f);
+        tween.TweenLocal(target.transform.localPosition, target.transform.localScale, 0.5f);
+        //tween.TweenLocalPosition(target.transform.localPosition, 0.5f);
 
         //Will be tweened but for now snap
         //transform.localPosition = target.transform.localPosition;
