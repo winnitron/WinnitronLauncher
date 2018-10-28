@@ -8,39 +8,39 @@ public class Tweenable : MonoBehaviour {
     private bool destroyOnTweenEnd = false;
     private Sequence currentTween;
 
-    public void TweenPosition(Vector3 position)
+    public void TweenPosition(Vector3 position, bool destroyOnEnd = false)
     {
         ResetTween();
         currentTween.Append(transform.DOMove(position, GM.Instance.options.tweenTime, false).OnComplete(MoveComplete));
-        FinalizeTween();
+        FinalizeTween(destroyOnEnd);
     }
 
-    public void TweenLocalPosition(Vector3 position, float tweenTime, bool destroyOnEnd)
+    public void TweenLocalPosition(Vector3 position, float tweenTime, bool destroyOnEnd = false)
     {
         ResetTween();
         currentTween.Append(transform.DOLocalMove(position, GM.Instance.options.tweenTime, false).OnComplete(MoveComplete));
         FinalizeTween(destroyOnEnd);
     }
 
-    public void Tween(Vector3 position, Vector3 scale)
+    public void Tween(Vector3 position, Vector3 scale, bool destroyOnEnd = false)
     {
         Tween(position, scale, GM.Instance.options.tweenTime);
     }
 
-    public void Tween(Vector3 position, Vector3 scale, float time)
+    public void Tween(Vector3 position, Vector3 scale, float time, bool destroyOnEnd = false)
     {
         ResetTween();
         currentTween.Append(transform.DOMove(position, GM.Instance.options.tweenTime, false).OnComplete(MoveComplete));
         currentTween.Append(transform.DOScale(scale, GM.Instance.options.tweenTime));
-        FinalizeTween();
+        FinalizeTween(destroyOnEnd);
     }
 
-    public void TweenLocal(Vector3 position, Quaternion rotation, Vector3 scale, float time)
+    public void TweenLocal(Vector3 position, Quaternion rotation, Vector3 scale, float time, bool destroyOnEnd = false)
     {
         ResetTween();
         currentTween.Append(transform.DOLocalMove(position, GM.Instance.options.tweenTime, false).OnComplete(MoveComplete));
         currentTween.Append(transform.DOScale(scale, GM.Instance.options.tweenTime));
-        FinalizeTween();
+        FinalizeTween(destroyOnEnd);
 
     }
 
@@ -54,7 +54,7 @@ public class Tweenable : MonoBehaviour {
     private void MoveComplete()
     {
         if (destroyOnTweenEnd)
-        {
+        { 
             Destroy(gameObject);
         }
     }
