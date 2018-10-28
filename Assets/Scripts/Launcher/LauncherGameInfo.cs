@@ -9,7 +9,7 @@ using TMPro;
 public class LauncherGameInfo : Tweenable {
 
     public LauncherController controller;
-    public TextMeshPro text;
+    public TextMeshProUGUI text;
 
     public Vector3 endTarget;
     public Vector3 startTarget;

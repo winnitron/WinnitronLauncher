@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d0b4df26b092d45903fb6ccd78f665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetText: {fileID: 0}
+  targetText: {fileID: 2005593533}
 --- !u!114 &141641182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -637,7 +637,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &221551397
 RectTransform:
   m_ObjectHideFlags: 0
@@ -753,11 +753,11 @@ MonoBehaviour:
     lineCount: 2
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 221551401}
@@ -2989,7 +2989,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 1532549172}
-  text: {fileID: 0}
+  text: {fileID: 972915916}
   endTarget: {x: 0, y: 0, z: 0}
   startTarget: {x: 353, y: -666.5, z: 0}
   tweenTime: 0.9
@@ -3054,7 +3054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d0b4df26b092d45903fb6ccd78f665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetText: {fileID: 0}
+  targetText: {fileID: 2005593533}
 --- !u!114 &1017454895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3258,7 +3258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d0b4df26b092d45903fb6ccd78f665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetText: {fileID: 0}
+  targetText: {fileID: 2005593533}
 --- !u!114 &1064465788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3627,7 +3627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d0b4df26b092d45903fb6ccd78f665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetText: {fileID: 0}
+  targetText: {fileID: 2005593533}
 --- !u!114 &1113946152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5327,7 +5327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launcher: {fileID: 1532549170}
-  topBar: {fileID: 0}
+  topBar: {fileID: 2028192989}
   jukebox: {fileID: 1512600789}
   info: {fileID: 1368499828}
   mainCanvas: {fileID: 398763836}
