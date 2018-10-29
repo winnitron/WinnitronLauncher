@@ -4,7 +4,7 @@ using System.IO;
 using UnityEngine.UI;
 using System.Collections;
 using System.Runtime.InteropServices;
-
+using NetworkSync;
 
 /// <summary>
 /// Main Game Mananger class.  Because it is a singleton, when referencing in another
@@ -19,7 +19,7 @@ public class GM : Singleton<GM> {
     public OptionsManager options;
     public Animator state;
     public Logger logger;
-    public GameSync sync;
+    public NetworkSync.GameSync sync;
     public WinnitronNetwork network;
     public LogOutputHandler logOutput;
     public VideoManager video;

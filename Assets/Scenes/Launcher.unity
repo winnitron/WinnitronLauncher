@@ -3463,7 +3463,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -157, y: -14.8}
+  m_AnchoredPosition: {x: -157, y: -14.799988}
   m_SizeDelta: {x: 529.1, y: 39.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1512600791
@@ -4041,13 +4041,13 @@ GameObject:
   - component: {fileID: 1803195759}
   - component: {fileID: 1803195758}
   - component: {fileID: 1803195761}
-  - component: {fileID: 1803195768}
   - component: {fileID: 1803195767}
   - component: {fileID: 1803195766}
   - component: {fileID: 1803195764}
   - component: {fileID: 1803195763}
   - component: {fileID: 1803195762}
   - component: {fileID: 1803195765}
+  - component: {fileID: 1803195768}
   m_Layer: 0
   m_Name: GM
   m_TagString: Untagged
@@ -4342,7 +4342,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1803195755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 039a599164a8f6b419056ab9d3c91d2b, type: 3}
+  m_Script: {fileID: 11500000, guid: 2ba767428e09743d9ac47173ca9bddf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncType: 2

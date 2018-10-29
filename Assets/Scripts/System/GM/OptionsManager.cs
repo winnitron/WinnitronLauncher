@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using SimpleJSON;
-
+using NetworkSync;
 
 
 public class OptionsManager : MonoBehaviour
