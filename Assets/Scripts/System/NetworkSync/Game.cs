@@ -30,7 +30,7 @@ namespace NetworkSync {
             keyTemplate = data["keys"]["template"];
             keyBindings = data["keys"]["bindings"];
 
-            if (alreadyInstalled()) {
+            if (AlreadyInstalled()) {
                 string file = Path.Combine(installDirectory, "winnitron_metadata.json");
                 string json = File.ReadAllText(file);
                 installationMetadata = JSON.Parse(json);
@@ -40,11 +40,11 @@ namespace NetworkSync {
         }
 
 
-        public bool alreadyInstalled() {
+        public bool AlreadyInstalled() {
             return File.Exists(Path.Combine(installDirectory, "winnitron_metadata.json"));
         }
 
-        public void writeMetadataFile() {
+        public void WriteMetadataFile() {
 
             installationMetadata.Add("title", new JSONString(title));
             installationMetadata.Add("slug", new JSONString(slug));

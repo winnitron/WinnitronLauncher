@@ -14,14 +14,14 @@ namespace NetworkSync {
             description = data["description"];
             parentDirectory = parentDir;
 
-            writeMetadataFile(data);
+            WriteMetadataFile(data);
 
             foreach(JSONNode gameData in data["games"].AsArray) {
                 games.Add(new Game(gameData, Path.Combine(parentDirectory, slug)));
             }
         }
 
-        public ArrayList gamesToDownload() {
+        public ArrayList GamesToDownload() {
             GM.Instance.logger.Info("Syncing games for playlist '" + title + "'");
 
 
@@ -29,11 +29,11 @@ namespace NetworkSync {
             foreach (Game game in games) {
                 System.DateTime installModified = new System.DateTime(1982, 2, 2);
 
-                if (game.alreadyInstalled()) {
+                if (game.AlreadyInstalled()) {
                     installModified = System.DateTime.Parse(game.installationMetadata["last_modified"], null, System.Globalization.DateTimeStyles.RoundtripKind);
                 }
 
-                if (!game.alreadyInstalled() || game.lastModified > installModified) {
+                if (!game.AlreadyInstalled() || game.lastModified > installModified) {
                     GM.Instance.logger.Info("Gonna install " + game.title);
                     toInstall.Add(game);
                 }
@@ -42,11 +42,11 @@ namespace NetworkSync {
             return toInstall;
         }
 
-        public void deleteRemovedGames() {
-            SluggedItem.deleteExtraDirectories(Path.Combine(parentDirectory, slug), games);
+        public void DeleteRemovedGames() {
+            SluggedItem.DeleteExtraDirectories(Path.Combine(parentDirectory, slug), games);
         }
 
-        private void writeMetadataFile(JSONNode data) {
+        private void WriteMetadataFile(JSONNode data) {
             Directory.CreateDirectory(Path.Combine(parentDirectory, slug));
             data.Add("local", new JSONBool(false));
 

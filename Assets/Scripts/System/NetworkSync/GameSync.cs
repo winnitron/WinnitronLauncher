@@ -128,17 +128,17 @@ namespace NetworkSync {
                 }
 
                 // delete unsubscribed playlists
-                SluggedItem.deleteExtraDirectories(gamesDir, playlists);
+                SluggedItem.DeleteExtraDirectories(gamesDir, playlists);
 
                 foreach(Playlist playlist in playlists) {
                     SyncText("Initializing games in " + playlist.title);
 
-                    playlist.deleteRemovedGames();
+                    playlist.DeleteRemovedGames();
 
 
                     // Only download games that have had a new version uploaded
                     // since the last sync.
-                    ArrayList gamesToDownload = playlist.gamesToDownload();
+                    ArrayList gamesToDownload = playlist.GamesToDownload();
                     foreach (Game game in gamesToDownload) {
                         GM.Instance.logger.Info(this, "Downloading: " + game.title);
 
@@ -196,7 +196,7 @@ namespace NetworkSync {
                     // Re-write metadata for all games in case that info changes
                     // even without a new file uploaded.
                     foreach (Game game in playlist.games) {
-                        game.writeMetadataFile();
+                        game.WriteMetadataFile();
                     }
                 }
 

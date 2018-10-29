@@ -8,23 +8,23 @@ namespace NetworkSync {
         public string slug;
 
 
-        public static void deleteExtraDirectories(string parent, ArrayList keepers) {
+        public static void DeleteExtraDirectories(string parent, ArrayList keepers) {
             if (!Directory.Exists(parent)) // just in case. avoid crash.
                 return;
 
             string[] installed = Directory.GetDirectories(parent);
 
             foreach (string dirFullPath in installed) {
-                if (SluggedItem.directoryIsDeletable(dirFullPath, keepers)) {
+                if (SluggedItem.DirectoryIsDeletable(dirFullPath, keepers)) {
                     GM.Instance.logger.Info("deleting " + dirFullPath);
                     Directory.Delete(dirFullPath, true);
                 }
             }
         }
 
-        private static bool directoryIsDeletable(string dirFullPath, ArrayList keepers) {
+        private static bool DirectoryIsDeletable(string dirFullPath, ArrayList keepers) {
             string name = new DirectoryInfo(dirFullPath).Name;
-            JSONNode json = readMetadata(dirFullPath);
+            JSONNode json = ReadMetadata(dirFullPath);
 
             // Playlist or Game directories that start with an underscore or are specified
             // "local": true in the metadatajson are local additions, and they won't be
@@ -41,7 +41,7 @@ namespace NetworkSync {
             return true;
         }
 
-        private static JSONNode readMetadata(string directory) {
+        private static JSONNode ReadMetadata(string directory) {
             string file = Path.Combine(directory, "winnitron_metadata.json");
 
             try {
