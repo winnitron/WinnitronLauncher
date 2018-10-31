@@ -29,7 +29,7 @@ namespace NetworkSync {
             foreach (Game game in games) {
                 System.DateTime installModified = new System.DateTime(1982, 2, 2);
 
-                if (game.AlreadyInstalled()) {
+                if (game.AlreadyInstalled() && game.installationMetadata["last_modified"] != null) {
                     installModified = System.DateTime.Parse(game.installationMetadata["last_modified"], null, System.Globalization.DateTimeStyles.RoundtripKind);
                 }
 
