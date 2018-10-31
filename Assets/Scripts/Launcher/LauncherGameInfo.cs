@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// Displays the current game info.  Takes two targets and tweens to the endTarget.
@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class LauncherGameInfo : Tweenable {
 
     public LauncherController controller;
-    public Text text;
+    public TextMeshProUGUI text;
 
     public Vector3 endTarget;
     public Vector3 startTarget;

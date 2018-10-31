@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MirrorText : MonoBehaviour {
 
-    private Text myText;
-    public Text targetText;
+    private TextMeshProUGUI myText;
+    public TextMeshProUGUI targetText;
 
     private void Start()
     {
-        myText = GetComponent<Text>();
+        myText = GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
