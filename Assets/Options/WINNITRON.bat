@@ -1,1 +1,1 @@
-start WINNITRON.EXE -popupwindow
+start WINNITRON.EXE -popupwindow -logFile ./winnitron.log
