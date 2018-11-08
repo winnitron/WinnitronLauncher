@@ -11,10 +11,10 @@ class AhkBuilder {
 
     public AhkBuilder(Game game) {
         this.game = game;
-        chooseTemplate();
+        ChooseTemplate();
     }
 
-    public void compile() {
+    public void Compile() {
         compiledAHK = template;
 
         if (game.gameType == Game.GameType.PICO8) {
@@ -31,17 +31,17 @@ class AhkBuilder {
         compiledAHK = compiledAHK.Replace("{IDLE_INITIAL}", "" + GM.Instance.options.runnerSecondsIdleInitial);
         compiledAHK = compiledAHK.Replace("{ESC_HOLD}", "" + GM.Instance.options.runnerSecondsESCHeld);
 
-        compiledAHK = insertKeyMapping(compiledAHK);
+        compiledAHK = InsertKeyMapping(compiledAHK);
     }
 
-    public void write() {
+    public void Write() {
         game.WriteStringToFile(compiledAHK, "RunGame.ahk");
     }
 
 
 
 
-    private void chooseTemplate() {
+    private void ChooseTemplate() {
         switch (game.gameType) {
 
             case Game.GameType.PICO8:
@@ -51,14 +51,14 @@ class AhkBuilder {
                 break;
 
             case Game.GameType.FLASH:
-                template = loadTemplate("flash");
+                template = LoadTemplate("flash");
 
                 if (template == null)
                     template = Resources.Load<TextAsset>("AHK_templates/FlashGameTemplate").text;
                 break;
 
             default:
-                template = loadTemplate("default");
+                template = LoadTemplate("default");
 
                 if (template == null)
                     template = Resources.Load<TextAsset>("AHK_templates/ExeGameTemplate").text;
@@ -66,7 +66,7 @@ class AhkBuilder {
         }
     }
 
-    private string loadTemplate(string type) {
+    private string LoadTemplate(string type) {
         string filename = GM.Instance.options.O["ahk"][type];
 
         if (filename == null)
@@ -83,7 +83,7 @@ class AhkBuilder {
         }
     }
 
-    private string insertKeyMapping(string ahkFile) {
+    private string InsertKeyMapping(string ahkFile) {
         string keymap = "";
         JSONNode parsedBindings = getKeyBindings();
         ArrayList gameKeys = allGameKeys(parsedBindings);
