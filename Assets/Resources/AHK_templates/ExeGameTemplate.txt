@@ -28,64 +28,10 @@ WriteLog("Launched " . executable . " with pid " . process_id_1)
 SetTimer, InitialWait, -%initialWait% ; negative period disables timer after first trigger
 MouseMove 3000, 3000, 0
 
-; This is the function that quits the game (hopefully)
-KillApp()
-{
-  global process_id_1
-  global process_id_2
-
-  WriteLog("Killing app with pids " . process_id_1 . " and " . process_id_2)
-
-  ; Nuke the site from orbit. SOMETHING should work....
-
-  WinKill, ahk_exe %executable% ; Tries to close using .exe
-  WinKill, ahk_exe %exec_file%
-
-  WinKill, ahk_pid process_id_2 ; Tries to close using process id
-  WinKill, ahk_pid process_id_1
-
-  WinKill, %game_name%
-
-  Run, TaskKill /f /pid %process_id_2%
-  Run, TaskKill /f /pid %process_id_1%
-  Run, TaskKill /f /im %exec_file%
-
-  SetTitleMatchMode, RegEx
-
-  IfWinExist, i)WinnitronLauncher
-  {
-    WriteLog("Found Winnitron Launcher window via title. ID: " . WinExist("A"))
-    WinActivate, i)WinnitronLauncher
-    WinWaitActive, i)WinnitronLauncher, , 1
-    PostMessage, 0x112, 0xF030,,, i)WinnitronLauncher  ; 0x112 = WM_SYSCOMMAND, 0xF030 = SC_MAXIMIZE
-
-    if ErrorLevel
-      WriteLog("Error activating Launcher via title: " . A_LastError)
-  }
-
-  if launcher_pid
-  {
-    WriteLog("Attempting to find Winnitron Launcher window via PID (" . launcher_pid . ").")
-    WinActivate, ahk_pid %launcher_pid%
-    WinWaitActive, ahk_pid %launcher_pid%, , 1
-    PostMessage, 0x112, 0xF030,,, ahk_pid %launcher_pid%
-
-    if ErrorLevel
-      WriteLog("Error activating Launcher via PID: " . A_LastError)
-  }
-
-  if launcher_window_id
-  {
-    WriteLog("Attempting to find Winnitron Launcher window via ID (" . launcher_window_id . ").")
-    WinActivate, ahk_id launcher_window_id
-    WinWaitActive, ahk_id launcher_window_id, , 1
-    PostMessage, 0x112, 0xF030,,, ahk_id %launcher_window_id%
-
-    if ErrorLevel
-      WriteLog("Error activating Launcher via Window ID: " . A_LastError)
-  }
-
-  ExitApp
+Sleep, 2000 ;give the game some time to boot
+Loop {
+  IfWinExist, ahk_exe %executable%
+      WinActivate ; use the window found above
 }
 
 Loop
@@ -96,16 +42,15 @@ Loop
   Process, Exist, %process_id_1%
   if (ErrorLevel == 0) {
     WriteLog("detected game not running")
-    KillApp()
+    ExitApp
   }
 
 }
 
 InitialWait:
   ; Some games launch a second process
-  WinGet, process_id_2, PID, %game_name%
-
-  WriteLog("Completed initial wait (pid2: " . process_id_2 . ")")
+  ; WinGet, process_id_2, PID, %game_name%
+  ; WriteLog("Completed initial wait (pid2: " . process_id_2 . ")")
 
   SetTimer,  CloseOnIdle, % idleLimit+150
 return
@@ -115,7 +60,7 @@ CloseOnIdle:
   if (A_TimeIdle >= idleLimit)
   {
     WriteLog("Idle timeout!")
-    KillApp()
+    ExitApp
     SetTimer,CloseOnIdle, Off
   }
   else
@@ -126,21 +71,7 @@ return
 
 ; Do this stuff when Esc is pressed
 ~Esc::
-  If escIsDown
-    return
-  escIsDown := true
-  SetTimer, WaitForESCRelease, %forceQuitHoldTime%
-return
-
-; Do this stuff when Esc is UP
-~Esc Up::
-  SetTimer, WaitForESCRelease, Off
-  escIsDown := false
-return
-
-WaitForESCRelease:
-  SetTimer, WaitForESCRelease, Off
-  KillApp()
+  ExitApp
 return
 
 ReadLauncherPid() {

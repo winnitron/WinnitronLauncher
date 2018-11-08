@@ -61,8 +61,8 @@ public class Game
         }
 
         AhkBuilder ahk = new AhkBuilder(this);
-        ahk.compile();
-        ahk.write();
+        ahk.Compile();
+        ahk.Write();
     }
 
     /// <summary>
