@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.4.1
+
+- Assorted visual fixes
+- Support resolutions above 1080
+- Much simpler and more aggressive game quit to help with button mashers
+
 ## 2.4.0
 
 - Unity 2018.2
