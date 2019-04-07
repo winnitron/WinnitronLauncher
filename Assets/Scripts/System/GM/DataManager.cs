@@ -15,8 +15,9 @@ public class DataManager : MonoBehaviour {
     public List<AttractItem> attractItems;
 
     public string introVideo;
-    public string launcherBackground;
-    //public List<string> attractFiles;
+    public string backgroundVideo;
+
+    private System.IO.FileInfo[] attractDir;
 
     /// <summary>
     /// Called by the GM to get the initial round of data.
@@ -33,14 +34,16 @@ public class DataManager : MonoBehaviour {
     /// </summary>
     public void ReloadData()
     {
-        //Start with new lists
+        attractDir = new DirectoryInfo(GM.Instance.options.attractPath).GetFiles();
         playlists = new List<Playlist>();
         songs = new List<Song>();
 
         //Load everything!
         GetPlaylists();
         GetMusic();
-        GetAttractItems();
+        LoadIntro();
+        LoadBackground();
+        LoadAttracts();
 
         //Call the delegate and all methods hooked in
         //Primarily used in LauncherUIController.cs to update the data model
@@ -48,34 +51,37 @@ public class DataManager : MonoBehaviour {
         GM.Instance.logger.Info(this, "DataManager: finished updating data.");
     }
 
-    public void GetAttractItems()
-    {
-        var attractDir = new DirectoryInfo(GM.Instance.options.attractPath).GetFiles();
-
-        foreach(var file in attractDir)
-        {
-            string ext = Path.GetExtension(file.FullName);
-            if (ext == ".mp4")
-            {
-                GM.Instance.logger.Debug("DATA: Getting attract file " + file.Name + " with extension: " + ext);
-
-                if (file.Name.ToLower().Contains("intro"))
-                    introVideo = file.FullName;
-                else if (file.Name.ToLower().Contains("background"))
-                    launcherBackground = file.FullName;
-                else
-                    attractItems.Add(new AttractItem(file.FullName));
+    public void LoadIntro() {
+        foreach(var file in attractDir) {
+            if (file.Name.ToLower() == "intro.mp4") {
+                introVideo = file.FullName;
+                break;
             }
-
-            else
-            {
-                attractItems.Add(new AttractItem(file.FullName));
-            }
-
         }
 
         if (introVideo == null || introVideo == "")
             GM.Instance.logger.Warn("DATA: No intro video found. (WINNITRON_UserData/Attract/intro.mp4)");
+    }
+
+    public void LoadBackground() {
+        foreach(var file in attractDir) {
+            if (file.Name.ToLower() == "background.mp4") {
+                backgroundVideo = file.FullName;
+                break;
+            }
+        }
+
+        if (backgroundVideo == null || backgroundVideo == "")
+            GM.Instance.logger.Warn("DATA: No background video found. (WINNITRON_UserData/Attract/background.mp4)");
+    }
+
+    public void LoadAttracts() {
+        foreach(var file in attractDir) {
+            if (file.Name.ToLower() != "intro.mp4" && file.Name.ToLower() != "background.mp4") {
+                GM.Instance.logger.Debug("DATA: Loading attract item: " + file.Name);
+                attractItems.Add(new AttractItem(file.FullName));
+            }
+        }
     }
 
     /// <summary>

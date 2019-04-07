@@ -62,11 +62,11 @@ public class VideoManager : MonoBehaviour {
         player.Prepare();
 
         GM.Instance.logger.Debug("Preparing Video " + url);
-        
+
         //Wait until video is prepared
         while (!player.isPrepared)
         {
-            
+
             yield return null;
         }
 
@@ -107,7 +107,7 @@ public class VideoManager : MonoBehaviour {
     /// </summary>
     public void PlayBackground()
     {
-        if (player.url != GM.Instance.data.launcherBackground || !player.isPlaying)
-            PlayVideo(GM.Instance.data.launcherBackground, true, false);
+        if (player.url != GM.Instance.data.backgroundVideo || !player.isPlaying)
+            PlayVideo(GM.Instance.data.backgroundVideo, true, false);
     }
 }
