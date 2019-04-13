@@ -43,7 +43,8 @@ public class DataManager : MonoBehaviour {
         GetMusic();
         LoadIntro();
         LoadBackground();
-        LoadAttracts();
+        LoadLocalAttracts();
+        LoadRemoteAttracts();
 
         //Call the delegate and all methods hooked in
         //Primarily used in LauncherUIController.cs to update the data model
@@ -75,13 +76,17 @@ public class DataManager : MonoBehaviour {
             GM.Instance.logger.Warn("DATA: No background video found. (WINNITRON_UserData/Attract/background.mp4)");
     }
 
-    public void LoadAttracts() {
+    public void LoadLocalAttracts() {
         foreach(var file in attractDir) {
             if (file.Name.ToLower() != "intro.mp4" && file.Name.ToLower() != "background.mp4") {
                 GM.Instance.logger.Debug("DATA: Loading attract item: " + file.Name);
                 attractItems.Add(new AttractItem(file.FullName));
             }
         }
+    }
+
+    public void LoadRemoteAttracts() {
+        GM.Instance.network.GetAttracts();
     }
 
     /// <summary>
