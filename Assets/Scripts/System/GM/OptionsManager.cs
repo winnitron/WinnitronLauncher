@@ -143,6 +143,7 @@ public class OptionsManager : MonoBehaviour
             GM.Instance.Oops(GM.Instance.Text("error", "cannotFindJson"), true);
         }
 
+        GM.Instance.network.enabled = !string.IsNullOrEmpty(GetSyncSettings()["apiKey"]);
         GM.Instance.logger.Debug("OPTIONS: Done Init.");
     }
 
