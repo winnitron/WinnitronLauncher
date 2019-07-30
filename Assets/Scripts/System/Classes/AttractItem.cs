@@ -5,6 +5,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using SimpleJSON;
 
 [System.Serializable]
 public class AttractItem {
@@ -23,7 +24,7 @@ public class AttractItem {
     /// </summary>
     /// <param name="pathToItem">Path to file, must be absolute.</param>
     /// <returns>If the construction was successful.</returns>
-    public AttractItem (string filePath)
+    public AttractItem(string filePath)
     {
         pathToItem = filePath;
 
@@ -32,7 +33,7 @@ public class AttractItem {
         if (ext == ".mp4")
         {
             type = AttractItemType.Video;
-            //Video player only requires a path to the video, so we don't need to load anything new here
+            // Video player only requires a path to the video, so we don't need to load anything new here
         }
         else if (ext == ".png" || ext == ".jpg" || ext == ".jpeg")
         {
@@ -47,6 +48,26 @@ public class AttractItem {
         else
         {
             GM.Instance.logger.Debug("AttractItem - No valid file found.  Voiding file " + pathToItem);
+            type = AttractItemType.None;
+        }
+    }
+
+    public AttractItem(JSONNode data)
+    {
+        System.DateTime startsAt = System.DateTime.Parse(data["starts_at"], null, System.Globalization.DateTimeStyles.RoundtripKind);
+        System.DateTime endsAt = DateTime.Now.AddDays(365); // we don't need roads
+
+        if (data["ends_at"] != null)
+            endsAt = System.DateTime.Parse(data["ends_at"], null, System.Globalization.DateTimeStyles.RoundtripKind);
+
+        bool started = startsAt <= System.DateTime.UtcNow;
+        bool ended = endsAt <= System.DateTime.UtcNow;
+
+        if (started && !ended)
+        {
+            type = AttractItemType.Text;
+            text = data["text"];
+        } else {
             type = AttractItemType.None;
         }
     }

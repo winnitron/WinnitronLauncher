@@ -87,6 +87,18 @@ public class DataManager : MonoBehaviour {
 
     public void LoadRemoteAttracts() {
         GM.Instance.network.GetAttracts();
+
+        string path = Path.Combine(GM.Instance.options.dataPath, GM.Instance.options.attractPath);
+        string file = Path.Combine(path, "remote_attracts.json");
+
+        GM.Instance.logger.Debug("DATA: loading remote attract messages from " + file);
+        JSONNode remotes = LoadJson(file);
+
+        if (remotes != null) {
+            foreach(JSONNode data in remotes["attracts"].AsArray) {
+                attractItems.Add(new AttractItem(data));
+            }
+        }
     }
 
     /// <summary>
@@ -167,6 +179,9 @@ public class DataManager : MonoBehaviour {
     /// <returns>A JSONNode parsing of the file.</returns>
     public JSONNode LoadJson(string fileLocation)
     {
+        if (!System.IO.File.Exists(fileLocation))
+            return null;
+
         try
         {
             string json = File.ReadAllText(fileLocation);
