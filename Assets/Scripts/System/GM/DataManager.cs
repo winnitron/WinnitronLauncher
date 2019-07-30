@@ -15,8 +15,9 @@ public class DataManager : MonoBehaviour {
     public List<AttractItem> attractItems;
 
     public string introVideo;
-    public string launcherBackground;
-    //public List<string> attractFiles;
+    public string backgroundVideo;
+
+    private System.IO.FileInfo[] attractDir;
 
     /// <summary>
     /// Called by the GM to get the initial round of data.
@@ -33,14 +34,17 @@ public class DataManager : MonoBehaviour {
     /// </summary>
     public void ReloadData()
     {
-        //Start with new lists
+        attractDir = new DirectoryInfo(GM.Instance.options.attractPath).GetFiles();
         playlists = new List<Playlist>();
         songs = new List<Song>();
 
         //Load everything!
         GetPlaylists();
         GetMusic();
-        GetAttractItems();
+        LoadIntro();
+        LoadBackground();
+        LoadLocalAttracts();
+        LoadRemoteAttracts();
 
         //Call the delegate and all methods hooked in
         //Primarily used in LauncherUIController.cs to update the data model
@@ -48,34 +52,53 @@ public class DataManager : MonoBehaviour {
         GM.Instance.logger.Info(this, "DataManager: finished updating data.");
     }
 
-    public void GetAttractItems()
-    {
-        var attractDir = new DirectoryInfo(GM.Instance.options.attractPath).GetFiles();
-
-        foreach(var file in attractDir)
-        {
-            string ext = Path.GetExtension(file.FullName);
-            if (ext == ".mp4")
-            {
-                GM.Instance.logger.Debug("DATA: Getting attract file " + file.Name + " with extension: " + ext);
-
-                if (file.Name.ToLower().Contains("intro"))
-                    introVideo = file.FullName;
-                else if (file.Name.ToLower().Contains("background"))
-                    launcherBackground = file.FullName;
-                else
-                    attractItems.Add(new AttractItem(file.FullName));
+    public void LoadIntro() {
+        foreach(var file in attractDir) {
+            if (file.Name.ToLower() == "intro.mp4") {
+                introVideo = file.FullName;
+                break;
             }
-
-            else
-            {
-                attractItems.Add(new AttractItem(file.FullName));
-            }
-
         }
 
         if (introVideo == null || introVideo == "")
             GM.Instance.logger.Warn("DATA: No intro video found. (WINNITRON_UserData/Attract/intro.mp4)");
+    }
+
+    public void LoadBackground() {
+        foreach(var file in attractDir) {
+            if (file.Name.ToLower() == "background.mp4") {
+                backgroundVideo = file.FullName;
+                break;
+            }
+        }
+
+        if (backgroundVideo == null || backgroundVideo == "")
+            GM.Instance.logger.Warn("DATA: No background video found. (WINNITRON_UserData/Attract/background.mp4)");
+    }
+
+    public void LoadLocalAttracts() {
+        foreach(var file in attractDir) {
+            if (file.Name.ToLower() != "intro.mp4" && file.Name.ToLower() != "background.mp4") {
+                GM.Instance.logger.Debug("DATA: Loading attract item: " + file.Name);
+                attractItems.Add(new AttractItem(file.FullName));
+            }
+        }
+    }
+
+    public void LoadRemoteAttracts() {
+        GM.Instance.network.GetAttracts();
+
+        string path = Path.Combine(GM.Instance.options.dataPath, GM.Instance.options.attractPath);
+        string file = Path.Combine(path, "remote_attracts.json");
+
+        GM.Instance.logger.Debug("DATA: loading remote attract messages from " + file);
+        JSONNode remotes = LoadJson(file);
+
+        if (remotes != null) {
+            foreach(JSONNode data in remotes["attracts"].AsArray) {
+                attractItems.Add(new AttractItem(data));
+            }
+        }
     }
 
     /// <summary>
@@ -156,6 +179,9 @@ public class DataManager : MonoBehaviour {
     /// <returns>A JSONNode parsing of the file.</returns>
     public JSONNode LoadJson(string fileLocation)
     {
+        if (!System.IO.File.Exists(fileLocation))
+            return null;
+
         try
         {
             string json = File.ReadAllText(fileLocation);

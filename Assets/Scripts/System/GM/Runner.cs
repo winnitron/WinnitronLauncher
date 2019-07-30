@@ -61,13 +61,13 @@ public class Runner : MonoBehaviour {
 
         GM.Instance.logger.Info(this, "RUNNER: Running game " + process.StartInfo.FileName);
 
-        GM.Instance.network.startGame(game.slug);
+        GM.Instance.network.StartGame(game.slug);
 
         process.Start();
         process.WaitForExit();
         process.Close();
 
-        GM.Instance.network.stopGame(game.slug);
+        GM.Instance.network.StopGame(game.slug);
 
         GM.Instance.logger.Info(this, "RUNNER: Finished running game " + process.StartInfo.FileName);
 

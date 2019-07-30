@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
@@ -10,73 +11,100 @@ using System;
 [System.Serializable]
 public class WinnitronNetwork : MonoBehaviour {
 
-    public void startGame(string game) {
+    public delegate object Success(object results);
+    public bool enabled = false;
+
+    public void StartGame(string game) {
         if (game == null)
             return;
 
         GM.Instance.logger.Debug("sending START GAME: " + game);
-        string apiKey = GM.Instance.options.GetSyncSettings()["apiKey"].ToString();
 
-        Dictionary<string, string> headers = new Dictionary<string, string>();
-        headers.Add("User-Agent", "Winnitron Launcher/" + GM.Instance.versionNumber + " http://winnitron.com");
+        string url = GM.Instance.options.GetSyncSettings()["libraryURL"] + "/api/v1/plays/start";
+        WWWForm fields = new WWWForm();
+        fields.AddField("game", game);
 
-        WWWForm form = new WWWForm();
-        form.AddField("api_key", apiKey);
-        form.AddField("game", game);
-
-        WWW www = new WWW(GM.Instance.options.GetSyncSettings()["libraryURL"] + "/api/v1/plays/start", form.data, headers);
-
-        StartCoroutine(WaitForPlaySessionCreation(www));
+        UnityWebRequest www = UnityWebRequest.Post(url, fields);
+        AddHeaders(www);
+        StartCoroutine(Wait(www));
     }
 
-    public void stopGame(string game) {
+    public void StopGame(string game) {
         if (game == null)
             return;
 
         GM.Instance.logger.Debug("sending STOP GAME: " + game);
-        string apiKey = GM.Instance.options.GetSyncSettings()["apiKey"].ToString();
 
-        Dictionary<string, string> headers = new Dictionary<string, string>();
-        headers.Add("User-Agent", "Winnitron Launcher/" + GM.Instance.versionNumber + " http://winnitron.com");
-        headers.Add("X-HTTP-Method-Override", "PUT");
-
-        WWWForm form = new WWWForm();
-        form.AddField("api_key", apiKey);
-
-        WWW www = new WWW(GM.Instance.options.GetSyncSettings()["libraryURL"] + "/api/v1/plays/" + game + "/stop", form.data, headers);
-
-        StartCoroutine(WaitForPlaySessionUpdate(www));
+        string url = GM.Instance.options.GetSyncSettings()["libraryURL"] + "/api/v1/plays/" + game + "/stop";
+        UnityWebRequest www = UnityWebRequest.Put(url, new WWWForm().data);
+        AddHeaders(www);
+        StartCoroutine(Wait(www));
     }
 
-    private IEnumerator WaitForPlaySessionCreation(WWW www) {
+    public void GetAttracts() {
+        GM.Instance.logger.Debug("sending GET ATTRACTS");
 
-        yield return www;
+        UnityWebRequest www = UnityWebRequest.Get(GM.Instance.options.GetSyncSettings()["libraryURL"] + "/api/v1/attracts/");
+        AddHeaders(www);
+        StartCoroutine(Wait(www, WriteAttracts));
+    }
 
-        if (www.error == null) {
-            GM.Instance.logger.Debug("Created gameplay session: " + www.text);
-            JSONNode response = JSON.Parse(www.text);
+    private UnityWebRequest AddHeaders(UnityWebRequest www) {
+        www.SetRequestHeader("User-Agent", "Winnitron Launcher/" + GM.Instance.versionNumber + " http://winnitron.com");
+        www.SetRequestHeader("Authorization", "Token " + GM.Instance.options.GetSyncSettings()["apiKey"]);
+        return www;
+    }
 
-            if (response["errors"] == null) {
-                GM.Instance.logger.Debug(response.ToString());
-                yield return response["id"].AsInt;
-            } else {
-                GM.Instance.logger.Warn("Error creating gameplay session: " + www.text);
-                yield return null;
-            }
+    private IEnumerator Wait(UnityWebRequest www, Success success = null) {
+        if (!enabled)
+            yield break;
 
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError) {
+            HandleError(www, "Network Error:");
+        } else if (www.isHttpError) {
+            HandleError(www, "HTTP Error:");
         } else {
-            GM.Instance.logger.Warn("Error creating gameplay session: " + www.error);
+            if (success == null)
+                GM.Instance.logger.Debug("Network response: " + www.downloadHandler.text);
+            else
+                success(www.downloadHandler.text);
         }
     }
 
-    private IEnumerator WaitForPlaySessionUpdate(WWW www) {
-        yield return www;
+    protected void HandleError(UnityWebRequest www, string msgPrepend = null) {
+        string[] components = {
+            msgPrepend,
+            (www.responseCode > 0 ? www.responseCode.ToString() : null),
+            www.error,
+            ParseErrors(www.downloadHandler.text)
+        };
 
-        if (www.error == null) {
-            GM.Instance.logger.Debug("Updated gameplay session: " + www.text);
-        } else {
-            GM.Instance.logger.Warn("Error updating gameplay session: " + www.error);
+        string msg = "";
+        foreach (string s in components) {
+            if (!string.IsNullOrEmpty(s))
+                msg += (s + " ");
         }
+
+        GM.Instance.logger.Error(msg);
+    }
+
+    private string ParseErrors(string json) {
+        return json.ToString(); // TODO
+    }
+
+
+
+
+    private object WriteAttracts(object responseJson) {
+        string json = responseJson.ToString();
+
+        string path = Path.Combine(GM.Instance.options.dataPath, GM.Instance.options.attractPath);
+        string file = Path.Combine(path, "remote_attracts.json");
+        GM.Instance.logger.Debug("Writing remote attracts: " + file + "\n" + responseJson);
+        File.WriteAllText(file, JSONNode.Parse(json).ToString(2));
+        return null;
     }
 
 }
