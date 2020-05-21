@@ -316,8 +316,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: WINNITRON OFFICIAL
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3356198c1a1defb4baf63f687fa7e8f1, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 473e9cd96523d4f4cb76ceedd2157892, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ba24bf58bce4dfa419edf0b3d8dc86f3, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: ede2ccb0bff3b9047b3673366f2f33fa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -342,8 +342,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 45
-  m_fontSizeBase: 45
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -668,7 +668,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &221551397
 RectTransform:
   m_ObjectHideFlags: 0
@@ -709,8 +709,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Hey here's a bunch of text for the attract mode.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c98024256a7f32b4cbf4089f60ca84b2, type: 2}
-  m_sharedMaterial: {fileID: 21484656394874128, guid: c98024256a7f32b4cbf4089f60ca84b2,
+  m_fontAsset: {fileID: 11400000, guid: bcc5a3cd6d604d545bee737a43bb744e, type: 2}
+  m_sharedMaterial: {fileID: -4384526169095344999, guid: bcc5a3cd6d604d545bee737a43bb744e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -965,8 +965,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ANOTHER GAME
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c98024256a7f32b4cbf4089f60ca84b2, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: af500c255297d37428070db2fcb54d69, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ba24bf58bce4dfa419edf0b3d8dc86f3, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 893c340e3089c2340ae38a15f43b027e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -991,7 +991,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 202.6
+  m_fontSize: 202.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1639,8 +1639,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ANOTHER GAME
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c98024256a7f32b4cbf4089f60ca84b2, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: a02add94d0e3ed240a1d651abfcf3694, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ba24bf58bce4dfa419edf0b3d8dc86f3, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 3086c7460129bcb46847c409933fb30f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1665,7 +1665,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 202.6
+  m_fontSize: 202.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1882,8 +1882,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: d0b976236152e44b6a5ae05af8897645, type: 3}
-    m_FontSize: 30
+    m_Font: {fileID: 12800000, guid: 8d7c06d028482484fa98761f31e660e1, type: 3}
+    m_FontSize: 38
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -2010,8 +2010,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ANOTHER GAME
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c98024256a7f32b4cbf4089f60ca84b2, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 7403ff16b9e3c7541847a27540a25bf4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ba24bf58bce4dfa419edf0b3d8dc86f3, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 8d6a7c82341865d4e828a5c389156283, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2036,7 +2036,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 202.6
+  m_fontSize: 202.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2204,8 +2204,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ANOTHER GAME
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c98024256a7f32b4cbf4089f60ca84b2, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 7403ff16b9e3c7541847a27540a25bf4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ba24bf58bce4dfa419edf0b3d8dc86f3, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 8d6a7c82341865d4e828a5c389156283, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2230,7 +2230,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 202.6
+  m_fontSize: 202.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2641,8 +2641,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ANOTHER GAME
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c98024256a7f32b4cbf4089f60ca84b2, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: af500c255297d37428070db2fcb54d69, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ba24bf58bce4dfa419edf0b3d8dc86f3, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 893c340e3089c2340ae38a15f43b027e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2667,7 +2667,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 202.6
+  m_fontSize: 202.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2983,8 +2983,8 @@ MonoBehaviour:
     Here''s a bunch of information about this
     game and it''s pretty long.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8e9b5636a4c72ae4795730c7d3327cfa, type: 2}
-  m_sharedMaterial: {fileID: 21216683926908354, guid: 8e9b5636a4c72ae4795730c7d3327cfa,
+  m_fontAsset: {fileID: 11400000, guid: bcc5a3cd6d604d545bee737a43bb744e, type: 2}
+  m_sharedMaterial: {fileID: -4384526169095344999, guid: bcc5a3cd6d604d545bee737a43bb744e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3010,8 +3010,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3186,8 +3186,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: WINNITRON OFFICIAL
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3356198c1a1defb4baf63f687fa7e8f1, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 473e9cd96523d4f4cb76ceedd2157892, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ba24bf58bce4dfa419edf0b3d8dc86f3, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: ede2ccb0bff3b9047b3673366f2f33fa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3212,8 +3212,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 45
-  m_fontSizeBase: 45
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3393,8 +3393,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: WINNITRON OFFICIAL
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3356198c1a1defb4baf63f687fa7e8f1, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 473e9cd96523d4f4cb76ceedd2157892, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ba24bf58bce4dfa419edf0b3d8dc86f3, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: ede2ccb0bff3b9047b3673366f2f33fa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3419,8 +3419,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 45
-  m_fontSizeBase: 45
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3774,8 +3774,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: WINNITRON OFFICIAL
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3356198c1a1defb4baf63f687fa7e8f1, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 473e9cd96523d4f4cb76ceedd2157892, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ba24bf58bce4dfa419edf0b3d8dc86f3, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: ede2ccb0bff3b9047b3673366f2f33fa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3800,8 +3800,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 45
-  m_fontSizeBase: 45
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4001,8 +4001,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: faa291cc542c3be4bb19e9d335368563, type: 3}
-    m_FontSize: 70
+    m_Font: {fileID: 12800000, guid: 8d7c06d028482484fa98761f31e660e1, type: 3}
+    m_FontSize: 89
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 7
@@ -4281,8 +4281,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ANOTHER GAME
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c98024256a7f32b4cbf4089f60ca84b2, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: a02add94d0e3ed240a1d651abfcf3694, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ba24bf58bce4dfa419edf0b3d8dc86f3, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 3086c7460129bcb46847c409933fb30f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4307,7 +4307,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 202.6
+  m_fontSize: 202.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4710,7 +4710,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1532549171
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4994,8 +4994,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: SUMO TOPPLERS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c98024256a7f32b4cbf4089f60ca84b2, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: af500c255297d37428070db2fcb54d69, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ba24bf58bce4dfa419edf0b3d8dc86f3, type: 2}
+  m_sharedMaterial: {fileID: -6363464406337609857, guid: ba24bf58bce4dfa419edf0b3d8dc86f3,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5020,7 +5021,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 204.2
+  m_fontSize: 177.3
   m_fontSizeBase: 36.09
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5634,7 +5635,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1854932141}
   m_LocalRotation: {x: -0.25731245, y: -0, z: -0, w: 0.96632826}
-  m_LocalPosition: {x: 0, y: 0, z: -115}
+  m_LocalPosition: {x: 0, y: 0, z: -139.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2005593532}
@@ -5647,7 +5648,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -206}
+  m_AnchoredPosition: {x: 0, y: -219.79999}
   m_SizeDelta: {x: 993, y: 559}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1854932143
@@ -5830,8 +5831,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: b5349d3b1b47747868f43f26c6b22fa5, type: 3}
-    m_FontSize: 30
+    m_Font: {fileID: 12800000, guid: c185403f3e7cddf4bbca7b717a492028, type: 3}
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -5842,7 +5843,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: YES THERE WAS SOMETHING BAD THAT HAPPEND AND THIS IS GOING TO TELL YOU
+  m_Text: YES THERE WAS SOMETHING BAD THAT HAPPENED AND THIS IS GOING TO TELL YOU
     EXACTLY WHAT THAT IS AND EVEN IF IT'S SUPER LONG, THAT DON'T MATTER CAUSE THIS
     TEXT BOX HAS GOT LOTS OF ROOM FOR THAT KIND OF POSITRONIC SCI-FI OVER EXPLAINATION
     THAT WE ALL LOVE SO WELL.
@@ -5912,8 +5913,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: WINNITRON OFFICIAL
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3356198c1a1defb4baf63f687fa7e8f1, type: 2}
-  m_sharedMaterial: {fileID: 21749583634354616, guid: 3356198c1a1defb4baf63f687fa7e8f1,
+  m_fontAsset: {fileID: 11400000, guid: ba24bf58bce4dfa419edf0b3d8dc86f3, type: 2}
+  m_sharedMaterial: {fileID: -6363464406337609857, guid: ba24bf58bce4dfa419edf0b3d8dc86f3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -5939,8 +5940,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 45
-  m_fontSizeBase: 45
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6110,7 +6111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2094144608
 RectTransform:
   m_ObjectHideFlags: 0
