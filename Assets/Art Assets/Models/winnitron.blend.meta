@@ -12,6 +12,12 @@ ModelImporter:
     100012: Joy_Stck_Top
     100014: Joy_Stck_Top_001
     100016: //RootNode
+    100018: Arcade Machine
+    100020: Button_01.001
+    100022: Button_02.001
+    100024: Camera
+    100026: Joy_Stck_Handle.001
+    100028: Joy_Stck_Top.001
     400000: Button_01
     400002: Button_01_001
     400004: Button_02
@@ -21,6 +27,12 @@ ModelImporter:
     400012: Joy_Stck_Top
     400014: Joy_Stck_Top_001
     400016: //RootNode
+    400018: Arcade Machine
+    400020: Button_01.001
+    400022: Button_02.001
+    400024: Camera
+    400026: Joy_Stck_Handle.001
+    400028: Joy_Stck_Top.001
     2300000: Button_01
     2300002: Button_01_001
     2300004: Button_02
@@ -30,6 +42,11 @@ ModelImporter:
     2300012: Joy_Stck_Top
     2300014: Joy_Stck_Top_001
     2300016: //RootNode
+    2300018: Arcade Machine
+    2300020: Button_01.001
+    2300022: Button_02.001
+    2300024: Joy_Stck_Handle.001
+    2300026: Joy_Stck_Top.001
     3300000: Button_01
     3300002: Button_01_001
     3300004: Button_02
@@ -39,6 +56,11 @@ ModelImporter:
     3300012: Joy_Stck_Top
     3300014: Joy_Stck_Top_001
     3300016: //RootNode
+    3300018: Arcade Machine
+    3300020: Button_01.001
+    3300022: Button_02.001
+    3300024: Joy_Stck_Handle.001
+    3300026: Joy_Stck_Top.001
     4300000: Arcade_Machine
     4300002: Joy_Stck_Top_001
     4300004: Button_01_001
@@ -48,10 +70,36 @@ ModelImporter:
     4300012: Joy_Stck_Handle
     4300014: Joy_Stck_Top
     4300016: Button_01
+    4300018: Arcade Machine
+    4300020: Joy_Stck_Top.001
+    4300022: Button_01.001
+    4300024: Joy_Stck_Handle.001
+    4300026: Button_02.001
     7400000: Default Take
+    7400002: Arcade Machine|Arcade MachineAction
     9500000: //RootNode
     2186277476908879412: ImportLogs
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #41'
+    second: {fileID: 2100000, guid: 1765d8a9eb207574fb99f9429f3be5bf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #42'
+    second: {fileID: 2100000, guid: 54d783b77c608c341943221a33d66ab4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #45'
+    second: {fileID: 2100000, guid: da7abf3bf6b8d7947ab55f9e82b50cbd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #47'
+    second: {fileID: 2100000, guid: f62eee0047e796c4081b9a18824b1e70, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -85,6 +133,7 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
     importVisibility: 0
     importBlendShapes: 1
     importCameras: 0
@@ -103,12 +152,15 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 0
     previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 4
     normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
