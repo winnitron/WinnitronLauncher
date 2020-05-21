@@ -9,3 +9,30 @@ The following packages were added:
 The following packages were updated:
   com.unity.package-manager-ui from version 1.9.11 to 2.0.8
   com.unity.textmeshpro from version 1.3.0 to 1.4.1
+
+=== Wed May 20 20:59:32 2020
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were added:
+  com.unity.2d.sprite@1.0.0
+  com.unity.2d.tilemap@1.0.0
+  com.unity.ide.rider@1.1.4
+  com.unity.ide.vscode@1.2.0
+  com.unity.modules.androidjni@1.0.0
+  com.unity.modules.director@1.0.0
+  com.unity.modules.jsonserialize@1.0.0
+  com.unity.modules.particlesystem@1.0.0
+  com.unity.modules.vr@1.0.0
+  com.unity.modules.xr@1.0.0
+  com.unity.multiplayer-hlapi@1.0.4
+  com.unity.test-framework@1.1.13
+  com.unity.timeline@1.2.6
+  com.unity.ugui@1.0.0
+  com.unity.xr.legacyinputhelpers@2.1.3
+The following packages were updated:
+  com.unity.collab-proxy from version 1.2.15 to 1.2.16
+  com.unity.textmeshpro from version 1.4.1 to 2.0.1
+The following packages were removed:
+  com.unity.package-manager-ui@2.0.8

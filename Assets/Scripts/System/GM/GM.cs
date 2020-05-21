@@ -186,7 +186,7 @@ public class GM : Singleton<GM> {
         string drive = Environment.GetEnvironmentVariable("HOMEDRIVE");
         string path = Environment.GetEnvironmentVariable("HOMEPATH");
 
-        return Path.Combine(Path.Combine(drive, path), "winnitron.pid");
+        return Path.Combine(drive + path, "winnitron.pid");
     }
 
     public static System.IntPtr GetWindowHandle() {

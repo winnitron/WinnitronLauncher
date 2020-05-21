@@ -58,7 +58,7 @@ public class WinnitronNetwork : MonoBehaviour {
     private IEnumerator Wait(UnityWebRequest www, Success success = null) {
         if (!enabled)
             yield break;
-
+        Debug.Log("WWW " + www);
         yield return www.SendWebRequest();
 
         if (www.isNetworkError) {
