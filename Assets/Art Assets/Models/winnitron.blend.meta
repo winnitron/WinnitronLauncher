@@ -1,59 +1,262 @@
 fileFormatVersion: 2
 guid: cb855733987214a4b8a7c3d4ec1c4cd7
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: Button_01
-    100002: Button_01_001
-    100004: Button_02
-    100006: Button_02_001
-    100008: Joy_Stck_Handle
-    100010: Joy_Stck_Handle_001
-    100012: Joy_Stck_Top
-    100014: Joy_Stck_Top_001
-    100016: //RootNode
-    400000: Button_01
-    400002: Button_01_001
-    400004: Button_02
-    400006: Button_02_001
-    400008: Joy_Stck_Handle
-    400010: Joy_Stck_Handle_001
-    400012: Joy_Stck_Top
-    400014: Joy_Stck_Top_001
-    400016: //RootNode
-    2300000: Button_01
-    2300002: Button_01_001
-    2300004: Button_02
-    2300006: Button_02_001
-    2300008: Joy_Stck_Handle
-    2300010: Joy_Stck_Handle_001
-    2300012: Joy_Stck_Top
-    2300014: Joy_Stck_Top_001
-    2300016: //RootNode
-    3300000: Button_01
-    3300002: Button_01_001
-    3300004: Button_02
-    3300006: Button_02_001
-    3300008: Joy_Stck_Handle
-    3300010: Joy_Stck_Handle_001
-    3300012: Joy_Stck_Top
-    3300014: Joy_Stck_Top_001
-    3300016: //RootNode
-    4300000: Arcade_Machine
-    4300002: Joy_Stck_Top_001
-    4300004: Button_01_001
-    4300006: Joy_Stck_Handle_001
-    4300008: Button_02_001
-    4300010: Button_02
-    4300012: Joy_Stck_Handle
-    4300014: Joy_Stck_Top
-    4300016: Button_01
-    7400000: Default Take
-    9500000: //RootNode
-    2186277476908879412: ImportLogs
-  externalObjects: {}
+  serializedVersion: 19300
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Button_01
+  - first:
+      1: 100002
+    second: Button_01_001
+  - first:
+      1: 100004
+    second: Button_02
+  - first:
+      1: 100006
+    second: Button_02_001
+  - first:
+      1: 100008
+    second: Joy_Stck_Handle
+  - first:
+      1: 100010
+    second: Joy_Stck_Handle_001
+  - first:
+      1: 100012
+    second: Joy_Stck_Top
+  - first:
+      1: 100014
+    second: Joy_Stck_Top_001
+  - first:
+      1: 100016
+    second: //RootNode
+  - first:
+      1: 100018
+    second: Arcade Machine
+  - first:
+      1: 100020
+    second: Button_01.001
+  - first:
+      1: 100022
+    second: Button_02.001
+  - first:
+      1: 100024
+    second: Camera
+  - first:
+      1: 100026
+    second: Joy_Stck_Handle.001
+  - first:
+      1: 100028
+    second: Joy_Stck_Top.001
+  - first:
+      4: 400000
+    second: Button_01
+  - first:
+      4: 400002
+    second: Button_01_001
+  - first:
+      4: 400004
+    second: Button_02
+  - first:
+      4: 400006
+    second: Button_02_001
+  - first:
+      4: 400008
+    second: Joy_Stck_Handle
+  - first:
+      4: 400010
+    second: Joy_Stck_Handle_001
+  - first:
+      4: 400012
+    second: Joy_Stck_Top
+  - first:
+      4: 400014
+    second: Joy_Stck_Top_001
+  - first:
+      4: 400016
+    second: //RootNode
+  - first:
+      4: 400018
+    second: Arcade Machine
+  - first:
+      4: 400020
+    second: Button_01.001
+  - first:
+      4: 400022
+    second: Button_02.001
+  - first:
+      4: 400024
+    second: Camera
+  - first:
+      4: 400026
+    second: Joy_Stck_Handle.001
+  - first:
+      4: 400028
+    second: Joy_Stck_Top.001
+  - first:
+      23: 2300000
+    second: Button_01
+  - first:
+      23: 2300002
+    second: Button_01_001
+  - first:
+      23: 2300004
+    second: Button_02
+  - first:
+      23: 2300006
+    second: Button_02_001
+  - first:
+      23: 2300008
+    second: Joy_Stck_Handle
+  - first:
+      23: 2300010
+    second: Joy_Stck_Handle_001
+  - first:
+      23: 2300012
+    second: Joy_Stck_Top
+  - first:
+      23: 2300014
+    second: Joy_Stck_Top_001
+  - first:
+      23: 2300016
+    second: //RootNode
+  - first:
+      23: 2300018
+    second: Arcade Machine
+  - first:
+      23: 2300020
+    second: Button_01.001
+  - first:
+      23: 2300022
+    second: Button_02.001
+  - first:
+      23: 2300024
+    second: Joy_Stck_Handle.001
+  - first:
+      23: 2300026
+    second: Joy_Stck_Top.001
+  - first:
+      33: 3300000
+    second: Button_01
+  - first:
+      33: 3300002
+    second: Button_01_001
+  - first:
+      33: 3300004
+    second: Button_02
+  - first:
+      33: 3300006
+    second: Button_02_001
+  - first:
+      33: 3300008
+    second: Joy_Stck_Handle
+  - first:
+      33: 3300010
+    second: Joy_Stck_Handle_001
+  - first:
+      33: 3300012
+    second: Joy_Stck_Top
+  - first:
+      33: 3300014
+    second: Joy_Stck_Top_001
+  - first:
+      33: 3300016
+    second: //RootNode
+  - first:
+      33: 3300018
+    second: Arcade Machine
+  - first:
+      33: 3300020
+    second: Button_01.001
+  - first:
+      33: 3300022
+    second: Button_02.001
+  - first:
+      33: 3300024
+    second: Joy_Stck_Handle.001
+  - first:
+      33: 3300026
+    second: Joy_Stck_Top.001
+  - first:
+      43: 4300000
+    second: Arcade_Machine
+  - first:
+      43: 4300002
+    second: Joy_Stck_Top_001
+  - first:
+      43: 4300004
+    second: Button_01_001
+  - first:
+      43: 4300006
+    second: Joy_Stck_Handle_001
+  - first:
+      43: 4300008
+    second: Button_02_001
+  - first:
+      43: 4300010
+    second: Button_02
+  - first:
+      43: 4300012
+    second: Joy_Stck_Handle
+  - first:
+      43: 4300014
+    second: Joy_Stck_Top
+  - first:
+      43: 4300016
+    second: Button_01
+  - first:
+      43: 4300018
+    second: Arcade Machine
+  - first:
+      43: 4300020
+    second: Joy_Stck_Top.001
+  - first:
+      43: 4300022
+    second: Button_01.001
+  - first:
+      43: 4300024
+    second: Joy_Stck_Handle.001
+  - first:
+      43: 4300026
+    second: Button_02.001
+  - first:
+      74: 7400000
+    second: Default Take
+  - first:
+      74: 7400002
+    second: Arcade Machine|Arcade MachineAction
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      41386430: 2186277476908879412
+    second: ImportLogs
+  - first:
+      74: -623603649343465320
+    second: Scene
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #41
+    second: {fileID: 2100000, guid: 1765d8a9eb207574fb99f9429f3be5bf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #42
+    second: {fileID: 2100000, guid: 54d783b77c608c341943221a33d66ab4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #45
+    second: {fileID: 2100000, guid: da7abf3bf6b8d7947ab55f9e82b50cbd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #47
+    second: {fileID: 2100000, guid: f62eee0047e796c4081b9a18824b1e70, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 0
@@ -85,6 +288,8 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 0
     importBlendShapes: 1
     importCameras: 0
@@ -92,27 +297,31 @@ ModelImporter:
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 0
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 4
     normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -122,13 +331,16 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
