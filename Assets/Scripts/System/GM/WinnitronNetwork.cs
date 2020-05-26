@@ -14,29 +14,20 @@ public class WinnitronNetwork : MonoBehaviour {
     public delegate object Success(object results);
     public bool enabled = false;
 
-    public void StartGame(string game) {
-        if (game == null)
-            return;
+    public void RecordPlaySession(string game, System.DateTime startedAt) {
+        string start = startedAt.ToString("o", System.Globalization.CultureInfo.InvariantCulture);
+        string stop = DateTime.Now.ToString("o", System.Globalization.CultureInfo.InvariantCulture);
 
-        GM.Instance.logger.Debug("sending START GAME: " + game);
+        GM.Instance.logger.Debug("sending record play session for " + game + ": " + start + " - " + stop);
 
-        string url = GM.Instance.options.GetSyncSettings()["libraryURL"] + "/api/v1/plays/start";
+        string url = GM.Instance.options.GetSyncSettings()["libraryURL"] + "/api/v1/plays/";
+
         WWWForm fields = new WWWForm();
         fields.AddField("game", game);
+        fields.AddField("start", start);
+        fields.AddField("stop", stop);
 
         UnityWebRequest www = UnityWebRequest.Post(url, fields);
-        AddHeaders(www);
-        StartCoroutine(Wait(www));
-    }
-
-    public void StopGame(string game) {
-        if (game == null)
-            return;
-
-        GM.Instance.logger.Debug("sending STOP GAME: " + game);
-
-        string url = GM.Instance.options.GetSyncSettings()["libraryURL"] + "/api/v1/plays/" + game + "/stop";
-        UnityWebRequest www = UnityWebRequest.Put(url, new WWWForm().data);
         AddHeaders(www);
         StartCoroutine(Wait(www));
     }
