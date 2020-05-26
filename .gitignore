@@ -23,4 +23,5 @@ sysinfo.txt
 
 Assets/Options/winnitron_userdata_path.json
 Assets/Options/RunGame.ahk
+Assets/Options/RunGame.ahk.meta
 ahk_output.txt
